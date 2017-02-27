@@ -1,4 +1,4 @@
-\chapter{Introduction(initial sprint)}
+\chapter{GIRAF: Multi-Project}
 
 In this project we focus on improving the stability of the GIRAF project. This
 chapter will be used to explain the initial phase of the project and what the
@@ -6,42 +6,79 @@ different group will have as their primary focus. Furthermore, we will touch
 upon how the different groups will work together and which tools are used.
 
 
-\section{Development Method}
-In this section we describe the development method in the GIRAF multi-project.
-First we describe 
-
-
-
-setting: minimal viable product
 % this section/chapter should be used to describe the project in a multi-project
 % setting
 %This includes an analysis of organizational context
+\section{Status of GIRAF}
+\fix{}{Verify application names}
+GIRAF is a project which has been worked on over multiple years as part a
+6'th semesters bachelor project for Software. At the end of the semester, the
+project is left for next batch of students to continue working on. GIRAF
+consists of many different applications, as can be seen in \autoref{GApps}.
+\begin{table}[H]
+\centering
+\label{GApps}
+\begin{tabular}{|p{3cm}|p{9cm}|}
+\hline
+Application			& Description \\\hline
+Launcher  			& The main application of GIRAF, controls access to other
+GIRAF applications. \\\hline 
+Sequence	       	& A tool to create a sequence of pictograms which can
+communicate a process.\\\hline 
+PictoCreator  	   	& Allows the user to manually create pictograms which can be
+saved on the database.\\\hline
+PictoReader	   		& A tool which can read the text of an associated pictrogram
+aloud.\\\hline
+LifeStories	   		& A tool which allows a citizen to describe their day using
+pictograms.\\\hline 
+Timer     	   		& Allows guardians to create create a timer which limits how
+long a citizen can use an application.\\\hline 
+Weekplanner 		& Allows for the creation of schedules for citizens
+using pictograms. \\\hline 
+Category Tool		& A tool which allows pictograms to be grouped together as a
+specific category. \\\hline 
+Category Game   	& A game which teaches citizens to associate different object
+by a common feature. \\\hline 
+Voice Game  		& A game which allows citizens to control an object using their
+voice volume. \\\hline
+\end{tabular}
+\caption{The applications available to GIRAF}
+\end{table}
+
+The previous semester ended with the Voice Game application working as a
+standalone in an acceptable state. The other applications are in working state,
+but have several issues which prohibit their use by the customer.
 
 
 
-\subsection{Multi-Project Organization Method/Scrum}
-\fix{}{Might need a bit of editing depending on how the scrum of scrums
-progresses} This semester we have organized the multi-project as a scrum of
-scrums. One group serves as the scrum master while the remaining 6 groups each send 1
-member. These 10 people meet once every week to discuss the multi-project
-and after each sprint decide which tasks from the product backlog are suitable
-for the sprint backlog. They then further divide the sprint backlog among the
-groups such that each group have a suitable number of tasks for each sprint.\nl
 
-\subsection{Role Distribution}
+\section{Development Method}
+This semester the multi-project is a collaboration between 7
+different groups. Through a meeting with one of the customers it is
+decided that the goal of the project is to make a minimal viable product. The
+focus this semester is two part: 
+\begin{enumerate}
+  \item We need to get the weekplanner into a acceptable state, where it can be
+  used reliably by the citizens with no unexpected errors occuring. It also
+  needs to have the necessary functionality to satisfy the customer.
+  \item We need the server to be reliable and store the data safely, this is
+  considered necessary since it would otherwise be to use GIRAF in any sizable
+  institution.
+\end{enumerate}
 
-Through a meeting with one of the customers it was decided that the goal of the
-project was to make a minimal viable product. They also provided some requests
-and wishes in regards to what they considered viable. This has lead to the
-following distribution of labour:
+The groups are divided among the goals according to the desires of each
+group. This is meant to increase the quality of the work since each group is
+able to specialize on a specific part. It also allows the groups to work easier
+together since most of them share some common feature. These two goals lead to
+the following distribution of labour:
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|p{1cm}|p{3cm}|p{8cm}|}
 \hline
 Group & Focus & Description \\ \hline
-sw609 & Stability & Works on the providing stability to weekplanner and its
-dependencies.\\\hline 
+sw609 & Weekplanner depedencies & Works on the providing stability to
+weekplanner and its dependencies.\\\hline 
 sw610 & Weekplanner & Works on getting weekplanner into a working
 state.\\
 \hline sw611 & Scrum masters & Organizes the scrum meetings. \\\hline 
@@ -58,21 +95,40 @@ sw615 & REST server & \\ \hline
 \label{GroupDivision}
 \end{table}
 
-The focus this semester is as such on two distinct parts, the weekplanner and
-the REST API. The weekplanner and its dependencies are considered to be the
-minimal viable product. The REST API and server focus is considered neccessary
-since it would otherwise be difficult to use GIRAF in any sizable institution.
-
-add something about whats good about the way the groups have been split, such as
-idea of ownership vs able to get help from other groups vs specilization.
-
-Our focus this semester is as seen above in \autoref{GroupDivision} on providing
-stability to the weekplanner app as well as its dependencies\ldots
+%Mere specifict om vores gruppes identitet dette semester
+Our focus this semester is as seen above in \autoref{GroupDivision} on
+providing stability to the weekplanner app as well as its dependencies\ldots
 
 
 
- 
-\subsection{Tools}
+\subsection{Organizational Method}
+
+%scrum section
+The groups are organized by scrum, one group serves as the scrum masters while
+the remaining 6 groups each send 1 member. These 10 people meet once every week
+to discuss status of multi-project and how each of the groups are progressing.
+
+
+%sprint section
+The multi-project is divided into 4 different sprints,
+They also decide which tasks should be added to each of the groups backlog at
+the start of each sprint.
+
+
+First sprint 20/2 - 15/3 	(3 uger 2 dage)
+Second sprint 15/3 - 7/4 	(3 uger 2 dage)
+Third sprint 7/4 - 1/5		(3 uger 2 dage)
+Fourth sprint 1/5 - 22/5 	(3 uger)
+Delivery 29/5
+
+
+the
+multi-project and after each sprint decide which tasks from the product backlog are suitable
+for the sprint backlog. They then further divide the sprint backlog among the
+groups such that each group have a suitable number of tasks for each sprint.\nl
+
+
+\section{Tools}
 
 Phabricator
 
