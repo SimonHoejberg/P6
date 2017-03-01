@@ -1,22 +1,24 @@
 \chapter{Sprint: 01}
-As this sprint represents the groups' first experiences with the GIRAF
+As this sprint represents the groups' initial experiences with the GIRAF
 project, the purpose of this initial sprint is to gain a better understanding of
 the inner workings of the various GIRAF apps, and to make sure that the quality
 of the previosly written code is up to par. As such, the tasks for this sprint
 are mostly superficial, but they do also include a number of fixes to critical
 bugs.\nl
 
-At as part of the initial organization of the project, each group was assigned a
+As part of the initial organization of the project, each group was assigned a
 general area of responsibility. For our group, SW609, this responsibility
-encompasses the \textc{Launcher} and \textc{Pictogram Searcher}.
+encompasses the apps \textc{Launcher} and \textc{Pictogram Searcher}. While
+these apps represent our core responsibilities, not all of our tasks are
+required to revolve around these apps.
 
 \section{Tasks}
-Based on our area of responsibility, we have chosen an initial list of tasks,
-which can be seen below in \autoref{SO1:Tasks}.
+Based on our area of responsibility and the backlog from last semesters'
+students, we have chosen an initial list of tasks, which can be seen below in
+\autoref{SO1:Tasks}. 
 
 \begin{table}[H]
 \centering
-\label{S01:Tasks}
 \begin{tabular}{|l|l|}
 \hline
 Number 			& Task Description 											\\\hline
@@ -36,13 +38,63 @@ T647       		& Visualize client/server interface.                 		\\\hline
 T660       		& Solve the pictogram problem.                 				\\\hline
 T670       		& Launcher: Fix crash on startup w/o internet or other apps.\\\hline
 \end{tabular}
+\label{S01:Tasks}  
 \caption{Tasks for the first sprint (Group SW609)}
-\end{table} 
+\end{table}
+
+In the following subsections, we will elaborate upon each of the task, and
+document what actions we have taken in order to resolve the issues.
+
+\subsection{T620, T623, T626 - Search: Handle Exceptions}
+Placeholder\ldots
+
+\subsection{T621, T624, T625 - Launcher: Handle Exceptions}
+Placeholder\ldots
+
+\subsection{T629 - Search: Refactor Code}
+Placeholder\ldots
+
+\subsection{T630 - Launcher: Refactor Code}
+Placeholder\ldots
+
+\subsection{T631 - Planner and Launcher: CheckStyle}
+In order to increase the quality and readability of the previously written code,
+all the groups on this semester have chosen to make use of a generalized code
+style, which will be enforced by the IntelliJ plugin CheckStyle.\\
+As such, the purpose of this task is to used the CheckStyle plugin to identify
+all instances where the code deviates from the agreed upon code style, and
+manually refactor it such that the whole code base is uniformly written.\nl
+
+When CheckStyle is executed on a project, it uses an XML file where the code
+style is defined, to identify all cases where the code deviated from this
+defined style. This information is presented in an ordered list. An example of
+an error-list for the \textc{Launcher project} can be seen below in
+\autoref{CodeStyleErrors}.
+
+\figx[0.85]{CodeStyleErrors}{List of code style deviations in the Launcher
+project.}
+
+In order to solve the problems with the unsystematic code style, we have
+methodically resolved the issues identified by CheckStyle.
+
+\subsection{T636 - Weekplanner: Identify Functional Requirements}
+Placeholder\ldots'
 
 
+\subsection{T636 - Disable Problematic Visual Elements}
+Placeholder\ldots
 
+\subsection{T646 - Identify Apps Required Resources}
+Placeholder\ldots
 
+\subsection{T647 - Document Apps' Database Requirements}
+Placeholder\ldots
 
+\subsection{T660 - Decrease Pictogram Search-Time}
+Placeholder\ldots
+
+\subsection{T670 - Fix Package Manager Access Crash}
+Placeholder\ldots
 
 
 % How did we identify the relevant tasks?
