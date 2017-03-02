@@ -46,9 +46,85 @@ In the following subsections, we will elaborate upon each of the task, and
 document what actions we have taken in order to resolve the issues.
 
 \subsection{T620, T623, T626 - Search: Handle Exceptions}
+Based on the backlog from the previous semester, we identified an unhandled
+nullPointerException, which occurred when a used tried to enter a comma into the
+pictogram search-bar. Due to faulty implementation, when the search was executed
+on a comma, it returned an empty list of pictograms. Given that the rest of the
+system never expects the pictogram list to be empty, this led to a problem where
+the system tried to acces the first element of the list which was null.\nl
+
+In order to fix this problem, we have implemented multiple checks to make sure
+that the system does not attempt to invoke any methods on the non-existing
+object. Examples of these checks can be seen below in
+\autoref{PictoListNullPoint}.
+
+\figx[0.80]{PictoListNullPoint}{Newly implemented check for non-existing
+object.}
+ 
+While this fixed the problem of trying to access a non-existing object, this
+object was supposed to be used to return another object in the containing
+method, \textc{getView}.
+As such, given the case where no object exists, we need to identify if it is
+possible for the method to simply return null, or if we are able to satisfy the
+system by simply creating a dummy-object. As can be seen below in
+\autoref{PictogramHandleNull}, the system is already equipped to handle an
+object with uninitialized variables.
+
+\figx[0.85]{PictogramHandleNull}{The setImageModel method can already handle
+unitialized variables.}
+
+Based on this information, we have solved the problem by having the
+\textc{getView} method return a newly made dummy object. This can be seen below
+in \autoref{UnitImageEntity}.
+
+\figx[0.80]{UnitImageEntity}{Given a null object, create a new pictogramItemView
+to return.}
+
+\subsection{T626 - Search: Evaluate Necessity of Present Exception Handling}
 Placeholder\ldots
 
-\subsection{T621, T624, T625 - Launcher: Handle Exceptions}
+\subsection{T621, T624 - Launcher: Handle Exceptions}
+During inspection of the Launcher's code, we identified two serious problems,
+which both were capable of leading to crashes.
+
+\subsubsection{LoadAnimation Crash}
+The first problem was found in the launcher's \textc{MainActivity}, where the
+problem was that a global variable \textc{loadAnimation} was overshadowed by a
+local one defined in the \textc{onCreate} method. As \textc{onCreate} is
+executed on creation of the activity, the definition and assignment of
+\textc{loadAnimation} was contained to this method, and the global variable was
+never initialized. This problem led to a nullPointerException because the system
+tried to access an animation which was not defined.\nl
+
+\fix{}{Insert code example}
+
+This problem was fixed by removing the local definition of \textc{loadAnimation}
+in the \textc{onCreate} method.
+
+\subsubsection{Package Manager Crash}
+The second problem was caused by a code-segment implemented by the previous
+semesters' students, which used a timer to ping the Android package manager, in
+order to determine if changes were made to the device's installed applications.
+The problem occours when running the launcher on an emulator, because pinging
+the package manager would return a empty list of installed applications. Because
+of the implementation seen below in \autoref{}, an empty list would prompt
+the program to ping the package manager again each time an empty list was
+returned (which was always). Over time, this constant pinging would overload
+the package manager, and cause an unhandled \textc{deadObjectException}.\nl
+
+\fix{}{Insert code example}\nl
+
+This problem was fixed by implementing a new system to identify changes to the
+list of installed applications. Instead of pinging the package manager on a
+timer, we have implemented an Android \textc{broadcastListener}, which listens
+for when the operating system broadcasts that there has been a change to the
+list of installed applications. Otherwise, this listener is still set to
+execute the same code that the previous timer would have. This new
+implementation can be seen below in \autoref{}.\nl
+
+\fix{}{Insert code example}
+
+\subsection{T625 - Launcher: Evaluate Necessity of Present Exception Handling}
 Placeholder\ldots
 
 \subsection{T629 - Search: Refactor Code}
