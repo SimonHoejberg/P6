@@ -83,7 +83,7 @@ to return.}
 \subsection{T626 - Search: Evaluate Necessity of Present Exception Handling}
 Placeholder\ldots
 
-\subsection{T621, T624 - Launcher: Handle Exceptions}
+\subsection{T621, T624, T670 - Launcher: Handle Exceptions}
 During inspection of the Launcher's code, we identified two serious problems,
 which both were capable of leading to crashes.
 
@@ -167,11 +167,27 @@ Placeholder\ldots
 Placeholder\ldots
 
 \subsection{T660 - Decrease Pictogram Search-Time}
-Placeholder\ldots
+Through analysis of the problem, we have concluded that the pictogram search has
+the possibility of having slow load times beacuase the server returns all
+elements related to the search in one large package. This can result in a large
+load time, as the program does not respond while waiting for the database to
+send the package. \nl
 
-\subsection{T670 - Fix Package Manager Access Crash}
-Placeholder\ldots
+In addition, because of the way the search functionality is
+implemented, if a user is slow to write, the database receives multiple requests
+for packages to send. As an example, if a user wants to find all pictograms
+relating to \textc{cars}, the program may queue multiple requests: one for
+all pictograms starting with \textc{c}, then for all pictograms starting with
+\textc{ca}, and so on. This queueing of requests can make the program wait for a
+very long time before responding.\nl
 
+Due to the fact that main problem lies with the server sending all pictograms in
+one large package, we have chosen to forward this task to the group responsible
+for the server/database, namely group SW613. In addition, during a meeting with
+the other groups, we recommended that the server might send the pictograms in
+packages of 20 each, such that the user may receive feedback in the form of a
+continously updating list of pictograms.
+ 
 
 % How did we identify the relevant tasks?
 % Our focus area.
