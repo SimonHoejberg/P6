@@ -47,38 +47,76 @@ document what actions we have taken in order to resolve the issues.
 
 \subsection{T620, T623, T626 - Search: Handle Exceptions}
 Based on the backlog from the previous semester, we identified an unhandled
-nullPointerException, which occurred when a used tried to enter a comma into the
-pictogram search-bar. Due to faulty implementation, when the search was executed
-on a comma, it returned an empty list of pictograms. Given that the rest of the
-system never expects the pictogram list to be empty, this led to a problem where
-the system tried to acces the first element of the list which was null.\nl
+\\\textc{nullPointerException} in the \textc{PictoAdapter} class's
+\textc{getView} method. This exception occurred when a used tried to enter a
+comma into the pictogram search-bar. Due to faulty implementation, when the
+search was executed on a comma, it returned an empty list of pictograms. Given
+that the rest of the system never expects the pictogram list to be empty, this
+led to a problem where the system tried to acces the first element of the list
+which was null.\nl
 
 In order to fix this problem, we have implemented multiple checks to make sure
 that the system does not attempt to invoke any methods on the non-existing
 object. Examples of these checks can be seen below in
-\autoref{PictoListNullPoint}.
+\autoref{PictoListNullPoint}.\nl
 
-\figx[0.80]{PictoListNullPoint}{Newly implemented check for non-existing
-object.}
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Newly implemented check for null values., label = PictoListNullPoint] 
+...
+final Object object = objectList.get(position);
+Drawable catIndicator = context.getResources().getDrawable(R.drawable.icon_category);
 
-While this fixed the problem of trying to access a non-existing object, this
-object was supposed to be used to return another object in the containing
-method, \textc{getView}.
-As such, given the case where no object exists, we need to identify if it is
-possible for the method to simply return null, or if we are able to satisfy the
-system by simply creating a dummy-object. As can be seen below in
-\autoref{PictogramHandleNull}, the system is already equipped to handle an
-object with uninitialized variables.
+if (convertView == null) {
+	GirafPictogramItemView pictogramItemView;
+    if (object != null && object instanceof Pictogram) {
+    	Pictogram pictogramNew = (Pictogram) object;
+        pictogramItemView = new GirafPictogramItemView(context, pictogramNew, pictogramNew.getName());
+	} else if (object != null) {
+	...
+}
+...
+\end{lstlisting}
+\end{minipage}
 
-\figx[0.85]{PictogramHandleNull}{The setImageModel method can already handle
-unitialized variables.}
+Checking the \textc{objectList} for null values solved the problem of trying to
+access a non-existing object, but another problem is that the checked object is used to
+modify and return a \textc{pictogramItemView}. As such, given the case where no
+object exists, we need to identify if it is possible for the method to simply
+return null or a dummy object. Through analysis of the
+\textc{GirafPictogramItemView} class, we identified that the system is already
+equipped to handle a \textc{pictogramItemView} with an uninitialized
+\textc{imageEntity}. This can be seen below in \autoref{PictogramHandleNull}\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = \textc{setImageModel} method in the \textc{GirafPictogramItemView class.}, label = PictogramHandleNull] 
+...
+public synchronized void setImageModel(final ImageEntity imageEntity, final Drawable fallback) {
+// If provided with null, do not update!
+if (imageEntity == null) {
+	return;
+}
+...
+\end{lstlisting}
+\end{minipage}
 
 Based on this information, we have solved the problem by having the
 \textc{getView} method return a newly made dummy object. This can be seen below
-in \autoref{UnitImageEntity}.
+in \autoref{UnitImageEntity}.\nl
 
-\figx[0.80]{UnitImageEntity}{Given a null object, create a new pictogramItemView
-to return.}
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Return dummy object in case of null-valued object., label = UnitImageEntity] 
+...
+if (convertView == null) {
+	GirafPictogramItemView pictogramItemView;
+    if (object != null && object instanceof Pictogram) {
+    	...
+    } else {
+    	ImageEntity imageEntity = null; //The constructer doesn't accept a null as the second par 
+    	pictogramItemView = new GirafPictogramItemView(context, imageEntity); 
+  	}
+...
+\end{lstlisting}
+\end{minipage}
 
 \subsection{T626 - Search: Evaluate Necessity of Present Exception Handling}
 Placeholder\ldots
@@ -152,10 +190,10 @@ In order to solve the problems with the unsystematic code style, we have
 methodically resolved the issues identified by CheckStyle.
 
 \subsection{T646 - Identify Apps Required Resources}
-Placeholder\ldots
+\fix{}{Go ask the REST group for the UML diagram}
 
 \subsection{T647 - Document Apps' Database Requirements}
-Placeholder\ldots
+\fix{}{Get DonF to write something. I was not at the meeting.}
 
 \subsection{T660 - Decrease Pictogram Search-Time}
 Through analysis of the problem, we have concluded that the pictogram search has
@@ -180,8 +218,8 @@ packages of 20 each, such that the user may receive feedback in the form of a
 continously updating list of pictograms.
  
 \subsection{Removed Tasks}
-T639 - Disable Problematic Visual Elements\nl
-T636 - Weekplanner: Identify Functional Requirements\nl
+T639 - Disable Problematic Visual Elements \nl
+T636 - Weekplanner: Identify Functional Requirements \nl
 
 % How did we identify the relevant tasks?
 % Our focus area.
