@@ -31,7 +31,7 @@ T626   	   		& Search: Evaluate possible exceptions.                		\\\hline
 T629  	   		& Search: Refactor code.			   						\\\hline
 T630       		& Launcher: Refactor code.                 					\\\hline
 T631       		& Planner and Launcher: CheckStyle                 			\\\hline
-T636       		& Identify requirements for Weekplanner to function.   		\\\hline 
+T636			& Identify the weekplanner's dependencies.					\\\hline
 T639       		& Disable visual elements.                 					\\\hline
 T646       		& Identify necessary resources.                 			\\\hline
 T647       		& Visualize client/server interface.                 		\\\hline 
@@ -60,7 +60,7 @@ object. Examples of these checks can be seen below in
 
 \figx[0.80]{PictoListNullPoint}{Newly implemented check for non-existing
 object.}
- 
+
 While this fixed the problem of trying to access a non-existing object, this
 object was supposed to be used to return another object in the containing
 method, \textc{getView}.
@@ -151,13 +151,6 @@ project.}
 In order to solve the problems with the unsystematic code style, we have
 methodically resolved the issues identified by CheckStyle.
 
-\subsection{T636 - Weekplanner: Identify Functional Requirements}
-Placeholder\ldots'
-
-
-\subsection{T636 - Disable Problematic Visual Elements}
-Placeholder\ldots
-
 \subsection{T646 - Identify Apps Required Resources}
 Placeholder\ldots
 
@@ -186,6 +179,9 @@ the other groups, we recommended that the server might send the pictograms in
 packages of 20 each, such that the user may receive feedback in the form of a
 continously updating list of pictograms.
  
+\subsection{Removed Tasks}
+T639 - Disable Problematic Visual Elements\nl
+T636 - Weekplanner: Identify Functional Requirements\nl
 
 % How did we identify the relevant tasks?
 % Our focus area.
