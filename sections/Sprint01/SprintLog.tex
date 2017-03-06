@@ -118,49 +118,93 @@ if (convertView == null) {
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T626 - Search: Evaluate Necessity of Present Exception Handling}
-Placeholder\ldots
-
 \subsection{T621, T624, T670 - Launcher: Handle Exceptions}
 During inspection of the Launcher's code, we identified two serious problems,
 which both were capable of leading to crashes.
 
 \subsubsection{LoadAnimation Crash}
-The first problem was found in the launcher's \textc{MainActivity}, where the
-problem was that a global variable \textc{loadAnimation} was overshadowed by a
-local one defined in the \textc{onCreate} method. As \textc{onCreate} is
-executed on creation of the activity, the definition and assignment of
-\textc{loadAnimation} was contained to this method, and the global variable was
-never initialized. This problem led to a nullPointerException because the system
-tried to access an animation which was not defined.\nl
+The first problem was found in the launcher's \textc{MainActivity}, where a
+global variable \textc{loadAnimation} was overshadowed by a local one defined in
+the \textc{onCreate} method. As \textc{onCreate} is executed on creation of the
+activity, the definition and assignment of \textc{loadAnimation} was contained
+to this method, and the global variable was never initialized. This can be seen
+below in \autoref{LoadAnimationCrash}. This problem led to a
+\textc{nullPointerException} because the system tried to use an animation which
+was not defined.\nl
 
-\fix{}{Insert code example}
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = The variable \textc{loadAnimation} is overshadowed locally., label = LoadAnimationCrash] 
+public class MainActivity extends
+GirafActivity implements Animation.AnimationListener, GirafNotifyDialog.Notification { ...
+    private Animation loadAnimation;
+    ...
+    
+	public void onCreate(Bundle savedInstanceState) {
+		...	
+    	Animation loadAnimation;
+		...
+	}
+...
+}    
+\end{lstlisting}
+\end{minipage}
 
 This problem was fixed by removing the local definition of \textc{loadAnimation}
 in the \textc{onCreate} method.
 
 \subsubsection{Package Manager Crash}
-The second problem was caused by a code-segment implemented by the previous
-semesters' students, which used a timer to ping the Android package manager, in
-order to determine if changes were made to the device's installed applications.
-The problem occours when running the launcher on an emulator, because pinging
-the package manager would return a empty list of installed applications. Because
-of the implementation seen below in \autoref{}, an empty list would prompt
-the program to ping the package manager again each time an empty list was
-returned (which was always). Over time, this constant pinging would overload
-the package manager, and cause an unhandled \textc{deadObjectException}.\nl
+The second problem was caused by a timer, which was used to ping the Android
+package manager, in order to determine if changes were made to the device's
+installed applications. This can be seen below in \autoref{PackageTimer}. The
+problem occours when running the launcher on an emulator, because pinging the package
+manager would return a empty list of installed applications. Based on our
+observations, an empty app-list would prompt the system to ping the package
+manager again each time an empty list was returned (which was always). Over
+time, this constant pinging would overload the package manager, and cause an
+unhandled \textc{deadObjectException}.\nl
 
-\fix{}{Insert code example}\nl
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = The timer in the \textc{HomeActivity} class which pings the package manager., label = PackageTimer] 
+private void startObservingApps() 
+{ 
+	appsUpdater = new Timer();
+    AppsObserver timerTask = new AppsObserver();
+    appsUpdater.scheduleAtFixedRate(timerTask, 5000, 5000);
+ 	...
+}   	
+\end{lstlisting}
+\end{minipage}
 
 This problem was fixed by implementing a new system to identify changes to the
 list of installed applications. Instead of pinging the package manager on a
 timer, we have implemented an Android \textc{broadcastListener}, which listens
-for when the operating system broadcasts that there has been a change to the
-list of installed applications. Otherwise, this listener is still set to
-execute the same code that the previous timer would have. This new
-implementation can be seen below in \autoref{}.\nl
+for when the operating system broadcasts changes to the list of installed
+applications. Otherwise, this listener is still set to execute the same code
+that the previous timer would have. This new implementation can be seen below in
+\autoref{broadcastListener}.\nl
 
-\fix{}{Insert code example}
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = New implementation of a \textc{broadcastReceiver}., label = broadcastListener] 
+private void startObservingApps() {
+	//Makes sure this Receiver is only registered once
+    if(!appObserverReceiverRegistered) {
+    	BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+        	appsChangedScan();
+        }
+    };
+    //Sets up the filter to only trigger when these actions are
+    received IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+    intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+    registerReceiver(broadcastReceiver, intentFilter);
+    appObserverReceiverRegistered = true;
+    Log.d(Constants.ERROR_TAG, "Applications are being observed.");
+	}
+}
+\end{lstlisting}
+\end{minipage}
 
 \subsection{T625 - Launcher: Evaluate Necessity of Present Exception Handling}
 Placeholder\ldots
@@ -218,6 +262,7 @@ packages of 20 each, such that the user may receive feedback in the form of a
 continously updating list of pictograms.
  
 \subsection{Removed Tasks}
+T626 - Search: Evaluate Necessity of Present Exception Handling\nl
 T639 - Disable Problematic Visual Elements \nl
 T636 - Weekplanner: Identify Functional Requirements \nl
 
