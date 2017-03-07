@@ -32,15 +32,15 @@ T629  	   		& Search: Refactor code.			   						\\\hline
 T630       		& Launcher: Refactor code.                 					\\\hline
 T631       		& Planner and Launcher: CheckStyle                 			\\\hline
 T636			& Identify the weekplanner's dependencies.					\\\hline
-T639       		& Disable visual elements.                 					\\\hline
-T646       		& Identify necessary resources.                 			\\\hline
+T639       		& Disable non-functional GUI elements.               		\\\hline
+T646       		& Identify necessary resources.                 			\\\hline 
 T647       		& Visualize client/server interface.                 		\\\hline 
 T660       		& Solve the pictogram problem.                 				\\\hline
 T670       		& Launcher: Fix crash on startup w/o internet or other apps.\\\hline
 \end{tabular}
 \caption{Tasks for the first sprint (Group SW609)} 
 \label{SprintOneTasks}    
-\end{table}
+\end{table} 
 
 In the following subsections, we will elaborate upon each of the task, and
 document what actions we have taken in order to resolve the issues.
@@ -262,9 +262,37 @@ packages of 20 each, such that the user may receive feedback in the form of a
 continously updating list of pictograms.
  
 \subsection{Removed Tasks}
-T626 - Search: Evaluate Necessity of Present Exception Handling\nl
-T639 - Disable Problematic Visual Elements \nl
-T636 - Weekplanner: Identify Functional Requirements \nl
+Throughout the sprint, we have revised our list of tasks, and identified
+that a number of them were outside the scope of our group's responsibility.
+When such a task was identified and deemed non-trivial, these tasks were either
+reported to the SCRUM Master group (SW611), or we made sure that another group
+was taking care of it. These tasks are listed below.
+
+\begin{itemize}
+  	\item T626 - Search: Evaluate Necessity of Present Exception Handling
+		\begin{enumerate}
+	  		\item The purpose of this task was to evaluate the currently implemented
+	  		exception handling, and modify/remove it, if it was redundant or low
+	  		quality.
+ 			\item No unnecessary exception handling was identified in the pictosearch
+ 			library. The task has been marked as finished.
+		\end{enumerate}
+  	\item T639 - Disable non-functional GUI elements.
+		\begin{enumerate}
+ 			\item The purpose of this task was to identify and remove any elementes of
+ 			the graphical user interface, which could either cause crashes, or give
+ 			access to non-functional elements of the program. This is done in order to
+ 			create a ``minimum viable product''.
+ 			\item None such elements were found in the system. This task has been marked
+ 			as finished.
+		\end{enumerate}
+	\item T636 - Weekplanner: Identify Functional Requirements
+	\begin{enumerate}
+ 		\item \fix{}{We actually need to do this as a part of out collaboration.}
+	\end{enumerate}
+
+\end{itemize}
+
 
 % How did we identify the relevant tasks?
 % Our focus area.
