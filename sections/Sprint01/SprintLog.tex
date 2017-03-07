@@ -207,7 +207,100 @@ private void startObservingApps() {
 \end{minipage}
 
 \subsection{T625 - Launcher: Evaluate Necessity of Present Exception Handling}
-Placeholder\ldots
+During analysis of the Launcher's code, we identified a number of bad practices
+regarding implementation of exception handling. While these issues were not
+dangerous to the program, they were examples of ineffecient implementations, and
+therefore subject for refactoring.
+
+\subsubsection{Explicit Exception Handling}
+One of the most prevalent problems in the launcher's code is the explicitly
+implemented exception handling. Instead of checking variable's for
+null-values, a try-catch structure has been implemented to catch exceptions.
+While this is technically not wrong, it is a bad practice, as the try-catch
+approach is vastly more expensive in regards to required computations. There are
+many examples of this approach in the code. An example from the
+\textc{AppComparator} class can be seen below in
+\autoref{ExplicitHandlingEx}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = An example of explicit exception handling., label = ExplicitHandlingEx] 
+...
+try {
+	PackageManager packageManager = context.getPackageManager();
+	String lhsName = ((ResolveInfo) lhs).activityInfo.loadLabel(packageManager).toString();
+    String rhsName = ((ResolveInfo) rhs).activityInfo.loadLabel(packageManager).toString();
+	res = lhsName.compareToIgnoreCase(rhsName);	
+} catch (NullPointerException e) {
+
+}
+...
+\end{lstlisting}
+\end{minipage}
+
+Our approach to solving this problem is to implement checks on each individual
+variable, to make sure that its value is not null. The rewritten code from the
+previous example in \autoref{ExplicitHandlingEx} can be seen below in
+\autoref{HandlingSol}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Our approach to variable checking., label = HandlingSol] 
+...
+PackageManager packageManager = context.getPackageManager();
+if(packageManager != null) {
+	String lhsName = ((ResolveInfo)lhs).activityInfo.loadLabel(packageManager).toString(); 
+	String rhsName = ((ResolveInfo) rhs).activityInfo.loadLabel(packageManager).toString(); 
+	if(lhsName != null && rhsName != null) {
+    	res = lhsName.compareToIgnoreCase(rhsName);
+    }
+...
+\end{lstlisting}
+\end{minipage}
+
+\subsubsection{Throwing Exceptions}
+Another problem can be found in the \textc{LauncherUtility} class, where the
+previous student have decided to create a try-catch structure in which they
+themselves check the variables for null-values. Afterwards, if it value was
+null, they throw their own \textc{ActivityNotFoundException}. This is done in
+order to send the exception-log to Google Analytics. This can be seen below in
+\autoref{FuckedExample}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Throwing exceptions in order to send them to Google., label = FuckedExample] 
+public static void secureStartActivity(Context context, Intent intent) { 
+try {
+	//If the activity exists, start it. Otherwise throw an exception.
+    if (intent.resolveActivity(context.getPackageManager()) != null) {
+    	context.startActivity(intent);
+    } else {
+    	throw new ActivityNotFoundException();
+    }
+} catch (ActivityNotFoundException ex) {
+	// Sending the caught exception to Google Analytics
+    LauncherUtility.sendExceptionGoogleAnalytics(context, ex);
+ 	...
+}
+...
+\end{lstlisting}
+\end{minipage}
+
+We have deemed that this approach is unnecessary, and that a simpler approach
+would be to simply check the variable for null-values through an if-statement.
+Our revised code can be seen below in \autoref{FixedFuck}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Our approach without throwing exceptions., label = FixedFuck] 
+public static void secureStartActivity(Context context, Intent intent) {
+	//If the activity exists, start it. Otherwise throw an exception.
+	if (intent.resolveActivity(context.getPackageManager())!=null) {
+		context.startActivity(intent);
+	} else {
+	//Display a toast, to inform the user of the problem.
+	Toast toast = Toast.makeText(context, context.getString(R.string.activity_not_found_msg), Toast.LENGTH_SHORT);
+	toast.show(); 
+	Log.e(Constants.ERROR_TAG, "App could not be started");
+...
+\end{lstlisting}
+\end{minipage}
 
 \subsection{T629, T630 - Search/Launcher: Refactor Code}
 Shit was deleted, and keywords were changed when the code inspection tool (or
