@@ -52,21 +52,59 @@ standalone in an acceptable state. The other applications are in a working
 state, but have several issues, such as bugs and missing features which
 prohibit their use by the customer.
   
-\subsection{Initial Problem}
-During the initial phases of the project we had a meeting with representatives
-from one of the institutions which use GIRAF on a daily basis. Based on their
-feedback on the curret state of the system, we have made the following list of
-improvements, which are considered essential for the success of this years
-developement of the GIRAF project.
+\section{Initial Problem}
+During the first meeting with representatives from one of the institutions which
+GIRAF cooperate with, we were given a brief introduction to how they currently
+work and interact with the citizens. The majority of their feedback concern a
+desire for a working version of GIRAF, especially something that means an easier
+time of managing the schedules of citizens. This feedback is the reason why we
+choose to continue development of GIRAF as a ``minimum viable product''. 
 
-\begin{enumerate}
+
+
+These requirements form a framework for developing what we consider to be a
+``minimum viable product''. In order to further elaborate upon the requirements
+and to better be able to divide the project into areas of responsibility, we
+made the following list:
+
+\begin{itemize}
+  \item Implement an acceptable version of the app ``Weekplanner''
+  	\begin{enumerate}
+  		\item Fix possible crashes
+  		\item Identify problems in Weekplanners dependencies
+  		\item Fix bugs in the launcher App
+	\end{enumerate}
+  \item Simplify the database communication system
+   	\begin{enumerate}
+  		\item Allow for syncronization of data
+  		\item Increase safety of stored data
+  		\item Create a useful base for future student to improve
+	\end{enumerate}
+\end{itemize}
+
+ Based on their feedback on the curret state
+of the system, we have made the following list of requirements, which are
+considered essential for the success of this years developement of the GIRAF
+project:
+
+\begin{itemize}
   \item We need to get the weekplanner into a acceptable state, where it can be
   used reliably by the citizens with no unexpected errors occuring. It also
   needs to have the necessary functionality to satisfy the customer.
+    	\begin{enumerate}
+  		\item Fix possible crashes
+  		\item Identify problems in Weekplanners dependencies
+  		\item Fix bugs in the launcher App
+	\end{enumerate}
   \item We need the server to be reliable and store the data safely, this is
   considered necessary since it would otherwise be difficult to use GIRAF in any
   sizable institution.
-\end{enumerate}
+    \begin{enumerate}
+  		\item Allow for syncronization of data
+  		\item Increase safety of stored data
+  		\item Create a useful base for future student to improve
+	\end{enumerate}
+\end{itemize}
 
 These requirements form a framework for developing what we consider to be a
 ``minimum viable product''. In order to further elaborate upon the requirements
@@ -91,7 +129,9 @@ made the following list:
 The groups are divided among the goals according to the desires of each group.
 This is meant to increase the quality of the work since each group is able to
 specialize on a specific part. It also allows the groups to work easier together
-since most of them share some common feature. These two goals lead to the
+since most of them share some common feature.
+
+ These two goals lead to the
 following distribution of labour:
 
 \begin{table}[H]
@@ -145,7 +185,7 @@ itself is divided into 4 different sprints, as can be seen in
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|p{2cm}|p{3cm}|p{8cm}|}
+\begin{tabular}{|l|l|}
 \hline
 Activity & Date \\ \hline
 1. Sprint & 20/2 - 15/3 \\\hline 
