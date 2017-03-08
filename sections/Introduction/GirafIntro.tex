@@ -52,78 +52,58 @@ important. Therefore, the apps we are focused on are Weekplanner and the apps it
 is dependent on. 
   
 \section{Project Goals}
-During the first meeting with representatives from one of the institutions which
-GIRAF cooperate with, we were given a brief introduction to how they currently
-work and interact with the citizens. The majority of their feedback concern a
-desire for a working version of GIRAF, especially something that means an easier
-time of managing the schedules of citizens. This feedback is the reason why we
-choose to continue development of GIRAF as a ``minimum viable product'', with a
-focus on the weekday planner, server and database.\nl
+\fix{This section requires more work - add launcher and PictoSearch
+description}{} During the first meeting with representatives from one of the
+institutions which GIRAF cooperate with, we were given a brief introduction to
+how they curretly work and interact with the citizens. The majority of their
+feedback concern a desire for a working version of GIRAF, especially something
+that means an easier time of managing the schedules of citizens. This feedback
+is the reason why GIRAF is to be developed as a ``minimum viable product'',
+with a focus on the weekplanner, server and database.\nl
 
-\subsection{Weekday Planner}
-
-The weekday planner is chosen as it is an application that is intended to manage
+The weekplanner is chosen as it is an application that is intended to manage
 the citizens' schedules. The core problems present in this application is
 the occasional crashes, long load times when browsing for new pictograms and a
 sometimes confusing user interface. These issues makes the application currently
 unusable for the guardians and citizens. They need the product to be stable and
 quick to use, as it needs to be used often and by people with varying degrees of
-experience using computers.\nl
+experience using computers. The server and database is chosen as any sizable
+institutions will need an easy, quick and reliable way to transfer data between
+devices using GIRAF.
 
+% \begin{itemize}
+%   \item Implement an acceptable version of the app ``Weekplanner''
+%   	\begin{enumerate}
+%   		\item Fix possible crashes
+%   		\item Identify problems in Weekplanners dependencies
+%   		\item Fix bugs in the launcher App
+% 	\end{enumerate}
+%   \item Simplify the database communication system
+%    	\begin{enumerate}
+%   		\item Allow for syncronization of data
+%   		\item Increase safety of stored data
+%   		\item Create a useful base for future student to improve
+% 	\end{enumerate}
+% \end{itemize}
 
-
-
-
-
-
-We need the server to be reliable and store the data safely, this is
-  considered necessary since it would otherwise be difficult to use GIRAF in any
-  sizable institution.
-
-
-
-These requirements form a framework for developing what we consider to be a
-``minimum viable product''. In order to further elaborate upon the requirements
-and to better be able to divide the project into areas of responsibility, we
-made the following list:
-
-\begin{itemize}
-  \item Implement an acceptable version of the app ``Weekplanner''
-  	\begin{enumerate}
-  		\item Fix possible crashes
-  		\item Identify problems in Weekplanners dependencies
-  		\item Fix bugs in the launcher App
-	\end{enumerate}
-  \item Simplify the database communication system
-   	\begin{enumerate}
-  		\item Allow for syncronization of data
-  		\item Increase safety of stored data
-  		\item Create a useful base for future student to improve
-	\end{enumerate}
-\end{itemize}
-
-
-
-
+\section{Organizational Method}
 
 The groups are divided among the goals according to the desires of each group.
 This is meant to increase the quality of the work since each group is able to
-specialize on a specific part. It also allows the groups to work easier together
-since most of them share some common feature.
-
- These two goals lead to the
-following distribution of labour:
+specialize on a specific part which they want to work on. It also allows the
+groups to work easier together since most of them share some common feature.
+This leads to the following distribution of labour:
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|p{2cm}|p{3cm}|p{8cm}|}
 \hline
 Group & Focus & Description \\ \hline
-SW609 & Weekplanner depedencies & Works on the providing stability to
+SW609 & weekplanner depedencies & Works on the providing stability to
 weekplanner and its dependencies.\\\hline 
-SW610 & Weekplanner & Works on getting weekplanner into a working
-state.\\
-\hline SW611 & Scrum masters & Organizes the scrum meetings. \\\hline 
+SW610 & weekplanner & Works on getting weekplanner into a working
+state.\\\hline 
+SW611 & Scrum masters & Organizes the scrum meetings. \\\hline 
 SW612 & Product owners & Creates and describes tasks, also acts as contact to
 customers. \\\hline 
 SW613 & REST client & \\ \hline
@@ -137,16 +117,12 @@ SW615 & REST server & \\ \hline
 \label{GroupDivision}
 \end{table}
 
-As can be seen in \autoref{GroupDivision}, in this project, our group will focus
-on improving the stability of the GIRAF project, through the fixing of bugs and
-refactoring of code written by the previous bachelor students. As the project is
-divided into a number of sprints, \autoref{} is used to document our tasks in
-the initial sprint of the project. Furthermore, as this semester focuses on
-teamwork and organizing groups of developers, we will touch upon how the
-different groups will work together and which tools are used to achieve this
-unified development process.
+As can be seen in \autoref{GroupDivision}, our group will focus
+on improving the stability of the weekplanner through fixing the
+bugs and refactoring the code written in its dependencies. As the project
+is divided into a number of sprints.
 
-\section{Organizational Method}
+\subsection{Development Method}
 
 Based on the experiences from the previous semester's students, we choose to
 make use of an agile developement process, where each group is organized
@@ -172,10 +148,9 @@ Activity & Date \\ \hline
 2. Sprint & 15/3 - 7/4\\\hline 
 3. Sprint & 7/4 - 1/5\\\hline 
 4. Sprint & 1/5 - 22/5\\\hline 
-GIRAF Showcase & ??\\\hline
 Project delivery date & 29/5\\\hline
 \end{tabular}
-\caption{The activities and their date.}
+\caption{The GIRAF activities and their dates.}
 \label{TableActivity}
 \end{table}
 
