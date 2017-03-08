@@ -6,7 +6,7 @@ students at Aalborg University, and has been under development since early 2011.
 Each semester, the new bachelor students must work together to analyze the state
 of the project, and determine which improvements they intend to implement.
 
-\section{Project Context}
+\section{State of GIRAF}
 
 The current implementation of the GIRAF project consists of 10 different
 interconnected applications, which are presented below in \autoref{GApps} along
@@ -51,59 +51,36 @@ product and thus decided to focus on which apps they deemed were the most
 important. Therefore, the apps we are focused on are Weekplanner and the apps it
 is dependent on. 
   
-\section{Initial Problem}
+\section{Project Goals}
 During the first meeting with representatives from one of the institutions which
 GIRAF cooperate with, we were given a brief introduction to how they currently
 work and interact with the citizens. The majority of their feedback concern a
 desire for a working version of GIRAF, especially something that means an easier
 time of managing the schedules of citizens. This feedback is the reason why we
-choose to continue development of GIRAF as a ``minimum viable product''. 
+choose to continue development of GIRAF as a ``minimum viable product'', with a
+focus on the weekday planner, server and database.\nl
+
+\subsection{Weekday Planner}
+
+The weekday planner is chosen as it is an application that is intended to manage
+the citizens' schedules. The core problems present in this application is
+the occasional crashes, long load times when browsing for new pictograms and a
+sometimes confusing user interface. These issues makes the application currently
+unusable for the guardians and citizens. They need the product to be stable and
+quick to use, as it needs to be used often and by people with varying degrees of
+experience using computers.\nl
 
 
 
-These requirements form a framework for developing what we consider to be a
-``minimum viable product''. In order to further elaborate upon the requirements
-and to better be able to divide the project into areas of responsibility, we
-made the following list:
 
-\begin{itemize}
-  \item Implement an acceptable version of the app ``Weekplanner''
-  	\begin{enumerate}
-  		\item Fix possible crashes
-  		\item Identify problems in Weekplanners dependencies
-  		\item Fix bugs in the launcher App
-	\end{enumerate}
-  \item Simplify the database communication system
-   	\begin{enumerate}
-  		\item Allow for syncronization of data
-  		\item Increase safety of stored data
-  		\item Create a useful base for future student to improve
-	\end{enumerate}
-\end{itemize}
 
- Based on their feedback on the curret state
-of the system, we have made the following list of requirements, which are
-considered essential for the success of this years developement of the GIRAF
-project:
 
-\begin{itemize}
-  \item We need to get the weekplanner into a acceptable state, where it can be
-  used reliably by the citizens with no unexpected errors occuring. It also
-  needs to have the necessary functionality to satisfy the customer.
-    	\begin{enumerate}
-  		\item Fix possible crashes
-  		\item Identify problems in Weekplanners dependencies
-  		\item Fix bugs in the launcher App
-	\end{enumerate}
-  \item We need the server to be reliable and store the data safely, this is
+
+We need the server to be reliable and store the data safely, this is
   considered necessary since it would otherwise be difficult to use GIRAF in any
   sizable institution.
-    \begin{enumerate}
-  		\item Allow for syncronization of data
-  		\item Increase safety of stored data
-  		\item Create a useful base for future student to improve
-	\end{enumerate}
-\end{itemize}
+
+
 
 These requirements form a framework for developing what we consider to be a
 ``minimum viable product''. In order to further elaborate upon the requirements
@@ -124,6 +101,10 @@ made the following list:
   		\item Create a useful base for future student to improve
 	\end{enumerate}
 \end{itemize}
+
+
+
+
 
 The groups are divided among the goals according to the desires of each group.
 This is meant to increase the quality of the work since each group is able to
