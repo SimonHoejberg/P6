@@ -323,10 +323,44 @@ In order to solve the problems with the unsystematic code style, we have
 methodically resolved the issues identified by CheckStyle.
 
 \subsection{T646 - Identify Apps Required Resources}
-\fix{}{Go ask the REST group for the UML diagram}
+At the beginning of the sprint we had a meeting with the other groups
+reponsible for either applications or the database, namely SW610, SW613, and
+SW615. This meeting was held in order to determine what database resources each
+application would need. Through discussion with the other groups we compiled
+\autoref{DataObjList}, which shows all relevant database resources, and what
+application would need to make use of them. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Data}	& \textbf{Application}	\\\hline
+Guardian		& Weekplanner 			\\\hline
+Citizen    	   	& Weekplanner 			\\\hline 
+Pictogram 		& Weekplanner 			\\\hline 
+Empty    	   	& Weekplanner 			\\\hline
+Choice   	   	& Weekplanner  			\\\hline
+Day   	   		& Weekplanner 			\\\hline
+Schedule  	   	& Weekplanner			\\\hline
+Category       	& Pictosearch/Launcher	\\\hline
+\end{tabular}
+\caption{Data objects on the database, and the applications which use them.} 
+\label{DataObjList}    
+\end{table}
+
+Based on these resources, we shortly discussed how these resources would most
+effeciently be packaged together, and how each application should access
+them.\nl
+
+Any further work relating to optimization of the database's handling of
+resources has been relegated to the database groups SW613 and SW615. As such, we
+consider our part of this task to be completed.
 
 \subsection{T647 - Document Apps' Database Requirements}
-\fix{}{Get DonF to write something. I was not at the meeting.}
+Through a meeting with the groups responsible for the databases, we made the
+following UML diagram, modelling the client-server interface.
+
+\figx{DatabaseUML}{UML diagram modelling the client-server interface.}
 
 \subsection{T660 - Decrease Pictogram Search-Time}
 Through analysis of the problem, we have concluded that the pictogram search has
