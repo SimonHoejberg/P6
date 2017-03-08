@@ -21,22 +21,23 @@ students, we have chosen an initial list of tasks, which can be seen below in
 \centering
 \begin{tabular}{|l|l|}
 \hline
-Number 			& Task Description 											\\\hline
-T620  			& Search: Identify unhandled exceptions.                 	\\\hline
-T621    	   	& Launcher: Identify unhandled exceptions. 					\\\hline 
-T623	       	& Search: Handle unhandled exceptions.                 		\\\hline
-T624    	   	& Launcher: Handle unhandled exceptions.  					\\\hline
-T625   	   		& Launcher: Evaluate possible exceptions.        			\\\hline
-T626   	   		& Search: Evaluate possible exceptions.                		\\\hline
-T629  	   		& Search: Refactor code.			   						\\\hline
-T630       		& Launcher: Refactor code.                 					\\\hline
-T631       		& Planner and Launcher: CheckStyle                 			\\\hline
-T636			& Identify the weekplanner's dependencies.					\\\hline
-T639       		& Disable non-functional GUI elements.               		\\\hline
-T646       		& Identify necessary resources.                 			\\\hline 
-T647       		& Visualize client/server interface.                 		\\\hline 
-T660       		& Solve the pictogram problem.                 				\\\hline
-T670       		& Launcher: Fix crash on startup w/o internet or other apps.\\\hline
+Number 			& Task Description 												\\\hline
+T620  			& Search: Identify unhandled exceptions.                 		\\\hline
+T621    	   	& Launcher: Identify unhandled exceptions. 						\\\hline 
+T623	       	& Search: Handle unhandled exceptions.                 			\\\hline
+T624    	   	& Launcher: Handle unhandled exceptions.  						\\\hline
+T625   	   		& Launcher: Evaluate possible exceptions.        				\\\hline
+T626   	   		& Search: Evaluate possible exceptions.                			\\\hline
+T629  	   		& Search: Refactor code.			   							\\\hline
+T630       		& Launcher: Refactor code.                 						\\\hline
+T631       		& Planner and Launcher: CheckStyle                 				\\\hline
+T636			& Identify the weekplanner's dependencies.						\\\hline
+T639       		& Disable non-functional GUI elements.               			\\\hline
+T646       		& Identify necessary resources.                 				\\\hline 
+T647       		& Visualize client/server interface.                 			\\\hline 
+T660       		& Solve the pictogram problem.                 					\\\hline
+T670       		& Launcher: Fix crash on startup without internet or other apps.\\\hline 
+T683			& Weekplanner: Prevent starting without Launcher.				\\\hline
 \end{tabular}
 \caption{Tasks for the first sprint (Group SW609)} 
 \label{SprintOneTasks}    
@@ -322,7 +323,7 @@ project.}
 In order to solve the problems with the unsystematic code style, we have
 methodically resolved the issues identified by CheckStyle.
 
-\subsection{T646 - Identify Apps Required Resources}
+\subsection{T646 - Identify Apps Required Resources}\label{ReqResources}
 At the beginning of the sprint we had a meeting with the other groups
 reponsible for either applications or the database, namely SW610, SW613, and
 SW615. This meeting was held in order to determine what database resources each
@@ -383,7 +384,69 @@ for the server/database, namely group SW613. In addition, during a meeting with
 the other groups, we recommended that the server might send the pictograms in
 packages of 20 each, such that the user may receive feedback in the form of a
 continously updating list of pictograms.
- 
+
+\subsection{T683 - Weekplanner: Prevent starting without Launcher.} 
+During inspection of the weekplanner, group SW610 identified the problem, that
+the weekplanner is capable of launching without the Launcher being open. This
+is a problem as the Weekplanner requires information from the Launcher relating
+to a given Guardian and Citizen, see \autoref{ReqResources}. While the
+Weekplanner can not normally be opened without the Launcher, it is possible to
+use a 3rd party program to start it. This is possible as the current
+implementation simply checks that the Android \textc{Intent} is not null, this
+can be seen below in \autoref{IntentNull}. As any attempt from another program
+to launch the Weekplanner provides an \textc{Intent}, this allows other programs
+to launch it.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Current implementation checks that the Intent is not null., label = IntentNull] 
+@Override
+protected void onCreate(final Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+
+    Intent intent = getIntent();
+
+   	// Exit app if user does not initiate ugeplan from GIRAF
+    if (intent.getExtras() == null) {               
+    	Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        ...
+    }
+...
+}
+\end{lstlisting}
+\end{minipage}
+
+In order tix this issue, group SW610 have requested that we create a unique
+\textc{Intent} for the Launcher to supply to the Weekplanner when it launches
+it. The \textc{Intent} has been added to the \textc{AppViewCreationUtility}
+class as presented below in \autoref{newIntent}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = New unique \textc{Intent} for the Launcher., label = newIntent] 
+public class AppViewCreationUtility {
+	...
+	intent.putExtra(Constants.STARTED_BY, Constants.LAUNCHER_TAG);
+	...
+}
+\end{lstlisting}
+\end{minipage}
+
+The referenced constants has been added to the \textc{Constants} class, as seen
+in \autoref{constIntent}. As group SW610 has the responsibility of
+modifying the Weekplanner to check for the new \textc{Intent}, we consider our
+part of this task to be completed.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Constants containing the strings for the Launchers's \textc{Intent}., label = constIntent] 
+public final class Constants {
+	...
+	public static final String LAUNCHER_TAG ="GirafLauncher";
+	public static final String STARTED_BY = "StartedBy";
+	...
+}
+\end{lstlisting}
+\end{minipage}
+
 \subsection{Removed Tasks}
 Throughout the sprint, we have revised our list of tasks, and identified
 that a number of them were outside the scope of our group's responsibility.
