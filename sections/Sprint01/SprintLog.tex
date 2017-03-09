@@ -195,8 +195,8 @@ private void startObservingApps() {
         	appsChangedScan();
         }
     };
-    //Sets up the filter to only trigger when these actions are
-    received IntentFilter intentFilter = new IntentFilter();
+    //Sets up the filter to only trigger when these actions are received
+    IntentFilter intentFilter = new IntentFilter(); 
     intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
     intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
     registerReceiver(broadcastReceiver, intentFilter);
@@ -259,9 +259,9 @@ if(packageManager != null) {
 
 \subsubsection{Throwing Exceptions}
 Another problem can be found in the \textc{LauncherUtility} class, where the
-previous student have decided to create a try-catch structure in which they
-themselves check the variables for null-values. Afterwards, if it value was
-null, they throw their own \textc{ActivityNotFoundException}. This is done in
+previous students have decided to create a try-catch structure in which they
+themselves check that a variable is not null such that the Activity exsist.
+Afterwards, if it value was null, they throw their own \textc{ActivityNotFoundException}. This is done in
 order to send the exception-log to Google Analytics. This can be seen below in
 \autoref{FuckedExample}.\nl
 
@@ -307,7 +307,7 @@ public static void secureStartActivity(Context context, Intent intent) {
 In order to increase the quality and readability of the previously written code,
 all the groups on this semester have chosen to make use of a generalized code
 style, which will be enforced by the IntelliJ plugin CheckStyle.\\
-As such, the purpose of this task is to used the CheckStyle plugin to identify
+As such, the purpose of this task is to use the CheckStyle plugin to identify
 all instances where the code deviates from the agreed upon code style, and
 manually refactor it such that the whole code base is uniformly written.\nl
 
@@ -392,13 +392,14 @@ is a problem as the Weekplanner requires information from the Launcher relating
 to a given Guardian and Citizen, see \autoref{ReqResources}. While the
 Weekplanner can not normally be opened without the Launcher, it is possible to
 use a 3rd party program to start it. This is possible as the current
-implementation simply checks that the Android \textc{Intent} is not null, this
-can be seen below in \autoref{IntentNull}. As any attempt from another program
+implementation simply checks that the Android \textc{Intent}'s \textc{Extras} is
+not null, this can be seen below in \autoref{IntentNull}. As any attempt from another program
 to launch the Weekplanner provides an \textc{Intent}, this allows other programs
 to launch it.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Current implementation checks that the Intent is not null., label = IntentNull] 
+\begin{lstlisting}[caption = Current implementation checks that the Intent
+Extras is not null., label = IntentNull] 
 @Override
 protected void onCreate(final Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -416,10 +417,10 @@ protected void onCreate(final Bundle savedInstanceState) {
 \end{lstlisting}
 \end{minipage}
 
-In order tix this issue, group SW610 have requested that we create a unique
-\textc{Intent} for the Launcher to supply to the Weekplanner when it launches
-it. The \textc{Intent} has been added to the \textc{AppViewCreationUtility}
-class as presented below in \autoref{newIntent}.\nl
+In order to fix this issue, group SW610 have requested that we create a unique
+\textc{String} for the Launcher's \textc{Intent} to supply to the Weekplanner
+when it launches it. The \textc{String} has been added to the
+\textc{AppViewCreationUtility} class as presented below in \autoref{newIntent}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = New unique \textc{Intent} for the Launcher., label = newIntent] 
@@ -456,28 +457,28 @@ was taking care of it. These tasks are listed below.
 
 \begin{itemize}
   	\item T626 - Search: Evaluate Necessity of Present Exception Handling
-		\begin{enumerate}
+		\begin{itemize}
 	  		\item The purpose of this task was to evaluate the currently implemented
 	  		exception handling, and modify/remove it, if it was redundant or low
 	  		quality.
  			\item No unnecessary exception handling was identified in the pictosearch
  			library. The task has been marked as finished.
-		\end{enumerate}
+		\end{itemize}
   	\item T639 - Disable non-functional GUI elements.
-		\begin{enumerate}
+		\begin{itemize}
  			\item The purpose of this task was to identify and remove any elementes of
  			the graphical user interface, which could either cause crashes, or give
  			access to non-functional elements of the program. This is done in order to
  			create a ``minimum viable product''.
  			\item None such elements were found in the system. This task has been marked
  			as finished.
-		\end{enumerate}
+		\end{itemize}
 	\item T636 - Weekplanner: Identify Functional Requirements
-		\begin{enumerate}
+		\begin{itemize}
  			\item \fix{}{We actually need to do this as a part of out collaboration.}
-		\end{enumerate}
+		\end{itemize}
 	\item T629, T630 - Search/Launcher: Refactor Code
-		\begin{enumerate}
+		\begin{itemize}
   			\item The purpose of this task were to make sure that the entire code base
   			adhered to some standard of quality. This was deemed neccessary in order to
   			prepare code for future modifications.
@@ -485,7 +486,7 @@ was taking care of it. These tasks are listed below.
   			tasks. Refactoring in regards to code style was done as a part of
   			\textc{T631}, and general changes to functionality was done as a part of
   			evaluating existing exception handling in \textc{T625} and \textc{T626}.
-		\end{enumerate}
+		\end{itemize}
 
 \end{itemize}
 
