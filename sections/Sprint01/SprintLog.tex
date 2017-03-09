@@ -2,20 +2,20 @@
 As this sprint represents the groups' initial experiences with the GIRAF
 project, the purpose of this sprint is to gain a better understanding of
 the inner workings of the various GIRAF apps, and to make sure that the quality
-of the previosly written code is up to par. As such, the tasks for this sprint
+of the previosly written code is acceptable. As such, the tasks for this sprint
 are mostly superficial, but they do also include a number of fixes to critical
 bugs.\nl
 
-As part of the initial organization of the project, each group was assigned a
-general area of responsibility. For our group, SW609, this responsibility
-encompasses the apps \textc{Launcher} and \textc{Pictogram Searcher}. While
-these apps represent our core responsibilities, not all of our tasks are
-required to revolve around these apps.
+As a part of organizing the project, each group was assigned an initial area of
+responsibility. For our group, SW609, this responsibility encompasses the
+applications \textc{Launcher} and \textc{Pictogram Searcher}. While these
+applications represent our current core responsibilities, not all of our tasks
+are required to revolve around these apps.
 
 \section{Tasks}
-Based on our area of responsibility and the backlog from last semesters'
-students, we have chosen an initial list of tasks, which can be seen below in
-\autoref{SprintOneTasks}. 
+Based on our area of responsibility and the backlog from the last semester's
+students, we have been assigned an initial list of tasks, which can be seen
+below in \autoref{SprintOneTasks}. 
 
 \begin{table}[H]
 \centering
@@ -49,7 +49,7 @@ document what actions we have taken in order to resolve the issues.
 \subsection{T620, T623 - Search: Handle Exceptions}
 Based on the backlog from the previous semester, we identified an unhandled
 \\\textc{nullPointerException} in the \textc{PictoAdapter} class's
-\textc{getView} method. This exception occurred when a used tried to enter a
+\textc{getView} method. This exception occurred when a user tried to enter a
 comma into the pictogram search-bar. Due to faulty implementation, when the
 search was executed on a comma, it returned an empty list of pictograms. Given
 that the rest of the system never expects the pictogram list to be empty, this
