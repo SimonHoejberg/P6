@@ -50,8 +50,7 @@ Based on what the customer want, the goal of the multi-project is to make GIRAF
 a minimal viable product.
   
 \section{Project Goals}
-\fix{This section requires more work - add launcher and PictoSearch
-description}{} During the first meeting with representatives from one of the
+During the first meeting with representatives from one of the
 institutions which GIRAF cooperate with, we were given a brief introduction to
 how they curretly work and interact with the citizens. The majority of their
 feedback concern a desire for a working version of GIRAF, especially something
@@ -85,10 +84,9 @@ devices using GIRAF.
 % \end{itemize}
 
 \subsection{Launcher}
-\fix{Add description of launcher and add pictures}{}
 
-The launcher as of February 2017 contains login screen, different menues for
-each the user types and an options menu. The user is able to login using a QR
+The launcher as of February 2017 contains a login screen, different menues for
+each of the user types and an options menu. The user is able to login using a QR
 code. The screen shows a pictogram of someone scanning a QR code while showing
 the user what is seen through the camera. There was work done in the prior
 semester towards a login system using passwords instead of using QR
@@ -100,44 +98,40 @@ project from last semester? if yes point to Voice Game ch.15}{}
 
 After logging in, the user is taken to the guardian menu, which has access to 4
 buttons and a list of applications which the citizens can be granted access to,
-see \autoref{MenuGuardian}.
+see \autoref{MenuGuardian}. Guardian and citizens have similar menus with
+exception that citizens only have access to button \textbf{2} and \textbf{3}.
 
-\figx[0.25]{MenuGuardian}{The guardians menu screen.}
+\figx[0.35]{MenuGuardian}{The guardians menu screen.}
+% This picture is smaller than the others
 
-Button 1 allows the guardian to change the current profile with that of one of
-the citizens under its care, see \autoref{ChooseCitizen}. There is currently no
-similar button on the citizens menu, which means that a citizen cannot change
-profile to that of a guardian. It also means that a guardian revert from
-citizen to guardian without having to log out.
+Button \textbf{1} allows the guardian to change the current profile with that of
+one of the citizens under its care, see \autoref{ChooseCitizen}. There is currently no
+similar button on the citizens menu, which means that a guardian cannot revert
+from citizen to guardian without having to log out.
 
+%skal billedet fjernes?
 \figx[0.25]{ChooseCitizen}{The menu changes the guardian to one its citizens.}
 
-Button 2 allows the guardian to log out. Button 3 provides
-the user with a quick description of each of the other buttons. Button 4
-provides access to the settings which can be seen in \autoref{OptionsGuardian}.
-Finally 5 contains a list of applications which the guardian can grant other
-citizens access to on an individual basis.
+Button \textbf{2} allows the user to log out. Button \textbf{3} provides the
+user with a quick description of each of the other buttons. Button \textbf{4}
+provides access to the settings, see \autoref{OptionsGuardian}, which is a
+collection of menus regarding how many and which applications can the be shown
+on \textbf{5} in \autoref{MenuGuardian}. 
 
+\figx[0.35]{OptionsGuardian}{The settings menu}
 
+The settings menu has a collection of universal buttons which can be accessed
+from every menu except button \textbf{5}. Button \textbf{1} allows the guardian
+to exit the settings menu, button \textbf{2} allows the guardian to change the settings for
+the citizens in its care. This leads to a settings menu similar to the guardians.
+Button \textbf{3} is allows the guardian to control how many applications are
+shown for the current user, which can be seen in \textbf{7}. Button \textbf{4}
+allows the guardian to control which applications are shown to user. This is
+divided into GIRAF, Android and Store applications, see
+\autoref{OptionsGuardian2}. Button \textbf{7} as in the other menus provide the
+user with a quick description of each of the other buttons.
 
-
-There are two types of users, the guardian type and the citizen type, each with
-a variation of the same menu. The citizen has the simplest of version, with
-access to 
-
-%show citizen menu and guardian menu side-by side
-
-
-
-
-
-- 2 types of user each with an associated menu type
-- a login - uses QR codes
-- a way a for a guardian type user to manage citizen type users, this
-controls which applications are shown to each citizen
-- a way to switch from a guardian to a citizen no way from citizen to guardian
-- a logout
-
+\figx[0.25]{OptionsGuardian2}{The menu which allows the guardian to show }
 
 \subsection{PictoSearch}
 As of March 2017, the \textc{pictosearch-lib} is a library containing all
