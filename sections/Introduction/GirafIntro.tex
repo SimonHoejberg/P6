@@ -82,12 +82,48 @@ devices using GIRAF.
 %   		\item Create a useful base for future student to improve
 % 	\end{enumerate}
 % \end{itemize}
-\section{Our Goals}
 
-???
+\section{Organizational Method}
 
+The goals for the project are to make GIRAF a minimal viable product in
+regards to the applications and server. These goals are divided among the groups
+in such a way that the each group works on a part of the project they want. This
+is meant to increase the quality of the work since each group is able to
+specialize on a specific part which they want to work on. It also allows the
+groups to work easier together since most of them share some common feature.
+This leads to the following distribution of labour:
 
-\subsection{Launcher}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{2cm}|p{3cm}|p{8cm}|}
+\hline
+Group & Focus & Description \\ \hline
+SW609 & weekplanner depedencies & Works on the providing stability to
+weekplanner and its dependencies.\\\hline 
+SW610 & weekplanner & Works on getting weekplanner into a working
+state.\\\hline 
+SW611 & Scrum masters & Organizes the scrum meetings. \\\hline 
+SW612 & Product owners & Creates and describes tasks, also acts as contact to
+customers. \\\hline 
+SW613 & REST client & \\ \hline
+
+SW614 & Infrastructure & \\ \hline
+
+SW615 & REST server & \\ \hline
+
+\end{tabular}
+\caption{The focus of each of the groups}
+\label{GroupDivision}
+\end{table}
+
+\subsection{Our Goals}
+
+As can be seen in \autoref{GroupDivision}, our group will focus on improving the
+stability of the weekplanner through fixing the bugs and refactoring the code
+written in its dependencies. This is mainly done through work on the Launcher
+and PictoSearch applications.
+
+\subsubsection{Launcher}
 
 The launcher as of February 2017 contains a login screen, different menues for
 each of the user types and an options menu. The user is able to login using a QR
@@ -137,7 +173,7 @@ user with a quick description of each of the other buttons.
 
 \figx[0.25]{OptionsGuardian2}{The menu which allows the guardian to show }
 
-\subsection{PictoSearch}
+\subsubsection{PictoSearch}
 As of March 2017, the \textc{pictosearch-lib} is a library containing all
 classes relating to the search of pictograms. As it is a library, it does not
 represent a single application, but is implemented in projects such as
@@ -156,42 +192,6 @@ search criteria. All of these elements can be seen below in
 After choosing a number of pictograms, the user can click the green checkmark in
 the top right corner, and the respective \textc{Pictogram} objects are passed to
 the parent application.
-
-\section{Organizational Method}
-
-The groups are divided among the goals according to the desires of each group.
-This is meant to increase the quality of the work since each group is able to
-specialize on a specific part which they want to work on. It also allows the
-groups to work easier together since most of them share some common feature.
-This leads to the following distribution of labour:
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|p{2cm}|p{3cm}|p{8cm}|}
-\hline
-Group & Focus & Description \\ \hline
-SW609 & weekplanner depedencies & Works on the providing stability to
-weekplanner and its dependencies.\\\hline 
-SW610 & weekplanner & Works on getting weekplanner into a working
-state.\\\hline 
-SW611 & Scrum masters & Organizes the scrum meetings. \\\hline 
-SW612 & Product owners & Creates and describes tasks, also acts as contact to
-customers. \\\hline 
-SW613 & REST client & \\ \hline
-
-SW614 & Infrastructure & \\ \hline
-
-SW615 & REST server & \\ \hline
-
-\end{tabular}
-\caption{The focus of each of the groups}
-\label{GroupDivision}
-\end{table}
-
-As can be seen in \autoref{GroupDivision}, our group will focus
-on improving the stability of the weekplanner through fixing the
-bugs and refactoring the code written in its dependencies. As the project
-is divided into a number of sprints.
 
 \subsection{Development Method}
 
