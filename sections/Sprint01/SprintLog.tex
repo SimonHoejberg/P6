@@ -11,7 +11,7 @@ responsibility. For our group, SW609, this responsibility encompasses the
 applications \textc{Launcher}, see \autoref{LauncherReview}, and
 \textc{Pictogram Searcher}, see \autoref{PictoSearchReview}. While these
 applications represent our current core responsibilities, not all of our tasks
-are required to revolve around these apps.
+are required to revolve around these apps.\nl
 
 In this chapter we will describe each of the tasks we are assigned to as
 well as their respective solutions. We will describe why a number of tasks are
@@ -56,10 +56,10 @@ Based on the backlog from the previous semester, we identified an unhandled
 \\\textc{nullPointerException} in the \textc{PictoAdapter} class's
 \textc{getView} method. This exception occurred when a user tried to enter a
 comma into the pictogram search-bar. Due to faulty implementation, when the
-search was executed on a comma, it returned an empty list of pictograms. Given
-that the rest of the system never expects the pictogram list to be empty, this
-led to a problem where the system tried to access the first element of the list
-which was null.\nl
+search was executed on a comma, it returned an empty list of pictograms.
+\fix{Given that the rest of the system never expects the pictogram list to be
+empty, this led to a problem where the system tried to access the first element of the list
+which was null.}{Needs rework - Ying}\nl
 
 In order to fix this problem, we have implemented multiple checks to make sure
 that the system does not attempt to invoke any method on the non-existing
@@ -90,7 +90,7 @@ object exists, we need to identify if it is possible for the method to simply
 return null or a dummy object. Through analysis of the
 \textc{GirafPictogramItemView} class, we identified that the system is already
 equipped to handle a \textc{pictogramItemView} with an uninitialized
-\textc{imageEntity}. This can be seen below in \autoref{PictogramHandleNull}\nl
+\textc{imageEntity}. This can be seen in \autoref{PictogramHandleNull}\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = \textc{setImageModel} method in the \textc{GirafPictogramItemView class.}, label = PictogramHandleNull] 
@@ -105,7 +105,7 @@ if (imageEntity == null) {
 \end{minipage}
 
 Based on this information, we have solved the problem by having the
-\textc{getView} method return a newly made dummy object. This can be seen below
+\textc{getView} method return a newly made dummy object. This can be seen
 in \autoref{UnitImageEntity}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -133,7 +133,7 @@ global variable \textc{loadAnimation} was overshadowed by a local one defined in
 the \textc{onCreate} method. As \textc{onCreate} is executed on creation of the
 activity, the definition and assignment of \textc{loadAnimation} was contained
 to this method, and the global variable was never initialized. This can be seen
-below in \autoref{LoadAnimationCrash}. This problem led to a
+in \autoref{LoadAnimationCrash}. This problem led to a
 \textc{nullPointerException} because the system tried to use an animation which
 was not defined.\nl
 
@@ -160,7 +160,7 @@ in the \textc{onCreate} method.
 \subsubsection{Package Manager Crash}
 The second problem was caused by a timer, which was used to ping the Android
 package manager, in order to determine if changes were made to the device's
-installed applications. This can be seen below in \autoref{PackageTimer}. The
+installed applications. This can be seen in \autoref{PackageTimer}. The
 problem occours when running the launcher on an emulator, because pinging the package
 manager would return a empty list of installed applications. Based on our
 observations, an empty app-list would prompt the system to ping the package
@@ -185,7 +185,7 @@ list of installed applications. Instead of pinging the package manager on a
 timer, we have implemented an Android \textc{broadcastListener}, which listens
 for when the operating system broadcasts changes to the list of installed
 applications. Otherwise, this listener is still set to execute the same code
-that the previous timer would have. This new implementation can be seen below in
+that the previous timer would have. This new implementation can be seen in
 \autoref{broadcastListener}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -224,8 +224,7 @@ null-values, a try-catch structure has been implemented to catch exceptions.
 While this is technically not wrong, it is a bad practice, as the try-catch
 approach is vastly more expensive in regards to required computations. There are
 many examples of this approach in the code. An example from the
-\textc{AppComparator} class can be seen below in
-\autoref{ExplicitHandlingEx}.\nl
+\textc{AppComparator} class can be seen in \autoref{ExplicitHandlingEx}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = An example of explicit exception handling., label = ExplicitHandlingEx] 
@@ -244,7 +243,7 @@ try {
 
 Our approach to solving this problem is to implement checks on each individual
 variable, to make sure that its value is not null. The rewritten code from the
-previous example in \autoref{ExplicitHandlingEx} can be seen below in
+previous example in \autoref{ExplicitHandlingEx} can be seen in
 \autoref{HandlingSol}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -266,7 +265,7 @@ Another problem can be found in the \textc{LauncherUtility} class, where the
 previous students have decided to create a try-catch structure in which they
 themselves check that a variable is not null such that the Activity exsist.
 Afterwards, if it value was null, they throw their own \textc{ActivityNotFoundException}. This is done in
-order to send the exception-log to Google Analytics. This can be seen below in
+order to send the exception-log to Google Analytics. This can be seen in
 \autoref{FuckedExample}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -290,7 +289,7 @@ try {
 
 We have deemed that this approach is unnecessary, and that a simpler approach
 would be to simply check the variable for null-values through an if-statement.
-Our revised code can be seen below in \autoref{FixedFuck}.\nl
+Our revised code can be seen in \autoref{FixedFuck}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our approach without throwing exceptions., label = FixedFuck] 
@@ -318,7 +317,7 @@ manually refactor it such that the whole code base is uniformly written.\nl
 When CheckStyle is executed on a project, it uses an XML file where the code
 style is defined, to identify all cases where the code deviated from this
 defined style. This information is presented in an ordered list. An example of
-an error-list for the \textc{Launcher project} can be seen below in
+an error-list for the \textc{Launcher project} can be seen in
 \autoref{CodeStyleErrors}.
 
 \figx[0.85]{CodeStyleErrors}{List of code style deviations in the Launcher
@@ -340,9 +339,9 @@ application would need to make use of them.
 \begin{tabular}{|l|l|} 
 \hline
 \textbf{Data}	& \textbf{Application}	\\\hline
-Guardian		& Weekplanner 			\\\hline
-Citizen    	   	& Weekplanner 			\\\hline 
-Pictogram 		& Weekplanner 			\\\hline 
+Guardian		& Launcher/Weekplanner 	\\\hline
+Citizen    	   	& Launcher/Weekplanner 	\\\hline 
+Pictogram 		& Launcher/Weekplanner 	\\\hline 
 Empty    	   	& Weekplanner 			\\\hline
 Choice   	   	& Weekplanner  			\\\hline
 Day   	   		& Weekplanner 			\\\hline
@@ -400,9 +399,9 @@ to a given Guardian and Citizen, see \autoref{ReqResources}. While the
 Weekplanner can not normally be opened without the Launcher, it is possible to
 use a 3rd party program to start it. This is possible as the current
 implementation simply checks that the Android \textc{Intent}'s \textc{Extras} is
-not null, this can be seen below in \autoref{IntentNull}. As any attempt from another program
-to launch the Weekplanner provides an \textc{Intent}, this allows other programs
-to launch it.\nl
+not null, this can be seen below in \autoref{IntentNull}. As any attempt from
+another program to launch the Weekplanner provides an \textc{Intent}, this
+allows other programs to launch it.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Current implementation checks that the Intent
@@ -427,7 +426,7 @@ protected void onCreate(final Bundle savedInstanceState) {
 In order to fix this issue, group SW610 have requested that we create a unique
 \textc{String} for the Launcher's \textc{Intent} to supply to the Weekplanner
 when it launches it. The \textc{String} has been added to the
-\textc{AppViewCreationUtility} class as presented below in \autoref{newIntent}.\nl
+\textc{AppViewCreationUtility} class as presented in \autoref{newIntent}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = New unique \textc{Intent} for the Launcher., label = newIntent] 
