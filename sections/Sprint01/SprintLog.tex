@@ -1,27 +1,32 @@
 \chapter{Sprint: 01}
-As this sprint represents the groups' initial experiences with the GIRAF
-project, the purpose of this sprint is to gain a better understanding of
-the inner workings of the various GIRAF apps, and to make sure that the quality
-of the previosly written code is acceptable. As such, the tasks for this sprint
-are mostly superficial, but they do also include a number of fixes to critical
-bugs.\nl
+This sprint represents the groups' initial experiences with the GIRAF
+project. The purpose of this sprint is to gain a better understanding of how the
+GIRAF applications works, how they depend on each other and to make sure that
+the quality of the previosly written code is acceptable. The tasks for
+this sprint are mostly superficial, but they do also include a number of fixes
+to critical bugs.\nl
 
-As a part of organizing the project, each group was assigned an initial area of
+As a part of organizing the project each group was assigned an initial area of
 responsibility. For our group, SW609, this responsibility encompasses the
-applications \textc{Launcher} and \textc{Pictogram Searcher}. While these
+applications \textc{Launcher}, see \autoref{LauncherReview}, and
+\textc{Pictogram Searcher}, see \autoref{PictoSearchReview}. While these
 applications represent our current core responsibilities, not all of our tasks
 are required to revolve around these apps.
 
+In this chapter we will describe each of the tasks we are assigned to as
+well as their respective solutions. We will describe why a number of tasks are
+removed and finally we will discuss the how the sprint retrospective.
+
 \section{Tasks and Solutions}
 Based on our area of responsibility and the backlog from the last semester's
-students, we have been assigned an initial list of tasks, which can be seen
-below in \autoref{SprintOneTasks}. 
+students, we have been assigned an initial list of tasks, which can be seen in
+\autoref{SprintOneTasks}.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|}
 \hline
-Number 			& Task Description 												\\\hline
+Task Number		& Task Description 												\\\hline
 T620  			& Search: Identify unhandled exceptions.                 		\\\hline
 T621    	   	& Launcher: Identify unhandled exceptions. 						\\\hline 
 T623	       	& Search: Handle unhandled exceptions.                 			\\\hline
@@ -44,7 +49,7 @@ T683			& Weekplanner: Prevent starting without Launcher.				\\\hline
 \end{table} 
 
 In the following subsections, we will elaborate upon each of the task, and
-document what actions we have taken in order to resolve the issues.
+document what actions we have taken in order to resolve the issues. 
 
 \subsection{T620, T623 - Search: Handle Exceptions}
 Based on the backlog from the previous semester, we identified an unhandled
@@ -53,13 +58,12 @@ Based on the backlog from the previous semester, we identified an unhandled
 comma into the pictogram search-bar. Due to faulty implementation, when the
 search was executed on a comma, it returned an empty list of pictograms. Given
 that the rest of the system never expects the pictogram list to be empty, this
-led to a problem where the system tried to acces the first element of the list
+led to a problem where the system tried to access the first element of the list
 which was null.\nl
 
 In order to fix this problem, we have implemented multiple checks to make sure
-that the system does not attempt to invoke any methods on the non-existing
-object. Examples of these checks can be seen below in
-\autoref{PictoListNullPoint}.\nl
+that the system does not attempt to invoke any method on the non-existing
+object. Examples of these checks can be seen in \autoref{PictoListNullPoint}.
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Newly implemented check for null values., label = PictoListNullPoint] 
