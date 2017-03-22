@@ -2,9 +2,7 @@
 This sprint represents the groups' initial experiences with the GIRAF
 project. The purpose of this sprint is to gain a better understanding of how the
 GIRAF applications works, how they depend on each other and to make sure that
-the quality of the previosly written code is acceptable. The tasks for
-this sprint are mostly superficial, but they do also include a number of fixes
-to critical bugs.\nl
+the quality of the previosly written code is acceptable.\nl
 
 As a part of organizing the project each group was assigned an initial area of
 responsibility. For our group, SW609, this responsibility encompasses the
@@ -13,13 +11,13 @@ applications \textc{Launcher}, see \autoref{LauncherReview}, and
 applications represent our current core responsibilities, not all of our tasks
 are required to revolve around these apps.\nl
 
-In this chapter we will describe each of the tasks we are assigned to as
+In this chapter we describe each of the tasks we are assigned to as
 well as their respective solutions. We will describe why a number of tasks are
-removed and finally we will discuss the how the sprint retrospective.
+removed and finally we discuss the sprint retrospective.
 
 \section{Tasks and Solutions}
 Based on our area of responsibility and the backlog from the last semester's
-students, we have been assigned an initial list of tasks, which can be seen in
+students, we are assigned an initial list of tasks, see
 \autoref{SprintOneTasks}.
 
 \begin{table}[H]
@@ -57,9 +55,9 @@ Based on the backlog from the previous semester, we identified an unhandled
 \textc{getView} method. This exception occurred when a user tried to enter a
 comma into the pictogram search-bar. Due to faulty implementation, when the
 search was executed on a comma, it returned an empty list of pictograms.
-\fix{Given that the rest of the system never expects the pictogram list to be
-empty, this led to a problem where the system tried to access the first element of the list
-which was null.}{Needs rework - Ying}\nl
+This leads to an exception since the system never expects the list to be empty,
+and this is a problem since the system tries to access the first element of the
+empty list, which is null.\nl
 
 In order to fix this problem, we have implemented multiple checks to make sure
 that the system does not attempt to invoke any method on the non-existing
@@ -73,6 +71,7 @@ Drawable catIndicator = context.getResources().getDrawable(R.drawable.icon_categ
 
 if (convertView == null) {
 	GirafPictogramItemView pictogramItemView;
+	// Checks for correct object type and whether it is null
     if (object != null && object instanceof Pictogram) {
     	Pictogram pictogramNew = (Pictogram) object;
         pictogramItemView = new GirafPictogramItemView(context, pictogramNew, pictogramNew.getName());
@@ -194,18 +193,18 @@ private void startObservingApps() {
 	//Makes sure this Receiver is only registered once
     if(!appObserverReceiverRegistered) {
     	BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-        	appsChangedScan();
-        }
-    };
-    //Sets up the filter to only trigger when these actions are received
-    IntentFilter intentFilter = new IntentFilter(); 
-    intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-    intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-    registerReceiver(broadcastReceiver, intentFilter);
-    appObserverReceiverRegistered = true;
-    Log.d(Constants.ERROR_TAG, "Applications are being observed.");
+            @Override
+            public void onReceive(Context context, Intent intent) {
+        	    appsChangedScan();
+            }
+        };
+        //Sets up the filter to only trigger when these actions are received
+        IntentFilter intentFilter = new IntentFilter(); 
+        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        registerReceiver(broadcastReceiver, intentFilter);
+        appObserverReceiverRegistered = true;
+        Log.d(Constants.ERROR_TAG, "Applications are being observed.");
 	}
 }
 \end{lstlisting}
@@ -325,14 +324,14 @@ project.}
 
 In order to solve the problems with the unsystematic code style, we have
 methodically resolved the issues identified by CheckStyle.
-
-\subsection{T646 - Identify Apps Required Resources}\label{ReqResources}
-At the beginning of the sprint we had a meeting with the other groups
-reponsible for either applications or the database, namely SW610, SW613, and
-SW615. This meeting was held in order to determine what database resources each
+		
+\subsection{T636, T646 - Identify Apps Required Resources}\label{ReqResources}
+The following is part of a multigroup collaboration chapter and is described
+more indepth in \autoref{S1CS}. At the beginning of the sprint we had a meeting
+with SW610, SW613, and SW615 in order to determine what database resources each
 application would need. Through discussion with the other groups we compiled
 \autoref{DataObjList}, which shows all relevant database resources, and what
-application would need to make use of them. 
+application would need to make use of them.
 
 \begin{table}[H]
 \centering
@@ -357,12 +356,12 @@ effeciently be packaged together, and how each application should access
 them.\nl
 
 Any further work relating to optimization of the database's handling of
-resources has been relegated to the database groups SW613 and SW615. As such, we
-consider our part of this task to be completed.
+resources has been relegated to the database groups SW613 and SW615. As such,
+we consider our part of this task to be completed.
 
 \subsection{T647 - Document Apps' Database Requirements}
-Through a meeting with the groups responsible for the databases, we made the
-following UML diagram, modelling the client-server interface.
+During the same meeting as T636 and T646 we made the following UML diagram,
+modelling the client-server interface.
 
 \figx{DatabaseUML}{UML diagram modelling the client-server interface.}
 
@@ -455,7 +454,7 @@ public final class Constants {
 \end{minipage}
 
 \subsection{Removed Tasks}
-Throughout the sprint, we have revised our list of tasks, and identified
+Throughout the sprint, we have revised our list of tasks and identified
 that a number of them were outside the scope of our group's responsibility.
 When such a task was identified and deemed non-trivial, these tasks were either
 reported to the SCRUM Master group (SW611), or we made sure that another group
@@ -464,11 +463,11 @@ was taking care of it. These tasks are listed below.
 \begin{itemize}
   	\item T626 - Search: Evaluate Necessity of Present Exception Handling
 		\begin{itemize}
-	  		\item The purpose of this task was to evaluate the currently implemented
-	  		exception handling, and modify/remove it, if it was redundant or low
+	  		\item The purpose of this task was to evaluate the currently
+	  		implemented exception handling, and modify/remove it, if it was redundant or low
 	  		quality.
- 			\item No unnecessary exception handling was identified in the pictosearch
- 			library. The task has been marked as finished.
+ 			\item No unnecessary exception handling was identified in the
+ 			pictosearch library. The task has been marked as finished.
 		\end{itemize}
   	\item T639 - Disable non-functional GUI elements.
 		\begin{itemize}
@@ -478,10 +477,6 @@ was taking care of it. These tasks are listed below.
  			create a ``minimum viable product''.
  			\item None such elements were found in the system. This task has been marked
  			as finished.
-		\end{itemize}
-	\item T636 - Weekplanner: Identify Functional Requirements
-		\begin{itemize}
- 			\item \fix{}{We actually need to do this as a part of out collaboration.}
 		\end{itemize}
 	\item T629, T630 - Search/Launcher: Refactor Code
 		\begin{itemize}

@@ -9,33 +9,32 @@ of the project, and determine which improvements they intend to implement.
 \section{State of GIRAF}
 
 The current implementation of the GIRAF project consists of 10 different
-interconnected applications, which are presented below in \autoref{GApps} along
-with their development status this semester.
+interconnected applications, which are presented below in \autoref{GApps}.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|p{2.8cm}|p{2.2cm}|p{7cm}|}
 \hline
-Application			& Status & Description \\\hline
-Launcher  			& Worked on & The main application of GIRAF, controls access
+Application			& Description \\\hline
+Launcher  			& The main application of GIRAF, controls access
 to other GIRAF applications. \\\hline 
-Sequence	       	& Ignored & A tool to create a sequence of pictograms which can
+Sequence	       	& A tool to create a sequence of pictograms which can
 communicate a process.\\\hline 
-PictoCreator  	   	& Ignored & Allows the user to manually create pictograms
+PictoCreator  	   	& Allows the user to manually create pictograms
 which can be saved on the database.\\\hline
-PictoReader	   		& Ignored & A tool which can read the text of an associated
+PictoReader	   		& A tool which can read the text of an associated
 pictrogram aloud.\\\hline
-LifeStories	   		& Ignored & A tool which allows a citizen to describe their day
+LifeStories	   		& A tool which allows a citizen to describe their day
 using pictograms.\\\hline 
-Timer     	   		& Ignored & Allows guardians to create a timer which
+Timer     	   		& Allows guardians to create a timer which
 limits how long a citizen can use an application.\\\hline 
-Weekplanner 		& Worked on & Allows for the creation of schedules for citizens
+Weekplanner 		& Allows for the creation of schedules for citizens
 using pictograms. \\\hline 
-Category Tool		& Ignored & A tool which allows pictograms to be grouped together
+Category Tool		& A tool which allows pictograms to be grouped together
 in a specific category. \\\hline 
-Category Game   	& Ignored & A game which teaches citizens to associate
+Category Game   	& A game which teaches citizens to associate
 different object by a common feature. \\\hline 
-Voice Game  		& Ignored & A game which allows citizens to control an object
+Voice Game  		& A game which allows citizens to control an object
 using the volume of their voice. \\\hline
 \end{tabular} 
 \caption{The development status of the applications available to GIRAF}
@@ -45,18 +44,16 @@ using the volume of their voice. \\\hline
 The previous semester ended with the Voice Game application working as a
 standalone in an acceptable state. The other applications are in a working
 state, but have several issues, such as bugs and missing features which
-prohibit their use by the customer.\\
-Based on what the customer want, the goal of the multi-project is to make GIRAF
-a minimal viable product.
+prohibit their use by the customer.
   
 \section{Project Goals}
-During the first meeting with representatives from one of the
-institutions which GIRAF cooperate with, we were given a brief introduction to
-how they curretly work and interact with the citizens. The majority of their
-feedback concern a desire for a working version of GIRAF, especially something
-that means an easier time of managing the schedules of citizens. This feedback
-is the reason why GIRAF is to be developed as a ``minimum viable product'',
-with a focus on the weekplanner, server and database.\nl
+During the first meeting with representatives from one of the institutions which
+GIRAF cooperate with, we were given a brief introduction to how they curretly
+work and interact with the citizens. The majority of their feedback concern a
+desire for a working version of GIRAF, especially something that means an
+easier time of managing the schedules of citizens. This feedback is the reason
+why GIRAF is to be developed as a ``minimum viable product'', with a focus on
+the weekplanner, server and database.\nl
 
 The weekplanner is chosen as it is an application that is intended to manage
 the citizens' schedules. The core problems present in this application is
@@ -98,18 +95,19 @@ This leads to the following distribution of labour:
 \begin{tabular}{|p{2cm}|p{3cm}|p{8cm}|}
 \hline
 Group & Focus & Description \\ \hline
-SW609 & weekplanner depedencies & Works on the providing stability to
+SW609 & Weekplanner depedencies' & Works on providing stability to
 weekplanner and its dependencies.\\\hline 
-SW610 & weekplanner & Works on getting weekplanner into a working
+SW610 & Weekplanner & Works on getting weekplanner into a working
 state.\\\hline 
 SW611 & Scrum masters & Organizes the scrum meetings. \\\hline 
 SW612 & Product owners & Creates and describes tasks, also acts as contact to
 customers. \\\hline 
-SW613 & REST client & \\ \hline
+SW613 & REST client & Works on REST client libraries.\\ \hline
 
-SW614 & Infrastructure & \\ \hline
+SW614 & Infrastructure & Works on getting the server up and running in an way
+that can allow it to be easily maintained. \\\hline
 
-SW615 & REST server & \\ \hline
+SW615 & REST server & \fix{}{figure out what they are doing}\\ \hline
 
 \end{tabular}
 \caption{The focus of each of the groups}
@@ -124,14 +122,14 @@ written in its dependencies. This is mainly done through work on the Launcher
 and PictoSearch applications.
 
 \subsubsection{Launcher}\label{LauncherReview}
-
-The launcher as of February 2017 contains a login screen, different menues for
-each of the user types and an options menu. The user is able to login using a QR
-code. There was work done in the prior
-semester towards a login system using passwords instead of using QR
-codes. In the lower left corner there is currently a shortcut used for
-testing purposes which skips the QR code. \fix{Do we need a citation to a
-project from last semester? if yes point to Voice Game ch.15}{}
+\fix{}{Depending on how much we actually work with the launcher we might remove
+some of the unnecessary explanations} The launcher as of February 2017 contains
+a login screen, different menues for each of the user types and an options menu. The user is able to login using a QR
+code, as can be seen in \autoref{Login}.In the lower left corner there is
+currently a shortcut used for testing purposes which skips the QR code. There
+was work done in the prior semester towards a login system using passwords
+instead of using QR codes. This includes design sketches and a simple UI
+implementation.
 
 \figx[0.25]{Login}{The login screen shows a pictogram of someone scanning a QR
 code while the user can see what it scans.}
@@ -164,11 +162,11 @@ The settings menu has a collection of universal buttons which can be accessed
 from every menu except button \textbf{5}. Button \textbf{1} allows the guardian
 to exit the settings menu, button \textbf{2} allows the guardian to change the settings for
 the citizens in its care. This leads to a settings menu similar to the guardians.
-Button \textbf{3} is allows the guardian to control how many applications are
+Button \textbf{3} allows the guardian to control how many applications are
 shown for the current user, which can be seen in \textbf{7}. Button \textbf{4}
 allows the guardian to control which applications are shown to user. This is
 divided into GIRAF, Android and Store applications, see
-\autoref{OptionsGuardian2}. Button \textbf{7} as in the other menus provide the
+\autoref{OptionsGuardian2}. Button \textbf{6} as in the other menus provide the
 user with a quick description of each of the other buttons.
 
 \figx[0.25]{OptionsGuardian2}{The menu which allows the guardian to show }
