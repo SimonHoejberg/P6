@@ -27,7 +27,7 @@ T634  	& Wiki: Continually update Launcher info on the wiki\\\hline
 T671    & Implement system to retrieve stack-trace from system crashes\\\hline 
 T705	& Launcher: Evaluate/Change need to log out when changing  to guardian\\\hline 
 T708    & Meeting: Discuss overall design goals for the GIRAF GUI \\\hline
-T722   	& Launcher: Save login session. Prevent automatic logout before 8 hours. \\\hline 
+T722   	& Launcher: Save login session. Prevent automatic logout before 8 hours \\\hline 
 T724   	& Launcher: Prevent crash caused by other applications crashing\\\hline
 T725  	& Search: Improve overall performance (If possible)			   							\\\hline
 T726    & Meeting: Discuss REST interface and database communication \\\hline
@@ -45,5 +45,93 @@ T739    & Wiki: Document pictosearch info on the wiki	\\\hline
 In the following subsections, we will elaborate upon each of the task, and
 document what actions we have taken in order to resolve the issues.
 
-\subsection{Task: whatever}
+\subsection{T722 - Prevent login session from expiring}
+While testing the launcher during the first sprint, we noticed that the login
+session would sometimes expire before the defined interval of 8 hours.\nl
+
 Placeholder\ldots
+
+\subsection{T724 - Launcher: Prevent crash when child application crashes}
+Placeholder\ldots
+
+\subsection{T733 - Search: Implement vertical screen functionality}
+During the first sprint, group SW610 was testing the Weekplanner application,
+and noticed that some activities did not support vertical orientation of the
+screen. Due to the inconsistancy of only some activities supporting this, we
+have agreed to implement vertical functionality in the pictosearch activity.\nl
+
+If an android activity is to support changing the orientation of its GUI, it
+must contain a unique specification for each orientation. This is done in the
+form of folder, containing an .XML file specifying the GUI. This means, that its
+resource folder \textc{res} must contain subfolders named \textc{layout},
+\textc{layout-port}, and \textc{layout-land}. The folders \textc{layout-port}
+and \textc{layout-land} contain a defined layout for vertical and horizontal
+orientation respectively, while \textc{layout} contains a default layout, which
+is used if the other folders do not exist.\nl
+
+In the current version of \textc{pictosearch-lib}, only the default folder
+\textc{layout} exists. This horizontal layout can be seen in
+\autoref{SearchHorizon}.
+
+\figx{SearchHorizon}{Horizontal design for the
+\textc{activity\_picto\_admin\_main.xml} file, as presented in the Android
+Studio designer.}
+    
+In order to allow for vertical orientation, we have chosen to redesign and
+implement a new version of the activity. Simply put, we have copied the files
+for the horizontal layout, added them to a new folder called
+\textc{layout-port}, and redesigned the layout to be vertical. Our newly
+designed layout can be seen in \autoref{SearchVert}.
+
+\figx{SearchVert}{New vertical design for the
+\textc{activity\_picto\_admin\_main.xml} file, as presented in the Android
+Studio designer.}
+
+Finally, after designing the new layout, we needed to allow for the screen
+orientation to change, as this is not allowed in the current version of
+pictosearch. This was done by changing the \textc{android:screenOrientation}
+variable in the \textc{AndroidManifest.xml} file from \textc{landscape} to
+\textc{fullSensor}. Setting the variable to \textc{fullSensor} allows the tablet
+to use its sensors to set the orientation of the screen. This can be seen in
+\autoref{OrientAllow}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Allowing changes to the screen orientation., label = OrientAllow] 
+<activity
+	android:name="dk.aau.cs.giraf.pictosearch.PictoAdminMain"
+    ...
+    android:screenOrientation="fullSensor" >
+    ...
+</activity>
+\end{lstlisting}
+\end{minipage}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
