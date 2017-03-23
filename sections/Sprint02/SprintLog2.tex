@@ -52,7 +52,98 @@ session would sometimes expire before the defined interval of 8 hours.\nl
 Placeholder\ldots
 
 \subsection{T724 - Launcher: Prevent crash when child application crashes}
-Placeholder\ldots
+While testing the applications during the first sprint, one of the other groups
+identified a crash in the launcher, which occoured when one of the GIRAF
+applications crashed. Based on the reported issues, we have tried to
+replicate the crash, but we have so far been unable to. Due to the importance of
+increasing the stability of the launcher, we have chosen to attempt to prevent
+future crashes of this nature.\nl
+
+The original approach to launching applications can be seen in
+\autoref{OriginalLaunch}, where the \textc{startActivity} method is called on an
+Android \textc{Context}, which is an abstract class containing information an
+application, such as application-level operations like
+\textc{launch}.
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Original approach to launching applications., label = OriginalLaunch]
+public static void secureStartActivity(Context context, Intent intent) {
+	if (intent.resolveActivity(context.getPackageManager()) != null) {	
+    	context.startActivity(intent);
+	}
+	...
+}
+\end{lstlisting}
+\end{minipage}
+
+While we have no crash log to confirm our suspicions, we believe that the
+launcher could crash due to the thrown exception being returned to the launcher.
+As such, we have chosen to implement a try-catch structure, which should prevent
+the launcher from crashing, if a child-application crashes. Our solution can be 
+seen in \autoref{NewLaunch}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = New approach to launching applications., label = NewLaunch] 
+public static void secureStartActivity(Context context, Intent intent) {
+	if (intent.resolveActivity(context.getPackageManager()) != null) {
+    	try {
+        	context.startActivity(intent);
+        } catch (Exception e) {
+        	return;
+        }
+        ...
+    }
+...
+\end{lstlisting}
+\end{minipage}
+
+
+
+\subsection{T727 - Reader: Fix crash on failed retrieval of audio file}
+During the initial sprint, we tested a number of the GIRAF applications in order
+to better understand the GIRAF GUI design framework. While doing this, we
+identified an \textc{IndexOutOfBoundsException} in the \textc{pictoreader}
+application, which occours if we press the \textc{Play} button while no
+pictograms are chosen. This error occours as the application attempts to access
+the 0th element of the array of pictograms to read aloud. This can be seen in
+\autoref{BTNPlay}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Accessing the 0th element of a null array., label = BTNPlay] 
+btnPlay.setOnClickListener(new View.OnClickListener() {
+	public void onClick(View v) {
+	...
+	if (sentencePictogramList.get(0) != null) {
+		...
+	}
+...
+}
+\end{lstlisting}
+\end{minipage}
+
+It would appear that currently a check is made to make sure that the first
+pictogram in the list is not null, but that there is no safeguards to make sure
+that the list is not empty. While we question the necessity of the current
+check, we have chosen to keep it, and simply add another check to make sure that
+the array is not empty. If the array is empty, the expression should short
+circuit, and the check on the first element of the array is never made. This
+should prevent the case where the 0th element is accessed on an empty array. Our
+solution can be seen in \autoref{BTNPlayFixed}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Our solution to the presented problem., label = BTNPlayFixed] 
+btnPlay.setOnClickListener(new View.OnClickListener() {
+	public void onClick(View v) {
+	...
+	if (!sentencePictogramList.isEmpty() && sentencePictogramList.get(0) != null) {
+		...
+	}
+...
+}
+\end{lstlisting}
+\end{minipage}
+
+
 
 \subsection{T733 - Search: Implement vertical screen functionality}
 During the first sprint, group SW610 was testing the Weekplanner application,
@@ -105,14 +196,6 @@ to use its sensors to set the orientation of the screen. This can be seen in
 </activity>
 \end{lstlisting}
 \end{minipage}
-
-
-
-\subsection{T726 - Reader: Fix crash on failed retrieval of audio file}
-During the initial sprint, we tested a number of the GIRAF applications, in
-order to better understand the GIRAF GUI design framework. While doing this, we
-identified a crash in the \textc{pictoreader} application. Based on 
-
 
 
 
