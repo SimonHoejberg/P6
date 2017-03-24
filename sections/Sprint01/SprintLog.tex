@@ -325,13 +325,13 @@ project.}
 In order to solve the problems with the unsystematic code style, we have
 methodically resolved the issues identified by CheckStyle.
 		
-\subsection{T636, T646 - Identify Apps Required Resources}\label{ReqResources}
-The following is part of a multigroup collaboration chapter and is described
-more indepth in \autoref{S1CS}. At the beginning of the sprint we had a meeting
-with SW610, SW613, and SW615 in order to determine what database resources each
-application would need. Through discussion with the other groups we compiled
-\autoref{DataObjList}, which shows all relevant database resources, and what
-application would need to make use of them.
+\subsection{T636, T646 - Identify Required Resources for the
+Apps}\label{ReqResources} The following is part of a multigroup collaboration
+chapter and is described more indepth in \autoref{S1CS}. At the start of
+the sprint we had a meeting with SW610, SW613 and SW615 in order to determine
+what database resources each application would need. Through discussion with
+the other groups we compiled \autoref{DataObjList}, which shows all relevant
+database resources and which applications use it.
 
 \begin{table}[H]
 \centering
@@ -355,13 +355,13 @@ Based on these resources, we shortly discussed how these resources would most
 effeciently be packaged together, and how each application should access
 them.\nl
 
-Any further work relating to optimization of the database's handling of
-resources has been relegated to the database groups SW613 and SW615. As such,
-we consider our part of this task to be completed.
+Any further work related to optimization of the database's handling of
+resources is considered SW613 and SW615 task, as they focus on the server and
+database. As such, we consider our part in the task to be completed.
 
 \subsection{T647 - Document Apps' Database Requirements}
-During the same meeting as T636 and T646 we made the following UML diagram,
-modelling the client-server interface.
+During the same meeting where we discussed T636 and T646 we made the
+following UML-diagram, modelling the client-server interface:
 
 \figx{DatabaseUML}{UML diagram modelling the client-server interface.}
 
@@ -369,19 +369,16 @@ Considering that we currently have a limited involvement with the development of
 the client-server interface, we consider our part of this task to be completed.
 
 \subsection{T660 - Decrease Pictogram Search-Time}
-Through analysis of the problem, we have concluded that the pictogram search has
-the possibility of having slow load times beacuase the server returns all
-elements related to the search in one large package. This can result in a large
-load time, as the program does not respond while waiting for the database to
-send the package. \nl
-
-In addition, because of the way the search functionality is
-implemented, if a user is slow to write, the database receives multiple requests
-for packages to send. As an example, if a user wants to find all pictograms
-relating to \textc{cars}, the program may queue multiple requests: one for
-all pictograms starting with \textc{c}, then for all pictograms starting with
-\textc{ca}, and so on. This queueing of requests can make the program wait for a
-very long time before responding.\nl
+Through analysis of the problem, we have concluded that the pictogram search
+has the possibility of having long load times because the server returns all
+elements related to the search in one large package. This can be a problem if
+the user is slow to write, which means that the database receives multiple
+requests for packages to send, which can lead to very long load times. As an
+example, if a user wants to find all pictograms related to \textc{cars}, the
+program may queue multiple requests: one for all pictograms starting with
+\textc{c}, then for all pictograms starting with \textc{ca}, and so on. This
+queueing of requests can make the program wait for a very long time before
+responding.\nl
 
 Due to the fact that main problem lies with the server sending all pictograms in
 one large package, we have chosen to forward this task to the group responsible
