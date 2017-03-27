@@ -1,26 +1,39 @@
 \chapter{Introduction}
-The GIRAF project consists of a set of applications for Android tablets, which
-aim to assist citizens with autism with learning, and to help their guardians in 
-structuring the citizens daily lives. The project is an ongoing development \ldots 
+The GIRAF project consists of developing a set of applications for Android
+tablets, which aim to assist citizens with autism, and to help their guardians in 
+structuring the citizens daily lives. The project is an continous development
+effort by bachelor students at Aalborg University, which has been
+ongoing since early 2011. Each year, the new bachelor students must work
+together to analyze the state of the project, determine which improvements
+they intend to implement, and work together to organize and structure the
+development process.\nl
 
+The purpose of the GIRAF project is to give the students experience in analysis,
+design, implementation, and evaluation of complex software systems, as a part of
+a larger development environment. As such, the focus of this project is to
+document the collaborative development effort between the individual project
+groups.
 
-% The GIRAF project is an ongoing development process, which aims to develop a
-% number of applications for Android tablets, which are to be used by children
-% with varying degrees of autism.
-
-The project is being developed by bachelor
-students at Aalborg University, and has been under development since early 2011.
-Each semester, the new bachelor students must work together to analyze the state
-of the project, and determine which improvements they intend to implement.
 
 \section{State of GIRAF}
+During the previous years development effort, the project groups were focused
+on implementing a viable front-end for the GIRAF applications, such that they
+would be able to conduct extensive usability tests. This resulted in them
+attempting to make the applications look like the functioned from the users
+perspective, while neglecting to develop parts of the necessary back-end.
+This has resulted in a situation where the applications' front-ends are
+practically finished, while large parts of the back-end still needs to be
+developed.\nl
 
-The current implementation of the GIRAF project consists of 10 different
-interconnected applications, which are presented below in \autoref{GApps}.
+As of the start of this semester, the current implementation of the GIRAF
+project consists of 10 different interconnected applications, which are
+presented below in \autoref{GApps}. The applications interconnectivity mostly
+relies on the GIRAF launcher, which is used to manage system users, their
+permissions, and launching the GIRAF applications themselves. 
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|p{2.8cm}|p{2.2cm}|p{7cm}|}
+\begin{tabular}{|p{2.8cm}|p{7cm}|}
 \hline
 Application			& Description \\\hline
 Launcher  			& The main application of GIRAF, controls access
@@ -48,54 +61,54 @@ using the volume of their voice. \\\hline
 \label{GApps}
 \end{table}
 
-The previous semester ended with the Voice Game application working as a
-standalone in an acceptable state. The other applications are in a working
-state, but have several issues, such as bugs and missing features which
-prohibit their use by the customer.
-  
-\section{Project Goals}
-During the first meeting with representatives from one of the institutions which
-GIRAF cooperate with, we were given a brief introduction to how they curretly
-work and interact with the citizens. The majority of their feedback concern a
-desire for a working version of GIRAF, especially something that means an
-easier time of managing the schedules of citizens. This feedback is the reason
-why GIRAF is to be developed as a ``minimum viable product'', with a focus on
-the weekplanner, server and database.\nl
+The previous year's development ended with several applications being in a
+working state, but having several issues, such as bugs and missing features
+which prohibit their use by the customer.
 
-The weekplanner is chosen as it is an application that is intended to manage
-the citizens' schedules. The core problems present in this application is
-the occasional crashes, long load times when browsing for new pictograms and a
-sometimes confusing user interface. These issues makes the application currently
-unusable for the guardians and citizens. They need the product to be stable and
-quick to use, as it needs to be used often and by people with varying degrees of
-experience using computers. The server and database is chosen as any sizable
-institutions will need an easy, quick and reliable way to transfer data between
-devices using GIRAF.
+\section{Development Method}
+Based on the experiences from the previous semester's students, we have chosen
+to make use of an agile developement process, where each group is organized through
+the use of Scrum. This means that the development process is divided into a
+number of ``sprints'', in which no more development tasks can be added to the
+backlog, and the groups work to resolve all currently defined tasks. We have
+organized the multi-project this semester as a scrum of scrums. One group serves
+as the scrum master while the remaining 6 groups each have one member who
+attends the scrum meetings. This organizational structure can be seen in
+\autoref{ProjectStruct}.
 
-% \begin{itemize}
-%   \item Implement an acceptable version of the app ``Weekplanner''
-%   	\begin{enumerate}
-%   		\item Fix possible crashes
-%   		\item Identify problems in Weekplanners dependencies
-%   		\item Fix bugs in the launcher App
-% 	\end{enumerate}
-%   \item Simplify the database communication system
-%    	\begin{enumerate}
-%   		\item Allow for syncronization of data
-%   		\item Increase safety of stored data
-%   		\item Create a useful base for future student to improve
-% 	\end{enumerate}
-% \end{itemize}
+\figx[0.80]{ProjectStruct}{The project structure used this semester.}
 
-\section{Organizational Method}
+These 10 people meet once every week to discuss the multi-project and after each
+sprint decide which tasks from the product backlog are suitable for the sprint
+backlog. They then further divide the sprint backlog among the groups such that
+each group have a suitable number of tasks for each sprint. The multi-project
+itself is divided into 4 different sprints, which are defined in
+\autoref{TableActivity}. 
 
-The goals for the project are to make GIRAF a minimal viable product in
-regards to the applications and server. These goals are divided among the groups
-in such a way that the each group works on a part of the project they want. This
-is meant to increase the quality of the work since each group is able to
-specialize on a specific part which they want to work on. It also allows the
-groups to work easier together since most of them share some common feature.
-This leads to the following distribution of labour:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Activity & Date \\ \hline
+1. Sprint & 20/2 - 15/3 \\\hline 
+2. Sprint & 15/3 - 7/4\\\hline 
+3. Sprint & 7/4 - 1/5\\\hline 
+4. Sprint & 1/5 - 22/5\\\hline 
+Project delivery date & 29/5\\\hline
+\end{tabular}
+\caption{The GIRAF activities and their dates.}
+\label{TableActivity}
+\end{table}
+
+\subsection{Organizational Method}
+Since all parts of the GIRAF system are in need of further development, the
+goals for this semester have been based on what each group has requested to work
+on. As such, the project goals are divided among the groups in such
+a way that the each group works on a part of the project they want. This is
+meant to increase the quality of the work since each group is able to specialize
+on a specific part which they want to work on. It also allows the groups to work
+easier together since most of them share some common feature. This leads to the
+following distribution of responsibility:
 
 \begin{table}[H]
 \centering
@@ -121,8 +134,32 @@ SW615 & REST server & \fix{}{figure out what they are doing}\\ \hline
 \label{GroupDivision}
 \end{table}
 
-\subsection{Our Goals}
+\section{Project Goals}
+As a part of initial introduction to the project, we have held a meeting with
+representatives from one of the institutions which coorporate with the GIRAF
+project. At this meeting, we were given a brief introduction to how they
+curretly work and how they interact with the citizens during a normal day. The
+majority of their feedback concern a desire for a working version of GIRAF,
+especially something that means an easier time of managing the schedules of
+citizens. This feedback is the reason why GIRAF is to be developed as a
+``minimum viable product'', with a focus on the weekplanner, server and
+database.\nl
 
+The weekplanner is chosen as it is an application that is intended to manage
+the citizens' schedules. The core problems present in this application is
+the occasional crashes, long load times when browsing for new pictograms and a
+sometimes confusing user interface. These issues makes the application currently
+unusable for the guardians and citizens. They need the product to be stable and
+quick to use, as it needs to be used often and by people with varying degrees of
+experience using computers. The server and database is chosen as any sizable
+institutions will need an easy, quick and reliable way to transfer data between
+devices using GIRAF.\nl
+
+Based on the presented development framework, and the chosen project goals, this
+report will be used to document the development and organizational processes of
+the tasks which have been assigned to our group, SW609.
+
+\subsection{Our Goals}
 As can be seen in \autoref{GroupDivision}, our group will focus on improving the
 stability of the weekplanner through fixing the bugs and refactoring the code
 written in its dependencies. This is mainly done through work on the Launcher
@@ -197,42 +234,3 @@ search criteria. All of these elements can be seen below in
 After choosing a number of pictograms, the user can click the green checkmark in
 the top right corner, and the respective \textc{Pictogram} objects are passed to
 the parent application.
-
-\subsection{Development Method}
-
-Based on the experiences from the previous semester's students, we choose to
-make use of an agile developement process, where each group is organized through
-the use of Scrum. This means that the development process is divided into a
-number of ``sprints'', in which no more tasks can be added to the backlog, and
-the groups work to resolve all currently defined tasks. We have organized the
-multi-project this semester as a scrum of scrums. One group serves as the scrum
-master while the remaining 6 groups each send 1 member, see
-\autoref{ProjectStruct}.
-
-\figx[0.80]{ProjectStruct}{The project structure used this semester.}
-
-These 10 people meet once every week to discuss the multi-project and after each
-sprint decide which tasks from the product backlog are suitable for the sprint
-backlog. They then further divide the sprint backlog among the groups such that
-each group have a suitable number of tasks for each sprint. The multi-project
-itself is divided into 4 different sprints, as can be seen in
-\autoref{TableActivity}. 
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|l|}
-\hline
-Activity & Date \\ \hline
-1. Sprint & 20/2 - 15/3 \\\hline 
-2. Sprint & 15/3 - 7/4\\\hline 
-3. Sprint & 7/4 - 1/5\\\hline 
-4. Sprint & 1/5 - 22/5\\\hline 
-Project delivery date & 29/5\\\hline
-\end{tabular}
-\caption{The GIRAF activities and their dates.}
-\label{TableActivity}
-\end{table}
-
-Based on this development framework, this report will be used to document and
-reason about the different needed improvements, which have been assigned to our
-group, SW609.
