@@ -155,17 +155,20 @@ experience using computers. The server and database is chosen as any sizable
 institutions will need an easy, quick and reliable way to transfer data between
 devices using GIRAF.\nl
 
-Based on the presented development framework, and the chosen project goals, this
-report will be used to document the development and organizational processes of
-the tasks which have been assigned to our group, SW609.
-
-\subsection{Our Goals}
 As can be seen in \autoref{GroupDivision}, our group will focus on improving the
 stability of the weekplanner through fixing the bugs and refactoring the code
 written in its dependencies. This is mainly done through work on the Launcher
-and PictoSearch applications.
+and PictoSearch applications. Based on the presented development framework, and
+the chosen project goals, this report will be used to document the development
+and organizational processes of the tasks which have been assigned to our group,
+SW609.
 
-\subsubsection{Launcher}\label{LauncherReview}
+\section{Main Applications}
+Since our responsibility is to improve the Launcher and the Pictosearch
+application, this section will be used to present the two applications, and
+explain their user interface.
+
+\subsection{Launcher}\label{LauncherReview}
 \fix{}{Depending on how much we actually work with the launcher we might remove
 some of the unnecessary explanations} The launcher as of February 2017 contains
 a login screen, different menues for each of the user types and an options menu. The user is able to login using a QR
@@ -215,7 +218,7 @@ user with a quick description of each of the other buttons.
 
 \figx[0.25]{OptionsGuardian2}{The menu which allows the guardian to show }
 
-\subsubsection{PictoSearch}\label{PictoSearchReview}
+\subsection{PictoSearch}\label{PictoSearchReview}
 As of March 2017, the \textc{pictosearch-lib} is a library containing all
 classes relating to the search of pictograms. As it is a library, it does not
 represent a single application, but is implemented in projects such as
