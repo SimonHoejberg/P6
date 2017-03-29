@@ -87,6 +87,29 @@ T772    & Security problem when changing system date/time & 1 \\\hline
 In the following subsections, we will elaborate upon each of the task, and
 document what actions we have taken in order to resolve the issues.
 
+\subsection{T671 - Output stack-trace to Google on system crash}
+Following the development last year, whenever a GIRAF application crashed, the
+system would present a splash-screen with the stack strace, and inform the user
+that this information was sent to the GIRAF development team by email. An
+example of this screen can be seen in \autoref{}.
+
+% \figx{}{}
+
+While testing the GIRAF applications, we noticed that the code necessary for
+sending the stack-trace was not present. After reviewing the code, we concluded
+that the previous semester's students only implemented the splash-screen,
+without implmenting the actual code which was supposed to output the
+stack-trace. In order to solve this problem, we have chosen to implement this
+system ourselves. \fix{}{Some applications have the feature already, we simply
+implement a global fix.}\nl
+
+
+
+
+
+
+
+
 \subsection{T722 - Prevent login session from expiring}
 While testing the launcher during the first sprint, we noticed that the login
 session would sometimes expire before the defined interval of 8 hours.\nl
