@@ -1,83 +1,61 @@
 \section{Retrospective}
-Following the finalization of the first sprint, we held a meeting with the other
-groups in order to reflect upon the development/organizational process used
-throughout the sprint. 
+Following the finalization of the first sprint, we met with the other
+groups. The meeting was used in order to reflect upon the
+development/organizational process used throughout the sprint, as well as
+discuss the problems which occured throughout the sprint. It was determined
+that everyone was satisfied with the current Scrum process of meeting once a
+week to discuss the progress of each group as well as the various issues each
+group faced.\nl
 
-\subsection{Multi-Project Retrospective}
-
-
-We used the meeting to discuss the sprint and Scrum processes, as well as
-discuss the problems which occured throughout the sprint. It was determined that
-everyone was satisfied with the current Scrum process, meet once a week to
-discuss the progress of each group as well as the various issues each group
-face.
-
-During the sprint several issues were encountered. The first issue is that
-multiple groups experienced was that some of the tasks did not have a
-descriptive title nor a well defined explanation. This lead to some questions
-back and forth between the Scrum group and other groups in order to figure out
-what the task meant. Another problem occured as a result of several groups
-working together on and sharing the same task on phabricator. When one group
-declared the task as resolved on phabricator, it would be resolved for the
-other groups as well.
-
+\subsection{Problems and Solutions}
+During the sprint several issues were encountered. The first issue is that some
+tasks did not have a descriptive title nor a well defined explanation. This lead
+to some questions back and forth between the Scrum group and other groups in
+order to figure out what the task meant. Another problem occured as a result of
+several groups working together on and sharing the same task on phabricator.
+When one group declared the task as resolved on phabricator, it would be
+resolved for the other groups as well. As a result it was agreed that when
+multiple groups work on the same tasks they should consult each other as to
+when it can classified as resolved. A problem which the groups
+working on the applications faced was that it is impossible to test the
+solutions, \fix{}{add problem with Jenkins, artifactory and gradle.}\nl
 
 During the sprint it agreed that each group should post a short a daily update
 to keep the SCRUM-team up to date on what each group was doing. This was not a
 success as it resulted in what several groups felt like unnecessary overhead, as
 quite a lot of work was done on refactoring, implementing the code-style and
-other tasks that did not quite result in an easy to understand daily update. As
-a result it was decided to drop the daily updates as it was rarely used.
+other tasks that did not quite result in a meaningful daily update. As
+a result it was decided to drop the daily updates as it was very rarely used.\nl
+
+It was decided that every task should have an estimate of how many man-hours it
+takes to finish attached to it. This should be estimated when the task is
+created and if proven unrealistic can be changed. This is done to better measure
+productivity and workload throughout the sprint. It also helps reducing the
+apparent workload that comes with having alot of tasks. This is one of the minor
+problems we faced this sprint, which left us with suprisingly much time towards
+the end of the sprint.
+
+\subsection{Code Review}
+blabla
 
 
 
+\subsection{Evaluation}
+
+The sprint ended with 55.3\% of tasks being declared resolved. Alot of the
+unresolved tasks have solutions but have not been tested since Jenkins,
+Artifactory and Gradle currently cannot be used to build the project and are
+being worked on. The burndown chart for this sprint was set up the wrong way,
+this will be fixed for the next sprint, see \autoref{S1BurndownChart}.
+
+\figx[0.6]{S1BurndownChart}{The burndown chart for the first sprint}
+
+As su
 
 
+The sprint is evaluated as a success despite4
 
 
-Groups should be better at giving updates on what they have been doing.
-Daily updates will be dropped - since it seems like unnecessary overhead.
-
-Tasks shared among groups should be agreed on being done before anyone changes the status.
-When the man-hours for a task must change, the group should add a comment for why and how they have changed.
-The development team seems satisfied with the Scrum methodology used so far.
-
-What has been done?
-grp 9:
-Have worked with the launcher to resolve issues
-Have debugged the pictosearch application to resolve exceptions.
-Needs to test their solutions, but need Jenkins/Artifactory to work before they can
-grp 10:
-Have worked with the weekplanner application.
-They have removed at least a thousand lines of redundant code.
-They have solved some issues in the user interface.
-grp 11:
-Have worked on phabricator
-Worked on creating a code review process
-Worked on Scrum management
-grp 12:
-They set up a meeting with the customer which will be conducted in Sprint 2
-Updated the wiki
-grp 13:
-Uniform interface to library for applications
-Gained an understanding of Gradl, and can be used in testing
-Artifactory is running, grp 09 can’t test because they have dependencies
-started implementing the interface for the client library
-grp 14:
-received a master server from ITS has come - it has been updated.
-Artifactory error has been identified, but is expected to take much time to handle.
-Cannot build on Jenkins, it has been shut down.
-Everything has been put in containers with scripts that can fascilitate building
-Configuration files
-grp 15:
-investigated how the rest server worked in java
-changed to asp.net core because some limitations in java. This seems to take longer than expected.
-Jenkins has been shut down.
-
-General:
-Does not crash on normal use but is very unstable in edge-cases
-The burndown chart is bad, as it was set up in a wrong way. The burndown chart for the next sprint will be more correct.
-Other stuff:
 type checking happens on runtime which is hard to debug.
 Add new task to next sprint
 only 55.3 \% of the tasks that should have been done in the sprint has been
@@ -86,23 +64,3 @@ done - some were not finished due to lack of testing due to gradle
 Add burndown chart
 
 
-\subsection{Group Retrospective}
-
-On the group level we discussed the sprint, this 
-
-
-%Alot of tasks this sprint was about getting familiar with the code and 
-%Lots of small tasks that were solved quickly leaving us with more downtime than
-%expected
-
-Alot of the tasks this sprint was about getting familiar through exception
-handling, code refacturing and verifing the code standard. Alot of these tasks
-took alot less time than expected because the launcher and pictosearch
-applications were in an acceptable state, with only a couple of crashes and a
-few try-catches. These tasks was finished quickly since we could not build
-and test our solutions. This resulted in\ldots 
-
-
-Problems with building the project since Jenkins and Artifactory does not work
-
-more clear description of the tasks, some have multiple meanings
