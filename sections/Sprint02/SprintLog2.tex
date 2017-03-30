@@ -120,10 +120,14 @@ the shared preferences.
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Original approach to saving login session, label =
-OrginalSessionSaving] 
-editor.putLong(Constants.LOGIN_TIME, loginTime);
-editor.putLong(Constants.GUARDIAN_ID, id);
-editor.apply();
+OrginalSessionSaving]
+public static void saveLogInData(final Context context, final long id, final long loginTime) {
+    final SharedPreferences sp = context.getSharedPreferences(Constants.LOGIN_SESSION_INFO, 0);
+    final SharedPreferences.Editor editor = sp.edit();
+    editor.putLong(Constants.LOGIN_TIME, loginTime);
+    editor.putLong(Constants.GUARDIAN_ID, id);
+    editor.apply();
+}
 \end{lstlisting} 
 \end{minipage}
 
@@ -136,13 +140,17 @@ converted to a new task which can be seen in \autoref{T722}.
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to saving login session, label
-=SolutionSessionSaving ] 
-editor.putLong(Constants.LOGIN_TIME, loginTime);
-editor.putLong(Constants.GUARDIAN_ID, id);
-Boolean succes = editor.commit();
-if(!succes) {
-	Log.e("Launcher","Writing to Shared Preferneces failed");
-}
+=SolutionSessionSaving ]
+public static void saveLogInData(final Context context, final long id, final long loginTime) {
+    final SharedPreferences sp = context.getSharedPreferences(Constants.LOGIN_SESSION_INFO, 0);
+    final SharedPreferences.Editor editor = sp.edit();
+    editor.putLong(Constants.LOGIN_TIME, loginTime);
+    editor.putLong(Constants.GUARDIAN_ID, id);
+    Boolean succes = editor.commit();
+    if(!succes){
+    	Log.e("Launcher","Writing to Shared Preferneces failed");
+	}
+} 
 \end{lstlisting} 
 \end{minipage}
 
