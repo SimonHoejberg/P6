@@ -87,28 +87,134 @@ T772    & Security problem when changing system date/time & 1 \\\hline
 In the following subsections, we will elaborate upon each of the task, and
 document what actions we have taken in order to resolve the issues.
 
+\newpage
 \subsection{T671 - Output stack-trace to Google on system crash}
 Following the development last year, whenever a GIRAF application crashed, the
 system would present a splash-screen with the stack strace, and inform the user
-that this information was sent to the GIRAF development team by email. An
-example of this screen can be seen in \autoref{}.
+that this information was sent to the GIRAF development team through Google
+Analytics. An example of this screen can be seen in \autoref{GBugSplash}.
 
-% \figx{}{}
+\figx{GBugSplash}{Splash screen presented on unhandled exception}
 
 While testing the GIRAF applications, we noticed that the code necessary for
-sending the stack-trace was not present. After reviewing the code, we concluded
-that the previous semester's students only implemented the splash-screen,
-without implmenting the actual code which was supposed to output the
-stack-trace. In order to solve this problem, we have chosen to implement this
-system ourselves. \fix{}{Some applications have the feature already, we simply
-implement a global fix.}\nl
+sending the stack-trace was not present in a number of the applications. After
+reviewing the code, we concluded that for some applications, the previous
+semester's students only implemented the splash-screen, without implmenting the
+actual code which was supposed to output the stack-trace. In order to solve this
+problem, we have chosen to implement this system ourselves.\nl
+
+In the library \textc{giraf-component-lib} exists the class
+\textc{GirafBugSplashActivity} which is extended from the \textc{GirafActivity}
+class. This class is responsible for displaying a splash screen with the
+stack-trace whenever a GIRAF application encounters an unhandled exception. As
+we want to create a generalized approach to sending stack-traces, we have chosen
+to expand upon the \textc{GirafBugSplashActivity} class, and add functionality
+to send the stack trace to Google Analytics in addition to simply showing it on
+the splash screen. This should allow all GIRAF applications to correctly send
+the stack-trace when the applications crash. \nl
+
+Whenever an unhandled exception occurs in an application, it is caught in the
+\textc{GirafActivity} class's \textc{UncaughtExceptionHandler}. The exception is
+then passed to an \textc{Intent}, which is used to start a
+\textc{GirafBugSplashActivity}. These steps can be seen in
+\autoref{BugCatch}.\nl
 
 
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Catching exceptions and starting creating a \textc{GirafBugSplashActivity}, label = BugCatch]
+
+public class GirafActivity extends FragmentActivity {
+	...
+    protected void onCreate(final Bundle savedInstanceState) {
+    	...
+    	Thread.currentThread().setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, final Throwable ex) {
+            ...
+            Intent intent = new Intent(getApplicationContext(), GirafBugSplashActivity.class);
+			startActivity(intent);
+			...
+		}
+		...
+	}
+	...
+}
+...			
+\end{lstlisting}
+\end{minipage}
+
+The current implementation's approach to handling the exceptions, is
+that whenever a \textc{GirafBugSplashActivity} is created the exception message
+and the stack trace are saves as the two strings \textc{message} and
+\textc{stacktrace} respectively. These strings are then presented on the splash
+screen. In this implementation, no data is sent to Google Analytics. This can be
+seen in \autoref{GSplash}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Code responsible for showing the GIRAF splash screen., label = GSplash]
+public class GirafBugSplashActivity extends GirafActivity { 
+	public static final String EXCEPTION_MESSAGE_TAG = "EXCEPTION_MESSAGE_TAG"; 
+	public static final String EXCEPTION_STACKTRACE_TAG = "EXCEPTION_STACKTRACE_TAG";
+	
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+		...
+		String message = getIntent().getExtras().getString(EXCEPTION_MESSAGE_TAG);
+        String stacktrace = getIntent().getExtras().getString(EXCEPTION_STACKTRACE_TAG);
+        
+        //Show stacktrace on splash screen
+        ...
+    }	
+	...
+}
+\end{lstlisting}
+\end{minipage}
+
+\fix{}{Write about our solution as presented below.}\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = , label = BugOurSol] 
+
+public class GirafBugSplashActivity extends GirafActivity {
+	public static final String EXCEPTION_TAG = "EXCEPTION_TAG";
+    public static final String TRACKING_ID_TAG = "TRACKING_ID_TAG";
+    
+	public void onCreate(Bundle savedInstanceState) {
+		...
+		Exception ex = (Exception) getIntent().getExtras().getSerializable(EXCEPTION_TAG); 
+		String trackingId = getIntent().getExtras().getString(TRACKING_ID_TAG);
+		
+		String message = ex.getMessage();
+        String stacktrace = getStackTraceArray(ex.getStackTrace());
+        ...
+        Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(trackingId);
+        tracker.send(MapBuilder.createException(new StandardExceptionParser(this,null)
+            .getDescription(Thread.currentThread().getName(),ex),true)
+            .build());
+    }
+
+	private String getStackTraceArray(StackTraceElement[] stackTraceElements) {
+        String[] stackTraceLines = new String[stackTraceElements.length];
+        int i = 0;
+        
+        for (StackTraceElement se : stackTraceElements) {
+            stackTraceLines[i++] = se.toString();
+        }
+        
+        StringBuilder builder = new StringBuilder();
+        
+        for (String s : stackTraceLines) {
+            builder.append(s);
+            builder.append("\n");
+        }
+        
+        return builder.toString();
+    }
+		
 
 
-
-
-
+\end{lstlisting}
+\end{minipage}
 
 \subsection{T722 - Prevent login session from expiring}
 While testing the launcher during the first sprint, we noticed that the login
