@@ -116,7 +116,7 @@ session would sometimes expire before the defined interval of 8 hours.\nl
 
 The original approach which can be seen in \autoref{OrginalSessionSaving} is
 using apply to save the time of authentication and the id of the guardian to
-the shared preferences.
+the shared preferences.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Original approach to saving login session, label =
@@ -136,7 +136,7 @@ Our solution to this problem which can be seen in
 the difference between these two is that apply writes it asynchronous, where
 commit writes it synchronously which means that we get a result if the writing
 failed. While designing this solution we found security issue which has been
-converted to a new task which can be seen in \autoref{T722}.
+converted to a new task which can be seen in \autoref{T722}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to saving login session, label
@@ -166,7 +166,7 @@ The original approach to launching applications can be seen in
 \autoref{OriginalLaunch}, where the \textc{startActivity} method is called on an
 Android \textc{Context}, which is an abstract class containing information an
 application, such as application-level operations like
-\textc{launch}.
+\textc{launch}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Original approach to launching applications., label = OriginalLaunch]
@@ -310,7 +310,7 @@ you can close the launcher and change the date or time such that the session is
 still active and there is no lower cap to which the login screen is shown. The
 first sub issue is that the session token is not deleted when a session expires.
 This has been fixed by adding the call to logOutIntent which can be seen in
-\autoref{FixNonDeletToken}.
+\autoref{FixNonDeletToken}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to not clearing the token, label =
@@ -326,7 +326,7 @@ if (LauncherUtility.sessionExpired(this)) {
 
 logOutInten only calls clearAuthData which can be seen in
 \autoref{clearAuthData} which overwrites the saved information about the
-session in the shared preferences.
+session in the shared preferences.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = ClearAuthData methode, label = clearAuthData]
