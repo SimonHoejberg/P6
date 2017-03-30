@@ -114,6 +114,38 @@ implement a global fix.}\nl
 While testing the launcher during the first sprint, we noticed that the login
 session would sometimes expire before the defined interval of 8 hours.\nl
 
+The original approach which can be seen in \autoref{OrginalSessionSaving} is
+using apply to save the time of authentication and the id of the guardian to
+the shared preferences.
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Original approach to saving login session, label =
+OrginalSessionSaving] 
+editor.putLong(Constants.LOGIN_TIME, loginTime);
+editor.putLong(Constants.GUARDIAN_ID, id);
+editor.apply();
+\end{lstlisting} 
+\end{minipage}
+
+Our solution to this problem which can be seen in
+\autoref{SolutionSessionSaving} is to change the apply in the code to commit,
+the difference between these two is that apply writes it asynchronous, where
+commit writes it synchronously which means that we get a result if the writing
+failed. 
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Our solution to saving login session, label
+=SolutionSessionSaving ] 
+editor.putLong(Constants.LOGIN_TIME, loginTime);
+editor.putLong(Constants.GUARDIAN_ID, id);
+Boolean succes = editor.commit();
+if(!succes) {
+	Log.e("Launcher","Writing to Shared Preferneces failed");
+}
+\end{lstlisting} 
+\end{minipage}
+
+
 Placeholder\ldots
 
 \subsection{T724 - Launcher: Prevent crash when child application crashes}
