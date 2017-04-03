@@ -333,8 +333,9 @@ the diffnetion of the loop, such that the method is not called every run).
 
 
 \subsection{T727 - Reader: Fix crash on failed retrieval of audio file}
-During the initial sprint, we tested a number of the GIRAF applications in order
-to better understand the GIRAF GUI design framework. While doing this, we
+\label{T727}
+During the initial sprint, we tested a number of the GIRAF
+applications in order to better understand the GIRAF GUI design framework. While doing this, we
 identified an \textc{IndexOutOfBoundsException} in the \textc{pictoreader}
 application, which occours if we press the \textc{Play} button while no
 pictograms are chosen. This error occours as the application attempts to access
@@ -485,7 +486,13 @@ might invalidate the tokens.
   \end{itemize}
   \item T728 - Reader: Refactor and CheckStyle
     \begin{itemize}
-  	\item 
+  	\item The purpose of this task is to improve the already written code from
+  	last years students. 
+  	\item We have from the start of the sprint down prioritised this task,
+  	because this application is not part of the minimal viable product and as
+  	such should only be worked on if the other tasks are complected. Therefore
+  	this task has not been worked on, other then the small bugfix seen in
+  	\autoref{T727}.
   \end{itemize}
   \item T739 - Launcher: Evaluate what elements should be visible to
 child/guardian
