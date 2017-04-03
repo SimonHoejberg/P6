@@ -173,10 +173,22 @@ public class GirafBugSplashActivity extends GirafActivity {
 \end{lstlisting}
 \end{minipage}
 
-\fix{}{Write about our solution as presented below.}\nl
+In order to resolve this issue, we implement an alternative approach with the
+additional functionality to send information to Google Analytics. Our solution
+can be seen in \autoref{BugOurSol}, where we start by defining the strings
+\textc{EXCEPTION\_TAG} and \textc{TRACKING\_ID\_TAG}, which are used as tags for
+the \textc{getExtras} method on the \textc{Intent}. As we intend to the
+stacktrace to Google Analytics, instead of a string, we use a variable of type \textc{Exception} to
+contain the exception's information. We use the method \textc{getStackTraceArray} to change the
+\textc{Exception} into a readable format, which we in turn use to define the
+strings \textc{message} and \textc{stacktrace}, which are used to present the
+splash screen. We create a \textc{Tracker}, which is a type used to send
+information to Google Analytics, and use the \textc{send} method to send
+send the information. In order to review this information, we can go to the
+Google Developer webpage for our application.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = , label = BugOurSol] 
+\begin{lstlisting}[caption = Our approach to outputting the stack trace, label = BugOurSol]
 
 public class GirafBugSplashActivity extends GirafActivity {
 	public static final String EXCEPTION_TAG = "EXCEPTION_TAG";
@@ -213,9 +225,6 @@ public class GirafBugSplashActivity extends GirafActivity {
         
         return builder.toString();
     }
-		
-
-
 \end{lstlisting}
 \end{minipage}
 
@@ -383,9 +392,7 @@ In the current version of \textc{pictosearch-lib}, only the default folder
 \textc{layout} exists. This horizontal layout can be seen in
 \autoref{SearchHorizon}.
 
-\figx{SearchHorizon}{Horizontal design for the
-\textc{activity\_picto\_admin\_main.xml} file, as presented in the Android
-Studio designer.}
+\figx{SearchHorizon}{Horizontal design for the \textc{activity\_picto\_admin\_main.xml} file, as presented in the Android Studio designer}
     
 In order to allow for vertical orientation, we have chosen to redesign and
 implement a new version of the activity. Simply put, we have copied the files
