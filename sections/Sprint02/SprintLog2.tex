@@ -93,7 +93,7 @@ document what actions we have taken in order to resolve the issues.
 
 \subsection{T671 - Output stack-trace to Google on system crash}
 Following the development last year, whenever a GIRAF application crashed, the
-system would present a splash-screen with the stack strace, and inform the user
+system would present a splash-screen with the stack trace, and inform the user
 that this information was sent to the GIRAF development team through Google
 Analytics. An example of this screen can be seen in \autoref{GBugSplash}.
 
@@ -148,7 +148,7 @@ public class GirafActivity extends FragmentActivity {
 
 The current implementation's approach to handling the exceptions, is
 that whenever a \textc{GirafBugSplashActivity} is created the exception message
-and the stack trace are saves as the two strings \textc{message} and
+and the stack trace are saved as the two strings \textc{message} and
 \textc{stacktrace} respectively. These strings are then presented on the splash
 screen. In this implementation, no data is sent to Google Analytics. This can be
 seen in \autoref{GSplash}.\nl
@@ -177,7 +177,7 @@ In order to resolve this issue, we implement an alternative approach with the
 additional functionality to send information to Google Analytics. Our solution
 can be seen in \autoref{BugOurSol}, where we start by defining the strings
 \textc{EXCEPTION\_TAG} and \textc{TRACKING\_ID\_TAG}, which are used as tags for
-the \textc{getExtras} method on the \textc{Intent}. As we intend to the
+the \textc{getExtras} method on the \textc{Intent}. As we intend to send the
 stacktrace to Google Analytics, instead of a string, we use a variable of type \textc{Exception} to
 contain the exception's information. We use the method \textc{getStackTraceArray} to change the
 \textc{Exception} into a readable format, which we in turn use to define the
