@@ -88,9 +88,6 @@ In the following subsections, we will elaborate upon each of the task, and
 document what actions we have taken in order to resolve the issues.
 
 \newpage
-\subsection{T634 - Wiki: Continually update Launcher info on the wiki}
-\fix{}{Write this}
-
 \subsection{T671 - Output stack-trace to Google on system crash}
 Following the development last year, whenever a GIRAF application crashed, the
 system would present a splash-screen with the stack trace, and inform the user
@@ -347,7 +344,7 @@ to determine the database requirements for the individual applications. Once
 again, during the second sprint, we held another meeting in order to discuss
 further requirements which were identified during the first sprint. The purpose
 of these meetings have been to allow for application/database communication,
-structuring the database information, and giving the applications access to all
+structuring the database information and giving the applications access to all
 necessary resources.\nl
 
 Due to the complex nature of this task, and the coorporation with the other
@@ -451,12 +448,9 @@ to use its sensors to set the orientation of the screen. This can be seen in
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T739 - Wiki: Document pictosearch info on the wiki}
-\fix{}{Write this}
-
 \subsection{T772 - Security problem when changing system date/time}\label{T772}
-This issue was discoved while solving he session expiring task. The issue is
-that even after you have been logged out of giraf and are asked for a QR code,
+This issue was discovered while solving he session expiring task. The issue is
+that even after you have been logged out of GIRAF and are asked for a QR code,
 you can close the launcher and change the date or time such that the session is
 still active and there is no lower cap to which the login screen is shown. The
 first sub issue is that the session token is not deleted when a session expires.
@@ -475,7 +469,7 @@ if (LauncherUtility.sessionExpired(this)) {
 \end{lstlisting} 
 \end{minipage}
 
-logOutInten only calls clearAuthData which can be seen in
+logOutIntent only calls clearAuthData which can be seen in
 \autoref{clearAuthData} which overwrites the saved information about the
 session in the shared preferences.\nl
 
@@ -496,17 +490,28 @@ private static void clearAuthData(final Context context) {
 \end{minipage}
 
 The other part of the issue about the date / time problem is not solved at the
-moment, becaue in the future we might get the time from the server or the server
+moment, because in the future we might get the time from the server or the server
 might invalidate the tokens.
 
 
 \subsection{Unfinished and Invalid Tasks}
-\fix{}{Write these}
 \begin{itemize}
+  \item T634 - Wiki: Continually update Launcher info on the wiki \& T739 -
+  Wiki: Document pictosearch info on the wiki
+  \begin{itemize}
+  	\item The purpose of these task is to document the launcher and pictosearch
+  	on the GIRAF wiki for next years students. 
+  	\item We have not finished these task because first they are continues tasks
+  	and because of the priority of these task compared to the other tasks.
+  \end{itemize}
   \item T705 - Launcher: Evaluate/Change need to log out when changing  to
   guardian
   \begin{itemize}
-  	\item 
+  	\item The purpose of this task is together with Group SW612 to find out if
+  	the current implementation of the switch between citizen to guardian is
+  	correct. 
+  	\item Group SW612 asked the users about it and it was still the way that the
+  	switch from  wanted it. Therefore we have invalidated the task.
   \end{itemize}
   \item T728 - Reader: Refactor and CheckStyle
     \begin{itemize}
@@ -515,13 +520,16 @@ might invalidate the tokens.
   	\item We have from the start of the sprint down prioritised this task,
   	because this application is not part of the minimal viable product and as
   	such should only be worked on if the other tasks are complected. Therefore
-  	this task has not been worked on, other then the small bugfix seen in
+  	this task has not been worked on, other then the small bug fix seen in
   	\autoref{T727}.
   \end{itemize}
-  \item T739 - Launcher: Evaluate what elements should be visible to
+  \item T732 - Launcher: Evaluate what elements should be visible to
 child/guardian
   \begin{itemize}
-  	\item 
+  	\item The purpose of this task is to evaluate and remove elements that should
+  	be visible to citizens.
+  	\item We have found no elements that needs to be removed and therefor we have
+  	invalidated this task.
   \end{itemize}
 \end{itemize}
 
