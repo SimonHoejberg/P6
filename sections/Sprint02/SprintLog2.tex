@@ -325,10 +325,21 @@ public static void secureStartActivity(Context context, Intent intent) {
 \end{minipage}
 
 \subsection{T725 - Search: Improve overall performance (If possible)}
-\fix{}{Write this}
-The big performance issue is server side
-We tired by using CART methods to speed up for loops. (list.getSize is outside
-the diffnetion of the loop, such that the method is not called every run).
+Following task T660 in the first sprint, we have once again been tasked with
+improving the performance of the search in \textc{pictosearch}. While most
+of the performance increases must be done serverside, after reviewing our work
+in the first sprint, we have concluded that minor performance increases can
+still be made.\nl
+
+We have attempted to increase the search speed by using the techniques taught in
+the Computer Architecture course, in regards to optimizing the performance of
+loop structures. This has simply been done by moving all unnecessary statements
+and method calls outside of the loops. This approach has been implemented
+throughout the \textc{pictosearch-lib} library.\nl
+
+Considering that the build tools are not currently operational, as described in
+\autoref{S1Retro}, as of this time, we have been unable to test this solution
+and measure any performance increases.
 
 \subsection{T726 - Meeting: Discuss REST interface and database communication}
 \fix{}{Write this}
