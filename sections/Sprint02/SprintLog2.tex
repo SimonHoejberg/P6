@@ -324,6 +324,9 @@ public static void secureStartActivity(Context context, Intent intent) {
 
 \subsection{T725 - Search: Improve overall performance (If possible)}
 \fix{}{Write this}
+The big performance issue is server side
+We tired by using CART methods to speed up for loops. (list.getSize is outside
+the diffnetion of the loop, such that the method is not called every run).
 
 \subsection{T726 - Meeting: Discuss REST interface and database communication}
 \fix{}{Write this}
