@@ -245,7 +245,8 @@ if they constantly have to renew their login session.\nl
 
 While we have been unable to determine the exact cause of the problem, we have
 identified a potential problem with the current implementation, where
-information about the login session is stored in the shared preferences in a possibly faulty manner. This original approach can be seen in
+information about the login session is stored in the shared preferences in a
+possibly faulty manner. This original approach can be seen in
 \autoref{OrginalSessionSaving}, where the previous students are using apply to
 save the time of authentication and the ID of the guardian to the shared
 preferences.\nl
@@ -265,8 +266,8 @@ public static void saveLogInData(final Context context, final long id, final lon
 
 Our solution to this problem, which can be seen in
 \autoref{SolutionSessionSaving}, is to change the \textc{apply} in the code to
-\textc{commit}, the difference between these two is that \textc{apply} writes
-the information to the database \textc{asynchronously}, where \textc{commit}
+\textc{commit}. The difference between these two is that \textc{apply} writes
+the information \textc{asynchronously}, where \textc{commit}
 writes it \textc{synchronously}. Using \textc{commit} means that we are informed
 if the writing failed, which allows us first of all to write it to the log and
 secondly we could implement that it trieds again, until it is correctly
