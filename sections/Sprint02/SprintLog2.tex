@@ -237,7 +237,7 @@ expected to span over multiple sprints, the entirety of this task has been moved
 to \autoref{sec:LoginColab}, where we describe the full details of developing
 the new login system.
 
-\subsection{T722 - Prevent login session from expiring}
+\subsection{T722 - Prevent login session from expiring}\label{T722}
 While testing the launcher during the first sprint, we noticed that users would
 sometimes be logged out automatically before the defined interval of 8
 hours. This poses a problem, as users can become frustrated with the system,
@@ -472,13 +472,15 @@ to use its sensors to set the orientation of the screen. This can be seen in
 \end{minipage}
 
 \subsection{T772 - Security problem when changing system date/time}\label{T772}
-This issue was discovered while solving he session expiring task. The issue is
-that even after you have been logged out of GIRAF and are asked for a QR code,
-you can close the launcher and change the date or time such that the session is
-still active and there is no lower cap to which the login screen is shown. The
-first sub issue is that the session token is not deleted when a session expires.
-This has been fixed by adding the call to logOutIntent which can be seen in
-\autoref{FixNonDeletToken}.\nl
+As explained in \autoref{T722}, while developing a solution for T722, we
+discovered a problem with login sessions failing to correctly expire.
+The issue is, that even after you have been logged out of GIRAF and are asked
+for a QR code, you can close the launcher and change the system time to a point
+where the session would have been active. When opening the launcher again, the
+system would automatically log in to previous session. This issue can be split
+into two smaller sub-issues. The first sub issue is that the session token is
+not deleted when a session expires. This has been fixed by adding the call to
+\textc{logOutIntent} which can be seen in \autoref{FixNonDeletToken}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to not clearing the token, label =
@@ -492,8 +494,8 @@ if (LauncherUtility.sessionExpired(this)) {
 \end{lstlisting} 
 \end{minipage}
 
-logOutIntent only calls clearAuthData which can be seen in
-\autoref{clearAuthData} which overwrites the saved information about the
+In this code, \textc{logOutIntent} only calls \textc{clearAuthData} which can be
+seen in \autoref{clearAuthData} which overwrites the saved information about the
 session in the shared preferences.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -515,7 +517,6 @@ private static void clearAuthData(final Context context) {
 The other part of the issue about the date / time problem is not solved at the
 moment, because in the future we might get the time from the server or the server
 might invalidate the tokens.
-
 
 \subsection{Unfinished and Invalid Tasks}
 \begin{itemize}
