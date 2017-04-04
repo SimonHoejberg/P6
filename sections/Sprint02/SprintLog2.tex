@@ -239,14 +239,13 @@ the new login system.
 
 \subsection{T722 - Prevent login session from expiring}
 While testing the launcher during the first sprint, we noticed that users would
-sometimes be logged out automatically before the degfined interval of 8
+sometimes be logged out automatically before the defined interval of 8
 hours. This poses a problem, as users can become frustrated with the system,
 if they constantly have to renew their login session.\nl
 
 While we have been unable to determine the exact cause of the problem, we have
 identified a potential problem with the current implementation, where
-information about the login session is shared with the database in a possibly
-faulty manner. This original approach can be seen in
+information about the login session is stored in the shared preferences in a possibly faulty manner. This original approach can be seen in
 \autoref{OrginalSessionSaving}, where the previous students are using apply to
 save the time of authentication and the ID of the guardian to the shared
 preferences.\nl
@@ -269,8 +268,9 @@ Our solution to this problem, which can be seen in
 \textc{commit}, the difference between these two is that \textc{apply} writes
 the information to the database \textc{asynchronously}, where \textc{commit}
 writes it \textc{synchronously}. Using \textc{commit} means that we are informed
-if the writing failed, which allows us to attempt to share the login information
-with the database multiple times, until it is correctly stored.\nl
+if the writing failed, which allows us first of all to write it to the log and
+secondly we could implement that it trieds again, until it is correctly
+stored.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to saving login session, label
@@ -290,8 +290,8 @@ public static void saveLogInData(final Context context, final long id, final lon
 
 After testing this solution, we have determined that our solution has correctly
 solved the problem. As such, we assume that we were correct in attributing the
-problem to faulty communication with the database, which we have resolved by
-using \textc{commit} instead of \textc{apply}.\nl
+problem to faulty communication with the shared prefernces, which we have
+resolved by using \textc{commit} instead of \textc{apply}.\nl
 
 While designing this solution, we found security issue which would allow a user
 to extend their login session indefinitely. This issue has been converted to a
