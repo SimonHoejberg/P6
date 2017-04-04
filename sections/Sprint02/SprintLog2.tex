@@ -1,5 +1,5 @@
 \chapter{Sprint: 02}
-Following the first sprint, each group has gained a deeper understanding of how
+Following the first sprint each group has gained a deeper understanding of how
 the individual applications are designed and implemented. Based on this
 knowledge, this sprint will be used to further develop the features which were
 worked on by the previous year's students.\nl
@@ -226,18 +226,30 @@ public class GirafBugSplashActivity extends GirafActivity {
 \end{minipage}
 
 \subsection{T708, T709, T731 -  GUI meetings \& GIRAF login GUI design}
-Given a wish from the users to replace the existing login system from QR codes
-to a proper login system. The following tasks T708, T709 and T731 all involve
-some sort of collaboration, the collaboration can be found in
-\autoref{sec:LoginColab}.
+During the first sprint, group SW612 held a meeting with the system users, and
+determined a number of improvements which should be made, in order to increase
+overall user satisfaction. One of these wishes were to replace the existing
+login system, which uses QR codes, to a proper login system using usernames and
+passwords.\nl
+
+As this task requires a high level of coorporation with other groups and is
+expected to span over multiple sprints, the entirety of this task has been moved
+to \autoref{sec:LoginColab}, where we describe the full details of developing
+the new login system.
 
 \subsection{T722 - Prevent login session from expiring}
-While testing the launcher during the first sprint, we noticed that the login
-session would sometimes expire before the defined interval of 8 hours.\nl
+While testing the launcher during the first sprint, we noticed that users would
+sometimes be logged out automatically before the degfined interval of 8
+hours. This poses a problem, as users can become frustrated with the system,
+if they constantly have to renew their login session.\nl
 
-The original approach which can be seen in \autoref{OrginalSessionSaving} is
-using apply to save the time of authentication and the id of the guardian to
-the shared preferences.\nl
+While we have been unable to determine the exact cause of the problem, we have
+identified a potential problem with the current implementation, where
+information about the login session is shared with the database in a possibly
+faulty manner. This original approach can be seen in
+\autoref{OrginalSessionSaving}, where the previous students are using apply to
+save the time of authentication and the ID of the guardian to the shared
+preferences.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Original approach to saving login session, label =
@@ -252,12 +264,13 @@ public static void saveLogInData(final Context context, final long id, final lon
 \end{lstlisting} 
 \end{minipage}
 
-Our solution to this problem which can be seen in
-\autoref{SolutionSessionSaving} is to change the apply in the code to commit,
-the difference between these two is that apply writes it asynchronous, where
-commit writes it synchronously which means that we get a result if the writing
-failed. While designing this solution we found security issue which has been
-converted to a new task which can be seen in \autoref{T772}.\nl
+Our solution to this problem, which can be seen in
+\autoref{SolutionSessionSaving}, is to change the \textc{apply} in the code to
+\textc{commit}, the difference between these two is that \textc{apply} writes
+the information to the database \textc{asynchronously}, where \textc{commit}
+writes it \textc{synchronously}. Using \textc{commit} means that we are informed
+if the writing failed, which allows us to attempt to share the login information
+with the database multiple times, until it is correctly stored.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to saving login session, label
@@ -274,6 +287,15 @@ public static void saveLogInData(final Context context, final long id, final lon
 } 
 \end{lstlisting} 
 \end{minipage}
+
+After testing this solution, we have determined that our solution has correctly
+solved the problem. As such, we assume that we were correct in attributing the
+problem to faulty communication with the database, which we have resolved by
+using \textc{commit} instead of \textc{apply}.\nl
+
+While designing this solution, we found security issue which would allow a user
+to extend their login session indefinitely. This issue has been converted to a
+new task, which can be seen in \autoref{T772}.
 
 \subsection{T724 - Launcher: Prevent crash when child application crashes}
 While testing the applications during the first sprint, one of the other groups
