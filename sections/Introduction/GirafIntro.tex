@@ -75,8 +75,8 @@ the use of Scrum. This means that the development process is divided into a
 number of ``sprints'', in which no more development tasks can be added to the
 backlog, and the groups work to resolve all currently defined tasks. We have
 organized the multi-project this semester as a scrum of scrums. One group serves
-as the scrum master while the remaining 6 groups each have one member who
-attends the scrum meetings. This organizational structure can be seen in
+as the scrum master, while the remaining 6 groups select one member to
+attend the scrum meetings. This organizational structure can be seen in
 \autoref{ProjectStruct}.
 
 \figx[0.80]{ProjectStruct}{The project structure used this semester.}
@@ -140,27 +140,29 @@ SW615 & REST server & Works on the REST server libraries.\\ \hline
 \section{Project Goals}
 As a part of initial introduction to the project, we have held a meeting with
 representatives from one of the institutions which coorporate with the GIRAF
-project. At this meeting, we were given a brief introduction to how they
+project. At this meeting, we were given a brief introduction of how they
 curretly work and how they interact with the citizens during a normal day. The
-majority of their feedback concern a desire for a working version of GIRAF,
-especially something that means an easier time of managing the schedules of
-citizens. This feedback is the reason why GIRAF is to be developed as a
-``minimum viable product'', with a focus on the weekplanner, server and
-database.\nl
+majority of their feedback indicated a desire for a working version of GIRAF,
+which they can use to easily manage the schedules of citizens. In the
+current implementation of GIRAF, this is done through the use of series of
+descriptive pictograms, which depict actions, events, and items in a determined
+order. Based on this feedback, the overall goal for this project is to develop
+GIRAF into a ``minimum viable product'', with a focus on the
+\textc{weekplanner}, \textc{server} and \textc{database}.\nl
 
-The weekplanner is chosen as it is an application that is intended to manage
-the citizens' schedules. The core problems present in this application is
-the occasional crashes, long load times when browsing for new pictograms and a
-sometimes confusing user interface. These issues makes the application currently
-unusable for the guardians and citizens. They need the product to be stable and
-quick to use, as it needs to be used often and by people with varying degrees of
-experience using computers. The server and database is chosen as any sizable
-institutions will need an easy, quick and reliable way to transfer data between
-devices using GIRAF.\nl
+The weekplanner has been chosen, as it is the main application which is used
+to manage the citizens' schedules. The core problems present in this application is
+the occasional crashes, long load times when browsing for new pictograms, and a
+occasionally confusing user interface. These issues makes it so, that the
+application is currently not usable to an acceptable degree. The users need the
+product to be stable and easy to use, as it needs to be used frequently, and by
+users who have varying degrees of experience using computers. The server
+and database is chosen as any sizable institutions will need an easy, quick and
+reliable way to transfer data between devices using GIRAF.\nl
 
 As can be seen in \autoref{GroupDivision}, our group will focus on improving the
-stability of the weekplanner through refactoring and improving the code of its
-dependencies. This will mainly be done through work on the Launcher and a
+stability of the weekplanner by means of refactoring and improving the code of
+its dependencies. This will mainly be done through work on the Launcher and a
 library called \textc{pictosearch-lib}. Based on the presented development
 framework, and the chosen project goals, this report will be used to document
 the development and organizational processes of the tasks which have been
