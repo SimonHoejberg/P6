@@ -110,11 +110,32 @@ Project delivery date & 29/5\\\hline
 \label{TableActivity}
 \end{table}
 
-\subsection{Organizational Method}
-As of this point, all applications and libraries of the GIRAF project are in
-need of further development and refinement. As such, we have chosen to define
-the goals for the semester based on what each group has requested to work on.
-The chosen distribution of responsibility can be seen in
+\section{Project Goals}
+As a part of initial introduction to the project, we have held a meeting with
+representatives from one of the institutions which coorporate with the GIRAF
+project. At this meeting, we were given a brief introduction of how they
+curretly work and how they interact with the citizens during a normal day. The
+majority of their feedback indicated a desire for a working version of GIRAF,
+which they can use to easily manage the schedules of citizens. In the
+current implementation of GIRAF, this is done through the use of series of
+descriptive pictograms, which depict actions, events, and items in a determined
+order. Based on this feedback, the overall goal for this project is to develop
+GIRAF into a ``minimum viable product'', with a focus on the
+\textc{weekplanner}, \textc{server} and \textc{database}.\nl
+
+The weekplanner has been chosen, as it is the main application which is used
+to manage the citizens' schedules. The core problems present in this application is
+the occasional crashes, long load times when browsing for new pictograms, and a
+occasionally confusing user interface. These issues makes it so, that the
+application is currently not usable to an acceptable degree. The users need the
+product to be stable and easy to use, as it needs to be used frequently, and by
+users who have varying degrees of experience using computers. The server
+and database is chosen as any sizable institutions will need an easy, quick and
+reliable way to transfer data between devices using GIRAF.\nl
+
+Based on the chosen area of focus for this project, we have chosen to define the
+areas of reponsibility for each group based on what they have requested to work
+on. The chosen distribution of responsibility can be seen in
 \autoref{GroupDivision}.
 
 \begin{table}[H]
@@ -140,29 +161,6 @@ SW615 & REST server & Works on the REST server libraries.\\ \hline
 \caption{The focus of each of the groups}
 \label{GroupDivision}
 \end{table}
-
-\section{Project Goals}
-As a part of initial introduction to the project, we have held a meeting with
-representatives from one of the institutions which coorporate with the GIRAF
-project. At this meeting, we were given a brief introduction of how they
-curretly work and how they interact with the citizens during a normal day. The
-majority of their feedback indicated a desire for a working version of GIRAF,
-which they can use to easily manage the schedules of citizens. In the
-current implementation of GIRAF, this is done through the use of series of
-descriptive pictograms, which depict actions, events, and items in a determined
-order. Based on this feedback, the overall goal for this project is to develop
-GIRAF into a ``minimum viable product'', with a focus on the
-\textc{weekplanner}, \textc{server} and \textc{database}.\nl
-
-The weekplanner has been chosen, as it is the main application which is used
-to manage the citizens' schedules. The core problems present in this application is
-the occasional crashes, long load times when browsing for new pictograms, and a
-occasionally confusing user interface. These issues makes it so, that the
-application is currently not usable to an acceptable degree. The users need the
-product to be stable and easy to use, as it needs to be used frequently, and by
-users who have varying degrees of experience using computers. The server
-and database is chosen as any sizable institutions will need an easy, quick and
-reliable way to transfer data between devices using GIRAF.\nl
 
 As can be seen in \autoref{GroupDivision}, our group will focus on improving the
 stability of the weekplanner by means of refactoring and improving the code of
