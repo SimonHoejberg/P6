@@ -1,0 +1,34 @@
+\subsection{Design}
+
+This subsection will be used to describe the design process used to create the
+new login system. The design is based on a design manual created a previous
+year. The purpose of the design manual is to create some design guidelines, such
+that every application is recognizable as a GIRAF application. Therefore, the
+design manual contains a set of rules of how for example the colour scheme which
+is supposed to be used. Another example of the design guidelines is how the
+structure of the application is to be made, for example the back button which
+should always be placed as the left-most button at the top. Furthermore, the
+back button should always be the same see \autoref{icon_back}. 
+
+\figx[0.3]{icon_back}{Back button}
+
+Based on the design guidelines and the requirements found in
+\autoref{LoginRequirements} we created a mock up for the new login system,
+see \autoref{LoginScreen}. Furthermore, we use the informal requirements to
+create a diagram of the login procedure see \autoref{LoginDiagram}. Using this
+diagram we want to show how the different users interact with the login system,
+for example if a guardian is inactive for more than 20 minutes they will
+automatically be directed to the login screen. It also shows how the interaction
+is between the guardian and the citizen, thus a guardian can switch user to a
+citizen but a citizen can only become inactive or logout. Another thing is that
+a citizen cannot go from inactive to logged out, which means that a citizens
+session will never expire. 
+
+\figx{LoginScreen}{Mock up for the login screen}
+
+We add the following buttons on login since we need to allow for the
+following methods for reaching the login.
+
+\figx{LoginDiagram}{Diagram for the Login procedure}
+
+Explain reasoning.
