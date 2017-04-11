@@ -2,25 +2,47 @@
 % This chapter will be used to describe the discussion that went into 
 % the different collaborative elements
 % that went into designing the login system. 
-This chapter is part of the sprint 2 and is a collaboration between three
-groups SW609, SW610 and SW612. The goal is to update the requirements for the
-launcher and weekplanner applications and see if new requirements are needed.
-As such this chapter is used to describe the process of analysing the
-requirements each the applications and present the newly found requirements for
-the launcer. We will finally discuss the resulting mock-up prototype.
+This chapter is part of the sprint 2 and documents the collaboration 
+between three groups SW609, SW610 and SW612. The goal is to update the
+requirements for the launcher and weekplanner applications and see if new
+requirements are needed. As such this chapter describes the
+process of analysing the requirements for each the applications and presents
+the newly found requirements for the launcher. We will finally discuss the
+resulting mock-up prototype.
 
-\section{Requirements Analysis}
+\section{?Requirements Analysis?}
+
+\fix{}{Question if PO has received new results}
+
+% Beskriv tasken
+% Hvorfor er tasken relevant at samarbejde paa
+The collaboration is centered around \textit{T709: Define UI questions
+before the customer meeting on the 22'nd of March}. The goal of this task is to
+define a series of questions concerning the UI and its functionality for the
+launcher and weekplanner applications. The task itself is necessary as the
+weekplanner is difficult to use, while the launcher's login screen uses a
+QR-code. The task is collaborative as it requires SW609 and SW610 to produce
+questions concerning the various aspects of the two applications they have
+encountered, while SW612 acts as the intermediary between us and the various
+institutions. The meeting which \textit{T709} refers to is a meeting with
+Egebakken which provides education opportunities for citizens.\nl
+
+% Hvordna blev den loest
+The task was resolved during a meeting consisting of SW609, SW610 and SW612.
+The questions were described during a walkthrough of the launcher and
+weekplanner. The questions regarding the launcher were centered around its
+login screen and how the citizen and guardian were supposed to interact. The
+questions for the weekplanner were centered around how difficult it currently
+is to use.\nl
+
+% Hvad er resultatet
+Following this meeting SW612 met with the customers and displayed GIRAF and
+allowed the users to interact before they asked the questions. The goal was
+to see how the users interacted with GIRAF, hear their feedback and finally
+observe what frustrations they encountered. This resulted in a series of stories
+from the users, as can be seen in \autoref{EgebakkenUserStories2203}. 
 
 
-The first meeting we hold, consisting of SW609, SW610 and SW612,  to produce a
-series of questions concerning how the user views the current state of the
-launcher and weekplanner.
-
-
- The first meeting is with SW609, SW610 and SW612 and
-is used to produce a series of questions concerning how the user views the current state of the
-launcher and weekplanner. The questions ranged from specific questions about the
-UI to general questions about added functionality.
 
 
 A second meeting is held by SW612 with the customers from Egebakken on the 22.
@@ -28,31 +50,23 @@ of March. The goal of the meeting is see how the customers interact with GIRAF
 and observe what frustrations they encounter. 
 
 
-not only to receive answers to the
-questions but also to 
-
- where the current product was demonstrated to the customers
+% Hvad kan vi få ud af resultatet
 
 
 
-Group SW612 
 
 
-\section{Login}
-This section will be used to describe the different phases of designing the new
-login screen.
 
-This collaboration is between us group (SW609) and groups SW610 and SW612. The
-collaboration started with a meeting were we could ask some questions about the
-user interface and what the user expects from the GIRAF Launcher and
-Weekplanner. \\
-Group SW612 is in the collaboration since they are the Product Owner. This means
-that they are responsible for the communication between us and the users. Thus
-after having had the meeting with the two other groups, group SW612 had a
-meeting with some of the users. On this meeting they tried getting some answers
-on some of the questions we had. This ended up with them creating some user
-stories see \autoref{UserStoriesLogin}. We use the user stories to figure out
-the functionality and looks of the new login screen. 
+
+
+
+Through the meeting with customers SW612 produced a series of user
+stories, see \fix{}{link til appendix}. 
+
+The stories cover both general issues
+and 
+
+The stories are 
 
 \begin{table}[H]
 \begin{tabular}{|c|p{12.5cm}|}
@@ -77,6 +91,26 @@ into a citizen's account without password.\\ \hline
 \label{UserStoriesLogin}
 \end{table}
 
+<<<<<<< .mine
+Using these stories we are able to formulate a series of informal requirements
+for the launcher and login.
+
+\begin{table}[H]
+\begin{tabular}{|c|p{12.5cm}|}
+\hline
+1 & Replace QRcode-system with a regular password-system. \\ \hline
+2 & Do not log citizens out. \\ \hline
+3 & Log guardians out after 20 minutes of inactivity. \\ \hline
+4 & Allow the user to change password. \\ \hline
+\end{tabular}
+\caption{The additional new informal requirements for the launcher}
+\label{LoginRequirements}
+\end{table}
+
+The remaining stories are\ldots
+
+
+
 % \subsection{Design}
 % 
 % On previous semester some design guide lines has been created these can be
@@ -94,7 +128,6 @@ into a citizen's account without password.\\ \hline
 % 
 % Explain reasoning.
 \inputS{MultiGroup/tempDesign}
-\subsection{Programming}
 
 
 
