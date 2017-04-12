@@ -58,12 +58,12 @@ system, we have been assigned the tasks presented in \autoref{SprintTwoTasks}.
 \hline
 Number	& Description & Man-hours												\\\hline
 T634  	& Wiki: Continually update Launcher info on the wiki & 8\\\hline 
-T671    & Implement system to retrieve stack-trace from system crashes & ?
+T671    & Implement system to retrieve stack-trace from system crashes & 4
 \\\hline 
 T705	& Launcher: Evaluate/Change need to log out when changing  to guardian
-& ? \\\hline 
+& 2 \\\hline 
 T708    & Meeting: Discuss overall design goals for the GIRAF GUI & 64\\\hline
-T709	& Meeting: Define UI questions & 32 \\\hline 
+T709	& Meeting: Define GUI questions & 32 \\\hline 
 T722   	& Launcher: Save login session. Prevent automatic logout before 8 hours
 &3 \\\hline 
 T724   	& Launcher: Prevent crash caused by other applications
@@ -75,7 +75,7 @@ T727    & Reader: Fix crash on failed server communication  & 2				\\\hline
 T728	& Reader: Refactor and CheckStyle  & 60\\\hline
 T731    & LogIn: Design new login system GUI & 16     			\\\hline
 T732    & Launcher: Evaluate what elements should be visible to
-child/guardian & ?\\\hline 
+child/guardian & 1\\\hline 
 T733    & Search: Implement vertical screen functionality & 16   			\\\hline 
 T739    & Wiki: Document pictosearch info on the wiki & 64	\\\hline
 T772    & Security problem when changing system date/time & 1 \\\hline
@@ -232,17 +232,13 @@ the entirety of the GIRAF would make use of a unified design. As such, we agreed
 to work together with group SW610 in order to define these guidelines.
 \fix{}{Finish it!}
 
-\subsection{T709, T731 - GUI meetings \& GIRAF login GUI design}
-During the first sprint, group SW612 held a meeting with the system users, and
-determined a number of improvements which should be made, in order to increase
-overall user satisfaction. One of these wishes were to replace the existing
-login system, which uses QR codes, to a proper login system using usernames and
-passwords.\nl
-
-As this task requires a high level of coorporation with other groups and is
-expected to span over multiple sprints, the entirety of this task has been moved
-to \autoref{sec:Colab2}, where we describe the full details of developing
-the new login system.
+\subsection{T709 - Meeting: Define GUI questions}
+The following is part of a collaboration between SW609, SW610 and SW612 and is
+described more indepth in \autoref{sec:Colab2}. During the sprint, we
+produced a series of questions concerning the applications. Group SW612
+held a meeting with the system users to determine whether the applications were
+satisfying. Based on this meeting several user stories were constructed which
+we then used to produce additional requirements for GIRAF and the Launcher.
 
 \subsection{T722 - Prevent login session from expiring}\label{T722}
 While testing the launcher during the first sprint, we noticed that users would
@@ -427,6 +423,37 @@ btnPlay.setOnClickListener(new View.OnClickListener() {
 }
 \end{lstlisting}
 \end{minipage}
+
+\subsection{T731 - Design log-in UI for the Launcher}
+The design is based on a design manual created a previous year. The purpose of
+the design manual is to create some design guidelines, such that every
+application is recognizable as a GIRAF application. Therefore, the design
+manual contains a set of rules of how for example the colour scheme which is
+supposed to be used. Another example of the design guidelines is how the
+structure of the application is to be made, for example the back button which
+should always be placed as the left-most button at the top. Furthermore, the
+back button should always be the same see \autoref{icon_back}.
+
+\figx[0.3]{icon_back}{Back button}
+
+Based on the design guidelines and the requirements found in
+\autoref{LoginRequirements} we created a mock up for the new login system, see
+\autoref{LoginScreen}.
+
+\figx{LoginScreen}{Mock up for the login screen, with fields for username and
+password}
+
+We then use the requirements for the Login System to create a diagram of the
+login procedure see \autoref{LoginDiagram}. We use this diagram to show how the
+different users interact with the login system, for example if a guardian is inactive for
+more than 20 minutes they will automatically be logged out and direacted to the
+login screen.\\
+It also shows how the interaction is between the guardian and the citizen, thus a
+guardian can switch user to a citizen but not the other way round. Another thing
+is that a citizen cannot go from inactive to logged out, which means that a
+citizens session will never expire.
+
+\figx{LoginDiagram}{Diagram for the Login procedure}
 
 \subsection{T733 - Search: Implement vertical screen functionality}
 During the first sprint, group SW610 was testing the Weekplanner application,
