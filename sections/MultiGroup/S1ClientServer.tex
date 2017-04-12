@@ -1,36 +1,36 @@
 \chapter{Resource Requirements}\label{S1CS}
-During the initial meetings between the project groups, it was found that the
-existing client/database communications system was incomplete and not of a high
-enough quality for us to dedicate development time in order to attempt to
-improve it. As such, it was decided, that the groups responsible for the
-database (SW613 and SW615) would be tasked to develop a new system, which should
-make use of the principles described in the REST model (Representational State
-Transfer).\nl
+During the initial meetings between the project groups SW609, SW610, SW613,
+SW615, it was found that the existing client/database communications system was
+incomplete and not of a high enough quality for us to dedicate development time
+in order to attempt to improve it. As such, it was decided, that the groups
+responsible for the database (SW613 and SW615) would be tasked to develop a new
+system, which should make use of the principles described in the REST model
+(Representational State Transfer).\nl
 
 As a part of developing this new system, the REST groups (SW613 and SW615)
-requested a meeting the groups responsible for the GIRAF applications (SW609 and
-SW610), in order to determine the database resource requirements for the
+requested a meeting with the groups responsible for the GIRAF applications
+(SW609 and SW610), in order to determine the database resource requirements for the
 individual applications. Considering the incomplete state of the previous
 system, this information was needed in order to model the server and client
 libraries such that they would be able to transfer all necessary data to the
 applications.\nl
 
 \section{Requirement Analysis}
-As our group (SW609) is responsible for the \textc{Launcher} application and the
-\textc{pictosearch-lib} library, we were tasked with analyzing the relevant
-code before the scheduled meeting, in order to determine what database
-resources would be necessary for these applications/libraries. These tasks are
-presented in \autoref{TaS1} as T636, T646, and T647.\nl
+As our group (SW609) is responsible for the \texttt{Launcher} application and
+the \texttt{pictosearch-lib} library, we were tasked with analyzing the relevant
+code before the scheduled meeting, in order to determine what database resources
+would be necessary for these applications/libraries. These tasks are presented
+in \autoref{TaS1} as T636, T646, and T647.\nl
 
 In our case, we mostly determined the requirements testing the \textc{Launcher}
-and \textc{pictosearch-lib} through general use. Based on this testing, and 
+and \textc{pictosearch-lib} through general use. Based on this testing, and
 analysis of the code, we determined the following requirements:\nl
 
 In order to use the \textc{Launcher}, a user needs to login to an
-\textc{account}, which is either a \textc{Guardian} or a \textc{Citizen}. Each account has a
-\textc{name}, a \textc{picture}, an a \textc{unique identifier}. In order to use
-\textc{pictograms} in applications, the system needs a to acces pictogram
-objects by ID.
+\textc{account}, which is either a \textc{Guardian} or a \textc{Citizen}. Each
+account has a \textc{name}, a \textc{picture}, an a \textc{unique identifier}.
+In order to use \textc{pictograms} in applications, the system needs a to acces
+pictogram objects by ID.
 This creates the following resource requirements:
 
 \begin{itemize}
