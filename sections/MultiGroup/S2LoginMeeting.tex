@@ -1,19 +1,16 @@
-\chapter{Login System}\label{sec:LoginColab}
+\chapter{GUI Requirements}\label{sec:Colab2}
 % This chapter will be used to describe the discussion that went into 
 % the different collaborative elements
 % that went into designing the login system. 
-This chapter is part of the sprint 2 and documents the collaboration 
-between three groups SW609, SW610 and SW612. The goal is to update the
+This chapter is part of sprint 2 and documents the collaboration 
+between three groups SW609, SW610 and SW612. The goal is to update the GUI
 requirements for the launcher and weekplanner applications and see if new
 requirements are needed. As such this chapter describes the
-process of analysing the requirements for each the applications and presents
-the newly found requirements for the launcher. We will finally discuss the
-resulting mock-up prototype.
+collaboration process, presents and analyses the new user stories for
+additional requirements concerning the Launcher.
 
-\section{?Requirements Analysis?}
-
-\fix{}{Question if PO has received new results}
-
+\section{The Collaboration Process}
+\fix{}{Does it need a new name?}
 % Beskriv tasken
 % Hvorfor er tasken relevant at samarbejde paa
 The collaboration is centered around \textbf{T709:} \textit{Define UI questions
@@ -37,28 +34,90 @@ is to use.\nl
 
 % Hvad er resultatet
 Following this meeting SW612 met with the customers and displayed GIRAF and
-allowed the users to interact before they asked the questions. The goal was
-to see how the users interacted with GIRAF, hear their feedback and finally
-observe what frustrations they encountered. This resulted in a series of
-user stories, as can be seen in \autoref{EgebakkenUserStories2203}. 
+allowed the users to interact with the launcher and weekplanner. The goal was to
+see how the users interacted with GIRAF, hear their feedback and finally
+observe what frustrations they encountered. This resulted in a series of user
+stories which have been divided into 4 categories, General, Launcher, Login
+System and Weekplanner, as can be seen in \autoref{EgebakkenUserStories2203}.
 
+\section{Requirement Analysis}
+The stories which we consider most relevant to us can be seen in
+\autoref{UserStoriesGeneral}, \autoref{UserStoriesLauncher} and
+\autoref{UserStoriesLogin}. Using these stories we are able to determine some
+requirements which likely will become tasks in later sprints.\nl
 
-The user stories which are relevant to us
+For the GIRAF system as a whole we received the following user stories:
+\begin{table}[H]
+\begin{tabular}{|c|p{12.5cm}|}
+\hline 
+\multicolumn{2}{|c|}{General}\\\hline
+1. & As a user of the system, I would like the system to move back to the
+nearest stable state when the app crashes.\\\hline
+2. & As a guardian I would like the option to toggle between grayscale and fully
+colored in the system for a citizen. \\ \hline
+3. & As a user of the system I would like the option to toggle between grayscale
+and fully colored in the system. \\\hline
+4. & As a guardian I would like a video I can use for more advanced tasks such
+as creating schedules etc.\\\hline
+\end{tabular}
+\caption{Stories from the General category}
+\label{UserStoriesGeneral}
+\end{table}
 
+Based on these stories from the general category we are able to determine that
+user would like to have a stable application environment, such that A
+citizen does not get confused if the application crashes. In addition the user
+also wants an option for grayscale to reduce the visual stimula that is
+associated with colors. The 4'th story is not considered a requirement yet, as
+it is hoped that this may solved by simplifing some of the advanced aspects. As
+such we determine that GIRAF has the following additional requirements:
+\begin{enumerate}
+  \item If the system crashes it needs to return to a stable state or return the
+  user to the Launcher.
+  \item There needs to be an option for grayscale, both for the entire system
+  and on a per user basis.
+\end{enumerate}
 
+For the Launcher we received the following user stories:
 
 \begin{table}[H]
 \begin{tabular}{|c|p{12.5cm}|}
 \hline 
-\multicolumn{2}{|c|}{Launcher}\\
-\hline
+\multicolumn{2}{|c|}{Launcher}\\ \hline 
 1. & As a guardian I would like the login button to let a citizen tap to log in
 as a citizen, and hold to login as a guardian, only providing login information
-at that point. \\ \hline
-2. & As a guardian I would like the option to toggle between grayscale and fully
-colored in the system for a+
- citizen. \\ \hline
-\multicolumn{2}{|c|}{Login}\\ \hline 
+at that point.\\\hline
+2. & As a guardian I would like to be able to push a template setup onto a group
+of citizens for the launcher.\\\hline
+3. & As a guardian I would like the option of adding an app to citizens both as
+groups, individually or marking a list of citizens.\\\hline
+\end{tabular}
+\caption{User stories for the Launcher}
+\label{UserStoriesLauncher}
+\end{table}
+
+Based on these stories we can see that one of the main concerns for the
+guardians is to make it easier for them to manage multiple citizens, whether its
+changing graphical option or changing which applications are visible. From this
+we determine that the Launcher has the following additional requirements:
+
+\begin{enumerate}
+  \item A guardian should be able to change the settings for multiple
+  citizens at the same time.
+  \item A guardian should be able have a template of settings which can be used
+  on citizens.
+\end{enumerate}
+The 1'st story is not considered a requirement for the Launcher as the purpose
+of this story is to allow for citizens and guardians to login easily and is
+going to depend on how the log in system is set up.\nl
+
+For the Login System, which can be counted as a part of the Launcher, we
+received the following stories:
+
+\begin{table}[H]
+\begin{tabular}{|c|p{12.5cm}|}
+\hline 
+\multicolumn{2}{|c|}{Login System}\\ \hline 
 1. & As a guardian I would like not have a Quick-Response (QR) code for login,
 but a regular password instead.\\ \hline 
 2. & As a guardian I would like the ability to set a password for specific users
@@ -68,50 +127,28 @@ account after a set time limit (approx. 20 min).\\ \hline
 4. & As a citizen I would like the system not to log me out automatically.\\ \hline
 5. & As guardian I would like the option to make a specific device always login
 into a citizen's account without password.\\ \hline
+6. & As an institute, we would like to be able to log in as the institute as a
+whole.\\\hline
 \end{tabular}
-\caption{User stories for the new login screen}
+\caption{User stories for the Login System}
 \label{UserStoriesLogin}
 \end{table}
+ 
+Based on these stories we are able to determine that the users dislike the
+current QR system and have made several considered to how they would like login
+system to work. As such we can determine that the login system has the following
+requirements:
+
+ \begin{enumerate}
+   \item The QR-system needs to be replaced by password based system.
+   \item There needs to be limits on how long a guardian can remain inactive in
+   the system before being logged out. 
+   \item Citizen should not be logged out automatically. 
+   \item A guardian should be able to change its password.
+   \item There should be an institute-type user.
+ \end{enumerate}
 
 
-
-% Hvad kan analysere os frem til ud fra resultatet
-Using these stories we are able to formulate a series of informal requirements
-for the launcher and login.
-
-\begin{table}[H]
-\begin{tabular}{|c|p{12.5cm}|}
-\hline
-1 & Replace QRcode-system with a regular password-system. \\ \hline
-2 & Do not log citizens out. \\ \hline
-3 & Log guardians out after 20 minutes of inactivity. \\ \hline
-4 & Allow the user to change password. \\ \hline
-\end{tabular}
-\caption{The additional new informal requirements for the launcher}
-\label{LoginRequirements}
-\end{table}
-
-The remaining stories are\ldots
-
-
-
-% \subsection{Design}
-% 
-% On previous semester some design guide lines has been created these can be
-% found in, \fix{see,}{Reference to the design manual}. We then use the design
-% guidelines to design the login screen, see \autoref{LoginScreen}. This mock up
-% will act as a reference for when we need to program the actual login system,
-% this will also work as prototype such that other groups can validate this
-% design. 
-% \figx{LoginScreen}{Mock up for the login screen}
-% 
-% We add the following buttons on login since we need to allow for the
-% following methods for reaching the login.
-% 
-% \figx{LoginDiagram}{Diagram for the Login procedure}
-% 
-% Explain reasoning.
-\inputS{MultiGroup/tempDesign}
 
 
 
