@@ -225,13 +225,6 @@ public class GirafBugSplashActivity extends GirafActivity {
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T708 - Define GUI design guidelines}
-As a part of developing new features for the GIRAF applications, we have had to
-define a set of guidelines for designing the graphical user interface, such that
-the entirety of the GIRAF would make use of a unified design. As such, we agreed
-to work together with group SW610 in order to define these guidelines.
-\fix{}{Finish it!}
-
 \subsection{T709 - Meeting: Define GUI questions}
 The following is part of a collaboration between SW609, SW610 and SW612 and is
 described more indepth in \autoref{sec:Colab2}. During the sprint, we
@@ -381,8 +374,8 @@ of the meetings have been reflected in the implemented code.
 
 \subsection{T727 - Reader: Fix crash on failed retrieval of audio file}
 \label{T727}
-During the initial sprint, we tested a number of the GIRAF
-applications in order to better understand the GIRAF GUI design framework. While doing this, we
+During the initial sprint, we tested a number of the GIRAF applications in order
+to better understand the GIRAF GUI design framework. While doing this, we
 identified an \textc{IndexOutOfBoundsException} in the \textc{pictoreader}
 application, which occours if we press the \textc{Play} button while no
 pictograms are chosen. This error occours as the application attempts to access
@@ -425,22 +418,29 @@ btnPlay.setOnClickListener(new View.OnClickListener() {
 \end{minipage}
 
 \subsection{T731 - Design log-in UI for the Launcher}
-The design is based on a design manual created a previous year. The purpose of
-the design manual is to create some design guidelines, such that every
-application is recognizable as a GIRAF application. Therefore, the design
-manual contains a set of rules of how for example the colour scheme which is
-supposed to be used. Another example of the design guidelines is how the
-structure of the application is to be made, for example the back button which
-should always be placed as the left-most button at the top. Furthermore, the
-back button should always be the same see \autoref{icon_back}.
+Following T708, \autoref{S2Invalid}, we found a design manual which
+covered how to to make each make each application recognizable as a GIRAF
+applicaion. This entailed which color scheme to use, what each icon means and
+how each application should be structured. Through T709, \autoref{sec:Colab2},
+we found the requirements for the log-in screen, mainly to replace the current
+QR-code with a password based system.
 
-\figx[0.3]{icon_back}{Back button}
+% The design is based on a design manual created during a previous semester. The
+% purpose of the design manual is to create some design guidelines, such that every
+% application is recognizable as a GIRAF application. Therefore, the design
+% manual contains a set of rules of how for example the colour scheme which is
+% supposed to be used. Another example of the design guidelines is how the
+% structure of the application is to be made, for example the back button which
+% should always be placed as the left-most button at the top. Furthermore, the
+% back button should always be the same see \autoref{icon_back}.
+% 
+% \figx[0.3]{icon_back}{Back button}
 
 Based on the design guidelines and the requirements found in
-\autoref{LoginRequirements} we created a mock up for the new login system, see
+\autoref{S2:NewReqs} we create a mockup for the new login system, see
 \autoref{LoginScreen}.
 
-\figx{LoginScreen}{Mock up for the login screen, with fields for username and
+\figx{LoginScreen}{Mockup for the login screen, with fields for username and
 password}
 
 We then use the requirements for the Login System to create a diagram of the
@@ -552,7 +552,7 @@ The other part of the issue about the date / time problem is not solved at the
 moment, because in the future we might get the time from the server or the server
 might invalidate the tokens.
 
-\subsection{Unfinished and Invalid Tasks}
+\subsection{Unfinished and Invalid Tasks}\label{S2Invalid}
 \begin{itemize}
   \item T634 - Wiki: Continually update Launcher info on the Wiki \& T739 -
   Wiki: Document pictosearch info on the Wiki
@@ -574,6 +574,16 @@ might invalidate the tokens.
   	what changes they wanted to be made to the system. Based on the feedback, it
   	appears that they do indeed want the user to log in when switching from
   	\textc{citizen} to \textc{guardian}. Therefore we have invalidated the task.
+  \end{itemize}
+  \item T708 - Define GUI design guidelines
+  \begin{itemize}
+    \item The purpose of this task is to work together with SW610 to define a
+    set of guidelines for designing the graphical user interface, such that the
+    entirety of the GIRAF would make use of a unified design.
+    \item The task is declared invalid as a design manual already exists. The
+    design manual was discovered among the git repositories and details the
+    various colors, buttons and other design decision made by the prior
+    semesters.  
   \end{itemize}
   \item T728 - Reader: Refactor and CheckStyle
     \begin{itemize}
