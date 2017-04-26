@@ -14,15 +14,15 @@ of this sprint has been defined as the following:\\
 \say{Increase the stability of the libraries used, and the accessibility and
 usability of the applications, to fulfill user stories 1, 4 and 6. For server
 and client libraries, begin implementation of functionalities for user stories
-2, 3 and 4.} The user stories can be seen in \autoref{Sprint2UserStories}.
-
+2, 3 and 4.}\\
+The user stories can be seen in \autoref{Sprint2UserStories}.
 
 \begin{table}[H]
 \centering 
 \begin{tabular}{|l|p{12.5cm}|}
 \hline
 Nr. & User Story \\\hline
-1. & As one of the children who use the system, i want the system to be 
+1. & As one of the children who use the system, I want the system to be 
 \textbf{as stable as possible}, as my mental problems require that of the tools
 which i use. \\ \hline
 2. & As a pedagogue I want the ability to \textbf{replace pictures} and icons
@@ -38,15 +38,16 @@ things should never be more than \textbf{2-3 taps} away. \\\hline
 \label{Sprint2UserStories}
 \end{table}
 
-While our initial area of responsibility was focused on the \textc{Launcher} and
-\textc{Pictogram Searcher}, for this sprint we have chosen to expand this to
-also include developing a new \textc{Login System} and refactoring the
-\textc{Pictogram Reader}. This choice is based on the fact, that currently only
-two groups are working on developing the front-end for applications (SW609 and
-SW610), and our group is currently best suited to handle these new tasks. As an
-additional task for this project, the project groups have concluded that our
-projects should also include documentation of the applications and classes we
-are working on. This documentation should be added to the GIRAF wiki.
+Our initial area of responsibility is focused on the \textc{Launcher} and
+\textc{Pictogram Searcher}, and for this sprint we have chosen to focus more on
+the \textc{Launcher} by improving the associated \textc{Login System}. We also
+aim to refactor \textc{Pictogram Reader}. This choice is based on the fact,
+that currently only two groups are working on developing the front-end for
+applications (SW609 and SW610), and our group is currently best suited to
+handle these new tasks. As an additional task for this project, the project
+groups have concluded that our projects should also include documentation of
+the applications and classes we are working on. Such documentation should be
+added to the GIRAF wiki.
 
 \section{Tasks and Solutions}
 Based on our expanded area of responsibility and the need to develop a new login
@@ -58,25 +59,24 @@ system, we have been assigned the tasks presented in \autoref{SprintTwoTasks}.
 \hline
 Number	& Description & Man-hours												\\\hline
 T634  	& Wiki: Continually update Launcher info on the wiki & 8\\\hline 
-T671    & Implement system to retrieve stack-trace from system crashes & 4
+T671    & Output stack-trace to Google on system crash & 4
 \\\hline 
 T705	& Launcher: Evaluate/Change need to log out when changing  to guardian
 & 2 \\\hline 
 T708    & Meeting: Discuss overall design goals for the GIRAF GUI & 64\\\hline
 T709	& Meeting: Define GUI questions & 32 \\\hline 
-T722   	& Launcher: Save login session. Prevent automatic logout before 8 hours
-&3 \\\hline 
-T724   	& Launcher: Prevent crash caused by other applications
-crashing & 2 \\\hline 
-T725  	& Search: Improve overall performance (If possible)	& 8 \\\hline 
+T722   	& Launcher: Prevent login session from expiring & 3 \\\hline 
+T724   	& Launcher: Prevent crash when a child application crashes & 2\\\hline 
+T725  	& Pictosearch: Improve overall performance (If possible)	& 8 \\\hline 
 T726    & Meeting: Discuss REST interface and database communication & 16
 \\\hline 
-T727    & Reader: Fix crash on failed server communication  & 2				\\\hline 
-T728	& Reader: Refactor and CheckStyle  & 60\\\hline
-T731    & LogIn: Design new login system GUI & 16     			\\\hline
+T727    & Pictoreader: Fix crash on failed retrieval of audio file  & 2				\\\hline 
+T728	& Pictoreader: Refactor and CheckStyle  & 60\\\hline
+T731    & LogIn: Design new login UI for the Launcher & 16     			\\\hline
 T732    & Launcher: Evaluate what elements should be visible to
 child/guardian & 1\\\hline 
-T733    & Search: Implement vertical screen functionality & 16   			\\\hline 
+T733    & Pictosearch: Implement vertical screen functionality & 16   		
+\\\hline 
 T739    & Wiki: Document pictosearch info on the wiki & 64	\\\hline
 T772    & Security problem when changing system date/time & 1 \\\hline
 \end{tabular}
@@ -98,13 +98,12 @@ Analytics. An example of this screen can be seen in \autoref{GBugSplash}.
 
 While testing the GIRAF applications, we noticed that the code necessary for
 sending the stack-trace was not present in a number of the applications. After
-reviewing the code, we concluded that for some applications, the previous
-semester's students only implemented the splash-screen, without implmenting the
-actual code which was supposed to output the stack-trace. In order to solve this
-problem, we have chosen to implement this system ourselves.\nl
+reviewing the code we concluded that for some applications the previous
+semester's students only implemented the splash-screen, and did not implment
+the actual code which was supposed to output the stack-trace.\nl
 
-In the library \textc{giraf-component-lib} exists the class
-\textc{GirafBugSplashActivity} which is extended from the \textc{GirafActivity}
+The \textc{giraf-component-lib} library contains the
+\textc{GirafBugSplashActivity} class which is extended from \textc{GirafActivity}
 class. This class is responsible for displaying a splash screen with the
 stack-trace whenever a GIRAF application encounters an unhandled exception. As
 we want to create a generalized approach to sending stack-traces, we have chosen
@@ -147,8 +146,8 @@ The current implementation's approach to handling the exceptions, is
 that whenever a \textc{GirafBugSplashActivity} is created the exception message
 and the stack trace are saved as the two strings \textc{message} and
 \textc{stacktrace} respectively. These strings are then presented on the splash
-screen. In this implementation, no data is sent to Google Analytics. This can be
-seen in \autoref{GSplash}.\nl
+screen, and no data is sent to Google Analytics. This can be seen in
+\autoref{GSplash}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Code responsible for showing the GIRAF splash screen., label = GSplash]
@@ -170,19 +169,22 @@ public class GirafBugSplashActivity extends GirafActivity {
 \end{lstlisting}
 \end{minipage}
 
+
 In order to resolve this issue, we implement an alternative approach with the
 additional functionality to send information to Google Analytics. Our solution
-can be seen in \autoref{BugOurSol}, where we start by defining the strings
-\textc{EXCEPTION\_TAG} and \textc{TRACKING\_ID\_TAG}, which are used as tags for
-the \textc{getExtras} method on the \textc{Intent}. As we intend to send the
-stacktrace to Google Analytics, instead of a string, we use a variable of type \textc{Exception} to
-contain the exception's information. We use the method \textc{getStackTraceArray} to change the
-\textc{Exception} into a readable format, which we in turn use to define the
-strings \textc{message} and \textc{stacktrace}, which are used to present the
-splash screen. We create a \textc{Tracker}, which is a type used to send
-information to Google Analytics, and use the \textc{send} method to send
-send the information. In order to review this information, we can go to the
-Google Developer webpage for our application.\nl 
+can be seen in \autoref{BugOurSol}. We start by defining the strings on
+\textbf{lines 3-4}, \textc{EXCEPTION\_TAG} and \textc{TRACKING\_ID\_TAG} are
+used as tags for the \textc{getExtras} method on the \textc{Intent}. As we
+intend to send the stacktrace to Google Analytics, instead of a string, we use
+a variable of type \textc{Exception} to contain the exception's information,
+which can be seen on \textbf{lines 8-9}. We use the method
+\textc{getStackTraceArray}, see \textbf{lines 20-36}, to change the
+\textc{Exception} into a readable format. This format is used on \textbf{lines
+11-12} when we prepare to present the splash screen. On \textbf{lines 14-17} we
+create a \textc{Tracker}, which is a type used to send information to Google
+Analytics, and use the \textc{send} method to send send the information. In
+order to review this information, we can go to the Google Developer webpage for
+our application.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our approach to outputting the stack trace, label = BugOurSol]
@@ -226,26 +228,26 @@ public class GirafBugSplashActivity extends GirafActivity {
 \end{minipage}
 
 \subsection{T709 - Meeting: Define GUI questions}
-The following is part of a collaboration between SW609, SW610 and SW612 and is
-described more indepth in \autoref{sec:Colab2}. During the sprint, we
+The following is task of a collaboration between SW609, SW610 and SW612 and is
+described in more detail in \autoref{sec:Colab2}. During the sprint, we
 produced a series of questions concerning the applications. Group SW612
 held a meeting with the system users to determine whether the applications were
 satisfying. Based on this meeting several user stories were constructed which
 we then used to produce additional requirements for GIRAF and the Launcher.
 
-\subsection{T722 - Prevent login session from expiring}\label{T722}
+\subsection{T722 - Launcher: Prevent login session from expiring}\label{T722}
 While testing the launcher during the first sprint, we noticed that users would
 sometimes be logged out automatically before the defined interval of 8
-hours. This poses a problem, as users can become frustrated with the system,
+hours. This poses a problem as users can become frustrated with the system
 if they constantly have to renew their login session.\nl
 
 While we have been unable to determine the exact cause of the problem, we have
 identified a potential problem with the current implementation, where
 information about the login session is stored in the shared preferences in a
 possibly faulty manner. This original approach can be seen in
-\autoref{OrginalSessionSaving}, where the previous students are using apply to
-save the time of authentication and the ID of the guardian to the shared
-preferences.\nl
+\autoref{OrginalSessionSaving}, where the previous students are using the
+\textc{apply} method to save the time of authentication
+and the ID of the guardian to the shared preferences.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Original approach to saving login session, label =
@@ -262,8 +264,8 @@ public static void saveLogInData(final Context context, final long id, final lon
 
 Our solution to this problem, which can be seen in
 \autoref{SolutionSessionSaving}, is to change the \textc{apply} in the code to
-\textc{commit}. The difference between these two is that \textc{apply} writes
-the information \textc{asynchronously}, where \textc{commit}
+\textc{commit}. The difference between these two is that
+\textc{apply} writes the information \textc{asynchronously}, where \textc{commit}
 writes it \textc{synchronously}. Using \textc{commit} means that we are informed
 if the writing failed, which allows us first of all to write it to the log and
 secondly we could implement that it trieds again, until it is correctly
@@ -294,15 +296,15 @@ While designing this solution, we found security issue which would allow a user
 to extend their login session indefinitely. This issue has been converted to a
 new task, which can be seen in \autoref{T772}.
 
-\subsection{T724 - Launcher: Prevent crash when child application crashes}
+\subsection{T724 - Launcher: Prevent crash when a child application crashes}
 While testing the applications during the first sprint, one of the other groups
-identified a crash in the launcher, which occoured when one of the GIRAF
+identified a crash in the launcher, which occurred when one of the GIRAF
 applications crashed. Based on the reported issues, we have tried to
 replicate the crash, but we have so far been unable to. Due to the importance of
 increasing the stability of the launcher, we have chosen to attempt to prevent
 future crashes of this nature.\nl
 
-The original approach to launching applications can be seen in
+The original approach to launching an application can be seen in
 \autoref{OriginalLaunch}, where the \textc{startActivity} method is called on an
 Android \textc{Context}, which is an abstract class containing information an
 application, such as application-level operations like
@@ -322,7 +324,7 @@ public static void secureStartActivity(Context context, Intent intent) {
 While we have no crash log to confirm our suspicions, we believe that the
 launcher could crash due to the thrown exception being returned to the launcher.
 As such, we have chosen to implement a try-catch structure, which should prevent
-the launcher from crashing, if a child-application crashes. Our solution can be 
+the launcher from crashing, if a child-applicatiojn crashes. Our solution can be 
 seen in \autoref{NewLaunch}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -340,7 +342,7 @@ public static void secureStartActivity(Context context, Intent intent) {
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T725 - Search: Improve overall performance (If possible)}
+\subsection{T725 - Pictosearch: Improve overall performance (If possible)}
 Following task T660 in the first sprint, we have once again been tasked with
 improving the performance of the search in \textc{pictosearch}. While most
 of the performance increases must be done serverside, after reviewing our work
@@ -372,7 +374,7 @@ explain the contents of the meetings, the drawn conclusions, and how the results
 of the meetings have been reflected in the implemented code.
 
 
-\subsection{T727 - Reader: Fix crash on failed retrieval of audio file}
+\subsection{T727 - Pictoreader: Fix crash on failed retrieval of audio file}
 \label{T727}
 During the initial sprint, we tested a number of the GIRAF applications in order
 to better understand the GIRAF GUI design framework. While doing this, we
@@ -417,28 +419,27 @@ btnPlay.setOnClickListener(new View.OnClickListener() {
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T731 - Design log-in UI for the Launcher}
+\subsection{T731 - LogIn: Design new login UI for the Launcher}
 Following T708, \autoref{S2Invalid}, we found a design manual which
-covered how to to make each make each application recognizable as a GIRAF
+covered how to make each application recognizable as a GIRAF
 applicaion. This entailed which color scheme to use, what each icon means and
-how each application should be structured. Through T709, \autoref{sec:Colab2},
-we found the requirements for the log-in screen, mainly to replace the current
-QR-code with a password based system.
+how each application should be structured. Through T709,
+which is detailed in \autoref{sec:Colab2}, we found additional requirements for
+the Launcher and Login screen, the full list can be seen in
+\autoref{S2:NewReqs}. The list of new requirement for the Login screen can be seen
+here:
 
-% The design is based on a design manual created during a previous semester. The
-% purpose of the design manual is to create some design guidelines, such that every
-% application is recognizable as a GIRAF application. Therefore, the design
-% manual contains a set of rules of how for example the colour scheme which is
-% supposed to be used. Another example of the design guidelines is how the
-% structure of the application is to be made, for example the back button which
-% should always be placed as the left-most button at the top. Furthermore, the
-% back button should always be the same see \autoref{icon_back}.
-% 
-% \figx[0.3]{icon_back}{Back button}
+ \begin{enumerate}
+   \item The QR-system needs to be replaced by password based system.
+   \item There needs to be limits on how long a guardian can remain inactive in
+   the system before being logged out. 
+   \item Citizen should not be logged out automatically. 
+   \item A guardian should be able to change its password.
+   \item There should be an institute-type user.
+ \end{enumerate}
 
-Based on the design guidelines and the requirements found in
-\autoref{S2:NewReqs} we create a mockup for the new login system, see
-\autoref{LoginScreen}.
+Based on the design guidelines \cite{DesignManual} and these requirements we
+create a mockup for the new login system, see \autoref{LoginScreen}.
 
 \figx{LoginScreen}{Mockup for the login screen, with fields for username and
 password}
@@ -446,17 +447,19 @@ password}
 We then use the requirements for the Login System to create a diagram of the
 login procedure see \autoref{LoginDiagram}. We use this diagram to show how the
 different users interact with the login system, for example if a guardian is inactive for
-more than 20 minutes they will automatically be logged out and direacted to the
-login screen.\\
-It also shows how the interaction is between the guardian and the citizen, thus a
-guardian can switch user to a citizen but not the other way round. Another thing
-is that a citizen cannot go from inactive to logged out, which means that a
-citizens session will never expire.\fix{}{Maybe it should be moved to when it
-is explicitly used?}
+more than 20 minutes they will automatically be logged out and directed to the
+login screen, while a citizen will remain logged in, as their session will
+not expire.\\
+It also shows how the interaction is between the guardian and the citizen. A
+guardian can log in, log out and switch to a citizen, while a citizen can only
+be logged out by choice. This allows the citizen to not worry about a username
+and password, as that is handled by a guardian. We also do not allow a citizen
+to switch back to a guardian, as every citizen usually have their own tablet
+and the users considered this feature unnecessary.
 
 \figx{LoginDiagram}{Diagram for the Login procedure}
 
-\subsection{T733 - Search: Implement vertical screen functionality}
+\subsection{T733 - Pictosearch: Implement vertical screen functionality}
 During the first sprint, group SW610 was testing the Weekplanner application,
 and noticed that some activities did not support vertical orientation of the
 screen. Due to the inconsistancy of only some activities supporting this, we
@@ -576,7 +579,7 @@ might invalidate the tokens.
   	appears that they do indeed want the user to log in when switching from
   	\textc{citizen} to \textc{guardian}. Therefore we have invalidated the task.
   \end{itemize}
-  \item T708 - Define GUI design guidelines
+  \item T708 - Meeting: Define GUI design guidelines
   \begin{itemize}
     \item The purpose of this task is to work together with SW610 to define a
     set of guidelines for designing the graphical user interface, such that the
@@ -586,7 +589,7 @@ might invalidate the tokens.
     various colors, buttons and other design decision made by the prior
     semesters.  
   \end{itemize}
-  \item T728 - Reader: Refactor and CheckStyle
+  \item T728 - Pictoreader: Refactor and CheckStyle
     \begin{itemize}
   	\item The purpose of this task is to improve the already written code from
   	last years students. 
