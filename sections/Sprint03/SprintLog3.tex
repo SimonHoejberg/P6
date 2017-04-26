@@ -6,7 +6,7 @@ as these are dependent on Artifactory. As such, the goals of the sprint have
 been defined as follows:\nl
 
 \say{Continuous integration need to be fully functional, such that gradle can
-JAVA libraries corectly.}\nl
+handle JAVA libraries corectly.}\nl
 
 \say{Improve stability in libraries, accessibility and usability for apps, to
 fulfill user stories 1, 4 and 6.(Med udgangspunkt i de nye user-stories???)}\nl
@@ -14,10 +14,33 @@ fulfill user stories 1, 4 and 6.(Med udgangspunkt i de nye user-stories???)}\nl
 \say{Server and client library, continue implementation of functionality for
 user stories 2, 3 and 4.}\nl
 
-Our main focus on this semester will thus be to continue from the last sprint
-and improve the stability of the underlying libraries. However, this is
-dependent on Jenkins and Artifactory since, we cannot test this until we can get
-the server to build it and thus test it. 
+During the first week of this sprint, our build tools (Artifactory and Jenkins)
+were repaired. Based on this breakthrough, our purpose in this sprint has been
+redefined to implementing new features based on user feedback, and testing the
+changes comitted during the first and second sprint. The user feedback in
+question comes from a meeting group SW612 held with a group of users at the
+during the second sprint. The relevant user stories are shown in
+\autoref{sprint3userstories}.
+
+\begin{table}[H]
+\centering 
+\begin{tabular}{|l|p{12.5cm}|}
+\hline
+Nr. & User Story \\\hline
+1 & As a guardian I would like the option to toggle between grayscale and fully
+colored in the system for a citizen. \\\hline
+2 & As a guardian I would like not to have a Quick-Response (QR) codes for
+login, but a regular password instead.\\\hline
+3 & As a guardian I would like the ability to set a password for specific users
+of the system.\\\hline
+4 & As a guardian I would like the system to automatically log me out of my
+account after a set time limit (approx. 20 min).\\\hline
+5 & As a citizen I would like the system to not to log me out
+automatically.\\\hline
+\end{tabular}
+\caption{User stories created from the meeting during the third sprint}
+\label{sprint3userstories}
+\end{table}
 
 
 \section{Tasks and Solutions}
@@ -34,9 +57,139 @@ T785	& Handle crash such that the user does not get an error message and is
 T786 	& Check if an app can be set to grayscale globally & 10\\ \hline
 T800 	& Discuss how models should be implemented group SW609, SW610, SW613 and
 		  SW615. & 16\\ \hline
+T822 	& Implement grayscale functionality & ??\\ \hline
 \end{tabular}
+\caption{Tasks for the third sprint}
+\label{Tasks3}
 \end{centering}
 \end{table}
 
+\subsection{T786, T822 - Research and implement grayscale functionality}
+Based on user story 1, which is shown in \autoref{sprint3userstories}, we have
+been tasked with researching how it would be possible to make a global implementation of
+grayscale in the GIRAF project.\nl
+
+Following our research, we came up with three different approaches to
+implmenting grayscale:
+
+\begin{enumerate}
+  \item Create an alternative set of resources for all giraf components, which
+  make use of a grayscale color scheme.
+  \item Apply an opaque layer to all GIRAF applications, which would make all
+  components less colorful and more gray.
+  \item Reduce the saturation of all GIRAF component's colors, such that all
+  applications would look gray.
+\end{enumerate}
+
+Based on the fact that we want to create a global option which is forward
+compatible with future GIRAF applications, and the fact that we want
+to minimize the amount of added resourses, we have chosen the third
+option, which is to change the saturation of all GIRAF applications.\nl
+
+We have chosen to implement the grayscale functionality in the
+\textc{giraf-component-lib} library, as this library is included in all GIRAF
+applications. As such, the core of the implementation is made in the class
+\textc{GrayScaleHelper}. Changing a given screen to grayscale consists of two
+steps; changing the activity, and changing the action bar at the top.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Code used to determine the views for the activity and the top action bar., label = grayEx1] 
+public class GrayScaleHelper
+{
+
+    public static void setGrayScaleForActivity(Activity activity, boolean shouldBeGray){
+        View screen = activity.getWindow().getDecorView();
+        int barId = activity.getResources().getIdentifier("action_bar_container", "id", "android");
+        View bar = screen.findViewById(barId);
+        View view = activity.findViewById(android.R.id.content);
+        setGray(view,shouldBeGray);
+        setGray(bar,shouldBeGray);
+    }
+...
+}
+\end{lstlisting}
+\end{minipage}
+
+As can be seen in \autoref{grayEx1}, the first step is to identifying the
+\textc{views} containing the \textc{activity} and the top \textc{action bar}
+respectively. The method \textc{setGrayScaleForActivity} takes a reference to
+the calling \textc{activity}, and a boolean determining if the \textc{activity}
+should be grayscale. On \textbf{line 5}, the \textc{view} for the background
+\textc{android} screen is retrieved. On \textbf{line 6}, the ID for the
+\textc{action bar} is determined. On \textbf{line 7}, the \textc{view} for the
+\textc{action bar} is determined based on the ID. On \textbf{line 8}, the
+\textc{view} for the \textc{activity} is determined based on the
+\textc{activity's} ID. Finally on \textbf{lines 9-10}, the \textc{setGray}
+method is called with the \textc{view} for the \textc{activity} and the
+\textc{action bar} respectively. The \textc{setGray} method can be seen in
+\autoref{grayEx2}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Method used to change to color saturation of views., label = grayEx2]
+public class GrayScaleHelper {
+...
+    private static void setGray(View view, boolean state){
+        if(state) {
+            ColorMatrix cm = new ColorMatrix();
+            cm.setSaturation(0); //Set the color saturation to 0
+            Paint grayscalePaint = new Paint();
+            grayscalePaint.setColorFilter(new ColorMatrixColorFilter(cm));
+            // Create a hardware layer with the greyscale paint
+            view.setLayerType(LAYER_TYPE_HARDWARE, grayscalePaint);
+        }else{
+            //Removes the grayscale
+            view.setLayerType(LAYER_TYPE_NONE, null);
+        }
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+In the \textc{setGray} metod in \autoref{grayEx2}, we first use the boolean
+\textc{state} to determine if we should set the \textc{view} to grayscale. This
+boolean represents the value of a \textc{switch button} in the settings menu,
+which indicates if the option is turned on or off. \textbf{Lines 5-8} are used
+to create an android \textc{Paint}, which has the color saturation of value
+zero. On \textbf{line 10}, a \textc{hardware layer} using the defined
+\textc{paint} is added to the supplied \textc{activity}.\nl
+
+In order for a given activity to implement grayscale, it needs to have a call to
+the \textc{setGrayScaleForActivity} method. An example of this call is
+implemented in the \textc{Launcher's HomeActivity} class, and can be seen in
+\autoref{grayEx3}.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Setting grayscale by calling the setGrayScaleForActivity method, label = grayEx3] 
+private void setGrayscale(){
+        SharedPreferences prefs = SettingsUtility.getLauncherSettings(this,
+            LauncherUtility.getSharedPreferenceUser(currentUser));
+
+        GrayScaleHelper.setGrayScaleForActivity(this, prefs.getBoolean(
+            getString(R.string.toggle_gray_scale_preference_key), true));
+    }
+\end{lstlisting}
+\end{minipage}
+
+In \autoref{grayEx3}, we start by retrieving the GIRAF launcher's shared
+preferences. We then use the boolean
+\textc{toggle\_gray\_scale\_preference\_key's} value in the \\
+\textc{setGrayScaleForThisActivity} method, to set grayscale for this
+application. While not implemented yet, the intention is to supply the boolean
+value to other GIRAF applications through the \textc{android intent}, which is
+used to launch those applications.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Retrospective}
+Placeholder\ldots
