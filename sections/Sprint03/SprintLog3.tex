@@ -58,11 +58,29 @@ T786 	& Check if an app can be set to grayscale globally & 10\\ \hline
 T800 	& Discuss how models should be implemented group SW609, SW610, SW613 and
 		  SW615. & 16\\ \hline
 T822 	& Implement grayscale functionality & ??\\ \hline
+T830 	& Hide error splash screen and seperate it from analytics & 2\\ \hline
+T832 	& Upload libraries to Artifactory & 12\\ \hline
+T833 	& Update build scripts to use new Artifactory libraries & 2\\ \hline
+T834 	& Implement new login screen (Beta branch) & 2\\ \hline
+T835 	& Implement model-view-controller structure & 4\\ \hline
+T836 	& Remove deprecated libraries/implement new rest-lib & 60\\ \hline
+T837 	& Rework buttons to not use listeners & 6\\ \hline
 \end{tabular}
 \caption{Tasks for the third sprint}
 \label{Tasks3}
 \end{centering}
 \end{table}
+
+\subsection{T785, T830 - Prevent stack-trace from showing for users}
+Based on general feedback from users, we have been tasked with making sure that
+the detailed error-messages are not shown to the users. The users have requested
+this, as the citizen users were confused/uncomfortable with the large amount of
+incomprehensible information being suddenly shown on the screen whenever an
+error occoured.\nl
+
+\fix{}{Fjernet kaldet til bugSplashActivity, og forsøgt at restarte
+applikationen}
+
 
 \subsection{T786, T822 - Research and implement grayscale functionality}
 Based on user story 1, which is shown in \autoref{sprint3userstories}, we have
@@ -184,33 +202,28 @@ be seen in \autoref{grayButton}, where grayscale has been enabled.
 
 \figPH{grayButton}{The switch as shown in the Launcher's settings menu}
 
-\subsection{Tasks that are not shown/what we have done other than tasks}
-\begin{enumerate}
-  \item Updated build scripts in order to add libraries to artifactory
-  \item Made gradle use new artifactory libraries
-  \item Added new login screen
-  \item Added controllers to new login
-  \item Split logic and GUI (added controllers) for all activities
-  \item Removed database libs in order to prepare for new REST-lib
-  \item Added users instead of profiles
-  \item Added rest models to build scripts
-  \item Reworked buttons to use methods from XML instead of listeners
-\end{enumerate}
 
+\subsection{T832 - Upload new libraries to Artifactory}
+Før lagde vi bare op på GIT, hvorefter Jenkins hentede dem fra GIT, compilede
+dem, og lagde dem op på artifactory. Nu builder vi lokalt og ligger dem op på
+artifactory.\nl
 
+Placeholder\ldots
 
+\subsection{T833 - Implement new libraries from Artifactory}
+Placeholder\ldots
 
+\subsection{T834 - Implement new login screen (Beta branch)}
+Placeholder\ldots
 
+\subsection{T835 - Launcher: Implement model-view-controller}
+Placeholder\ldots
 
+\subsection{T836 - Remove deprecated libraries/implement new rest-lib}
+Placeholder\ldots
 
-
-
-
-
-
-
-
-
+\subsection{T837 - Rework buttons to not use listeners}
+Placeholder\ldots
 
 \section{Retrospective}
 Placeholder\ldots
