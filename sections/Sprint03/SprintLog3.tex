@@ -204,6 +204,7 @@ be seen in \autoref{grayButton}, where grayscale has been enabled.
 
 
 \subsection{T832 - Upload new libraries to Artifactory}
+
 Before was Jenkins used to upload compiled libraries to Artifactory, the way
 this worked was that the developers committed the code to Git and then went to
 build it using Jenkins which took the code from Git and compiled it and if it
@@ -215,6 +216,7 @@ made.
 
 Før lagde vi bare op på GIT, hvorefter Jenkins hentede dem fra GIT, compilede
 dem, og lagde dem op på artifactory. Nu builder vi lokalt og ligger dem op på artifactory.\nl
+
 
 Placeholder\ldots
 
@@ -228,7 +230,22 @@ gradle sync is performed.
 Placeholder\ldots
 
 \subsection{T834 - Implement new login screen (Beta branch)}
-Placeholder\ldots
+Based on T731, see \autoref{DesignLogin}, we have built the new gui for the
+login screen. This design is based off an existing gui for the login screen
+which was developed last semester. The design 
+
+step by step:
+- We used the design of T731
+- We adapted an in indevelopment gui from a branch
+- has no functionality as we are waiting on REST to be finished
+
+new information as of 01-05-2017:
+- We need the user to input: name, password, department
+  since name is not unique
+- We will need to either add a dropdown or an additional textview for the
+  department
+- can departments be saved as a cookie? (suggested text in the textview)
+
 
 \subsection{T835 - Launcher: Implement model-view-controller}
 Placeholder\ldots
