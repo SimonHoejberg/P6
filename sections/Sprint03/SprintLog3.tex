@@ -204,13 +204,27 @@ be seen in \autoref{grayButton}, where grayscale has been enabled.
 
 
 \subsection{T832 - Upload new libraries to Artifactory}
+Before was Jenkins used to upload compiled libraries to Artifactory, the way
+this worked was that the developers committed the code to Git and then went to
+build it using Jenkins which took the code from Git and compiled it and if it
+succed put it on Artifactory. \nl 
+
+Now we build the libraries localy on our own machines and the upload them to
+Artifactory using a shared build script which the server infrastructur group has
+made.
+
 Før lagde vi bare op på GIT, hvorefter Jenkins hentede dem fra GIT, compilede
-dem, og lagde dem op på artifactory. Nu builder vi lokalt og ligger dem op på
-artifactory.\nl
+dem, og lagde dem op på artifactory. Nu builder vi lokalt og ligger dem op på artifactory.\nl
 
 Placeholder\ldots
 
 \subsection{T833 - Implement new libraries from Artifactory}
+To implement the new libraries from Artifactory, the gradle build script has
+been changed to both use the new Artifactory maven repos and also the new names
+of the libraries. It has also been implemeneted such that some libraries version
+which changes often is downloaded when they are put up on Artifactory and a
+gradle sync is performed.
+
 Placeholder\ldots
 
 \subsection{T834 - Implement new login screen (Beta branch)}
