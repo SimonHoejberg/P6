@@ -208,21 +208,92 @@ be seen in \autoref{grayButton}, where grayscale has been enabled.
 
 
 \subsection{T832 - Upload new libraries to Artifactory}
+Following the breakdown of Artifactory during the first sprint, group SW615 has
+been working on restoring Artifactory to its intended state. Now, during the
+third sprint, they have succeded in their task, and Artifactory can now be
+used.\nl
 
-Before was Jenkins used to upload compiled libraries to Artifactory, the way
-this worked was that the developers committed the code to Git and then went to
-build it using Jenkins which took the code from Git and compiled it and if it
-succed put it on Artifactory. \nl 
+As stated in \autoref{GTools}, our collection of build tools used to work in
+the following manner: 
+The developers committed the code to Git, and then went to
+build it using Jenkins. Jenkins would automatically retrieve the code
+from Git and compile it. If Jenkins would succeed, it would then upload the
+compiled libraries to Artifactory. Whenever a library was needed to build the
+software, both locally and on Jenkins, a request would be sent to Artifactory,
+which would then return the compiled library.\nl
 
-Now we build the libraries localy on our own machines and the upload them to
-Artifactory using a shared build script which the server infrastructur group has
-made.
+With the current fix to our build-setup, we have to build the libraries locally
+on our own machines, and the upload them to Artifactory using a shared Gradle
+build script, which the server infrastructure group (SW615) has created. This
+build script can be seen in \autoref{ArtiBuild1} and \autoref{ArtiBuild2}. In
+\autoref{ArtiBuild1}, on \textbf{lines 1-8} we download the Gradle-Artifactory
+bridge plugin\citep{Gradle-Artifactory}. On \textbf{lines 9-11} we apply the
+plugin, and use the maven-publish plugin, which allows us to publish to the
+Maven repository. Then on \textbf{line 12} we specify the name of the library as
+uploaded to Artifactory. Then on \textbf{lines 12-19} we specify the
+subfolders on Artifactory which we want to upload the compiled libraries to.\nl
 
-Før lagde vi bare op på GIT, hvorefter Jenkins hentede dem fra GIT, compilede
-dem, og lagde dem op på artifactory. Nu builder vi lokalt og ligger dem op på artifactory.\nl
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Specifying file names and subfolder paths on Artifactory, label = ArtiBuild1] 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
+    }
+}
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
+group = "dk.aau.cs.giraf"
+version = System.properties.VERSION ?: "1.0-SNAPSHOT" // Get version from the jenkins parameter VERSION
+println "Version is ${version}"
+repositories {
+    maven {
+        url 'http://jenkins.giraf.cs.aau.dk:8080/artifactory/libs-release'
+    }
+    maven {
+        url 'http://jenkins.giraf.cs.aau.dk:8080/artifactory/libs-snapshot'
+    }
+}
+\end{lstlisting}
+\end{minipage}
 
+Following the specification of paths and names, we run the publish command in
+\autoref{ArtiBuild2} on \label{lines 3-19}. On \textbf{lines 5-7} we specify the
+authentication information for Artifactory, and the version number of the
+uploaded files.\nl
 
-Placeholder\ldots
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Publishing the compiled libraries to Artifactory, label = ArtiBuild2] 
+artifactory {
+    contextUrl = artifactory_contextUrl
+    publish {
+        repository {
+            username = artifactory_user
+            password = artifactory_password
+            repoKey = version.endsWith('SNAPSHOT') ? 'libs-snapshot-local' : 'libs-release-local'
+        }
+        defaults {
+            publications('artifacts')
+            publishArtifacts = true
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'jcenter'
+        }
+        repository {
+            repoKey = 'libs-release'
+        }
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+This Gradle build-script has been distributed to all libraries, which allows us
+to compile the libraries locally, and publish them to Artifactory for future
+use.
 
 \subsection{T833 - Implement new libraries from Artifactory}
 To implement the new libraries from Artifactory, the gradle build script has
