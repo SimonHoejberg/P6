@@ -304,23 +304,28 @@ gradle sync is performed.
 
 Placeholder\ldots
 
-\subsection{T834 - Implement new login screen (Beta branch)}
-Based on T731, see \autoref{DesignLogin}, we have built the new gui for the
-login screen. This design is based off an existing gui for the login screen
-which was developed last semester. The design 
+\subsection{T834 - Implement new login screen}
+In order to implement the new login screen we used the design made in T731,
+see \autoref{LoginScreen}, and adapted an existing indevelopment design of
+the login screen from a prior semester, see \autoref{OldNewLogin}. This design
+was intended to be implemented along with a profile selection screen in
+a two-step fashion. This would allow the user to select their profile from
+among their coworkers and then input their password afterwards \citep[Ch.9.5,
+p.68-70]{RestLogin}. We chose to continue with our own standard design as it is
+not intended to be used by citizens and allows for easier use if there are
+more users than expected.
 
-step by step:
-- We used the design of T731
-- We adapted an in indevelopment gui from a branch
-- has no functionality as we are waiting on REST to be finished
+\figx[1]{OldNewLogin}{The indevelopment design from the prior semester}
 
-new information as of 01-05-2017:
-- We need the user to input: name, password, department
-  since name is not unique
-- We will need to either add a dropdown or an additional textview for the
-  department
-- can departments be saved as a cookie? (suggested text in the textview)
+We modified it to include a \textc{textview} and an \textc{edittext} for
+usernames, added a button to login and changed the background to a more suitable
+color, as can be seen in \autoref{NewNewLogin}.
 
+\figx[1.2]{NewNewLogin}{The updated login screen design}
+
+The design does not currently have any functionality as we are currently waiting
+on the server groups to finish implementing their models for communication with
+the server.
 
 \subsection{T835 - Launcher: Implement model-view-controller}
 Placeholder\ldots
