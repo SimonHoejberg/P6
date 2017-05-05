@@ -82,9 +82,36 @@ this, as the citizen users were confused/uncomfortable with the large amount of
 incomprehensible information being suddenly shown on the screen whenever an
 error occoured.\nl
 
-\fix{}{Fjernet kaldet til bugSplashActivity, og forsøgt at restarte
-applikationen}
+In task T672 in \autoref{T672}, we replaced the system for sending crash logs to
+Google Analytics, such that whenever the bug splash screen was shown, it would
+forward the exception and its message. As the users no longer want to be shown
+the splash screen, we have simply decoupled the two from each other. The revised
+code can be seen below in \autoref{BugsplNew}. On line 15 we attempt to recreate
+the activity which crashed, as this was a requested feature.\nl
 
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = We use Google Analytics and try to recreate the activity, label = BugsplNew] 
+protected void onCreate(final Bundle savedInstanceState) 
+{ 
+...
+	final Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler =
+    	Thread.getDefaultUncaughtExceptionHandler();
+
+        Thread.currentThread().setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, final Throwable ex) {
+
+                // Sends the exception to google analytics
+                sendExceptionToGoogleAnalytics(ex);
+
+                // Restarts the activity Todo find out if it restarts the launcher or at least work
+                recreate();
+            }
+        });
+...
+}
+\end{lstlisting}
+\end{minipage}
 
 \subsection{T786, T822 - Research and implement grayscale functionality}
 Based on user story 1, which is shown in \autoref{sprint3userstories}, we have
