@@ -323,13 +323,22 @@ to compile the libraries locally, and publish them to Artifactory for future
 use.
 
 \subsection{T833 - Implement new libraries from Artifactory}
-To implement the new libraries from Artifactory, the gradle build script has
-been changed to both use the new Artifactory maven repos and also the new names
-of the libraries. It has also been implemeneted such that some libraries version
-which changes often is downloaded when they are put up on Artifactory and a
-gradle sync is performed.
+In order to implement the new libraries from Artifactory, the Gradle
+build scripts have been changed use both Artifactory's new Maven
+repositories, and also the new names of the libraries. In addition, we have made
+sure that the application will always use the newest library versions, by
+changing the retriewed library version to ``latest.integration''.\nl
 
-Placeholder\ldots
+The main problem encountered during this process has been, that some libraries
+were unable to build correctly. During a build, these libraries would always
+fail, and would report an error during
+\textc{':app:transformClassesWithDexForDebug'}. The reported error specified
+that the problem could potentially be solved by changing the target Java version
+to Java 7. Following further study of all the compiled libraries, we determined
+that the error was caused by the \textc{meta-database} library having been
+compiled with Java 8. As the rest of the GIRAF system is built upon Java 7, this caused
+compatability issues. After rebuilding the library with Java 7 compatability, we
+were able to build our applications without further problems.
 
 \subsection{T834 - Implement new login screen}
 In order to implement the new login screen we used the design made in T731,
@@ -354,14 +363,39 @@ The design does not currently have any functionality as we are currently waiting
 on the server groups to finish implementing their models for communication with
 the server.
 
-\subsection{T835 - Launcher: Implement model-view-controller}
-Placeholder\ldots
-
-\subsection{T836 - Remove deprecated libraries/implement new rest-lib}
-Placeholder\ldots
-
-\subsection{T837 - Rework buttons to not use listeners}
-Placeholder\ldots
+\subsection{Unfinished and Invalid Tasks}\label{S2Invalid}
+\begin{itemize}
+  \item T835 - Launcher: Implement model-view-controller
+  \begin{itemize}
+  	\item The purpose of this task is to improve the quality of the GIRAF code
+  	base, by creating a logical distribution of responsiblity among the different
+  	classes.
+  	\item While we have begun implementing the model-view-controller architecture
+  	on parts of the GIRAF GUI, we have not finished this task, as it represents
+  	an ongoing effort to refactor and improve the GIRAF code base.
+  \end{itemize}
+  \item T836 - Remove deprecated libraries/implement new rest-lib
+  \begin{itemize}
+  	\item The purpose of this task is to begin implementing the finished version
+  	of the REST library, which is responsible for handling the client-server
+  	communication.
+  	\item As this task covers a major development effort, we have chosen to split
+  	it into a number of new tasks, which will be completed during the 4th sprint.
+  	In addition, in relation to this task, this sprint has mostly been used to
+  	discuss the REST library and help the REST groups to implement all the needed
+  	functionality.  
+  	\end{itemize}
+  \item T837 - Rework buttons to not use listeners
+  \begin{itemize}
+    \item The purpose of this task is to improve the quality of the GIRAF code
+    base by removing the need for the GIRAF GUI to use listeners in order to
+    execute methods on button presses. This can be done in a simpler and cleaner
+    manner, by simple calling the methods from the GUI .xml files themselves.
+    \item While we have begun implementing this approach on parts of the GIRAF
+    GUI, we have not finished this task, as it represents an ongoing effort to
+    refactor and improve the GIRAF code base.
+  \end{itemize}
+\end{itemize}
 
 \section{Retrospective}
 Placeholder\ldots
