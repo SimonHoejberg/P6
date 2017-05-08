@@ -400,3 +400,30 @@ the server.
 \section{Retrospective}
 REST er ikke helt færdigt på dette tidspunkt. Build tools were first working at
 the middle of the sprint. 
+
+As with the former sprints, at the end of the third sprint we held a meeting
+with the other groups in order to reflect upon how the project is proceeding.\nl
+
+The main problems with this sprint relate to the fact that our back-end was not
+ready to be implemented for most of the sprint, and that our build tools
+(Artifactory/Jenkins) did not work before the last part of the sprint. This
+resulted in our group only being able to work on theoretical solutions and
+implementations to our assigned tasks. When the build tools were finally able to
+be used, we rushed to upload the newest libraries to Artifactory, and begin
+finalizing the solutions which we have been unable to test during the former
+sprints.\nl
+
+Following the build tools being functional, we began implementing the REST
+library and laying the foundation for removing the now deprecated \textc{db-lib}
+library. While we were able to begin this process, at the time of the end of
+this sprint, the REST library is not yet finished, and is therefore incapable of
+completely replacing the \textc{db-lib} library.
+
+\subsection{Evaluation}
+The sprint ended with 51.1\% of tasks being declared resolved. A lot of the
+unresolved tasks have solutions but have not been tested since Jenkins,
+Artifactory and Gradle currently cannot be used to build the project.
+The burndown chart is not as informative as is could be, as a lot of tasks are
+unresolved due to a lack of possible testing. The burndown chart can be seen in
+\autoref{Burndown2}.
+
