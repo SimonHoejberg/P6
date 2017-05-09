@@ -177,7 +177,10 @@ boolean represents the value of a \textc{switch button} in the settings menu,
 which indicates if the option is turned on or off. \textbf{Lines 5-8} are used
 to create an android \textc{Paint}, which has the color saturation of value
 zero. On \textbf{line 10}, a \textc{hardware layer} using the defined
-\textc{paint} is added to the supplied \textc{activity}.\nl
+\textc{paint} is added to the supplied \textc{activity}, see
+\autoref{grayScale}.\nl
+
+\figPH{grayScale}{An example of the grayscale in action}
 
 In order for a given activity to implement grayscale, it needs to have a call to
 the \textc{setGrayScaleForActivity} method. An example of this call is
@@ -212,7 +215,8 @@ be seen in \autoref{grayButton}, where grayscale has been enabled.
 \fix{}{Husk at fjerne placeholder}}
 
 
-\subsection{T832 - Upload new libraries to Artifactory}
+\subsection{T832, T833 - Upload new libraries to Artifactory and implement them}
+
 Following the breakdown of Artifactory during the first sprint, group SW615 has
 been working on restoring Artifactory to its intended state. Now, during the
 third sprint, they have succeded in their task, and Artifactory can now be
@@ -298,9 +302,7 @@ artifactory {
 
 This Gradle build-script has been distributed to all libraries, which allows us
 to compile the libraries locally, and publish them to Artifactory for future
-use.
-
-\subsection{T833 - Implement new libraries from Artifactory}
+use.\\
 In order to implement the new libraries from Artifactory, the Gradle
 build scripts have been changed use both Artifactory's new Maven
 repositories, and also the new names of the libraries. In addition, we have made
