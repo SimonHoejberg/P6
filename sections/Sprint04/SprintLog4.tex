@@ -1,10 +1,24 @@
 \chapter{Sprint: 4}
 
+Following sprint 3 where we once again focused on adding stability to the
+various GIRAF libraries, the focus for this sprint is to allow the next students
+to have an easier and more efficient start than our own. Each year the various
+libraries increase in size and complexity, and it becomes increasingly
+important for new students to understand the code quickly. As such, the goal
+for this sprint is to:
 
-Implementing REST --> We can't make a request handler due to not being able to
-use lambda expression since we don't use java 8.
-This means we have to Responses within responses since we need some error
-handling
+\say{The hand over to next years students allows understand the project
+quickly.}\nl
+
+For us this means that we will need for REST to be implemented and working
+in the various libraries, as well as document the changes and additions.
+
+
+\section{Tasks and Solutions}
+
+Based on this goal we have been assigned the following tasks, see
+\autoref{Tasks3}, which include the verification of our various solutions from
+earlier sprints.
 
 \begin{table}[H]
 \begin{centering}
@@ -37,6 +51,10 @@ T889	& Launcher: Add an Institute to Guardian login & 12 \\\hline
 \end{centering}
 \end{table}
 
+In the following subsections we will discuss the tasks and document our
+solutions.
+
+
 \subsection{T772: Verify: Security problem when changing system date/time}
 The orginal problem discoved during sprint 2 as seen in \autoref{T772} was that
 the user could extend the login session by doing back in time on the device.
@@ -46,5 +64,19 @@ But now this task is invalid because the server now handles if a user is logged
 in, using tokens / cookies which the rest libary handes.
 
 \subsection{T865: Update the Google store guide}
+\fix{Can properly be placed in a subsection along with the other guides}{}
 
+
+The goal of this task is to ensure that the next students can easily 
+
+
+Found and read the old version
+Looked at discrepencies between the new layout and what is described
+Result: Mostly visual, thus updated pics and text to reflect.
+
+\subsection{T868: REST: Fix Launcher app}
+Implementing REST --> We can't make a request handler due to not being able
+to use lambda expression since we don't use java 8.
+This means we have to Responses within responses since we need some error
+handling
 
