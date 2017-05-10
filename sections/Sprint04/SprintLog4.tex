@@ -38,7 +38,12 @@ T889	& Launcher: Add an Institute to Guardian login & 12 \\\hline
 \end{table}
 
 \subsection{T772: Verify: Security problem when changing system date/time}
-Made invalid since the server handles the database
+The orginal problem discoved during sprint 2 as seen in \autoref{T772} was that
+the user could extend the login session by doing back in time on the device.
+This issue is because we do not check the time using some form of a time server,
+and therefor not able to detect this.  
+But now this task is invalid because the server now handles if a user is logged
+in, using tokens / cookies which the rest libary handes.
 
 \subsection{T865: Update the Google store guide}
 
