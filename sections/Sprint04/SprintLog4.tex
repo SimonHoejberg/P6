@@ -63,13 +63,26 @@ and therefor not able to detect this.
 But now this task is invalid because the server now handles if a user is logged
 in, using tokens / cookies which the rest libary handes.
 
-\subsection{T785}
+\subsection{T785: Verify: Handle crash such that the user does not get an error message and
+is brought back to the launcher}
+Thoughout testing the finished launcher after the rest api was included, we see
+that when we get an exception we do not crash and show the bug screen, which
+would also be funky because the code does not exist to show the bugscreen, and
+return to the launcher code has not been tested yet ( kommentar til os selv,
+det kode virker heller ikke efter hensighten, det skal lige fixes)
 
 \subsection{T822}
 
-\subsection{T830}
+\subsection{T830: Never show the bug screen}
+This task should still be fixed given that we removed that code in sprint 3
 
-\subsection{T836}
+\subsection{T836: Remove old libraries from artifactory, and begin implementing REST
+snapshot}
+We have not removed the old libraries from artifactory, because some of the
+older apps might still need them in the transition to the new rest api. But they
+are no longer used as a deprendecy in the launcher or giraf component lib and we
+have implementet not just the rest snapshot but the full rest relase which can
+be seen how we use it in the rest fix launcher.
 
 \subsection{T859}
 
@@ -97,10 +110,14 @@ This means we have to Responses within responses since we need some error
 handling, although later in the sprint a sort of solution to the problem have
 been made, but this was so late that all places where we uses rest we already
 have implementen it using the other but still supported way of doing requests.
+We have also remove all the usage of profiels and switched them out for users
+from the new rest model libray.
 
-\subsection{T868}
+code show an example of how we use reqeuest
 
-\subsection{T870}
+\subsection{T870: REST: Fix component-lib}
+To fix the component lib we only really need to fix a small number of classes
+which uses the old database (Jonas du ved hvilke classe som du har rettet i)
 
 \subsection{T872}
 
