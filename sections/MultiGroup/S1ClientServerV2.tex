@@ -1,0 +1,175 @@
+\chapter{REST Architectural Design}\label{S1CS}
+During the initial meetings between the project groups SW609, SW610, SW613,
+SW615, it was found that the existing client/database communications system was
+incomplete and not of a high enough quality for us to dedicate development time
+in order to attempt to improve it. The first of two main issues were, that the
+existing system did not implement the required safety measures which are expected of
+applications which make use of private information. The second issue was, that
+the system did not allow for uploading data to the server, but only to
+retrieve it.\nl
+
+Based on these issues, it was decided, that the groups responsible for the
+database (SW613 and SW615) would be tasked to develop a new system, which should
+make use of the principles described in the REST model (Representational State
+Transfer)\citep{RESTInfo}. This model outlines a set of requirements which aim
+to establish a high quality framework for server-client communication. These
+requirements contain the following:
+
+\begin{itemize}
+  \item Client-Server: Seperate the user interface from data storage and
+  manipulation.
+  \item Stateless: Each request contain all information required for the client
+  to service the request.
+  \item Cacheable: Responses from the server must implicitly or explicitly
+  declare themself as either cacheable or not, in order to prevent the client
+  from reusing expired data.
+  \item Layered System: The client is incapable to determine if it is connected
+  to the main server or an affiliated intermediate entry point.
+  \item Uniform Interface: The retrieved data is conceptually different from the
+  representation used on the server. Given a set of data, the client should have
+  enough information to edit and delete the respective information of the
+  server. 
+\end{itemize}
+
+As a part of developing this new system, the REST groups (SW613 and SW615)
+requested a meeting with the groups responsible for the GIRAF applications
+(SW609 and SW610), in order to determine the database resource requirements for
+the individual applications. Considering the incomplete state of the previous
+system, this information was needed in order to model the server and client
+libraries such that they would be able to transfer all necessary data to the
+applications.\nl
+
+\section{Requirement Analysis}
+As our group (SW609) is responsible for the \texttt{Launcher} application and
+the \texttt{pictosearch-lib} library, we were tasked with analyzing the relevant
+code before the scheduled meeting, in order to determine what database resources
+would be necessary for these applications/libraries. These tasks are presented
+in \autoref{TaS1} as T636, T646, and T647.\nl
+
+In our case, we mostly determined the requirements testing the \textc{Launcher}
+and \textc{pictosearch-lib} through general use. Based on this testing, and
+analysis of the code, we determined the following requirements:\nl
+
+In order to use the \textc{Launcher}, a user needs to login to an
+\textc{account}, which is either a \textc{Guardian} or a \textc{Citizen}. Each
+account has a \textc{name}, a \textc{picture}, an a \textc{unique identifier}.
+In order to use \textc{pictograms} in applications, the system needs a to acces
+pictogram objects by ID.
+This creates the following resource requirements:
+\fix{}{Update in order to represent our actual requirements (If any changes
+exist).}
+\begin{itemize}
+  \item User (Guardian or Citizen)
+  	\begin{itemize}
+  		\item Name
+  		\item UserID
+  		\item Picture (Icon) 
+	\end{itemize}
+  \item Pictogram
+  	\begin{itemize}
+  		\item ID
+	\end{itemize}
+\end{itemize}
+
+Based on a discussion with the other groups, we created the class-diagram which
+can be seen in \autoref{class-diagram}. In this diagram, \textc{person} (user)
+objects are either \textc{Guardians} or \textc{Citizens}. Citizens have a
+weekly schedule, which is used in the Weekplanner application. The schedule
+covers a number of days which each have a number of pictograms, which are
+contained in Frame data objects.
+
+\figx{class-diagram}{Classes and the information necessary for their use.}
+
+\section{Further Requirement Refinement}
+Based on the initial requirement analysis and the respective meeting, the
+database groups (SW613 and SW615) began designing the client/database interface.
+Towards the end of the first sprint, group SW612 held a meeting with the
+system's users, who defined a number of new requirements for the GIRAF
+applications. Based on the user's feedback, the database requirements that are
+relevant for our groups were further defined.
+
+\begin{itemize}
+  \item We want to be able to change users pictures by uploading new ones.
+  \item Pictograms should be retriewed in batches to decrease wait time.
+  \item Pictograms should be searchable by category.
+  \item In the Launcher, we only need direct access to guardians, as citizens
+  are aggregated from them.
+  \item We need a server timestamp in order to limit login sessions.
+  \item When accessing users, we need a sub-method to only retrieve ID, name and
+  citizens, as we don't need all information.
+\end{itemize}
+
+Based on these requirements, the database groups where able to further define
+the design of the client/database interface.
+
+\section{Final Client/Database Interface Design}
+Based on the meetings and discussion between our groups, the database groups
+(SW613 and SW615) formulated the following design for the interface, which
+should be used by the GIRAF applications on order to retrieve data from the
+database. This design can be seen in \autoref{interface-uml}.s
+
+\figx{interface-uml}{UML diagram detailing the client/database interface.}
+
+In order to describe the the UML diagram, group SW613 supplied us with the
+following listing, which contains explanations for each of the diagram's
+elements.
+
+\begin{itemize}
+    \item \textbf{createSchedule}\\
+    The \texttt{createSchedule} function is called when a new schedule has been created on a device and the schedule should be synchronised across other devices connected to the same department.
+    \item \textbf{createImage}\\
+    This functions is called when a user takes a photograph and wishes to share it across devices.
+    \item \textbf{readGuardianByDepartment}\\
+    The launcher application needs to read all guardian-objects from the current department. This function returns all guardians associated with the relevant department.
+    \item \textbf{readScheduleByCitizen}\\
+    This function returns all schedules associated with a given citizen.
+    \item \textbf{readPictogramByName}\\
+    When searching for pictograms, this function is used for getting pictograms by their name.
+    \item \textbf{readPictogramByQuery}\\
+    This function allows query passing to the database, allowing the application to search for pictograms with certain tags.
+    \item \textbf{updateGuardianImage}\\
+    This function and the following overloads modify the attributes of the given guardian object.
+    \begin{itemize}
+        \item \textbf{updateGuardianName}
+        \item \textbf{updateGuardianPhone}
+        \item \textbf{updateGuardianEmail}
+    \end{itemize}
+    \item \textbf{updateCitizenName}\\
+    This function and the following overloads modify the attributes of the given citizen object.
+    \begin{itemize}
+        \item \textbf{updateCitizenImage}
+        \item \textbf{updateCitizenPhone}
+        \item \textbf{updateCitizenEmail}
+    \end{itemize}
+    \item \textbf{updateScheduleAttribute}\\
+    This function and the following functions modify the given schedule object and sub-objects.
+    \begin{itemize}
+        \item \textbf{updateScheduleDay}
+        \item \textbf{updateScheduleFrame}
+        \item \textbf{updateScheduleChoice}
+    \end{itemize}
+    \item \textbf{deleteSchedule}\\
+    This function deletes a schedule object.
+    \item \textbf{deleteSchedules} (batch)\\
+    This function deletes a number of schedule object.
+\end{itemize}
+
+For now, we are using this design and the defined methods in order to implement
+database communication in the Launcher application, and the pictosearch-lib
+library.
+
+\section{Final Implemented architecture}
+Placeholder\ldots
+\subsection{Server-side}
+Placeholder\ldots
+\subsection{Client-side}
+Placeholder\ldots
+
+\section{Rest-lib and Models}
+Placeholder\ldots
+
+\section{Implementering af volley, passing af queues osv.}
+Placeholder\ldots
+\subsection{Volley commands og diskussion om evt. helpers}
+Placeholder\ldots
+
