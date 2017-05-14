@@ -100,11 +100,11 @@ well equipped to begin working on GIRAF. The goal of this task is to update the
 guide on releasing builds to Google Store. By reading the guide from 2015 and
 comparing the pictures in it with Google Stores current design, we can see that
 it has changed quite a bit since the guide was written. All the changes of
-importances were due to additional tabs which moved various parts of the functionality.
-We then updated the pictures and along with the relevant part of text to better 
-reflect the new design.
+importances were due to additional tabs which moved various parts of the
+functionality. We then updated the pictures and along with the relevant part of
+text to better reflect the new design.
 
-/fix{Consider if we need to add pics - it was very minor work after all}{}
+\fix{Consider if we need to add pics - it was very minor work after all}{}
 
 \subsection{T868: REST: Fix Launcher app}
 Implementing REST --> We can't make a request handler due to not being able
@@ -127,14 +127,36 @@ which uses the old database (Jonas du ved hvilke classe som du har rettet i)
 \subsection{T873}
 
 \subsection{T875 - Launcher: Add functionality to Log In screen}
-This task is centered around adding functionality to the login screen we made in \fix{add autoref}{}.
+This task is centered around adding functionality to the login screen we made
+in \fix{add autoref}{}.
+
+%overall
+The login procedure is handled by first using our getting a \textc{request
+queue}, which is discussed in \fix{}{have a chapter discussing this}. We then
+begin with the login request, which takes as an input: a username, a password,
+an OnResponse listener and an OnError listerner. The username and password are
+taken from the text fields where the user has written them. 
+
+%OnResponse chains
+In the OnResponse listener, which we reach if the login request is validated, we
+then proceed with a user request, where we again input a username, a password,
+an OnResponse listener and an OnError listener. In the OnResponse listener we
+will upon validation receive the user as a user-type object called response. We
+then proceed to start the home activity \fix{add more}{}.
+
+%OnError
+blablabla
+
+%institute screen
+An additional requirement is needed as it we need a way for an institute-level
+user to\ldots. 
 
 
 
-Tanker:
-implementer login button via:
-Login request --> user request --> home activity
-(Refer til steder hvor vi har beskrevet requestsne?)
+%Tanker:
+%implementer login button via:
+%Login request --> user request --> home activity
+%(Refer til steder hvor vi har beskrevet requestsne?)
 
 % Ny implementation til institution --> login request --> user request hvor user
 % nu er af typen institution --> user selection screen Vi genbruger en
