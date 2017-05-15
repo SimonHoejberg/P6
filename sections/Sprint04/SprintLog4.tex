@@ -126,16 +126,78 @@ which uses the old database (Jonas du ved hvilke classe som du har rettet i)
 
 \subsection{T873}
 
-\subsection{T875 - Launcher: Add functionality to Log In screen}
-This task is centered around adding functionality to the login screen we made
-in \fix{add autoref}{}.
+\subsection{T875, T889 - Launcher: Add functionality to Log In screen and add an
+Institute to Guardian login}
 
-%overall
-The login procedure is handled by first using our getting a \textc{request
-queue}, which is discussed in \fix{}{have a chapter discussing this}. We then
-begin with the login request, which takes as an input: a username, a password,
-an OnResponse listener and an OnError listerner. The username and password are
-taken from the text fields where the user has written them. 
+This task is centered around adding functionality to the login screen we made
+in \autoref{LoginXML}, as REST is now ready to be implemented.\nl
+
+In the \textc{onCreate} method, see \autoref{onCreate}, we instantiate the
+\textc{loginController}, set the current view as
+\textc{R.layout.login\_activity}, which corresponds to the XML file for the
+login screen. We then create references to the various UI elements, such as the
+textboxes on \textbf{lines 7-8}. On \textbf{line 11-15} we create a
+\textc{setOnKeyListener} for when the Enter key is pressed, which calls the
+\textc{onLoginButtonClick} method.\nl
+
+\fix{}{set caption}
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = ???, label = onCreate] 
+public class LoginActivity extends GirafActivity {
+	...
+	public void onCreate(Bundle savedInstanceState) {
+		controller = new LoginController(this);
+    	setContentView(R.layout.login_activity);
+		...
+        usernameTextBox = (TextView) findViewById(R.id.username_textbox);
+        passwordTextBox = (TextView) findViewById(R.id.password_textbox);
+        
+        //Tries to login when Enter is pressed
+    	passwordTextBox.setOnKeyListener(new View.OnKeyListener() { @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+            ...
+            }
+        });
+        ...
+}
+\end{lstlisting}
+\end{minipage}
+
+The \textc{onLoginButtonClick} method is used to disable the various elements
+the user can interact with, as well starting the load animation. The
+username and password are then passed to \textc{controller} via the
+\textc{login} method.
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = ??? , label = onLoginButtonClick] 
+public class LoginActivity extends GirafActivity {
+	...
+	public void onLoginButtonClick(View view) {
+        loginButton.setEnabled(false);
+ 		...
+        findViewById(R.id.girafHeaderIcon).startAnimation(loadAnimation);
+        controller.login(username, password);
+    }
+
+}
+\end{lstlisting}
+\end{minipage}
+
+
+The \textc{login} method is handled by first using our getting a \textc{request
+queue}, which is discussed in \fix{}{add autoref}. We then begin with the login
+request, which takes as an input: a username, a password, an OnResponse
+listener and an OnError listerner. The username and password are taken from the
+text fields where the user has written them.
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = ??? , label = onLoginButtonClick] 
+public class LoginController {
+	...
+
+}
+\end{lstlisting}
+\end{minipage}
 
 %OnResponse chains
 In the OnResponse listener, which we reach if the login request is validated, we
@@ -163,7 +225,5 @@ user to\ldots.
 % user_selection screen
 
 \subsection{T878}
-
-\subsection{T889}
 
 
