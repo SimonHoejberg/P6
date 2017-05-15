@@ -60,12 +60,50 @@ Saved Settings. Pictograms require the following fields on the database: ID,
 Title, and a Bitmap.\nl
 
 Based on a discussion with the other groups, we created a UML class-diagram,
-which have been subject to redefinitions throughout the project. The final version of
-this diagram can be seen in \autoref{Giraf_RestModel}.
+which have been subject to redefinitions throughout the project. The final
+version of this diagram can be seen in \autoref{Giraf_RestModel}.
 
 \figx[0.65]{Giraf_RestModel}{UML diagram depicting the objects requested from
 the database}
 
+In the UML diagram shown in \autoref{Giraf_RestModel}, each class has a
+responsibility as described below in \autoref{restModelTable}.
+
+\begin{table}[H]
+\begin{centering}
+\begin{tabular}{|l|p{9cm}|l|}
+\hline
+Class 					&	Description	\\ \hline
+GirafObject				&	Used for inheritance for most other objects. Implements the
+Serializable interface in order to allow it to be passed between applications. \\\hline 
+User					&	Contains data about a single user and its planned activities.\\\hline 
+Department  			&	Used to differentiate users of different institutions, which
+allows us to implement institution-specific information.\\\hline 
+Settings    			&	Contains information about a users local settings. This allows
+settings to be used on multiple devices. \\\hline 
+Permission  			&	Used to specify the permissions of the user e.g. admin,
+guardian, and citizen.	\\\hline 
+Frame              		&   Acts a container class for pictograms. Contains all
+relevant meta-data and a Pictogram object.\\\hline 
+Choice              	&	Acts a container class for pictograms like a Frame, but
+contains multiple pictograms in case the user has a choice between them.\\ \hline 
+Pictogram              	&	Contains a Bitmap image of the Pictogram. \\\hline 
+Sequence              	&	List of frames which together represent a users daily
+schedule. \\\hline 
+Weekday              	&	A Weekday is used to contain Frames for the week
+schedule.                  \\ \hline 
+WeekdayActivity			& A relation between Weekdays and Frames such that additional
+properties can be added (e.g Index and Progress).\\\hline 
+WeekSchedule         	&	A set of weekdays, which together represents a weeks
+schedule.\\\hline 
+WeekdayActivityProgress & 	Contains information about a users progress on a
+given schedule.\\\hline 
+Application    			&	Information about applications a user is allowed to access.\\\hline     
+\end{tabular}
+\label{restModelTable}
+\caption{Classes used in the REST model, and their descriptions}
+\end{centering}
+\end{table}
 
 \section{Differences between client and database structure}
 
