@@ -71,7 +71,7 @@ would also be funky because the code does not exist to show the bugscreen, and
 return to the launcher code has not been tested yet ( kommentar til os selv,
 det kode virker heller ikke efter hensighten, det skal lige fixes)
 
-\subsection{T822}
+\subsection{T822: Verify the implementation of Grayscale}
 
 \subsection{T830: Never show the bug screen}
 This task should still be fixed given that we removed that code in sprint 3
@@ -84,13 +84,13 @@ are no longer used as a deprendecy in the launcher or giraf component lib and we
 have implementet not just the rest snapshot but the full rest relase which can
 be seen how we use it in the rest fix launcher.
 
-\subsection{T859}
+\subsection{T859: Crosscheck wikis}
 
-\subsection{T862}
+\subsection{T862: Create guides for the general development of GIRAF}
 
-\subsection{T863}
+\subsection{T863: Create sources for starting out}
 
-\subsection{T864}
+\subsection{T864: Create a guide for Android compatibility java8, sync + build}
 
 \subsection{T865: Update the Google Store guide}
 \fix{Can properly be placed in a subsection along with the other guides}{}
@@ -122,9 +122,9 @@ code show an example of how we use reqeuest
 To fix the component lib we only really need to fix a small number of classes
 which uses the old database (Jonas du ved hvilke classe som du har rettet i)
 
-\subsection{T872}
+\subsection{T872: Document the Launcher}
 
-\subsection{T873}
+\subsection{T873: Document PictoSearch}
 
 \subsection{T875, T889 - Launcher: Add functionality to Log In screen and add an
 Institute to Guardian login}
@@ -132,6 +132,7 @@ Institute to Guardian login}
 This task is centered around adding functionality to the login screen we made
 in \autoref{LoginXML}, as REST is now ready to be implemented.\nl
 
+\fix{}{Hvor findes koden og hvorfor skal den forklares}
 In the \textc{onCreate} method, see \autoref{onCreate}, we instantiate the
 \textc{loginController}, set the current view as
 \textc{R.layout.login\_activity}, which corresponds to the XML file for the
@@ -163,10 +164,10 @@ public class LoginActivity extends GirafActivity {
 \end{lstlisting}
 \end{minipage}
 
-The \textc{onLoginButtonClick} method is used to disable the various elements
-the user can interact with, as well starting the load animation. The
-username and password are then passed to \textc{controller} via the
-\textc{login} method.
+The \textc{onLoginButtonClick}, see \autoref{onLoginButtonClick}, method is used
+to disable the various elements the user can interact with, as well starting
+the load animation. The username and password are then passed to
+\textc{controller} via the \textc{login} method.
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = ??? , label = onLoginButtonClick] 
@@ -191,10 +192,10 @@ listener and an OnError listerner. The username and password are taken from the
 text fields where the user has written them.
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = ??? , label = onLoginButtonClick] 
+\begin{lstlisting}[caption = ??? , label = loginController] 
 public class LoginController {
 	...
-
+	
 }
 \end{lstlisting}
 \end{minipage}
@@ -224,6 +225,7 @@ user to\ldots.
 % nu er af typen institution --> user selection screen Vi genbruger en
 % user_selection screen
 
-\subsection{T878}
+
+\subsection{T878: Fix bugs}
 
 
