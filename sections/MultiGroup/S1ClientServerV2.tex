@@ -12,8 +12,8 @@ Based on these issues, it was decided, that the groups responsible for the
 database (SW613 and SW615) would be tasked to develop a new system, which should
 make use of the principles described in the REST model (Representational State
 Transfer)\citep{RESTInfo}. This model outlines a set of requirements which aim
-to establish a high quality framework for server-client communication. These
-requirements contain the following:
+to establish a high quality framework for server-to-client communication. These
+requirements contain, but are not limited to, the following:
 
 \begin{itemize}
   \item Client-Server: Seperate the user interface from data storage and
@@ -33,8 +33,8 @@ requirements contain the following:
 
 As a part of developing this new system, the REST groups (SW613 and SW615)
 requested a meeting with the groups responsible for the GIRAF applications
-(SW609 and SW610), in order to determine the database resource requirements for
-the individual applications. Considering the incomplete state of the previous
+(our group and SW610), in order to determine the database resource requirements
+for the individual applications. Considering the incomplete state of the previous
 system, this information was needed in order to model the server and client
 libraries such that they would be able to transfer all necessary data to the
 applications.\nl
@@ -54,31 +54,47 @@ In order to use the \textc{Launcher}, a user needs to login to an
 \textc{account}, which is either a \textc{Guardian} or a \textc{Citizen}. Each
 account has a \textc{name}, a \textc{picture}, an a \textc{unique identifier}.
 In order to use \textc{pictograms} in applications, the system needs a to acces
-pictogram objects by ID.
-This creates the following resource requirements:
-\fix{}{Update in order to represent our actual requirements (If any changes
-exist).}
+pictogram objects by ID. For users, this creates the following database
+requirements:
 \begin{itemize}
-  \item User (Guardian or Citizen)
-  	\begin{itemize}
-  		\item Name
-  		\item UserID
-  		\item Picture (Icon) 
-	\end{itemize}
-  \item Pictogram
-  	\begin{itemize}
-  		\item ID
-	\end{itemize}
+  \item Name
+  \item UserID
+  \item Icon
+  \item Department
+  \item Username
+  \item Password
+  \item Screen Name
+  \item Saved Settings
 \end{itemize}
 
-Based on a discussion with the other groups, we created the class-diagram which
-can be seen in \autoref{class-diagram}. In this diagram, \textc{person} (user)
-objects are either \textc{Guardians} or \textc{Citizens}. Citizens have a
-weekly schedule, which is used in the Weekplanner application. The schedule
-covers a number of days which each have a number of pictograms, which are
-contained in Frame data objects.
+Pictograms require the following information on the database:
+\begin{itemize}
+  \item ID
+  \item Title 
+\end{itemize}
 
-\figx{class-diagram}{Classes and the information necessary for their use.}
+Based on a discussion with the other groups, we created a class-diagram, which
+have been subject to redefinitions throughout the project. The final version of
+this diagram can be seen in \autoref{Giraf_RestModel}.
+
+\figx[0.65]{Giraf_RestModel}{UML diagram depicting the objects requested from
+the database}
+
+
+\section{Differences between client and database structure}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Further Requirement Refinement}
 Based on the initial requirement analysis and the respective meeting, the
