@@ -54,27 +54,13 @@ In order to use the \textc{Launcher}, a user needs to login to an
 \textc{account}, which is either a \textc{Guardian} or a \textc{Citizen}. Each
 account has a \textc{name}, a \textc{picture}, an a \textc{unique identifier}.
 In order to use \textc{pictograms} in applications, the system needs a to acces
-pictogram objects by ID. For users, this creates the following database
-requirements:
-\begin{itemize}
-  \item Name
-  \item UserID
-  \item Icon
-  \item Department
-  \item Username
-  \item Password
-  \item Screen Name
-  \item Saved Settings
-\end{itemize}
+pictogram objects by ID. As such, users require the following fields on the
+server: Name, UserID, Icon, Department, Username, Password, Screen Name, and
+Saved Settings. Pictograms require the following fields on the database: ID,
+Title, and a Bitmap.\nl
 
-Pictograms require the following information on the database:
-\begin{itemize}
-  \item ID
-  \item Title 
-\end{itemize}
-
-Based on a discussion with the other groups, we created a class-diagram, which
-have been subject to redefinitions throughout the project. The final version of
+Based on a discussion with the other groups, we created a UML class-diagram,
+which have been subject to redefinitions throughout the project. The final version of
 this diagram can be seen in \autoref{Giraf_RestModel}.
 
 \figx[0.65]{Giraf_RestModel}{UML diagram depicting the objects requested from
