@@ -119,8 +119,59 @@ from the new rest model libray.
 code show an example of how we use reqeuest
 
 \subsection{T870 - REST: Fix component-lib}
-To fix the component lib we only really need to fix a small number of classes
-which uses the old database (Jonas du ved hvilke classe som du har rettet i)
+With the introduction of the \textc{rest-models} library, and the removal of the
+\textc{db-lib} library, the previously implemented database communication has
+been rendered invalid. As such, it needs to be replaced by the equivalent
+\textc{rest-models} approach. As this change spans a large part of the 58
+classes in the \textc{component-lib} library, the presentation of this task will
+focus on the class \textc{GirafPictogramItemView}, as it is one of the
+classes which have recieved the most changes.\nl
+
+The \textc{GirafPictogramItemView} class is responsible for presenting ItemViews
+on the GUI (graphical use interface). In the presented implementation, both
+Users and Pictograms extended the ItemView class, as both of those classes
+contained pictures or icons which should be presented on the GUI. As such, The
+\textc{GirafPictogramItemView} class was used to present both of these
+elements.\nl
+
+In the rest-models approach, many of the previous classes which were part of
+the db-lib library have been deprecated, including the ItemView class. As such,
+we have had to split the \textc{GirafPictogramItemView} class into two seperate
+classes, which handles pictograms and users respectively. The class for
+pictogram retained the old name, while the new class for users was named
+\textc{GirafUserItemView}.\nl
+
+\fix{}{Write some more}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{T872: Document the Launcher}
 
