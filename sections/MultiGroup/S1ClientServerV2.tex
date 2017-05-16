@@ -305,7 +305,7 @@ response. The problem occours, as methods themselves are synchronous by
 definition, as control is only passed back to the calling class whenever the
 method returns. The necessity for asynchronous communication has limited us to
 using the approach shown in \autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
-\autoref{CSLoginRequest3} where we use up to 50 lines of code for a
+\autoref{CSLoginRequest3} where we can use 50 or more lines of code for a
 single request. The only solution we have found to this issue would be to use
 lambda-expressions, as they allow for us to pass methods as method parameters.
 This would allow us to pass two methods to the helper class, which would be used
