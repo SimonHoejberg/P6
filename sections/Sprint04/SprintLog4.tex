@@ -15,7 +15,6 @@ in the various libraries, as well as document the changes and additions.
 
 
 \section{Tasks and Solutions}
-
 Based on this goal we have been assigned the following tasks, see
 \autoref{Tasks3}, which include the verification of our various solutions from
 earlier sprints. These verification tasks have been marked with the tag
@@ -64,9 +63,6 @@ return to the launcher code has not been tested yet ( kommentar til os selv,
 det kode virker heller ikke efter hensighten, det skal lige fixes)
 
 \subsection{T822: Verify the implementation of Grayscale}
-
-\subsection{T830: Never show the bug screen}
-This task should still be fixed given that we removed that code in sprint 3
 
 \subsection{T836: Remove old libraries from artifactory, and begin implementing REST
 snapshot}
@@ -285,14 +281,18 @@ user to\ldots.
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
 \begin{itemize}
   \item T772: Verify: Security problem when changing system date/time
-  \begin{itemize}
-  	\item The orginal problem discoved during sprint 2 as seen in \autoref{T772}
- 	was that the user could extend the login session by doing back in time on the
-  	device.
-	This issue is because we do not check the time using some form of a time
-	server, and therefor not able to detect this.  
-	But now this task is invalid because the server now handles if a user is logged
-	in, using tokens / cookies which the rest libary handes.
-\end{itemize}
-
+  	\begin{itemize}
+  		\item The orginal problem discoved during sprint 2 as seen in \autoref{T772}
+ 		was that the user could extend the login session by doing back in time on the
+  		device.
+		This issue is because we do not check the time using some form of a time
+		server, and therefor not able to detect this.  
+		But now this task is invalid because the server now handles if a user is
+		logged in, using tokens / cookies which the rest libary handes.
+		\end{itemize}
+  \item T830: Never show the bug screen
+  	\begin{itemize}
+  		\item This task should still be fixed given that we removed that code in
+  		sprint 3
+	\end{itemize}
 \end{itemize}
