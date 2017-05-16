@@ -145,18 +145,21 @@ Changes to the mplementation of server requests can be seen in
 Institute to Guardian login}
 
 This task is centered around adding functionality to the login screen we made
-in \autoref{LoginXML}, as REST is now ready to be implemented.\nl
+in \autoref{LoginXML}, as REST is now ready to be implemented. The GUI is
+implemented in the \textc{LoginActivity} class, where we create the reference
+to XML layout and construct the needed listeners, this can be seen in
+\autoref{onCreate} and \autoref{onLoginButtonClick}. The \textc{LoginController}
+class handles the login method which consists of two nested requests to the
+server.\nl
 
-\fix{}{Hvor findes koden og hvorfor skal den forklares}
-In the \textc{onCreate} method, see \autoref{onCreate}, we instantiate the
-\textc{loginController}, set the current view as
-\textc{R.layout.login\_activity}, which corresponds to the XML file for the
-login screen. We then create references to the various UI elements, such as the
-textboxes on \textbf{lines 7-8}. On \textbf{line 11-15} we create a
+In \textc{LoginActivity} we use the \textc{onCreate} method, see
+\autoref{onCreate}, to instantiate the \textc{LoginController} and set the
+screen as \textc{R.layout.login\_activity}, which corresponds to the XML
+file for the login screen. We then create references to the various UI elements,
+such as the textboxes on \textbf{lines 7-8}. On \textbf{line 11-22} we create a
 \textc{setOnKeyListener} for when the Enter key is pressed, which calls the
-\textc{onLoginButtonClick} method.\nl
+\textc{onLoginButtonClick} method.\fix{fix captions}{}\nl
 
-\fix{}{set caption}
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = ???, label = onCreate] 
 public class LoginActivity extends GirafActivity {
@@ -169,9 +172,16 @@ public class LoginActivity extends GirafActivity {
         passwordTextBox = (TextView) findViewById(R.id.password_textbox);
         
         //Tries to login when Enter is pressed
-    	passwordTextBox.setOnKeyListener(new View.OnKeyListener() { @Override
+        passwordTextBox.setOnKeyListener(new View.OnKeyListener() {
+            @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-            ...
+                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN){
+                    if(keyCode == KeyEvent.KEYCODE_ENTER){
+                        onLoginButtonClick(view);
+                        return true;
+                    }
+                }
+                return false;
             }
         });
         ...
@@ -180,12 +190,13 @@ public class LoginActivity extends GirafActivity {
 \end{minipage}
 
 The \textc{onLoginButtonClick}, see \autoref{onLoginButtonClick}, method is used
-to disable the various elements the user can interact with, as well starting
-the load animation. The username and password are then passed to
-\textc{controller} via the \textc{login} method.
+to disable the elements the user can interact with, start the load animation and
+pass the username and password to \textc{controller} via the \textc{login}
+method.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = ??? , label = onLoginButtonClick] 
+\begin{lstlisting}[caption = The effects of trying to login , label =
+onLoginButtonClick] 
 public class LoginActivity extends GirafActivity {
 	...
 	public void onLoginButtonClick(View view) {
@@ -194,14 +205,42 @@ public class LoginActivity extends GirafActivity {
         findViewById(R.id.girafHeaderIcon).startAnimation(loadAnimation);
         controller.login(username, password);
     }
+	...
+\end{lstlisting}
+\end{minipage}
 
+In the \textc{LoginController} class we use the \textc{login} method to
+communicate with the server through a couple different requests, which are
+detailed more in \autoref{UsingRest}.\\
+
+
+
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = ???, label = loginReq]
+public class LoginController {
+	...
+    public void login(final String username, String password) {
+        queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
+
+        //Creates a login request which is then added to the queue later
+        LoginRequest loginRequest = new LoginRequest(username, password,
+        	new Response.Listener<Integer>() {
+        		...
+        	},
+        	new Response.ErrorListener() {
+        		...
+        	}
+   		);
+		queue.add(loginRequest);
+	}
 }
 \end{lstlisting}
 \end{minipage}
 
 
-The \textc{login} method is handled by first using our getting a \textc{request
-queue}, which is discussed in \fix{}{add autoref}. We then begin with the login
+is handled by first
+using our getting a \textc{request queue}, which is discussed in \fix{}{add autoref}. We then begin with the login
 request, which takes as an input: a username, a password, an OnResponse
 listener and an OnError listerner. The username and password are taken from the
 text fields where the user has written them.

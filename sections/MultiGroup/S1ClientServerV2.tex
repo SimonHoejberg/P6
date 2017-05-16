@@ -191,15 +191,17 @@ comes to manipulating data on the database.
 \section{Using the Rest Libraries}\label{UsingRest}
 Following the final implementation of the REST model, the database groups SW613
 and SW615 have supplied our group with a new approach to requesting and updating
-information on the database. This approach consists of three different
-elements: \textc{login requests}, \textc{get requests}, and \textc{put
-requests}. An example of a login request can be seen throughout the code
-examples in \autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
+information on the database. This approach consists of four different
+elements: \textc{login requests}, \textc{get requests}, \textc{put requests}
+and the \textc{queue}. An example of a login request can be seen throughout the
+code examples in \autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
 \autoref{CSLoginRequest3}, where we have two nested requests, a
 \textc{LoginRequest} and a \textc{GetUserRequest}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Initial request the the respective server response object, label = CSLoginRequest1]
+queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
+
 LoginRequest loginRequest = new LoginRequest(username, password, new Response.Listener<Integer>() 
 {
 	@Override
@@ -223,13 +225,13 @@ LoginRequest loginRequest = new LoginRequest(username, password, new Response.Li
 \end{minipage}
 
 In the code example in \autoref{CSLoginRequest1} we start by creating a new
-\textc{LoginRequest} on \textbf{line 1}, where we pass the users
+\textc{LoginRequest} on \textbf{line 3}, where we pass the users
 \textc{username}, \textc{password}, and the \textc{ResponseListener}, which is
-an object used for server communication. Everything after \textbf{line 2} are
-a part of the \textc{LoginRequests} nested inner class. On \textbf{line 4} we
+an object used for server communication. Everything after \textbf{line 4} are
+a part of the \textc{LoginRequests} nested inner class. On \textbf{line 6} we
 have an \textc{onResponse} method, which is called whenever we recieve a
-response from the server. Given a user from the server, on lines 12-16, we
-create a new intent and start a HomeActivity based on the user.\nl
+response from the server. Given a user from the server, on \textbf{lines 14-18},
+we create a new intent and start a HomeActivity based on the user.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Using an errorListener to detect mishaps in the GetUserRequest, label = CSLoginRequest2]
@@ -292,6 +294,48 @@ The code example in \autoref{CSLoginRequest3} follows directly after
 errors in the \textc{LoginRequest}. On \textbf{lines 6-13} we choose which error
 message to display in the console, based on what error-code we retrieved from
 the server.
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Using a RequestQueue to commicate with the server,
+label = RequestQueue]
+public void login(final String username, String password) {
+    RequestQueue queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
+
+    //Creates a login request which is then added to the queue later
+    LoginRequest loginRequest = new LoginRequest(username, password,
+        new Response.Listener<Integer>() {
+            @Override
+            public void onResponse(Integer statusCode) {
+                //Creates a GetRequest for the user, which is then added to the queue within the loginRequest
+                GetRequest<User> userGetRequest =
+                    new GetRequest<User>(username, User.class, new Response.Listener<User>() {
+                       	...
+                    }
+                    ...
+                );
+                queue.add(userGetRequest);
+            }
+        },
+		...
+    );
+    //The login request is added to the queue
+    queue.add(loginRequest);
+}
+\end{lstlisting}
+\end{minipage}
+
+The code example of \autoref{RequestQueue} is used to demonstrate how the
+applications communicate with the server. The communication is done through a
+\textc{RequestQueue} which we instantiate on \textbf{line 2}. The
+\textc{RequestQueue} communicates asynchronously with the server, which means
+that in order for our requests to be handled in the correct order we need to
+make to nest our requests inside each as other, as seen on \textbf{line 16} and
+\textbf{22}, where the \textc{userGetRequest} is nested inside the
+\textc{loginRequest}'s \textc{onResponse}.
+
+
+
+
 
 \subsection{Volley Discussion}
 During development of the client-to-server communications framework, the server
