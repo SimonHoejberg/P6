@@ -6,7 +6,7 @@ in order to attempt to improve it. The first of two main issues were, that the
 existing system did not implement the required safety measures which are expected of
 applications which make use of private information. The second issue was, that
 the system did not allow for uploading data to the server, but only to
-retrieve it.\nl
+retrieve it, which rendered us unable to update information on the server.\nl
 
 Based on these issues, it was decided, that the groups responsible for the
 database (SW613 and SW615) would be tasked to develop a new system, which should
@@ -18,8 +18,8 @@ requirements contain, but are not limited to, the following:
 \begin{itemize}
   \item Client-Server: Seperate the user interface from data storage and
   manipulation.
-  \item Stateless: Each request contain all information required for the client
-  to service the request.
+  \item Stateless: Each request to the server contain all information required
+  for the client to service the request.
   \item Cacheable: Responses from the server must implicitly or explicitly
   declare themself as either cacheable or not, in order to prevent the client
   from reusing expired data.
@@ -41,13 +41,13 @@ applications.\nl
 
 \section{Requirement Analysis}
 As our group (SW609) is responsible for the \texttt{Launcher} application and
-the \texttt{pictosearch-lib} library, we were tasked with analyzing the relevant
-code before the scheduled meeting, in order to determine what database resources
+the \\\texttt{pictosearch-lib} library, we were tasked with analyzing the
+relevant code before the scheduled meeting, in order to determine what database resources
 would be necessary for these applications/libraries. These tasks are presented
 in \autoref{TaS1} as T636, T646, and T647.\nl
 
 In our case, we mostly determined the requirements testing the \textc{Launcher}
-and \textc{pictosearch-lib} through general use. Based on this testing, and
+and\\ \textc{pictosearch-lib} through general use. Based on this testing, and
 analysis of the code, we determined the following requirements:\nl
 
 In order to use the \textc{Launcher}, a user needs to login to an
@@ -55,9 +55,11 @@ In order to use the \textc{Launcher}, a user needs to login to an
 account has a \textc{name}, a \textc{picture}, an a \textc{unique identifier}.
 In order to use \textc{pictograms} in applications, the system needs a to acces
 pictogram objects by ID. As such, users require the following fields on the
-server: Name, UserID, Icon, Department, Username, Password, Screen Name, and
-Saved Settings. Pictograms require the following fields on the database: ID,
-Title, and a Bitmap.\nl
+server: \textbf{Name}, \textbf{UserID}, \textbf{Icon}, \textbf{Department},
+\textbf{Username}, \textbf{Password}, \textbf{Screen Name}, and \textbf{Saved
+Settings}.
+Pictograms require the following fields on the database: \textbf{ID},
+\textbf{Title}, and a \textbf{Bitmap (Picture)}.\nl
 
 Based on a discussion with the other groups, we created a UML class-diagram,
 which have been subject to redefinitions throughout the project. The final
@@ -67,47 +69,49 @@ version of this diagram can be seen in \autoref{Giraf_RestModel}.
 the database}
 
 In the UML diagram shown in \autoref{Giraf_RestModel}, each class has a
-use and a specific responsibility. This is described below in
-\autoref{restModelTable}.
+specific use and responsibility. This is described below in
+\autoref{restModelTableEh}.
 
-\begin{table}[H]
+\begin{table}[H] 
 \begin{centering}
-\label{restModelTable}
 \begin{tabular}{|l|p{9cm}|l|}
-\hline
+\hline 
 Class 					&	Description	\\ \hline
 GirafObject				&	Used for inheritance for most other objects. Implements the
 Serializable interface in order to allow it to be passed between applications. \\\hline 
-User					&	Contains data about a single user and its planned activities.\\\hline 
-Department  			&	Used to differentiate users of different institutions, which
-allows us to implement institution-specific information.\\\hline 
+User					&	Contains data about a single user and its planned
+schedule and activities.\\\hline 
+Department  			&	Used to differentiate users of
+different institutions, which allows us to implement institution-specific information.\\\hline 
 Settings    			&	Contains information about a users local settings. This allows
-settings to be used on multiple devices. \\\hline 
-Permission  			&	Used to specify the permissions of the user e.g. admin,
-guardian, and citizen.	\\\hline 
+the same settings to be mirrored across multiple devices. \\\hline 
+Permission  			&	Used to specify the permissions of the user e.g. Admin,
+Guardian, and Citizen. Allows and restricts access to certain features and data.\\\hline 
 Frame              		&   Acts a container class for pictograms. Contains all
-relevant meta-data and a Pictogram object.\\\hline 
+relevant contextual data, and a Pictogram object.\\\hline 
 Choice              	&	Acts a container class for pictograms like a Frame, but
-contains multiple pictograms in case the user has a choice between them.\\ \hline 
-Pictogram              	&	Contains a Bitmap image of the Pictogram. \\\hline 
-Sequence              	&	List of frames which together represent a users daily
-schedule. \\\hline 
+contains multiple pictograms, in the case that the citizen has a choice between
+multiple activities in their schedules.\\\hline 
+Pictogram              	&	Contains a Bitmap image of the Pictogram. \\\hline
+Sequence              	&	List of Frames or Choices which together represent a
+users daily schedule. \\\hline 
 Weekday              	&	A Weekday is used to contain Frames for the week
 schedule.                  \\ \hline 
 WeekdayActivity			& A relation between Weekdays and Frames such that additional
 properties can be added (e.g Index and Progress).\\\hline 
-WeekSchedule         	&	A set of weekdays, which together represents a weeks
+WeekSchedule         	&	A set of weekdays, which together represents a week's
 schedule.\\\hline 
 WeekdayActivityProgress & 	Contains information about a users progress on a
 given schedule.\\\hline 
 Application    			&	Information about applications a user is allowed to access.\\\hline     
 \end{tabular}
+\label{restModelTableEh}
 \caption{Classes used in the REST model, and their descriptions}
 \end{centering}
 \end{table}
 
-\section{Further Requirement Refinement}
-Following the initial requirement analysis and the respective meeting, the
+\section{Client/Database Interface Design}
+Following the initial requirement analysis and the respective meetings, the
 database groups (SW613 and SW615) began designing the client/database interface.
 Towards the end of the first sprint, group SW612 held a meeting with the
 system's users, who defined a number of new requirements for the GIRAF
@@ -125,14 +129,14 @@ relevant for our groups were further defined.
   citizens, as we don't need all information.
 \end{itemize}
 
-Based on these requirements, the database groups where able to further define
-the design of the client/database interface.
+Based on these requirements, the database groups were able to further define
+the design of the client/database interface.\nl
 
-\section{Client/Database Interface Design}
 Based on the meetings and discussion between our groups, the database groups
 (SW613 and SW615) formulated the following design for the interface, which
-should be used by the GIRAF applications on order to retrieve data from the
-database. This design can be seen in \autoref{interface-uml}.
+should be used by the \textc{rest-models} library in order to retrieve and
+manipulate data from the database. This design can be seen in
+\autoref{interface-uml}.
 
 \figx{interface-uml}{UML diagram detailing the client/database interface.}
 
@@ -180,17 +184,17 @@ elements.
     This function deletes a number of schedule object.
 \end{itemize}
 
-For now, we are using this design and the defined methods in order to implement
-database communication in the Launcher application, and the pictosearch-lib
-library.
+Until the REST framework is finished, the overall design of this interface
+will be used to identify what oppoutunities we have in the applications, when it
+comes to manipulating data on the database.
 
-\section{Using the Rest Libraries}
+\section{Using the Rest Libraries}\label{UsingRest}
 Following the final implementation of the REST model, the database groups SW613
 and SW615 have supplied our group with a new approach to requesting and updating
 information on the database. This approach consists of three different
 elements: \textc{login requests}, \textc{get requests}, and \textc{put
-requests}. An example of a login request can be throughout the code examples in
-\autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
+requests}. An example of a login request can be seen throughout the code
+examples in \autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
 \autoref{CSLoginRequest3}, where we have two nested requests, a
 \textc{LoginRequest} and a \textc{GetUserRequest}.\nl
 
@@ -300,11 +304,16 @@ asynchronous, such that UI threads are not put on hold while waiting for a
 response. The problem occours, as methods themselves are synchronous by
 definition, as control is only passed back to the calling class whenever the
 method returns. The necessity for asynchronous communication has limited us to
-using the approach shown in \autoref{} where we use up to 50 lines of code for a
+using the approach shown in \autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
+\autoref{CSLoginRequest3} where we use up to 50 lines of code for a
 single request. The only solution we have found to this issue would be to use
 lambda-expressions, as they allow for us to pass methods as method parameters.
 This would allow us to pass two methods to the helper class, which would be used
-respectively on success and failure of the request.
+respectively on success and failure of the request. However, lambda-expressions
+are not currently available for Android development, as the current version of
+the Android SDK uses Java7, while lambda-expressions are only implemented from
+Java8 and onwards.
+
 
 
 
