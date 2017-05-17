@@ -157,7 +157,7 @@ such as the textboxes on \textbf{lines 7-8}. On \textbf{line 11-22} we create a
 \textc{onLoginButtonClick} method.\fix{fix captions}{}\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = ???, label = onCreate] 
+\begin{lstlisting}[caption = , label = onCreate] 
 public class LoginActivity extends GirafActivity {
 	...
 	public void onCreate(Bundle savedInstanceState) {
@@ -209,15 +209,21 @@ In the \textc{LoginController} class we use the \textc{login} method to
 communicate with the server through a couple different requests, which are
 detailed more in \autoref{UsingRest}.\\
 
-
-
+In this code example, \autoref{loginReq}, we Instantiate a \textc{RequestQueue}
+on \textbf{line 4} along with a \textc{LoginRequest} on \textbf{lines 7-14}
+which we add to the queue on \textbf{line 15}. When the server responds to our
+login request can then either be granted or denied access. If we are denied
+access the \textc{Response.ErrorListener} on \textbf{lines 11-13} uses an
+\textc{onErrorResponse} method to displays a message depending on the type of
+error it has received, this is further illustrated in
+\autoref{CSLoginRequest3}.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = ???, label = loginReq]
+\begin{lstlisting}[caption = , label = loginReq]
 public class LoginController {
 	...
     public void login(final String username, String password) {
-        queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
+        RequestQueue queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
 
         //Creates a login request which is then added to the queue later
         LoginRequest loginRequest = new LoginRequest(username, password,
@@ -234,42 +240,46 @@ public class LoginController {
 \end{lstlisting}
 \end{minipage}
 
-
-is handled by first using our getting a \textc{request queue}, which is
-discussed in \autoref{UsingRest}. We then begin with the login request, which
-takes as an input: a username, a password, an OnResponse listener and an OnError
-listerner. The username and password are taken from the text fields where the
-user has written them.
+When a login request is validated we proceed to the \textc{Response.Listener} on
+\textbf{lines 8-10} of \autoref{loginReq}, this code is described in
+\autoref{userReq}.\\
+In the OnResponse listener on \textbf{lines 3-20} we make a \textc{GetRequest}
+on \textbf{6} for a user with the same username and password as before. This is
+because the \textc{LoginRequest} does not return a user. Inside the
+\textc{Response.Listener} on \textbf{line 10-15} we proceed to pass the user
+to \textc{homeIntent} and start the next activity.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = ??? , label = loginController] 
-public class LoginController {
-	...
-	
+\begin{lstlisting}[caption = ???, label = userReq]
+new Response.Listener<Integer>() {
+	@Override
+    public void onResponse(Integer statusCode) {
+    	//Creates a GetRequest for the user, which is then added to the queue
+    	//within the loginRequest 
+    	GetRequest<User> userGetRequest = new GetRequest<User>(username, User.class, 
+    	new Response.Listener<User>() {
+        	//Passes the userinfo to homeIntent
+            @Override
+            public void onResponse(User response) {
+            	Intent homeIntent = new Intent(gui, HomeActivity.class);
+                homeIntent.putExtra(IntentConstants.CURRENT_USER,response);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                gui.startActivity(homeIntent);
+            }
+        }, new Response.ErrorListener() {
+			...
+        });
+        queue.add(userGetRequest);
+	}
 }
 \end{lstlisting}
 \end{minipage}
 
-%OnResponse chains
-In the OnResponse listener, which we reach if the login request is validated, we
-then proceed with a user request, where we again input a username, a password,
-an OnResponse listener and an OnError listener. In the OnResponse listener we
-will upon validation receive the user as a user-type object called response. We
-then proceed to start the home activity \fix{add more}{}.
-
-%OnError
-blablabla
 
 %institute screen
 An additional requirement is needed as it we need a way for an institute-level
 user to\ldots. 
 
-
-
-%Tanker:
-%implementer login button via:
-%Login request --> user request --> home activity
-%(Refer til steder hvor vi har beskrevet requestsne?)
 
 % Ny implementation til institution --> login request --> user request hvor user
 % nu er af typen institution --> user selection screen Vi genbruger en
