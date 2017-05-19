@@ -317,11 +317,7 @@ In \textc{setGrayScaleForActivity} we experience a problem as we in
 \autoref{grayEx1} tried to use \textc{setGray} for each view. This does not work
 correctly, as such we use the \textc{root View} on \textbf{line
 5}, as we are able to affect the other views through it, as can be seen on
-\autoref{NEWsetGrayScale}. There is a small problem as currently the
-\textc{dialogs} are not grayscaled when the \textc{root View} is.
-We think this is because they are not attached to it, but due to time
-constraints we have choosen to pass this particular part to next years
-students.
+\autoref{NEWsetGrayScale}.
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = , label = NEWsetGrayScale] 
@@ -337,7 +333,13 @@ public class GrayScaleHelper {
 \end{lstlisting}
 \end{minipage}
 
-\fix{}{Put a picture of grayscaled rootview with a colored dialog}
+There is a small problem as currently the \textc{dialogs} are not grayscaled
+when the \textc{root View} is. We think this is because they are not attached to
+it, see \autoref{GrayScaleColorDialog}, but due to time constraints we have
+choosen to pass this particular part to next years students. 
+
+\figx[0.2]{GrayScaleColorDialog}{An example of a colored dialog with a
+gray scaled background.}
 
 \subsubsection{T878: Fix bugs}
 This is a task for every group. This sprint we have been busy implementing REST
