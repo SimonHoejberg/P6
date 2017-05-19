@@ -61,27 +61,34 @@ are no longer used as a deprendecy in the launcher or giraf component lib and we
 have implementet not just the rest snapshot but the full rest release which can
 be seen how we use it in the rest fix launcher.
 
-\subsection{T859: Crosscheck wikis}
 
-\subsection{T862: Create guides for the general development of GIRAF}
+\subsection{Guides and Help and Help For Future Students}
+In order to help the next batch of students, every group has been tasked with
+creating a set of guides. These guides are meant to explain the various
+parts of GIRAF that are most likely going to be confusing, such as starting out,
+how GIRAF is developed and how the various tools work together. The
+majority of these guides are written by other groups can be found on the GIRAF
+wiki\citep{GWiki}. As such \textbf{T862}, \textbf{T863} and \textbf{T864} can be
+considered resolved.
 
-\subsection{T863: Create sources for starting out}
+\subsubsection{T859: Crosscheck wikis}
+The purpose of this task is to ensure that wikis are of acceptable state, this
+is done having
+\fix{}{write me}
 
-\subsection{T864: Create a guide for Android compatibility java8, sync + build}
+\subsubsection{T865: Update the Google Store guide}
 
-\subsection{T865: Update the Google Store guide}
-\fix{place in a subsection as a subsub along with the other guides}{}
-
-This task is part of the overall goal to ensure that next years students are
-well equipped to begin working on GIRAF. The goal of this task is to update the
-guide on releasing builds to Google Store. By reading the guide from 2015 and
-comparing the pictures in it with Google Stores current design, we can see that
-it has changed quite a bit since the guide was written. All the changes of
-importances were due to additional tabs which moved various parts of the
-functionality. We then updated the pictures and along with the relevant part of
-text to better reflect the new design.
-
+The goal of this task is to update the guide on releasing builds to Google
+Store. By reading the guide from 2015 and comparing the pictures in it with
+Google Stores current design, we can see that it has changed quite a bit since
+the guide was written. All the changes of importances were due to additional
+tabs which moved various parts of the functionality. We then updated the
+pictures and along with the relevant part of text to better reflect the new
+design.
 \fix{Consider if we need to add pics - it was very minor work after all}{}
+
+\subsubsection{T872: Document the Launcher}
+\fix{}{Write me}
 
 \subsection{T868: REST: Fix Launcher app}
 Implementing REST --> We can't make a request handler due to not being able
@@ -94,6 +101,8 @@ We have also remove all the usage of profiels and switched them out for users
 from the new rest model libray.
 
 code show an example of how we use reqeuest
+\fix{}{Write me}
+
 
 \subsection{T870 - REST: Fix component-lib}
 With the introduction of the \textc{rest-models} library, and the removal of the
@@ -122,7 +131,6 @@ Changes to the mplementation of server requests can be seen in
 \autoref{UsingRest} where the new REST approach is presented and discussed.
 \fix{}{Write some more}
 
-\subsection{T872: Document the Launcher}
 
 \subsection{T875 Launcher: Add functionality to Log In screen}
 
@@ -279,7 +287,35 @@ return to launcher but have not been able to resolve it due to time constraints.
 As such this task can only be considered partially resolved.
 
 \subsubsection{T822: Verify the implementation of Grayscale}
-Old method didn't work on giraf as we could access the current view
+We have removed all \textc{SharedPreferences}, including the one we used in
+\autoref{grayEx2}, as such we have no way to see the users setting. We have thus
+changed it to better make use of REST by making a request to the server for the
+users setting, see \autoref{NEWsetGrayScale}. As seen on \textbf{lines xx-xy} we
+make a simple \textc{GetRequest<User>} pass the settings and activity to the
+\textc{setGrayScaleForActivity} method.
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = , label = NEWsetGrayScale] 
+public class GrayScaleHelper {
+	...
+	public static void setGrayScaleForActivityByUser(final Activity activity, 
+	  final User user){
+		...
+		GetRequest<User> userGetRequest = new GetRequest<User>(user.getUsername(), User.class, new Response.Listener<User>() {
+            @Override
+            public void onResponse(User response) {
+           		if(response.getSettings() != null) {
+               		setGrayScaleForActivity(activity, response.getSettings().getUseGrayScale());
+               	}
+	 			...
+}
+\end{lstlisting}
+\end{minipage}
+
+
+
+
+Old method didn't work on giraf as we could not access the current view
 
 added a method to create a request for the users grayscalesetting
 
@@ -288,6 +324,7 @@ we changed it to get the root view which worked, and the code is now:
 \subsubsection{T878: Fix bugs}
 Fixing bugs is hard when you dont have an even remotely finished product.
 
+\fix{}{write me}
 
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
 \begin{itemize}
