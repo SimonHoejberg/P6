@@ -41,7 +41,6 @@ T865	& G609, G610: Update the Google store guide & 2\\\hline
 T868    & REST: Fix Launcher app & 70 \\\hline
 T870    & REST: Fix component-lib & 60\\\hline
 T872 	& Documentation: Launcher & ??\\ \hline
-T873 	& G609, G612: Documentation: Pictosearch & ??\\ \hline
 T875 	& Launcher: Add functionality to Log In screen & 20\\\hline 
 T878 	& Everyone: Fix bugs & ??\\ \hline
 T889	& Launcher: Add an Institute to Guardian login & 12 \\\hline
@@ -53,16 +52,6 @@ T889	& Launcher: Add an Institute to Guardian login & 12 \\\hline
 
 In the following subsections we will discuss the tasks and document our
 solutions.
-
-\subsection{T785: Verify: Handle crash such that the user does not get an error message and
-is brought back to the launcher}
-Thoughout testing the finished launcher after the rest api was included, we see
-that when we get an exception we do not crash and show the bug screen, which
-would also be funky because the code does not exist to show the bugscreen, and
-return to the launcher code has not been tested yet ( kommentar til os selv,
-det kode virker heller ikke efter hensighten, det skal lige fixes)
-
-\subsection{T822: Verify the implementation of Grayscale}
 
 \subsection{T836: Remove old libraries from artifactory, and begin implementing REST
 snapshot}
@@ -81,7 +70,7 @@ be seen how we use it in the rest fix launcher.
 \subsection{T864: Create a guide for Android compatibility java8, sync + build}
 
 \subsection{T865: Update the Google Store guide}
-\fix{Can properly be placed in a subsection along with the other guides}{}
+\fix{place in a subsection as a subsub along with the other guides}{}
 
 This task is part of the overall goal to ensure that next years students are
 well equipped to begin working on GIRAF. The goal of this task is to update the
@@ -134,10 +123,6 @@ Changes to the mplementation of server requests can be seen in
 \fix{}{Write some more}
 
 \subsection{T872: Document the Launcher}
-
-\subsection{T873: Document PictoSearch}
-
-This task has since been given to SW612
 
 \subsection{T875 Launcher: Add functionality to Log In screen}
 
@@ -283,7 +268,26 @@ new Response.Listener<Integer>() {
 
 %No time for institute
 
-\subsection{T878: Fix bugs}
+
+\subsection{Verification}
+
+\subsubsection{T785 and T830: Handle crash such that the user does not get an
+error message and is brought back to the launcher}
+Thoughout testing the launcher after the REST API was included, we see that when
+we crash the bug screen is no longer shown. We have tried implementing the
+return to launcher but have not been able to resolve it due to time constraints.
+As such this task can only be considered partially resolved.
+
+\subsubsection{T822: Verify the implementation of Grayscale}
+Old method didn't work on giraf as we could access the current view
+
+added a method to create a request for the users grayscalesetting
+
+we changed it to get the root view which worked, and the code is now:
+
+\subsubsection{T878: Fix bugs}
+Fixing bugs is hard when you dont have an even remotely finished product.
+
 
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
 \begin{itemize}
@@ -297,11 +301,6 @@ new Response.Listener<Integer>() {
 		But now this task is invalid because the server now handles if a user is
 		logged in, using tokens / cookies which the rest libary handes.
 		\end{itemize}
-  \item T830: Never show the bug screen
-  	\begin{itemize}
-  		\item This task should still be fixed given that we removed that code in
-  		sprint 3
-	\end{itemize}
   \item T889: Add an Institute to Guardian login
    \begin{itemize}
      \item This task is an extension of \textbf{T875}, as it is intended for an
