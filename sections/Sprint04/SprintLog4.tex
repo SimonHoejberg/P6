@@ -148,11 +148,11 @@ screen as \textc{R.layout.login\_activity}, which corresponds to the XML
 file for the login screen. We then create references to the various UI elements,
 such as the textboxes on \textbf{lines 7-8}. On \textbf{line 11-22} we create a
 \textc{setOnKeyListener} for when the Enter key is pressed, which calls the
-\textc{onLoginButtonClick} method.\fix{fix captions}{}\nl
+\textc{onLoginButtonClick} method.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = , label = onCreate] 
-public class LoginActivity extends GirafActivity {
+\begin{lstlisting}[caption = Creating the correct references when logging in,
+label = onCreate] public class LoginActivity extends GirafActivity {
 	...
 	public void onCreate(Bundle savedInstanceState) {
 		controller = new LoginController(this);
@@ -185,10 +185,9 @@ pass the username and password to \textc{controller} via the \textc{login}
 method.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = The effects of trying to login , label =
-onLoginButtonClick] 
-public class LoginActivity extends GirafActivity {
-	...
+\begin{lstlisting}[caption = Passes the user information and begins the waiting
+animation, label = onLoginButtonClick] public class LoginActivity extends
+GirafActivity { ...
 	public void onLoginButtonClick(View view) {
         loginButton.setEnabled(false);
  		...
@@ -213,8 +212,8 @@ error it has received, this is further illustrated in
 \autoref{CSLoginRequest3}.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = , label = loginReq]
-public class LoginController {
+\begin{lstlisting}[caption = Verifing the user information through a login
+request, label = loginReq] public class LoginController {
 	...
     public void login(final String username, String password) {
         RequestQueue queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
@@ -244,8 +243,8 @@ because the \textc{LoginRequest} does not return a user. Inside the
 to \textc{homeIntent} and start the next activity.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = ???, label = userReq]
-new Response.Listener<Integer>() {
+\begin{lstlisting}[caption = If the user information is authenticated we proceed
+with a request for user, label = userReq] new Response.Listener<Integer>() {
 	@Override
     public void onResponse(Integer statusCode) {
     	//Creates a GetRequest for the user, which is then added to the queue
@@ -320,8 +319,8 @@ correctly, as such we use the \textc{root View} on \textbf{line
 \autoref{NEWsetGrayScale}.
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = , label = NEWsetGrayScale] 
-public class GrayScaleHelper {
+\begin{lstlisting}[caption = The root View is used instead of all the seperate
+views, label = NEWsetGrayScale] public class GrayScaleHelper {
 	...
     public static void setGrayScaleForActivity(Activity activity, boolean shouldBeGray) {
         //Get the root view
