@@ -88,7 +88,7 @@ design.
 \fix{Consider if we need to add pics - it was very minor work after all}{}
 
 \subsubsection{T872: Document the Launcher}
-\fix{}{Write me}
+\fix{}{Write me a wiki page}
 
 \subsection{T868: REST: Fix Launcher app}
 Implementing REST --> We can't make a request handler due to not being able
@@ -127,7 +127,7 @@ classes, which handles pictograms and users respectively. The class for
 pictogram retained the old name, while the new class for users was named
 \textc{GirafUserItemView}.\nl
 
-Changes to the mplementation of server requests can be seen in
+Changes to the implementation of server requests can be seen in
 \autoref{UsingRest} where the new REST approach is presented and discussed.
 \fix{}{Write some more}
 
@@ -290,12 +290,13 @@ As such this task can only be considered partially resolved.
 We have removed all \textc{SharedPreferences}, including the one we used in
 \autoref{grayEx2}, as such we have no way to see the users setting. We have thus
 changed it to better make use of REST by making a request to the server for the
-users setting, see \autoref{NEWsetGrayScale}. As seen on \textbf{lines xx-xy} we
-make a simple \textc{GetRequest<User>} pass the settings and activity to the
-\textc{setGrayScaleForActivity} method.
+users setting, see \autoref{NEWsetGrayScaleUser}. As seen on \textbf{lines
+xx-xy} we make a simple \textc{GetRequest<User>} pass the settings and activity to the
+\textc{setGrayScaleForActivity} method.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = , label = NEWsetGrayScale] 
+\begin{lstlisting}[caption = Finds the grayscale setting for each user, label =
+NEWsetGrayScaleUser] 
 public class GrayScaleHelper {
 	...
 	public static void setGrayScaleForActivityByUser(final Activity activity, 
@@ -312,14 +313,31 @@ public class GrayScaleHelper {
 \end{lstlisting}
 \end{minipage}
 
+In \textc{setGrayScaleForActivity} we experience a problem as we in
+\autoref{grayEx1} tried to use \textc{setGray} for each view. This does not work
+correctly, as such we use the \textc{root View} on \textbf{line
+5}, as we are able to affect the other views through it, as can be seen on
+\autoref{NEWsetGrayScale}. There is a small problem as currently the
+\textc{dialogs} are not grayscaled when the \textc{root View} is.
+We think this is because they are not attached to it, but due to time
+constraints we have choosen to pass this particular part to next years
+students.
 
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = , label = NEWsetGrayScale] 
+public class GrayScaleHelper {
+	...
+    public static void setGrayScaleForActivity(Activity activity, boolean shouldBeGray) {
+        //Get the root view
+        View view = activity.getWindow().getDecorView().getRootView();
+        setGray(view, shouldBeGray);
+    }
+    ...
+}
+\end{lstlisting}
+\end{minipage}
 
-
-Old method didn't work on giraf as we could not access the current view
-
-added a method to create a request for the users grayscalesetting
-
-we changed it to get the root view which worked, and the code is now:
+\fix{}{Put a picture of grayscaled rootview with a colored dialog}
 
 \subsubsection{T878: Fix bugs}
 Fixing bugs is hard when you dont have an even remotely finished product.
