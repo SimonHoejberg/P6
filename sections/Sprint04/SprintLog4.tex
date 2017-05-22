@@ -54,8 +54,7 @@ T889	& Launcher: Add an Institute to Guardian login & 12 \\\hline
 In the following subsections we will discuss the tasks and document our
 solutions.
 
-\subsection{T836: Remove old libraries from artifactory, and begin implementing REST
-snapshot}
+\subsection{T836, T868: Replace db-lib and Implement REST}
 With the finalization of the beta snapshot of the REST library, we have been
 tasked with implemeting REST into the launcher. This process consists of
 removing the old \textc{db-lib} and replacing all of its functionality with the
@@ -67,12 +66,13 @@ now deprecated.\nl
 So far, we have chosen not to remove the old libraries from artifactory, as some
 of the older applications, which we have not touched in this semester, are still
 dependent on them, and we don't want to prevent them from building at all. The
-exact implementation of REST is discussed in \autoref{FixLauncher} and
-\autoref{UsingRest}.
+exact implementation of REST is discussed in \autoref{UsingRest}.\nl
 
-\subsection{T868: REST: Fix Launcher app}\label{FixLauncher}
-Implementing REST --> We can't make a request handler due to not being able
-to use lambda expression since we don't use java 8.
+\subsubsection{Implementation Process}
+Implenting the new REST framework consists of two phases, which is presented
+in the following exaples. 
+
+
 This means we have to Responses within responses since we need some error
 handling, although later in the sprint a sort of solution to the problem have
 been made, but this was so late that all places where we uses rest we already
@@ -165,9 +165,10 @@ pass the username and password to \textc{controller} via the \textc{login}
 method.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Passes the user information and begins the waiting
-animation, label = onLoginButtonClick] public class LoginActivity extends
-GirafActivity { ...
+\begin{lstlisting}[caption = Passes the user information and begins the waiting animation, label = onLoginButtonClick] 
+public class LoginActivity extends GirafActivity 
+{ 
+...
 	public void onLoginButtonClick(View view) {
         loginButton.setEnabled(false);
  		...
@@ -175,6 +176,7 @@ GirafActivity { ...
         controller.login(username, password);
     }
 	...
+}
 \end{lstlisting}
 \end{minipage}
 
