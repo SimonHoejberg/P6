@@ -68,21 +68,93 @@ of the older applications, which we have not touched in this semester, are still
 dependent on them, and we don't want to prevent them from building at all. The
 exact implementation of REST is discussed in \autoref{UsingRest}.\nl
 
-\subsubsection{Implementation Process}
-Implenting the new REST framework consists of two phases, which is presented
-in the following exaples. 
+Implenting the new REST framework consists of two phases, which is presented in
+the following exaples. The first phase is to replace database requests with the
+REST equivalent, and the second phase is to replace the helper and controller
+classes which have been implemented by \textc{db-lib}.
 
+\subsubsection{Replacing Database Requests}
+In \textc{db-lib}, there was only a single request to the database, which was
+made when the launcher started up. This request contained all the information
+for the current user, which was not stored locally in shared preferences. In
+REST, we no longer use shared preferences, but store all data on the database.
+In addition, we make request to the database whenever we need to use data on a
+user. This is done in order to make sure we always have to most up-to-data
+data. Something which can be considered a problem with the current
+implementation of REST, is that requests are always made asynchronously.
+This requires the request to encapsulate all of the code which
+makes use of the reqeuested data, as the rest of the program will continue to
+execute while the request is being made. If the code was not encapsulated in the
+request, it would cause nullPointerExceptions, as the code attempts to access an
+object which is not retrieved yet. The design decisions behind the
+implementation of REST are discussed in \autoref{UsingRest} in \autoref{S1CS},
+where we also present a database request.
 
-This means we have to Responses within responses since we need some error
-handling, although later in the sprint a sort of solution to the problem have
-been made, but this was so late that all places where we uses rest we already
-have implementen it using the other but still supported way of doing requests.
-We have also remove all the usage of profiels and switched them out for users
-from the new rest model libray.
+\subsubsection{Replacing Helpers and Controllers}
+As we want to replace all functionality which originates
+in \textc{db-lib}, we start by removing all imports from this library. Then,
+since most of \textc{db-lib's} functionality is contained in a number of helper
+classes, we remove these, and look at what they were used for. An example of a
+helper class could be the \textc{profileApplicationController} in the
+\textc{GirafFragment} class. This is shown in \autoref{pac}.\nl
 
-code show an example of how we use reqeuest
-\fix{}{Write me}
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Declaration of the ProfileApplicationController which is used to retrieve information about ProfileApplications, label = pac]
+@Override 
+void setListeners() { super.listener = new View.OnClickListener() {
+	@Override
+    	public void onClick(View v) {
+			...
+            final ProfileApplicationController pac = new ProfileApplicationController(getActivity());
+			...
+    	}
+	};
+}
+\end{lstlisting}
+\end{minipage}
 
+Following the declaration and instantiation of the
+\textc{ProfileApplicationController} under the identifier \textc{pac}, the
+helper is used in the \textc{userHasApplicationInView} method. In this case,
+\textc{pac} is used to retrieve a \textc{ProfileApplication}, which is a class
+which maps users to applications, such that it can identify is a user is allowed
+to access that application. If the user can't access the given application, the
+returned value is null. The effect of this can be seen in \autoref{PACheck},
+where the returned value is a boolean which is based on if \textc{thisPA} is
+null.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = Method which checks if a user is allowed to access an application, label = PACheck] 
+private boolean userHasApplicationInView(ProfileApplicationController pac, Application app, Profile user) 
+{ 
+	ProfileApplication thisPA = pac.getProfileApplicationByProfileIdAndApplicationId(app, user);
+
+    return thisPA != null;
+}
+\end{lstlisting}
+\end{minipage}
+
+Given that all of the presented functionality is based on the \textc{db-lib}
+library, we will have to replace it with the REST equivalent. In REST,
+\textc{Profiles} have been renamed to \textc{Users}, and has a settings object,
+which contains information about that users settings. This object is stored on
+the database, and can be retrieved through a request. The process of retrieving
+objects from the database in presented in \autoref{UsingRest} in \autoref{S1CS}.
+In the case of checking if users can access applications, we have replaced the
+method in \autoref{PACheck} with the method named \textc{userCanAccessApp},
+which can be seen in \autoref{ucaa}. In this method, we can simply acces the
+user's settings object, and check if the given application appears on the users
+list of applications. By doing this, we have actively replaced the
+necessity of the \textc{db-lib} helpers.\nl
+
+\begin{minipage}[H]{\linewidth}
+\begin{lstlisting}[caption = New method which replaces the functionality of the ProfileApplicationController, label = ucaa] 
+private boolean userCanAccesApp(Application app, User user) 
+{
+	return user.getSettings().getAppsUserCanAccess().contains(app);
+}
+\end{lstlisting}
+\end{minipage}
 
 \subsection{T870 - REST: Fix component-lib}
 With the introduction of the \textc{rest-models} library, and the removal of the
