@@ -54,14 +54,14 @@ T889	& Launcher: Add an Institute to Guardian login & 12 \\\hline
 In the following subsections we will discuss the tasks and document our
 solutions.
 
-\subsection{T836, T868: Replace db-lib and Implement REST in Launcher}
+\subsection{T836, T868, T870: Implement REST in Launcher and Component-lib}
 With the finalization of the beta snapshot of the REST library, we have been
-tasked with implemeting REST into the launcher. This process consists of
-removing the old \textc{db-lib} and replacing all of its functionality with the
-equivalent in REST. While REST does not yet contain all the functionality needed
-in order to totally replace \textc{db-lib}, we are still going to actively
-remove all parts of \textc{db-lib}, as the database it is built upon is
-now deprecated.\nl
+tasked with implemeting REST into the launcher and the \textc{component-lib}
+library. This process consists of removing the old \textc{db-lib} and replacing
+all of its functionality with the equivalent in REST. While REST does not yet
+contain all the functionality needed in order to totally replace \textc{db-lib},
+we are still going to actively remove all parts of \textc{db-lib}, as the
+database it is built upon is now deprecated.\nl
 
 So far, we have chosen not to remove the old libraries from artifactory, as some
 of the older applications, which we have not touched in this semester, are still
@@ -71,7 +71,10 @@ exact implementation of REST is discussed in \autoref{UsingRest}.\nl
 Implenting the new REST framework consists of two phases, which is presented in
 the following exaples. The first phase is to replace database requests with the
 REST equivalent, and the second phase is to replace the helper and controller
-classes which have been implemented by \textc{db-lib}.
+classes which have been implemented by \textc{db-lib}. Additionally, we discuss
+the changes made to the \textc{GirafPictogramItemView} class of the
+\textc{component-lib} library, as switching to REST has required us to split the
+class into two individual ones.
 
 \subsubsection{Replacing Database Requests}
 In \textc{db-lib}, there was only a single request to the database, which was
@@ -156,36 +159,29 @@ private boolean userCanAccesApp(Application app, User user)
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T870 - REST: Fix component-lib}
-With the introduction of the \textc{Rest-Models} library, and the removal of the
-\textc{DB-Lib} library, the previously implemented database communication has
-been rendered invalid. As such, it needs to be replaced by the equivalent
-\textc{Rest-Models} approach. As this change spans a large part of the 58
-classes in the \textc{Component-Lib} library, the presentation of this task will
-focus on the class \textc{GirafPictogramItemView}, as it is one of the
-classes which have recieved the most changes.\nl
-
+\subsubsection{Replacing ItemViews}
 The \textc{GirafPictogramItemView} class is responsible for presenting
-\textc{ItemViews} on the GUI. In the presented implementation, both Users and
+\textc{ItemViews} on the GUI. In the previous implementation, both Users and
 Pictograms extended the ItemView class, as both of those classes contained
 pictures or icons which should be presented on the GUI. As such, The
 \textc{GirafPictogramItemView} class was used to present both of these
 elements.\nl
 
-In the \textc{Rest-Models} approach, many of the previous classes which were
-part of \textc{DB-Lib} have been deprecated, including the \textc{ItemView}
-class. As such, we have had to split the \textc{GirafPictogramItemView} class
-into two seperate classes, which handles pictograms and users respectively. The
-class for pictogram retained the old name, while the new class for users was
-named \textc{GirafUserItemView}.\nl
+In the \textc{rest-models} approach, many of the previous classes which were
+part of \textc{db-Lib} have been deprecated, including the GIRAF approach to
+using the \textc{ItemView} class. As such, we have had to split the
+\textc{GirafPictogramItemView} class into two seperate classes, which handles
+pictograms and users respectively. The class for pictogram retained the old
+name, while the new class for users was named \textc{GirafUserItemView}. As both
+pictograms and users still have fields for their icon or picture, the classes
+have simply been specialized to not use ItemViews but their respective classes,
+and whenever the image was accessed, we simply changed this code to reflect the
+different objects methods of access to this field.
 
-Changes to the implementation of server requests can be seen in
-\autoref{UsingRest} where the new REST approach is presented and discussed.
-\fix{}{Write some more}
+
 
 
 \subsection{T875 Launcher: Add functionality to Log In screen}
-
 This task is centered around adding functionality to the login screen we made
 in \autoref{LoginXML}, as REST is now ready to be implemented. The GUI is
 implemented in the \textc{LoginActivity} class, where we create the reference
