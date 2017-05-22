@@ -82,16 +82,16 @@ made when the launcher started up. This request contained all the information
 for the current user, which was not stored locally in shared preferences. In
 REST, we no longer use shared preferences, but store all data on the database.
 In addition, we make request to the database whenever we need to use data on a
-user. This is done in order to make sure we always have to most up-to-date
-data. Something which can be considered a problem with the current
-implementation of REST, is that requests are always made asynchronously.
-This requires the request to encapsulate all of the code which
-makes use of the reqeuested data, as the rest of the program will continue to
-execute while the request is being made. If the code was not encapsulated in the
-request, it would cause nullPointerExceptions, as the code attempts to access an
-object which is not retrieved yet. The design decisions behind the
-implementation of REST are discussed in \autoref{UsingRest} in \autoref{S1CS},
-where we also present a database request.
+user. This is done in order to make sure we always have to most up-to-date data.
+Something which can be considered a problem with the current implementation of
+REST, is that requests are always made asynchronously.
+This requires the request to encapsulate all of the code which makes use of the
+reqeuested data, as the rest of the program will continue to execute while the
+request is being made. If the code was not encapsulated in the request, it would
+cause nullPointerExceptions, as the code attempts to access an object which is
+not retrieved yet. The design decisions behind the implementation of REST are
+discussed in \autoref{UsingRest} in \autoref{S1CS}, where we also present a
+database request.
 
 \subsubsection{Replacing Helpers and Controllers}
 As we want to replace all functionality which originates
@@ -440,7 +440,9 @@ These bugs and missing features include:
   it needs to be in grayscale.
 \end{itemize}
 
-There are likely more bugs which we have not discovered.
+The entirety of documented bugs and missing features can be found in \autoref{},
+where we discuss what changes should be made to the Launcher and component-lib
+library by next years students.
 
 
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
