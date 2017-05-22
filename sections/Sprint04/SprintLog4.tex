@@ -56,13 +56,21 @@ solutions.
 
 \subsection{T836: Remove old libraries from artifactory, and begin implementing REST
 snapshot}
-We have not removed the old libraries from artifactory, because some of the
-older apps might still need them in the transition to the new rest api. But they
-are no longer used as a deprendecy in the launcher or giraf component lib and we
-have implementet not just the rest snapshot but the full rest release which can
-be seen how we use it in the rest fix launcher.
+With the finalization of the beta snapshot of the REST library, we have been
+tasked with implemeting REST into the launcher. This process consists of
+removing the old \textc{db-lib} and replacing all of its functionality with the
+equivalent in REST. While REST does not yet contain all the functionality needed
+in order to totally replace \textc{db-lib}, we are still going to actively
+remove all parts of \textc{db-lib}, as the database it is built upon is
+now deprecated.\nl
 
-\subsection{T868: REST: Fix Launcher app}
+So far, we have chosen not to remove the old libraries from artifactory, as some
+of the older applications, which we have not touched in this semester, are still
+dependent on them, and we don't want to prevent them from building at all. The
+exact implementation of REST is discussed in \autoref{FixLauncher} and
+\autoref{UsingRest}.
+
+\subsection{T868: REST: Fix Launcher app}\label{FixLauncher}
 Implementing REST --> We can't make a request handler due to not being able
 to use lambda expression since we don't use java 8.
 This means we have to Responses within responses since we need some error
@@ -279,6 +287,9 @@ design.
 
 
 \subsection{Verification}
+Throughout the prior sprints we have not been able to verify our solutions, as
+such now that the Launcher is in a working state we can verify the appropriate
+solutions.
 
 \subsubsection{T785 and T830: Handle crash such that the user does not get an
 error message and is brought back to the launcher}
@@ -352,10 +363,12 @@ These bugs include:
 \begin{itemize}
   \item Dialogs are in color while the rest of GIRAF is gray.
   \item It is possible to change users through settings.
+  \item It is not possible to return to the guardian in settings as a new user
+  has been logged in.
 \end{itemize}
 
-There are likely more bugs which we have not discovered as \fix{}{naade vi at
-blive 'faerdige' inden code freezer?}
+There are likely more bugs which we have not discovered.
+
 
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
 \begin{itemize}
@@ -364,8 +377,8 @@ blive 'faerdige' inden code freezer?}
   		\item The orginal problem discoved during sprint 2 as seen in \autoref{T772}
  		was that the user could extend the login session by doing back in time on the
   		device.
-		This is an issue because we do not check the time using some form of a time
-		server, and therefor not able to detect this.  
+		\item This is an issue because we do not check the time using some form of a
+		time server, and therefor not able to detect this.  
 		But now this task is invalid because the server now handles if a user is
 		logged in, using tokens / cookies which the rest libary handes.
 		\end{itemize}
@@ -382,7 +395,7 @@ blive 'faerdige' inden code freezer?}
    \begin{itemize}
      \item This task is an extension of \textbf{T875}, as it is intended for an
      institute-type user to be log in as a guardian. 
-     This task is considered unfinished due to time constraints as there
+     \item This task is considered unfinished due to time constraints as there
      were several changes happening to REST while we were busy implementing it.
      It was not considered a vital task, and is as such left for the next years
      students.
