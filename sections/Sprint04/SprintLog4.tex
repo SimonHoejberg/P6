@@ -79,7 +79,7 @@ made when the launcher started up. This request contained all the information
 for the current user, which was not stored locally in shared preferences. In
 REST, we no longer use shared preferences, but store all data on the database.
 In addition, we make request to the database whenever we need to use data on a
-user. This is done in order to make sure we always have to most up-to-data
+user. This is done in order to make sure we always have to most up-to-date
 data. Something which can be considered a problem with the current
 implementation of REST, is that requests are always made asynchronously.
 This requires the request to encapsulate all of the code which
