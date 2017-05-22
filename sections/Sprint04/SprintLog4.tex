@@ -62,10 +62,6 @@ are no longer used as a deprendecy in the launcher or giraf component lib and we
 have implementet not just the rest snapshot but the full rest release which can
 be seen how we use it in the rest fix launcher.
 
-\subsection{T837: Rework buttons to use methods called from XML}
-
-
-
 \subsection{T868: REST: Fix Launcher app}
 Implementing REST --> We can't make a request handler due to not being able
 to use lambda expression since we don't use java 8.
@@ -373,6 +369,15 @@ blive 'faerdige' inden code freezer?}
 		But now this task is invalid because the server now handles if a user is
 		logged in, using tokens / cookies which the rest libary handes.
 		\end{itemize}
+  \item T837: Rework buttons to use methods called from XML
+	\begin{itemize}
+	  \item The purpose of this task is to increase the quelity of the code, and to
+	  reduce unnecessary clutter. This can be done as specifying listeners in the
+	  code itself is unnecessary, and can simply be done from the xml file itself.
+	  \item We have managed to do this for a number of classes, but have yet to
+	  do this for all classes in the Launcher. This approach can, and should, be
+	  used in all xml files for GIRAF.
+	  \end{itemize}
   \item T889: Add an Institute to Guardian login
    \begin{itemize}
      \item This task is an extension of \textbf{T875}, as it is intended for an
