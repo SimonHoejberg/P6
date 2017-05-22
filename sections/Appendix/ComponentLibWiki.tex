@@ -1,0 +1,45 @@
+\chapter{Component Lib}
+\textbf{IMPORTANT - Most classes should be redesigned. The ones which should not
+be are, GrayscaleHelper, GirafPopupDialog, GirafUserItemView and
+GirafPictogramItemView. The Library is cluttered with deprecated classes and
+other classes that may or may not be used. It should be considered if it would
+be beneficial to be remade from scratch.}
+
+This library contains many GIRAF gui elements and classes for the graphics of
+the applications. Most of the code is the same from 2016, the classes we have
+worked on are:
+
+\begin{itemize}
+  \item GirafActivity which should restart the launcher on a crash but this
+  does not currently work. Next years students should fix this class.
+  \item GrayscaleHelper which has the abillity to set the actvity's rootView to
+  use grayscale, this works on an activity, but not on dialogs,  which next
+  years students should fix.
+  \item GirafPopupDialog which is a new class, it has two GirafButtons. It is
+  possible to have the GirafPopupDialog with either one or both buttons. It is
+  also possible to give each of the buttons a title and a drawable (icon). It
+  uses listeners instead of the method-call implemented using interfaces,
+  (listerners should be the way to go for the rest of the component lib).
+  \item GirafProfileSelectorDialog is just a quick fix to use it in the launcher
+  and should be redesigned.
+  \item GirafUserItemView and GirafPictogramItemView which is used to show the
+  user image and the pictogram,  we made the UserItemView class, because both
+  pictogram and user behaved the same when it came to their image.
+  
+\end{itemize}
+
+We have worked on switching from the old libraries to the REST libraries and as
+such every class that used Profile was changed to User and old Pictogram was
+changed to the new Pictogram class.
+
+\subsubsection{Repository}
+[[http://git.giraf.cs.aau.dk/Giraf17-AndroidLibs/giraf-component-lib | Giraf Component Lib ]]
+
+\subsubsection{Dependencies}
+\begin{itemize}
+  \item Android support v4 (com.android.support:support-v4:23.2.1)
+  \item rest-api-client-lib
+  \item rest-models
+  \item volley (com.android.volley:volley:1.0.0)
+\end{itemize}
+
