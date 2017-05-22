@@ -1,20 +1,82 @@
 \chapter{Launcher Guide}
 
-The launcher consists of 4 main components, HomeActivity, LoginActivity,
-MainActivity and SettingsActivity. 
+\textbf{IMPORTANT - There are many ToDo's in the code, we have added most of
+them so that the developers next year know what they should work on and fix. We
+have also kept the ToDo's from when we received the code, but only if we have
+not fixed them.}
 
-\section{HomeActivity}
+\subsubsection{Features}
+\begin{itemize}
+  \item The Launcher is able to launch the apps a user can access. If the app
+  is not installed it opens google play such that it can be installed easily.
+  \item The settings part of the Launcher should work, but somehow when we put
+  settings up, they are not the same we get next time we start the app. This
+  also means that grayscale only works in the Settings activity. This should be
+  fixed together with the groups who will continue the work on REST, both the
+  Server and the Client-Lib.
+  \item The Settings for the list of apps that a user can access does not work
+  because we get a stackoverflow from REST and as such the code which makes the
+  resource PutRequest is disabled and a ToDo has been added in both classes,
+  this should be fixed together with the new REST groups.
+  \item The login screen works, but is missing a way to handle a department
+  login such that when a department login is used the list of guarding in the
+  department is used to select which guarding is used in the launcher. This
+  needs to be fully supported by the REST Server and REST Client-Lib.
+\end{itemize}
 
-\section{LoginActivity}
+\subsubsection{Short into to the REST conversion}
+\begin{itemize}
+  \item We have removed SharedPreference from all the classes such that no user
+  information is stored in such a way. This means that all classes where the
+  user was retrieved from a SharedPreference does not work and have thus been
+  changed to either user a GetRequest or receive the user from a class higher
+  up.
+  \item When using the user it should come from a GetRequest or from a higher
+  class which has just used a GetRequest. The developer \textbf{should NEVER
+  EVER} use the user without first having received the latest version from a
+  GetRequest. 
+  \item We now pass the user from intent to intent instead of the passing the
+  username.
+  \item Remember when creating Requests that the error response can be null
+  \textbf{or} the networkResponse can be null, this should be checked for in
+  each request. We have not done this in every request, but this should be
+  fixed by next years developers.
+\end{itemize}
 
-The \textc{LoginActivity} class is the simplest of the 4 activities. It makes
-use of the UI elements from \textc{res\/layout\/login\_activity.xml}, which are
-referenced when it is created. We make use of listeners for when a key or
-button is pressed, where upon we appropriate action. 
+\subsubsection{Missing / Non finshed features}
 
-\subsection{LoginController}
+\begin{itemize}
+  \item Grayscale should also be made to work on the login screen, this could
+  be done though the use of a sharedprefercne where the last value of grayscale
+  from the last logged in user will be stored and **ONLY** used in the login
+  screen.
+  \item Each request should check if the error response or networkResponse is
+  null before using them.
+  \item Settings should be fixed, both the resource PutRequest which is
+  currently not working and the setting of apps a user can access.
+  \item Better icons for the download of missing apps.
+  \item Dialogs should be in grayscale if the rest of the Launcher is in
+  grayscale, this bug involves both Launcher and GIRAF Component Lib.
+  \item It should not be possible to change user though settings, the changed
+  to user should be logged out and the orginal user should be logged in again.
+  \item There should be a better way to find the correct icon for an app,
+  instead of going through the entire list of apps and comparing it with an
+  activity name.
+\end{itemize}
 
+\subsubsection{Repository}
+[[http://git.giraf.cs.aau.dk/Giraf17-AndroidApps/launcher |
+Launcher]]
 
-\section{MainActivity}
-
-\section{SettingsActivity}
+\subsubsection{Dependencies}
+\begin{itemize}
+  \item com.android.support:support-v4:23.1.1
+  \item fr.avianey.com.viewpagerindicator:library:2.4.1 
+  \item com.jakewharton:disklrucache:2.0.2 (because of rest)
+  \item com.android.volley:volley:1.0.0 (because of rest)
+  \item com.google.code.gson:gson:2.8.0 (because of rest)
+  \item giraf-component-lib
+  \item rest-api-client-lib
+  \item rest-models
+  \item showcaseview-lib
+\end{itemize}
