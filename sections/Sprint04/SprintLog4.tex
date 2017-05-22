@@ -157,27 +157,27 @@ private boolean userCanAccesApp(Application app, User user)
 \end{minipage}
 
 \subsection{T870 - REST: Fix component-lib}
-With the introduction of the \textc{rest-models} library, and the removal of the
-\textc{db-lib} library, the previously implemented database communication has
+With the introduction of the \textc{Rest-Models} library, and the removal of the
+\textc{DB-Lib} library, the previously implemented database communication has
 been rendered invalid. As such, it needs to be replaced by the equivalent
-\textc{rest-models} approach. As this change spans a large part of the 58
-classes in the \textc{component-lib} library, the presentation of this task will
+\textc{Rest-Models} approach. As this change spans a large part of the 58
+classes in the \textc{Component-Lib} library, the presentation of this task will
 focus on the class \textc{GirafPictogramItemView}, as it is one of the
 classes which have recieved the most changes.\nl
 
-The \textc{GirafPictogramItemView} class is responsible for presenting ItemViews
-on the GUI (graphical use interface). In the presented implementation, both
-Users and Pictograms extended the ItemView class, as both of those classes
-contained pictures or icons which should be presented on the GUI. As such, The
+The \textc{GirafPictogramItemView} class is responsible for presenting
+\textc{ItemViews} on the GUI. In the presented implementation, both Users and
+Pictograms extended the ItemView class, as both of those classes contained
+pictures or icons which should be presented on the GUI. As such, The
 \textc{GirafPictogramItemView} class was used to present both of these
 elements.\nl
 
-In the rest-models approach, many of the previous classes which were part of
-the db-lib library have been deprecated, including the ItemView class. As such,
-we have had to split the \textc{GirafPictogramItemView} class into two seperate
-classes, which handles pictograms and users respectively. The class for
-pictogram retained the old name, while the new class for users was named
-\textc{GirafUserItemView}.\nl
+In the \textc{Rest-Models} approach, many of the previous classes which were
+part of \textc{DB-Lib} have been deprecated, including the \textc{ItemView}
+class. As such, we have had to split the \textc{GirafPictogramItemView} class
+into two seperate classes, which handles pictograms and users respectively. The
+class for pictogram retained the old name, while the new class for users was
+named \textc{GirafUserItemView}.\nl
 
 Changes to the implementation of server requests can be seen in
 \autoref{UsingRest} where the new REST approach is presented and discussed.
@@ -432,7 +432,7 @@ This is a task for every group. This sprint we have been busy implementing REST
 in the Launcher and Component-lib, and as the deadline has come closer we are
 under increasing time pressure to make it workable. As such we have chosen to
 not directly work on this task and leave the minor bugs for next years students.
-These bugs include:
+These bugs and missing features include:
 
 \begin{itemize}
   \item Dialogs are in color while the rest of GIRAF is gray.
