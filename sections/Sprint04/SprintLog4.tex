@@ -367,7 +367,9 @@ solutions.
 error message and is brought back to the launcher}
 Thoughout testing the launcher after the REST API was included, we see that when
 we crash the bug screen is no longer shown. We have tried implementing the
-return to launcher but have not been able to resolve it due to time constraints.
+return to launcher as seen in \autoref{T785-T830} but this did not work and a
+new implementation was made but we have not been able to resolve it due
+to time constraints.
 As such this task can only be considered partially resolved.
 
 \subsubsection{T822: Verify the implementation of Grayscale}
@@ -433,12 +435,22 @@ not directly work on this task and leave the minor bugs for next years students.
 These bugs and missing features include:
 
 \begin{itemize}
-  \item Dialogs are in color while the rest of GIRAF is gray.
+  \item Dialogs are in color while the rest of GIRAF is grayscale.
   \item It is possible to change users through settings.
   \item It is not possible to return to the guardian in settings as a new user
   has been logged in.
   \item SharedPreferences should be used for the Logic screen to determine if
   it needs to be in grayscale.
+  \item Settings are not saved when a put request is completed and as such
+  grayscale does not work outside \textc{SettingsActivity}.
+  \item The apps the user can access is never sent to th server, because of a
+  stackoverflow in rest client lib, when that is fixed, fix the outcommented
+  code in the respectiv classes for that issue.
+  \item A better icon should be created for missing apps on the device, a icon
+  which better tells that when clicked on redirects the user to google play
+  store.
+  \item Find a better way to find the icon for each app, then doing though every
+  app installed when searching for a icon for a specific app.
 \end{itemize}
 
 The entirety of documented bugs and missing features can be found in \autoref{},
@@ -456,7 +468,7 @@ library by next years students.
 		\item This is an issue because we do not check the time using some form of a
 		time server, and therefor not able to detect this.  
 		But now this task is invalid because the server now handles if a user is
-		logged in, using tokens / cookies which the rest libary handes.
+		logged in, using tokens / cookies which the rest libary handles.
 		\end{itemize}
   \item T837: Rework buttons to use methods called from XML
 	\begin{itemize}

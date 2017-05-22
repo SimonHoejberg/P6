@@ -140,7 +140,7 @@ manipulate data from the database. This design can be seen in
 
 \figx{interface-uml}{UML diagram detailing the client/database interface.}
 
-In order to describe the the UML diagram, group SW613 supplied us with the
+In order to describe the UML diagram, group SW613 supplied us with the
 following listing, which contains explanations for each of the diagram's
 elements.
 
@@ -199,7 +199,7 @@ code examples in \autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
 \textc{LoginRequest} and a \textc{GetUserRequest}.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Initial request the the respective server response object, label = CSLoginRequest1]
+\begin{lstlisting}[caption = Initial request the respective server response object, label = CSLoginRequest1]
 queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
 
 LoginRequest loginRequest = new LoginRequest(username, password, new Response.Listener<Integer>() 

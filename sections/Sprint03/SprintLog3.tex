@@ -53,9 +53,10 @@ T836 	& Remove deprecated libraries/implement the new REST libraries & 60\\
 \end{centering}
 \end{table}
 
-\subsection{T785, T830 - Prevent stack-trace from showing for users}
-Based on general feedback, we have been tasked with making sure that the
-detailed error-messages are not shown to the users. The users have requested
+\subsection{T785, T830 - Prevent stack-trace from showing for
+users}\label{T785-T830} 
+Based on general feedback, we have been tasked with
+making sure that the detailed error-messages are not shown to the users. The users have requested
 this, as the citizen users are confused/uncomfortable with the large amount of
 incomprehensible information being suddenly shown on the screen whenever an
 error occurs.\nl
@@ -180,7 +181,7 @@ zero. On \textbf{line 10}, a \textc{hardware layer} using the defined
 \textc{paint} is added to the supplied \textc{activity}, see
 \autoref{grayScale}.\nl
 
-\figPH{grayScale}{An example of the grayscale in action}
+\figx[0.30]{grayScale}{An example of the grayscale in action}
 
 In order for a given activity to implement grayscale, it needs to have a call to
 the \textc{setGrayScaleForActivity} method. An example of this call is
@@ -209,10 +210,10 @@ used to launch those applications.\nl
 
 As stated above, in order to change the grayscale setting through the GUI, we
 have added a \textc{switch button}. This settings menu with the added button can
-be seen in \autoref{grayButton}, where grayscale has been enabled. 
+be seen in \autoref{newSettingsPage}, where grayscale has been enabled. 
 
-\figPH{grayButton}{The switch as shown in the Launcher's settings menu
-\fix{}{Husk at fjerne placeholder}}
+\figx[0.30]{newSettingsPage}{The switch as shown in the Launcher's settings
+menu}
 
 
 \subsection{T832, T833 - Upload new libraries to Artifactory and implement them}
