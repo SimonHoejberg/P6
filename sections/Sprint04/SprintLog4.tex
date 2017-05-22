@@ -32,10 +32,11 @@ T822    & Verify: implementation of Grayscale & 6\\\hline
 T830    & Never show the bug screen & 2 \\\hline
 T836	& Remove old libraries from artifactory, and begin implementing REST
 snapshot & ??\\\hline
-T859   	& Everyone: Crosschecking wikis & ??\\\hline
-T862  	& Everyone: Guide: General development & ?? \\ \hline
-T863	& Everyone: Sources for starting out & ??\\ \hline
-T864	& G609, G610, G613: Guide: Android compatibility java8, sync + build & ??\\
+T837	& Rework buttons to use methods called from XML & ??\\\hline
+T859   	& Crosschecking wikis & ??\\\hline
+T862  	& Guide: General development & ?? \\ \hline
+T863	& Guide: Sources for starting out & ??\\ \hline
+T864	& Guide: Android compatibility java8, sync and build & ??\\
 \hline 
 T865	& G609, G610: Update the Google store guide & 2\\\hline
 T868    & REST: Fix Launcher app & 70 \\\hline
@@ -61,34 +62,9 @@ are no longer used as a deprendecy in the launcher or giraf component lib and we
 have implementet not just the rest snapshot but the full rest release which can
 be seen how we use it in the rest fix launcher.
 
+\subsection{T837: Rework buttons to use methods called from XML}
 
-\subsection{Guides and Help and Help For Future Students}
-In order to help the next batch of students, every group has been tasked with
-creating a set of guides. These guides are meant to explain the various
-parts of GIRAF that are most likely going to be confusing, such as starting out,
-how GIRAF is developed and how the various tools work together. The
-majority of these guides are written by other groups can be found on the GIRAF
-wiki\citep{GWiki}. As such \textbf{T862}, \textbf{T863} and \textbf{T864} can be
-considered resolved.
 
-\subsubsection{T859: Crosscheck wikis}
-The purpose of this task is to ensure that wikis are of acceptable state, this
-is done having
-\fix{}{write me}
-
-\subsubsection{T865: Update the Google Store guide}
-
-The goal of this task is to update the guide on releasing builds to Google
-Store. By reading the guide from 2015 and comparing the pictures in it with
-Google Stores current design, we can see that it has changed quite a bit since
-the guide was written. All the changes of importances were due to additional
-tabs which moved various parts of the functionality. We then updated the
-pictures and along with the relevant part of text to better reflect the new
-design.
-\fix{Consider if we need to add pics - it was very minor work after all}{}
-
-\subsubsection{T872: Document the Launcher}
-\fix{}{Write me a wiki page}
 
 \subsection{T868: REST: Fix Launcher app}
 Implementing REST --> We can't make a request handler due to not being able
@@ -275,6 +251,36 @@ with a request for user, label = userReq] new Response.Listener<Integer>() {
 
 %No time for institute
 
+\subsection{Guides and Help and Help For Future Students}
+In order to help the next batch of students, every group has been tasked with
+creating a set of guides. These guides are meant to explain the various
+parts of GIRAF that are most likely going to be confusing, such as starting out,
+how GIRAF is developed and how the various tools work together. The
+majority of these guides are written by other groups can be found on the GIRAF
+wiki\citep{GWiki}. As such \textbf{T862: Guide for general development},
+\textbf{T863: Guide for starting out} and \textbf{T864: Guide for android
+compatibility, java8, sync and build} can be considered resolved.
+
+\subsubsection{T859: Crosscheck wikis}
+The purpose of this task is to ensure that wikis are of acceptable state, this
+is done having
+\fix{}{write me}
+
+\subsubsection{T865: Update the Google Store guide}
+
+The goal of this task is to update the guide on releasing builds to Google
+Store. By reading the guide from 2015 and comparing the pictures in it with
+Google Stores current design, we can see that it has changed quite a bit since
+the guide was written. All the changes of importances were due to additional
+tabs which moved various parts of the functionality. We then updated the
+pictures and along with the relevant part of text to better reflect the new
+design.
+\fix{Consider if we need to add pics - it was very minor work after all}{}
+
+\subsubsection{T872: Document the Launcher}
+\fix{}{Write me a wiki page}
+
+
 
 \subsection{Verification}
 
@@ -362,7 +368,7 @@ blive 'faerdige' inden code freezer?}
   		\item The orginal problem discoved during sprint 2 as seen in \autoref{T772}
  		was that the user could extend the login session by doing back in time on the
   		device.
-		This issue is because we do not check the time using some form of a time
+		This is an issue because we do not check the time using some form of a time
 		server, and therefor not able to detect this.  
 		But now this task is invalid because the server now handles if a user is
 		logged in, using tokens / cookies which the rest libary handes.
@@ -370,9 +376,10 @@ blive 'faerdige' inden code freezer?}
   \item T889: Add an Institute to Guardian login
    \begin{itemize}
      \item This task is an extension of \textbf{T875}, as it is intended for an
-     institute-type user to be log in as a guardian. This task is considered
-     unfinished due to time constraints as there were several changes happening
-     to REST while we were busy implementing it. It Was not considered a vital
-     task, and is as such left for the next years students.
+     institute-type user to be log in as a guardian. 
+     This task is considered unfinished due to time constraints as there
+     were several changes happening to REST while we were busy implementing it.
+     It was not considered a vital task, and is as such left for the next years
+     students.
    \end{itemize}
 \end{itemize}
