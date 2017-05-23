@@ -1,14 +1,14 @@
 \chapter*{Summary\markboth{Summary}{Summary}}
-In this report, we present our work on the GIRAF multi-project, which is a
-collaborative software development project, which is shared between Software
-bachelor students at Aalborg University. The GIRAF multi-project is focused on
+In this report we present our work on the GIRAF multi-project which was started
+in 2011. It is a collaborative software development project shared between
+the Software bachelor students at Aalborg University. The GIRAF multi-project is focused on
 developing a suite of applications for Android tablets, which are aimed at
 supporting autistic children in planning and structuring their daily lives.\\
 Due to the scale of the project, the development has spanned across multiple
-years, and numerous project groups. As such, the project is focused on code
+years, with numerous project groups. As such, the project is focused on code
 maintenance and developing upon a larger code base.\nl
 
-The project development is shared between 7 different groups of 4 persons each.
+The project development is shared between 7 groups of 4 persons each.
 These groups are organized using the Scrum of Scrums organizational approach, in
 which each group has a Scrum representative, which engages with other
 representatives in order to organize the project direction at weekly Scrum
@@ -23,99 +23,57 @@ development guides, and refactoring old code. The tasks themselves are based on
 user feedback, internal discussion, and the backlog from last year's
 students.\nl
 
-The main goal for this semester is to replace the server-to-client
+The main focus for this semester is to replace the server-to-client
 communications framework, as it is of insufficient quality to be used for any
 further development. This new framework should make use of the constraints
-defined in the REST (Representational State Transfer) model. Due to this
-requirement, we have chosen to simply call the new framework REST or REST
-Model.\\
+defined in the \textc{REST} (Representational State Transfer) model.\\
 In the greater GIRAF project, our group's responsibility is to improve and
-repair the GIRAF Launcher application, and the libraries it is dependent upon.
-As such, we have to familiarize ourselves with the \textc{giraf-component-lib}
-library and the Launcher application to the point where we are capable of
-replacing the current backend with the REST library developed by other
-project groups. Based on this responsibility, this report is focused on the
-implementation of the new REST library, and the preperatory work needed in order
-to complete this process.\nl
+repair the GIRAF Launcher application, and the libraries it is
+dependent upon. As such, we have to familiarize ourselves with the
+\textc{Giraf-Component-Lib} library and the Launcher application to the
+point where we are capable of replacing the current backend with the \textc{REST}
+library developed by other project groups. Based on this responsibility, this
+report is focused on the implementation of the new \textc{REST} library, and the
+preperatory work needed in order to complete this process.\nl
 
 In general, most of the semester was spent preparing for the finalization of the
-REST framework, such that we could begin to implement it into the Launcher and
-component-lib library.\\
-The first sprint is used to familiarize ourselves with the GIRAF code base. This
-was done through fixing a number of bugs, which were passed on to us through the
-backlog of the previous years students.\nl
+\textc{REST} framework, such that it could be implemented in the \textc{Launcher} and
+\textc{Component-Lib} library.\\
+The first sprint is used to familiarize ourselves with the GIRAF code base by
+refactoring the \textc{Launcher}, \textc{Component-Lib} and
+\textc{PictoSearch-Lib}. It allowed us to increase the code quality, and to
+make sure that the code used a consistent style. We also began fixing a number
+of bugs, which were passed on to us through the backlog of the previous years
+students.\nl
 
-The focus of the second sprint was to refactor the Launcher and the various
-libraries. This was done in order to increase the code quality, and to make sure
-that the code used a consistent style. Additionally, we fixed some security
-issues, discussed design decisions with other groups, and fixed more bugs.
-During the second sprint, our build tools broke down, which prevented us from
-building our project. Due to this problem, the second sprint was spent
-developing potential solutions to problems defined by the GIRAF users.
-Additionally, we designed a new login screen based on user feedback.\nl
+
+
+In the second sprint we worked on fixed some security issues, discussed design
+decisions with other groups, and fixed more bugs. During the second sprint, our
+build tools broke down, which prevented us from building our project. Due to
+this problem, the second sprint was spent developing potential solutions to
+problems defined by the GIRAF users. Additionally, we designed a new login
+screen based on user feedback.\nl
 
 For the third sprint, we were tasked with helping to restore our build tools,
 and to implement a greyscale option for the GIRAF GUI. During the third sprint our build
 tools became operational once again, and we could begin to implement the new
 login screen and the greyscale option. Additionally, we began to remove the old
-server-to-client communication in order to prepare for the new REST framwork.\nl
+server-to-client communication in order to prepare for the new \textc{REST} framwork.\nl
 
-The final sprint was focused on implementing a beta version of the REST
-framework into the Launcher application and the component-lib library. As this
-framework did not contain all necessary functionality, parts of the sprint was
+The final sprint was focused on implementing a beta version of the \textc{REST}
+framework into the \textc{Launcher} application and the component-lib library.
+As this framework did not contain all necessary functionality, parts of the sprint was
 also spent holding meetings with the other groups in order to determine the
-final design of the REST framework. This sprint ended with the Launcher in a
+final design of the \textc{REST} framework. This sprint ended with the Launcher in a
 mostly finished state, and the component-lib libary in a finished state. The
 functionality missing from the launcher is due to the partly unfinished state of
-the REST framework.\nl
+the \textc{REST} framework.\nl
 
-In conclusion, during the project, we have manged to familiarize ourselves with
-a larger exisiting code base, and managing to further implement based on it.
-Additionally, we have managed to implement a new login system, which design was
-based on user feedback. We have also implemented a global greyscale
+In conclusion, we have manged to familiarize ourselves with a larger exisiting
+code base. We have managed to implement a new login system, where the
+design was based on user feedback. We have also implemented a global greyscale
 functionality in the GIRAF GUI. We have also familarized ourselves with
 our build tools (Artifactory, Gradle and Jenkins), and how to manage
-these tools in a project setting. Finally, we have implemented the REST
-framework into the Launcher and the component-lib library.
-
-
-
-
-% The full project was split into 5 sprints: an initial mini–sprint to get familiar with the source code
-% and the assigned responsibility areas, and 4 regular sprints. The spare time between the sprints
-% were used for writing the report as well as preparing for the next sprint. For our responsibility
-% area, testing, we have written a technical chapter, in which we describe three types of tests: unit,
-% integration, and smoke tests. Additionally we have also written technical chapters on REST,
-% and code reviewing, as we became the authority for these areas in the project. Code review was
-% used because we pushed for this development style. We became the authority of REST since we
-% were both the ones suggesting and developing the architecture.
-% In the rest of the report we describe our work and thoughts in the different sprints, especially
-% REST development and monkey testing appear often throughout the sprints.
-% In the first sprint we spread our efforts on a series of tasks. Most of these were concerning bug
-% removal. We also began the work on the REST API together with the new login system, which
-% we continued to work on throughout all the sprints.
-% From the second sprint major organizational changes took place, as to how tasks were distributed
-% and which tasks were deemed most important. This was spurred on by us, since we suggested
-% that an overall goal for the semester and the project should be defined, which we could structure
-% our work around. From here on the distributed tasks where confined to a small collection of
-% application, which were classified as the minimum viable product. We continued to work on the
-% new login system and the REST API, as these were considered to be an important part of the
-% minimum viable product.
-% During the third sprint we mainly focused on the developing the REST API for the login system,
-% and getting monkey testing to work. We only took in a single new task, as the API and the
-% monkey testing were large tasks which consumed most of our time.
-% At the beginning of the fourth sprint we became aware that we were behind on our report, as
-% we had spent time between the sprints on the REST API and monkey testing. We therefore
-% halted the development early on, such that we could catch up on our report as well as write
-% documentation on our work for the next developers of Giraf project. A lot of our documentation
-% can be seen in our appendix, and can also be found on the Phabricator webpage for the project.
-% In the end of the report we evaluate our efforts in the areas which we were responsible for. Code
-% review we believe was worth the initial difficulties of changing the developers normal workflow.
-% Once the developers became comfortable with this way of developing we believe that the process
-% became streamlined and bugs and errors was removed from the produced code. However we did
-% not come up with a plan of evaluating the efficiency of code reviewing when we introduced it to
-% the project, which meant that we could not conclude to which degree code review had helped.
-% Testing turned out completely different than we thought, since we found that it was difficult
-% to separate business logic from UI code in the applications. The initial plan was to produce
-% unit tests for most of the project, but based on these difficulties this was later reduced to only
-% producing unit tests for new code.
+these tools in a project setting. Finally, we have implemented the \textc{REST}
+framework into the \textc{Launcher} and the {Component-Lib} library.
