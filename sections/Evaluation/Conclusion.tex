@@ -1,25 +1,19 @@
 \chapter{Conclusion}
-This chapter will be used to conclude on the final state of the project, and the
-success of the project and sprint goals. \\
 Throughout the project, we have been working in collaboration with the 6 other
 bachelor groups, in order to further develop the GIRAF suite of Android
-applications.\nl
+applications. As such, this chapter will be used to conclude on the final state
+of the project, and the success of the project goals.\nl
 
 To make an initial conclusion on the success of the project; while we have been
 unable to finalize GIRAF to such a state that it can be distributed to users, we
-have managed to complete a large part of the project and sprint goals.
-Additionally, our group has been able to finish the Launcher, with the exception
-of some functionality, which can't be implemented yet, as it lacks the correct
-data-objects on the database.\nl
+have managed to complete most of the goals for our specific group. Our group has
+been able to finish the Launcher, with the exception of some functionality,
+which can't be implemented yet, as it lacks the correct data-objects on the
+database.\nl
 
 The following sections will conclude to the individual system parts, in relation
 to their current state, and what improvements and changes we have made to them
-during the span of the project.\nl
-
-In the final state of GIRAF, we have mostly finished our goals, but based on
-problems with the finalization of the REST framework, we have been unable to
-implement all of the features which are necessary in order to make a realase
-version of the GIRAF system.
+during the span of the project.
 
 \section{Launcher}
 At the beginning of the project in \autoref{GirafProblems}, we analyzed the
@@ -62,40 +56,80 @@ launcher. While we have finished the implementation on our end, the server is
 sill missing some end-points, which results in us being unable to retrieve the
 last bits of data which we need in order to finish the launcher.
 
-% 
-% \begin{table}[H]
-% \centering
-% \begin{tabular}{|p{5cm}|p{9cm}|}
-% \hline
-% The launcher is very unresponsive when starting up, and takes up to a minute
-% before we can access the main screen. &  This problem has been solved by
-% switching to the new REST framework, as the main problem which cause the slow
-% loading, was the necessity to retrieve a large amount data from both the server
-% and from local sharedPreferences. Currently, the launcher is capable of
-% presenting the login screen in about a second, and loggin in is just as quick.
-% While we still retrieve all data relating to the given user, the new system is
-% optimized for this purpose, and much quicker than the old system. \\\hline
-% The launcher experience frequent crashes, especially when switching between
-% activities. & In the process of creating a new login system, and changing the
-% system to use the new REST framework, we have rewritte large parts of the
-% classes in which these crashes occoured. As such, these crashes no longer
-% happen. There were some crashes caused to exceptions which we were unable to
-% identify the source of, but due to the implementation of a try-catch structure,
-% we have been able to prevent these issues. \\\hline 
-% The launcher only loads user-data on startup. This can lead to outdated data
-% being used. & By switching to the new REST framework, we have reworked the
-% Launcher to request an up-to-date User object when we need to use the relevant
-% data. As such, the system should make more requests to the server, but we are
-% guaranteed that the data we use are up-to-date. \\\hline
-% The launcher uses the db-lib library for server communication, and needs to
-% implement the new REST framework, which should be developed during the project.
-% & Throughout the project, we have worked with the other groups in order to
-% specify design requirements for the REST framework. Based on this effort, we
-% have been able to fully replace all functionality from the db-lib library in the
-% launcher. While we have finished the implementation on our end, the server is
-% sill missing some end-points, which results in us being unable to retrieve the
-% last bits of data which we need in order to finish the launcher. \\\hline
-% \end{tabular}
-% \caption{Conclusion for the Launcher application} 
-% \label{LConcT}    
-% \end{table} 
+\section{Pictosearch-lib}
+At the beginning of the project in \autoref{GirafProblems}, we analyzed the
+pictosearch-lib library, and determined a number of problems which needed to be
+solved. The problems and the current state of their solution is presented
+below. It should be noted, that while this library was originally our
+responsibility, it was handed over to group SW612 during the thrid sprint, as
+they lacked work, and we were busy working on the launcher. 
+
+\subsection*{Searching for pictograms can take a very long time, and sometimes
+it will get stuck and never finish}
+We determined that this situation was caused by the client sending a request
+each time a character was entered into the search field. This caused long search
+strings to send an unreasonable amount of requests to the server. A
+potential solution to this problem was to require the user to press a search
+button, or press enter on their keyboards. We have been unable to test this
+solution, as the responsibility for the library was passed on to group SW612.
+  
+\subsection*{Searching happens synchronously on the GUI thread, which prevents
+user input while it is searching}
+This problem should be solved by implementing the new REST framework, as it
+requires server requests to be  asynchronous. This means that the requests are
+not handled on the GUI thread, and that the GUI will not have to wait for the
+request to finish.
+  
+\subsection*{Some search-inputs crashes the application, namely special
+characters and commas}
+This problem was caused by the server returing null whenever we searched for
+pictograms where none contained the specific character. This problem was fixed
+by introducing a null-check before displaying the pictograms on the screen.
+  
+  
+\subsection*{The library uses the db-lib library for server communication, and
+needs to implement the new REST framework, which should be developed during the
+project}
+Due to our focus on the launcher application in the third and fourth sprint, we
+handed the pictoserach-lib library over to group SW612. As such, they have
+attempted to implement the new REST framework, but has ultimately been unable to
+succeed. Currently, the server should contain all information required by the
+library, but the library is incapable of retrieving pictograms. Based on group
+SW612 reports, they were unable to implement the asynchronous nature of the REST
+framwork into the previously synchronous nature of the library's search.
+
+\section{Giraf-component-lib}
+At the beginning of the project in \autoref{GirafProblems}, we analyzed the
+giraf-component-lib library, and determined a number of problems which needed to
+be solved. The problems and the current state of their solution is presented
+below.
+
+\subsection*{The library contain large amounts of deprecated code and classes,
+which makes the library incomprehensible}
+While we determined this to be a substantial problem, we have chosen not to
+remove any of the code which we assume to be deprecated. This is beacuse GIRAF
+consists of a large number of applications, which we have not worked on in this
+semester. As any of these applications could potentially make use of the
+different classes in the library, we have deemed it safer to leave them for now.
+
+\subsection*{The library uses the db-lib library for server communication, and
+needs to implement the new REST framework, which should be developed during the
+project.}
+The implementation of the REST framework into the component library has been a
+success, in that we have managed to implement it in all of the classes used by
+the Launcher.
+
+\section{Final Conclusion}
+In the end, while we have manged to complete the goals for our group, we have
+not been able to complete the overall project goal, which was:\nl
+
+\say{Create a finalized version of the Launcher and Weekday Planner, such that
+the GIRAF system is ready for use, and can be released.}\nl
+
+The inability to reach this goal has been caused by the incomplete state of the
+REST framework, which has prevented us from implement all of the required
+client-to-server communication. While this is the case, the REST framework is
+well documented, and we hope that next years student will be able to finish
+its development, and make a new release version of GIRAF. 
+
+
