@@ -73,13 +73,6 @@ potential solution to this problem was to require the user to press a search
 button, or press enter on their keyboards. We have been unable to test this
 solution, as the responsibility for the library was passed on to group SW612.
   
-\subsection*{Searching happens synchronously on the GUI thread, which prevents
-user input while it is searching}
-This problem should be solved by implementing the new REST framework, as it
-requires server requests to be  asynchronous. This means that the requests are
-not handled on the GUI thread, and that the GUI will not have to wait for the
-request to finish.
-  
 \subsection*{Some search-inputs crashes the application, namely special
 characters and commas}
 This problem was caused by the server returing null whenever we searched for
@@ -96,7 +89,7 @@ attempted to implement the new REST framework, but has ultimately been unable to
 succeed. Currently, the server should contain all information required by the
 library, but the library is incapable of retrieving pictograms. Based on group
 SW612 reports, they were unable to implement the asynchronous nature of the REST
-framwork into the previously synchronous nature of the library's search.
+framwork into the library's search for pictograms such they can be returned.
 
 \section{Giraf-component-lib}
 At the beginning of the project in \autoref{GirafProblems}, we analyzed the

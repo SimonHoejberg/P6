@@ -280,8 +280,6 @@ from the database. The following problems have been found in this library:
 \begin{enumerate}
   \item Searching for pictograms can take a very long time, and sometimes it
   will get stuck and never finish.
-  \item Searching happens synchronously on the GUI thread, which prevents user
-  input while it is searching.
   \item Some search-inputs crashes the application, namely special characters
   and commas.
   \item The library uses the db-lib library for server communication, and needs
