@@ -1,59 +1,63 @@
 \chapter{Future Work}
 In this chapter the future work for the part of GIRAF we have worked will be
-summerzied and explained. These reange from bugs to redesigns of part of the two
-projects. All the features and bugs we mention in this chapter have been given
-to SW611 for creation of tasks for next years students on the GIRAF project.
+summerzied and explained. These range from bugs to redesigns of the Launcher
+application, and the component-lib and pictosearch-lib libraries.
+All the features and bugs we mention in this chapter have been presented to
+SW611 for creation of tasks for next years students on the GIRAF project.
 
 \section{Redesigns}
-During the implementation of REST in \textc{component-lib} see
-\autoref{T836_T868_T870} we discovered how many classes in the library which are
-either deprecated, unsuaber or implemented in a bad way, the amount of casses
-was to big to trackle in the last sprint and as such the \textc{component-lib}
-should be redesigned with regards to the gui classes, they should be more like
-the new \textc{GirafPopupDialog} which uses listners instead of the other
-implementation using interfaces and methods calls. The classes should also be
-looked at and find out how many classes are really needed, because we have
-worked with the library the whole semester and we do not know the amount of
-classes that are actually used.
+During the implementation of REST in \textc{component-lib}, see
+\autoref{T836_T868_T870}, we discovered that many classes in the library were
+either deprecated, unusable or implemented in a bad way. The amount of classes
+was too large to effectively trackle in the last sprint, and as such the
+\textc{component-lib} should be redesigned with regards to the GUI classes, as
+they should be more like the new \textc{GirafPopupDialog} which uses listners
+instead of the current implementation which uses interfaces and methods calls.
+The classes should also be looked at to figure out how many classes are really
+needed, as we have worked with the library the whole semester and we do not
+know which of the classes are actually used.
 
 \section{Addtional Features}
-During sprint 4, it was also determined that there should be another login, but
-this time it should be a instetuie login, but this task was unfinshed as seen in
-T889 in \autoref{S4Invalid} and this should be implemented when deperments works
-on the server and REST level. The idea is that the deperments should be able to log in
-and then a profile selector should appear where every guardian from that
-department should be able to be choosen and when choosen the launcher should log
-in as that guardian.\nl
+During sprint 4, it was also determined that there should be another
+approach to logging in, where the user could input an departments-login, which
+should give access to all Guardians in that institution. As seen in T889 in
+\autoref{S4Invalid}, this task was unfinished, and this feature should be
+finalized when departments are implemented on the server and REST level. The
+idea is that the departments should be able to log in, and then a profile
+selector should appear where every guardian from that department should be able
+to be choosen. When a guradian is chosen, the launcher should log in as that
+guardian.\nl
 
-It could also be a good idea to reimplement the feature that the spinnning
-loading giraf head should only spin if the user has a switch much like the
-grayscale as seen in \autoref{newSettingsPage}, the server should allready
-support this because of our specification of the settings page we made before
-implementing REST in the \textc{Launcher}. The way we think the implementation
-should be is that using sharedpreferences to store the last user's value for show
-animination boolean.
+It could also be a good idea to reimplement the previous setting, which made it
+such that the spinnning giraf head on the login screen should only spin if the
+user has it enabled. Like greyscale, this should be implemented as a switch as
+seen in \autoref{newSettingsPage}. The server should already support this
+because of our specification of the settings page, which we made before
+implementing REST in the \textc{Launcher}. As we first retrieve a users settings
+after the login, we can use sharedPreferences in order to store the value
+settings of the last user.
 
 \section{Bugs and Missing Features}
-During the development in sprint 4 we discoved a few bugs and missing features
-which is not critical in size or effect, but smaller things which can improve the \textc{Launcher} and
-\textc{Component-lib}
+During sprint 4 we discoved a few bugs and missing features, which are not
+critical in size or effect, but smaller things which can improve the
+\textc{Launcher} and \textc{Component-lib}.
 
 \subsection{Launcher}
 The bugs and missing features we found in the launcher are.
 
 \subsubsection{Dialogs should be in grayscale}
-When testing grayscale in the settings page of the \textc{Launcher} is was found that it
-did not effect the dialogs. This should be fixed such that the dialogs respects
-the grayscale setting. For the \textc{Launcher} it mostly means that they should have a
-way of knowing the setting.
+When testing grayscale in the settings page of the \textc{Launcher}, is was
+found that it did not effect dialog boxes. This should be fixed such that the
+dialogs respect the grayscale setting. For the \textc{Launcher} it mostly means
+that the boxes should have a way of knowing the setting.
 
 \subsubsection{Implement grayscale in login screen}
 Like the rest of the \textc{Launcher} the login screen should also be in
 grayscale, but the problem here is that the user does not exist before they are
-logged in and when they are logged in, the app changes to the home screen. So to
-implement this feature an idea could be to use a sharedpreference to only store
+logged in, and when they are logged in, the app changes to the home screen. So
+to implement this feature an idea could be to use a sharedPreference to store
 the boolean for grayscale for the last logged in user. Doing this should allow
-the login screen to be in grayscale as long as it is the same user that logges
+the login screen to be in grayscale as long as it is the same user that logs
 in and does not change settings.
 
 \subsubsection{Fix the changing of users though the settings page}
