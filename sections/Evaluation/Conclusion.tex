@@ -22,19 +22,44 @@ implement all of the features which are necessary in order to make a realase
 version of the GIRAF system.
 
 \section{Launcher}
-At the beginning of the project, 
+At the beginning of the project in \autoref{GirafProblems}, we analyzed the
+launcher application, and determined a number of problems which needed to be
+solved. The problems and the current state of their solution is presented in
+\auotref{LConcT}.
 
-Launcher:
-Unresponsive startup.
-Crashes.
-Only load data once at login.
-
-Component-lib:
-Large amounts of depreceted code.
-Uses old db-lib
-
-Pictosearch-lib:
-Very slow.
-Crashes.
-Bugs.
-some  inputs crashes it.
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+The launcher is very unresponsive when starting up, and takes up to a minute
+before we can access the main screen. &  This problem has been solved by
+switching to the new REST framework, as the main problem which cause the slow
+loading, was the necessity to retrieve a large amount data from both the server
+and from local sharedPreferences. Currently, the launcher is capable of
+presenting the login screen in about a second, and loggin in is just as quick.
+While we still retrieve all data relating to the given user, the new system is
+optimized for this purpose, and much quicker than the old system. \\\hline
+The launcher experience frequent crashes, especially when switching between
+activities. & In the process of creating a new login system, and changing the
+system to use the new REST framework, we have rewritte large parts of the
+classes in which these crashes occoured. As such, these crashes no longer
+happen. There were some crashes caused to exceptions which we were unable to
+identify the source of, but due to the implementation of a try-catch structure,
+we have been able to prevent these issues. \\\hline 
+The launcher only loads user-data on startup. This can lead to outdated data
+being used. & By switching to the new REST framework, we have reworked the
+Launcher to request an up-to-date User object when we need to use the relevant
+data. As such, the system should make more requests to the server, but we are
+guaranteed that the data we use are up-to-date. \\\hline
+The launcher uses the db-lib library for server communication, and needs to
+implement the new REST framework, which should be developed during the project.
+& Throughout the project, we have worked with the other groups in order to
+specify design requirements for the REST framework. Based on this effort, we
+have been able to fully replace all functionality from the db-lib library in the
+launcher. While we have finished the implementation on our end, the server is
+sill missing some end-points, which results in us being unable to retrieve the
+last bits of data which we need in order to finish the launcher. \\\hline
+\end{tabular}
+\caption{Conclusion for the Launcher application} 
+\label{LConcT}    
+\end{table} 
