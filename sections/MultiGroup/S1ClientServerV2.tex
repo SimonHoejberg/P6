@@ -53,7 +53,7 @@ analysis of the code, we determined the following requirements:\nl
 In order to use the \textc{Launcher}, a user needs to login to an
 \textc{account}, which is either a \textc{Guardian} or a \textc{Citizen}. Each
 account has a \textc{name}, a \textc{picture}, an a \textc{unique identifier}.
-In order to use \textc{pictograms} in applications, the system needs a to acces
+In order to use \textc{pictograms} in applications, the system needs to access
 pictogram objects by ID. As such, users require the following fields on the
 server: \textbf{Name}, \textbf{UserID}, \textbf{Icon}, \textbf{Department},
 \textbf{Username}, \textbf{Password}, \textbf{Screen Name}, and \textbf{Saved
@@ -62,11 +62,12 @@ Pictograms require the following fields on the database: \textbf{ID},
 \textbf{Title}, and a \textbf{Bitmap (Picture)}.\nl
 
 Based on a discussion with the other groups, we created a UML class-diagram,
-which have been subject to redefinitions throughout the project. The final
+which has been subject to redefinitions throughout the project. The final
 version of this diagram can be seen in \autoref{Giraf_RestModel}.
+\fix{}{Forklar hvad de forskellige pile betyder}
 
-\figx[0.65]{Giraf_RestModel}{UML diagram depicting the objects requested from
-the database}
+\figx[0.65]{Giraf_RestModel}{UML  class-diagram depicting the objects requested
+from the database}
 
 In the UML diagram shown in \autoref{Giraf_RestModel}, each class has a
 specific use and responsibility. This is described below in
@@ -87,10 +88,10 @@ Settings    			&	Contains information about a users local settings. This allows
 the same settings to be mirrored across multiple devices. \\\hline 
 Permission  			&	Used to specify the permissions of the user e.g. Admin,
 Guardian, and Citizen. Allows and restricts access to certain features and data.\\\hline 
-Frame              		&   Acts a container class for pictograms. Contains all
+Frame              		&   Acts as a container class for pictograms. Contains all
 relevant contextual data, and a Pictogram object.\\\hline 
-Choice              	&	Acts a container class for pictograms like a Frame, but
-contains multiple pictograms, in the case that the citizen has a choice between
+Choice              	&	Acts as a container class for pictograms like a Frame,
+but contains multiple pictograms, in the case that the citizen has a choice between
 multiple activities in their schedules.\\\hline 
 Pictogram              	&	Contains a Bitmap image of the Pictogram. \\\hline
 Sequence              	&	List of Frames or Choices which together represent a
@@ -105,8 +106,7 @@ WeekdayActivityProgress & 	Contains information about a users progress on a
 given schedule.\\\hline 
 Application    			&	Information about applications a user is allowed to access.\\\hline     
 \end{tabular}
-\label{restModelTableEh}
-\caption{Classes used in the REST model, and their descriptions}
+\caption{Classes used in the REST model, and their descriptions}\label{restModelTableEh}
 \end{centering}
 \end{table}
 
@@ -119,8 +119,8 @@ applications. Based on the user's feedback, the database requirements that are
 relevant for our groups were further defined.
 
 \begin{itemize}
-  \item We want to be able to change users pictures by uploading new ones.
-  \item Pictograms should be retriewed in batches to decrease wait time.
+  \item We want to be able to change users' pictures by uploading new ones.
+  \item Pictograms should be retrieved in batches to decrease wait time.
   \item Pictograms should be searchable by category.
   \item In the Launcher, we only need direct access to guardians, as citizens
   are aggregated from them.
@@ -142,13 +142,15 @@ manipulate data from the database. This design can be seen in
 
 In order to describe the UML diagram, group SW613 supplied us with the
 following listing, which contains explanations for each of the diagram's
-elements.
+elements. 
 
+\fix{}{Er det funktioner, der er jo forskel på interfaces, metoder og
+funktioner}
 \begin{itemize}
     \item \textbf{createSchedule}\\
     The \texttt{createSchedule} function is called when a new schedule has been created on a device and the schedule should be synchronised across other devices connected to the same department.
     \item \textbf{createImage}\\
-    This functions is called when a user takes a photograph and wishes to share it across devices.
+    This function is called when a user takes a photograph and wishes to share it across devices.
     \item \textbf{readGuardianByDepartment}\\
     The launcher application needs to read all guardian-objects from the current department. This function returns all guardians associated with the relevant department.
     \item \textbf{readScheduleByCitizen}\\
@@ -185,7 +187,7 @@ elements.
 \end{itemize}
 
 Until the REST framework is finished, the overall design of this interface
-will be used to identify what oppoutunities we have in the applications, when it
+will be used to identify what opportunities we have in the applications, when it
 comes to manipulating data on the database.
 
 \section{Using the Rest Libraries}\label{UsingRest}
@@ -225,9 +227,9 @@ LoginRequest loginRequest = new LoginRequest(username, password, new Response.Li
 \end{minipage}
 
 In the code example in \autoref{CSLoginRequest1} we start by creating a new
-\textc{LoginRequest} on \textbf{line 3}, where we pass the users
+\textc{LoginRequest} on \textbf{line 3}, where we pass the users'
 \textc{username}, \textc{password}, and the \textc{ResponseListener}, which is
-an object used for server communication. Everything after \textbf{line 4} are
+an object used for server communication. Everything after \textbf{line 4} is
 a part of the \textc{LoginRequests} nested inner class. On \textbf{line 6} we
 have an \textc{onResponse} method, which is called whenever we recieve a
 response from the server. Given a user from the server, on \textbf{lines 14-18},
@@ -257,10 +259,10 @@ we create a new intent and start a HomeActivity based on the user.\nl
 \end{minipage}
 
 The code example in \autoref{CSLoginRequest2} follows directly after
-\autoref{CSLoginRequest1}, and is used check for errors in the
+\autoref{CSLoginRequest1}, and is used to check for errors in the
 \textc{GetUserRequest}. On \textbf{line 1} we create an \textc{ErrorListener}
 which will listen for error messages retrieved from the server request. The
-following lines are a nested class. On \textbf{line 5} we have the
+following lines are a nested class. On \textbf{line 4} we have the
 \textc{onErrorResponse} method which is called with a \textc{VolleyError}. On
 lines {7-13} we choose an action based on the error-code contained in the error
 object. On \textbf{line 16} we add the GetUserRequest (which we defined in
@@ -328,8 +330,7 @@ The code example of \autoref{RequestQueue} is used to demonstrate how the
 applications communicate with the server. The communication is done through a
 \textc{RequestQueue} which we instantiate on \textbf{line 2}. The
 \textc{RequestQueue} communicates asynchronously with the server, which means
-that in order for our requests to be handled in the correct order we need to
-make to nest our requests inside each as other, as seen on \textbf{line 16} and
+that in order for our requests to be handled in the correct order we need to nest our requests inside each as other, as seen on \textbf{line 16} and
 \textbf{22}, where the \textc{userGetRequest} is nested inside the
 \textc{loginRequest}'s \textc{onResponse}.
 
