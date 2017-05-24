@@ -136,7 +136,8 @@ Based on the meetings and discussion between our groups, the database groups
 (SW613 and SW615) formulated the following design for the interface, which
 should be used by the \textc{rest-models} library in order to retrieve and
 manipulate data from the database. This design can be seen in
-\autoref{interface-uml}.
+\autoref{interface-uml}. In the diagram the hardline arrows means inheritance
+and the dashed arrows means interface implementation.
 
 \figx{interface-uml}{UML diagram detailing the client/database interface.}
 
@@ -330,17 +331,12 @@ The code example of \autoref{RequestQueue} is used to demonstrate how the
 applications communicate with the server. The communication is done through a
 \textc{RequestQueue} which we instantiate on \textbf{line 2}. The
 \textc{RequestQueue} communicates asynchronously with the server, which means
-<<<<<<< .mine
 that in order for our requests to be handled in the correct order we need to
 nest our requests inside each as other, as seen on \textbf{line 16} and
-||||||| .r297
-that in order for our requests to be handled in the correct order we need to
-make to nest our requests inside each as other, as seen on \textbf{line 16} and
-=======
-that in order for our requests to be handled in the correct order we need to nest our requests inside each as other, as seen on \textbf{line 16} and
->>>>>>> .r299
 \textbf{22}, where the \textc{userGetRequest} is nested inside the
-\textc{loginRequest}'s \textc{onResponse}.
+\textc{loginRequest}'s \textc{onResponse}. This is because to get a user we need
+a token / cookie and the way we get this, is using a \textc{LoginRequest} then
+we can use the \textc{GetRquest} to get the user for that username.
 
 \subsection{REST Framework Discussion}
 \fix{}{DonF, har jeg ret?}\nl
