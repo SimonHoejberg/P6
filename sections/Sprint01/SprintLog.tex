@@ -220,9 +220,9 @@ therefore subject for refactoring.
 One of the most prevalent problems in the launcher's code is the explicitly
 implemented exception handling. Instead of checking variable's for
 null-values, a try-catch structure has been implemented to catch exceptions.
-While this is technically not wrong, it is a bad practice, as the try-catch
-approach is vastly more expensive in regards to required computations. There are
-many examples of this approach in the code. An example from the
+While this is technically not wrong, we consider it to bad coding practice to
+catch NullPointerExceptions when we can simply check the variables instead.
+There are many examples of this approach in the code. An example from the
 \textc{AppComparator} class can be seen in \autoref{ExplicitHandlingEx}.\nl
 
 \begin{minipage}[H]{\linewidth}
