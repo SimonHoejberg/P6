@@ -66,7 +66,7 @@ which has been subject to redefinitions throughout the project. The final
 version of this diagram can be seen in \autoref{Giraf_RestModel}.
 \fix{}{Forklar hvad de forskellige pile betyder}
 
-\figx[0.65]{Giraf_RestModel}{UML  class-diagram depicting the objects requested
+\figx[0.65]{Giraf_RestModel}{UML class-diagram depicting the objects requested
 from the database}
 
 In the UML diagram shown in \autoref{Giraf_RestModel}, each class has a
@@ -330,7 +330,15 @@ The code example of \autoref{RequestQueue} is used to demonstrate how the
 applications communicate with the server. The communication is done through a
 \textc{RequestQueue} which we instantiate on \textbf{line 2}. The
 \textc{RequestQueue} communicates asynchronously with the server, which means
+<<<<<<< .mine
+that in order for our requests to be handled in the correct order we need to
+nest our requests inside each as other, as seen on \textbf{line 16} and
+||||||| .r297
+that in order for our requests to be handled in the correct order we need to
+make to nest our requests inside each as other, as seen on \textbf{line 16} and
+=======
 that in order for our requests to be handled in the correct order we need to nest our requests inside each as other, as seen on \textbf{line 16} and
+>>>>>>> .r299
 \textbf{22}, where the \textc{userGetRequest} is nested inside the
 \textc{loginRequest}'s \textc{onResponse}.
 
