@@ -370,19 +370,18 @@ solutions.
 \subsubsection{T785 and T830: Handle crash such that the user does not get an
 error message and is brought back to the launcher}
 Thoughout testing the launcher after the REST API was included, we see that when
-we crash the \textc{GirafBugSplashActivity} see \autoref{GBugSplash} is no
+we crash the \textc{GirafBugSplashActivity}, see \autoref{GBugSplash}, is no
 longer shown, which was a part of the task. We have tried implementing the
-return to launcher as seen in \autoref{T785-T830} but this did not work and a new implementation was made but we have not been able to resolve it due
-to time constraints.
-As such this task can only be considered partially resolved.
+return to launcher as seen in \autoref{T785-T830} but this did not work and a
+new implementation was made but we have not been able to resolve it due to time
+constraints. As such this task can only be considered partially resolved.
 
 \subsubsection{T822: Verify the implementation of Grayscale}
-We have removed all \textc{SharedPreferences}, including the one we used in
-\autoref{grayEx2}, as such we have no way to see the users setting. We have thus
-changed it to better make use of REST by making a request to the server for the
-users setting, see \autoref{NEWsetGrayScaleUser}. As seen on \textbf{lines
-xx-xy} we make a simple \textc{GetRequest<User>} pass the settings and activity to the
-\textc{setGrayScaleForActivity} method.\nl
+In order to make use of REST, we changed the GrayScaleHelper class to include a
+server request, which retrieves the user's settings object. This can be seen in
+\autoref{NEWsetGrayScaleUser}. As seen on \textbf{line 6-10}, we make a simple
+\textc{GetRequest} for the user, and then pass its settings object and the
+current activity to the \textc{setGrayScaleForActivity} method.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Finds the grayscale setting for each user, label =
@@ -403,11 +402,11 @@ public class GrayScaleHelper {
 \end{lstlisting}
 \end{minipage}
 
-In \textc{setGrayScaleForActivity} we experience a problem as we in
+In \textc{setGrayScaleForActivity} we experience a problem, as we in
 \autoref{grayEx1} tried to use \textc{setGray} for each view. This does not work
-correctly, as such we use the \textc{root View} on \textbf{line
-5} see \autoref{NEWsetGrayScale}. This functions the same as the old code, but
-does not crash GIRAF applications.
+correctly, and as such, we use the \textc{root View} on \textbf{line 5} in 
+\autoref{NEWsetGrayScale}. This functions the same as the old code, but does
+not crash GIRAF applications.
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = The root View is used instead of all the seperate
@@ -423,10 +422,10 @@ views, label = NEWsetGrayScale] public class GrayScaleHelper {
 \end{lstlisting}
 \end{minipage}
 
-There is a small problem as currently the \textc{dialogs} are not grayscaled
+There is currently a small problem, as the \textc{dialogs} are not grayscaled
 when the \textc{root View} is. We think this is because they are not attached to
 it, see \autoref{GrayScaleColorDialog}, but due to time constraints we have
-chosen to pass this particular part on to next year's students. 
+chosen to pass this particular part on to next year's students.
 
 \figx[0.2]{GrayScaleColorDialog}{An example of a colored dialog with a
 gray scaled background.}
