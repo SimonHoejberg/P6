@@ -1,17 +1,19 @@
 \subsection{Jenkins and Artifactory}
 In order to automate and simplify building the GIRAF software releases, the
-GIRAF project is organized using a combination of the tools Jenkins and Artifactory.\nl
+GIRAF project is organized using a combination of the tools Jenkins and
+Artifactory.\nl
 
-Jenkins is a build tool, which takes the GIRAF code base from the relevant Git
-repositories, and compiles them into the respective binary files. After
-compilation, Jenkins uploads the compiled applications and libraries to
-Artifactory's repository. This repository is used to contain the
-successful builds of the applications and libraries. The benefit of using
-Artifactory is, that it is not necessary for each member of the GIRAF project
-to have a local copy of a specific version of the application's /librarie's
-dependencies repository. Instead, during a local build a request can be sent to
-Artifactory, which returns the dependencies for the apps and libaries such that
-they can use the newest stable version.
+Jenkins is a build tool which allows us to automate the build
+process \citep{Jenkins}. We use it to take the GIRAF code base from the
+relevant Git repositories, and compile them into the respective binary files.
+After compilation, Jenkins uploads the compiled applications and libraries to
+Artifactory's repository. This repository is used to contain the successful
+builds of the applications and libraries. The benefit of using Artifactory is,
+that it is not necessary for each member of the GIRAF project to have a local
+copy of a specific version of the application's /librarie's dependencies
+repository \citep{Arti}. Instead, during a local build a request can be sent to
+Artifactory, which returns the dependencies for the apps and libaries such that they can use
+the newest stable version.
 
 % Jenkins is used to build the different tools, apps and libaries from the git
 % repositories and then publish them to articatory. Artifactory is used to get the
