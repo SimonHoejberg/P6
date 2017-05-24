@@ -1,6 +1,6 @@
 \chapter{Introduction}
-The GIRAF project consists of developing a set of applications for Android
-tablets, which aim to assist citizens with autism, and to help their guardians in 
+The GIRAF project consists of a set of applications for Android
+tablets, which aim to assist citizens and their guardians in 
 structuring the citizens daily lives. The project is a continous development
 effort by bachelor students at Aalborg University, which has been
 ongoing since early 2011. Each year, the new bachelor students must work
@@ -16,9 +16,9 @@ groups.
 
 
 \section{State of GIRAF}
-During the previous years development effort, the project groups were focused
+During the previous year's development effort, the project groups were focused
 on implementing a viable front-end for the GIRAF applications, such that they
-would be able to conduct extensive usability tests. This resulted in them
+would be able to conduct usability tests. This resulted in them
 attempting to make the applications look like they functioned from the users
 perspective, while neglecting to develop parts of the necessary back-end.
 This has resulted in a situation where the applications' front-ends are
@@ -54,9 +54,9 @@ features.\\\hline
 Weekplanner 		& Allows for the creation of schedules for citizens
 using pictograms. & Working. Needs bugfixing.\\\hline 
 Category Tool		& A tool which allows pictograms to be grouped together
-in a specific category. & Working. Needs bugfixing. Possible redesign.\\\hline 
+in a specific category. & Unknown. Needs bugfixing. Possible redesign.\\\hline 
 Category Game   	& A game which teaches citizens to associate
-different object by a common feature. & Working. Needs bugfixing.\\\hline 
+different object by a common feature. & Unknown. Needs bugfixing.\\\hline 
 Voice Game  		& A game which allows citizens to control an object
 using the volume of their voice. & Working. Needs bugfixing.\\\hline
 \end{tabular} 
@@ -71,25 +71,25 @@ which prohibit their use by the customer.
 \section{Development Method}
 Based on the experiences from the previous semester's students, we have chosen
 to make use of an agile developement process, where each group is organized through
-the use of Scrum. This means that the development process is divided into a
+the use of SCRUM. This means that the development process is divided into a
 number of ``sprints'', in which no more development tasks can be added to the backlog, 
 and the groups work to resolve all currently defined tasks \citep[Ch.7
-p.109-111]{Larman2004}. We have organized the multi-project this semester as a scrum of scrums. One group serves
-as the scrum master, while the remaining 6 groups each select one member to
-attend the scrum meetings. This organizational structure can be seen in
-\autoref{ProjectStruct}, where the scrum group organizes the project on a daily
+p.109-111]{Larman2004}. We have organized the multi-project this semester as a SCRUM of SCRUMs. One group serves
+as the SCRUM master, while the remaining 6 groups each select one member to
+attend the SCRUM meetings. This organizational structure can be seen in
+\autoref{ProjectStruct}, where the SCRUM group organizes the project on a daily
 basis, and the different group's representatives partake in weekly meetings with
-the scrum group.
+the SCRUM group.
 
-\figx[0.65]{ProjectStruct}{The project structure used this semester.}
+\figx[0.65]{ProjectStruct}{The project structure used this semester}
 
-These 10 people partake in the scrum meetings in order to discuss the
+These 10 people partake in the SCRUM meetings and discuss the
 multi-project, what each group is currently working on, and whatever problems
 have cropped up between each meeting.\nl
 
 At the beginning of each sprint, all project members meet as a part of a larger
-scrum meeting, in order to decide what new tasks can be defined, and which tasks
-from the product backlog are suitable for the next sprint's backlog. The scrum
+SCRUM meeting, in order to decide what new tasks can be defined, and which tasks
+from the product backlog are suitable for the next sprint's backlog. The SCRUM
 group then further divide the sprint backlog among the groups such that each
 group have a suitable number of tasks for each sprint. The multi-project itself
 is divided into 4 different sprints, which are defined in
@@ -106,7 +106,7 @@ Activity & Date \\ \hline
 4. Sprint & 1/5 - 22/5\\\hline 
 Project delivery date & 29/5\\\hline
 \end{tabular}
-\caption{The GIRAF activities and their dates.}
+\caption{The GIRAF activities and their dates}
 \label{TableActivity}
 \end{table}
 
@@ -121,22 +121,21 @@ current implementation of GIRAF, this is done through the use of series of
 descriptive pictograms, which depict actions, events, and items in a determined
 order. Based on this feedback, the overall goal for this project is to develop
 GIRAF into a ``minimum viable product'', with a focus on the
-\textc{weekplanner}, \textc{server} and \textc{database}.\nl
+\textc{Weekplanner}, server and database.\nl
 
-The weekplanner has been chosen, as it is the main application which is used
-to manage the citizens' schedules. The core problems present in this application is
-the occasional crashes, long load times when browsing for new pictograms, and a
-occasionally confusing user interface. These issues makes it so, that the
-application is currently not usable to an acceptable degree. The users need the
-product to be stable and easy to use, as it needs to be used frequently, and by
-users who have varying degrees of experience using computers. The server
-and database is chosen as any sizable institutions will need an easy, quick and
-reliable way to transfer data between devices using GIRAF.\nl
+The \textc{weekplanner} has been chosen, as it is the main application which is used
+to manage the citizens' schedules. The core problems present in this application
+is crashes, long load times when browsing for new pictograms, and a occasionally
+confusing user interface. These issues makes it so that the application is
+currently not usable to an acceptable degree. The users need the product to be
+stable and easy to use, as it needs to be used by users who have varying degrees
+of experience using computers. The server and database is chosen as any sizable
+institutions will need an easy, quick and reliable way to transfer data between
+devices using GIRAF.\nl
 
-Based on the chosen area of focus for this project, we have chosen to define the
-areas of reponsibility for each group based on what they have requested to work
-on. The chosen distribution of responsibility can be seen in
-\autoref{GroupDivision}.
+Based on the area of focus for this project, we have defined the areas of
+reponsibility for each group based on what they have requested to work on. The
+chosen distribution of responsibility can be seen in \autoref{GroupDivision}.
 
 \begin{table}[H]
 \centering
@@ -146,8 +145,8 @@ Group & Focus & Description \\ \hline
 SW609 & Weekplanner depedencies. & Works on providing
 stability to the Weekplanner by improving libraries and the Launcher.\\\hline 
 SW610 & Weekplanner & Works on getting weekplanner into a working
-state.\\\hline 
-SW611 & Scrum master & Organizes the scrum meetings and helps with the creation of tasks. \\\hline 
+state, and managing the Git repositories.\\\hline 
+SW611 & SCRUM master & Organizes the SCRUM meetings and helps with the creation of tasks. \\\hline 
 SW612 & Product owner &  Acts as a contact to the users.\\\hline 
 SW613 & REST client & Works on REST client libraries.\\ \hline
 
@@ -161,44 +160,43 @@ SW615 & REST server & Works on the REST server libraries.\\ \hline
 \label{GroupDivision}
 \end{table}
 
-As can be seen in \autoref{GroupDivision}, our group will focus on improving the
-stability of the weekplanner by means of refactoring and improving the code of
-its dependencies. This will mainly be done through work on the Launcher and a
-library called \textc{pictosearch-lib}. Based on the presented development
-framework, and the chosen project goals, this report will be used to document
-the development and organizational processes of the tasks which have been
-assigned to our group, SW609.
+Our group will focus on improving the stability of the \wapp by means of
+refactoring and improving the code of its dependencies. This will mainly be done
+through work on the \lapp and a library called \plib. Based
+on the presented development framework, and the chosen project goals, this
+report will be used to document the development and organizational processes of
+the tasks which have been assigned to our group, SW609.
 
-\section{Main Applications}
-Since our responsibility is to improve the Launcher and the
-\textc{pictosearch-lib} library, this section will be used to present the
-two applications, and explain their user interface.
+\section{Applications and Libraries}
+Since our responsibility is to improve the \lapp, \clib, and \plib this section
+will be used to present these elements, and explain their user interfaces.
 
 \subsection{Launcher}\label{LauncherReview}
-As of February 2017, the Launcher contains a login screen, different menus for
-each of the user types and an options menu. The user is able to login using a QR
-code, as seen in \autoref{Login}. In the lower left corner there is
-currently a shortcut used for testing purposes which bypasses the QR code
-requirement. There was work done in the prior semester towards a login system
-using passwords instead of using QR codes, including design sketches and a
-simple UI implementation.
+As of February 2017, the \lapp implements \clib, and contains a login screen,
+different menus for each of the user types and an options menu.
 
-\figx[0.25]{Login}{The login screen shows a pictogram of someone scanning a QR
-code while the user can see what it scans.}
+The user is able to login using a QR code, as seen in \autoref{Login}. In the
+lower left corner there is currently a shortcut used for testing purposes which
+bypasses the QR code requirement. There was work done in the prior semester
+towards a login system using passwords instead of using QR codes, including
+design sketches and a simple UI implementation.
 
-After logging in, the user is taken to the guardian menu, which has access to 4
+\figx[0.25]{Login}{Trying to log in using a QR code}
+
+After logging in, the guardian is taken to the home menu, which has access to 4
 buttons and a list of applications which the user has access to,
 see \autoref{MenuGuardian}. Guardian and citizens have similar menus with
 exception that citizens only have access to \textbf{2} which is a logout button,
 \textbf{3} which provides a quick description of what the user can do and
 \textbf{5} which is a list of the available applications.
 
-\figx[0.37]{MenuGuardian}{The guardians menu screen.}
+\figx[0.37]{MenuGuardian}{The guardians home menu screen}
 
 Through \textbf{1} the guardian can allow a citizen in its care limited access
 to the tablet. The settings are accessed via \textbf{4}, which allows the
 guardian to control everything from what applications a given citizen can see to
-how many applications it can see.
+how many applications it can see. The button \textbf{6} which is used for adding
+applications can not be seen by citizens.
 
 
 % Button \textbf{1} allows the guardian to change the current profile with that of
@@ -258,18 +256,18 @@ product which can be distributed to users of the GIRAF system, fixing these prob
 will be instrumental to succeeding in doing this.
 
 \subsection{Launcher}
-As described in \autoref{LauncherReview}, the launcher is the element
+As described in \autoref{LauncherReview}, the \lapp is the element
 responsible for launching other GIRAF applications, and managing the global
 settings of individual users. The following problems have been found in the
 launcher:
 \begin{enumerate}
-  \item The launcher is very unresponsive when starting up, and takes up to a
+  \item The \lapp is very unresponsive when starting up, and takes up to a
   minute before we can access the main screen.
-  \item The launcher experience frequent crashes, especially when switching
+  \item The \lapp experience frequent crashes, especially when switching
   between activities.
-  \item The launcher only loads user-data on startup. This can lead to outdated
+  \item The \lapp only loads user-data on startup. This can lead to outdated
   data being used.
-  \item The launcher uses the db-lib library for server communication, and needs
+  \item The \lapp uses the db-lib library for server communication, and needs
   to implement the new REST framework, which should be developed during the project.
 \end{enumerate}
 
