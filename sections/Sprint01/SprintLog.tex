@@ -1,13 +1,12 @@
 \chapter{Sprint: 1}
-This sprint represents the groups' initial experiences with the GIRAF
+This sprint represents our groups' initial experiences with the GIRAF
 project. The purpose of this sprint is to gain a better understanding of how the
 GIRAF applications works, how they depend on each other and to make sure that
 the quality of the previosly written code is acceptable.\nl
 
 As a part of organizing the project each group was assigned an initial area of
-responsibility. For our group, SW609, this responsibility encompasses the
-applications \textc{Launcher}, see \autoref{LauncherReview}, and
-\textc{Pictogram Searcher}, see \autoref{PictoSearchReview}. While these
+responsibility. For our group, SW609, this responsibility encompasses the \textc{Launcher}, see \autoref{LauncherReview}, and
+the libraries \clib\ and \plib, see \autoref{PictoSearchReview}. While these
 applications represent our current core responsibilities, not all of our tasks
 are required to revolve around these apps.\nl
 
@@ -57,7 +56,7 @@ comma into the pictogram search-bar. Due to faulty implementation, when the
 search was executed on a comma, it returned an empty list of pictograms.
 This leads to an exception since the system never expects the list to be empty,
 and this is a problem since the system tries to access the first element of the
-empty list, which is null.\nl
+empty list, which is \ttt{null}.\nl
 
 In order to fix this problem, we have implemented multiple checks to make sure
 that the system does not attempt to invoke any method on the non-existing
@@ -82,11 +81,11 @@ if (convertView == null) {
 \end{lstlisting}
 \end{minipage}
 
-Checking the \textc{objectList} for null values solved the problem of trying to
+Checking the \textc{objectList} for \ttt{null} values solved the problem of trying to
 access a non-existing object, but another problem is that the checked object is used to
 modify and return a \textc{pictogramItemView}. As such, given the case where no
 object exists, we need to identify if it is possible for the method to simply
-return null or a dummy object. Through analysis of the
+return \ttt{null} or a dummy object. Through analysis of the
 \textc{GirafPictogramItemView} class, we identified that the system is already
 equipped to handle a \textc{pictogramItemView} with an uninitialized
 \textc{imageEntity}. This can be seen in \autoref{PictogramHandleNull}\nl
@@ -130,7 +129,7 @@ which both were capable of leading to crashes.
 The first problem was found in the launcher's \textc{MainActivity}, where a
 global variable \textc{loadAnimation} was overshadowed by a local one defined in
 the \textc{onCreate} method. As \textc{onCreate} is executed on creation of the
-activity, the definition and assignment of \textc{loadAnimation} was contained
+\ttt{Activity}, the definition and assignment of \textc{loadAnimation} was contained
 to this method, and the global variable was never initialized. This can be seen
 in \autoref{LoadAnimationCrash}. This problem led to a
 \textc{nullPointerException} because the system tried to use an animation which
@@ -157,10 +156,10 @@ This problem was fixed by removing the local definition of \textc{loadAnimation}
 in the \textc{onCreate} method.
 
 \subsubsection{Package Manager Crash}
-The second problem was caused by a timer, which was used to ping the Android
+The second problem was caused by a \ttt{Timer}, which was used to ping the Android
 package manager, in order to determine if changes were made to the device's
 installed applications. This can be seen in \autoref{PackageTimer}. The
-problem occours when running the launcher on an emulator, because pinging the package
+problem occours when running the \lapp\ on an emulator, because pinging the package
 manager would return a empty list of installed applications. Based on our
 observations, an empty app-list would prompt the system to ping the package
 manager again each time an empty list was returned (which was always). Over
@@ -211,17 +210,17 @@ private void startObservingApps() {
 \end{minipage}
 
 \subsection{T625 - Launcher: Evaluate Necessity of Present Exception Handling}
-During analysis of the Launcher's code, we identified a number of bad practices
+During analysis of the \lapp's code, we identified a number of bad practices
 regarding implementation of exception handling. While these issues were not
 dangerous to the program, they were examples of ineffecient implementations, and
 therefore subject for refactoring.
 
 \subsubsection{Explicit Exception Handling}
-One of the most prevalent problems in the launcher's code is the explicitly
+One of the most prevalent problems in the \lapp's code is the explicitly
 implemented exception handling. Instead of checking variable's for
-null-values, a try-catch structure has been implemented to catch exceptions.
+\ttt{null-values}, a \ttt{try-catch} structure has been implemented to catch exceptions.
 While this is technically not wrong, we consider it to bad coding practice to
-catch NullPointerExceptions when we can simply check the variables instead.
+catch \ttt{NullPointerExceptions} when we can simply check the variables instead.
 There are many examples of this approach in the code. An example from the
 \textc{AppComparator} class can be seen in \autoref{ExplicitHandlingEx}.\nl
 
@@ -241,7 +240,7 @@ try {
 \end{minipage}
 
 Our approach to solving this problem is to implement checks on each individual
-variable, to make sure that its value is not null. The rewritten code from the
+variable, to make sure that its value is not \ttt{null}. The rewritten code from the
 previous example in \autoref{ExplicitHandlingEx} can be seen in
 \autoref{HandlingSol}.\nl
 
@@ -261,9 +260,9 @@ if(packageManager != null) {
 
 \subsubsection{Throwing Exceptions}
 Another problem can be found in the \textc{LauncherUtility} class, where the
-previous students have decided to create a try-catch structure in which they
-themselves check that a variable is not null such that the Activity exsist.
-Afterwards, if it value was null, they throw their own \textc{ActivityNotFoundException}. This is done in
+previous students have decided to create a \ttt{try-catch} structure in which they
+themselves check that a variable is not \ttt{null} such that the \ttt{Activity} exsist.
+Afterwards, if it value was \ttt{null}, they throw their own \textc{ActivityNotFoundException}. This is done in
 order to send the exception-log to Google Analytics. This can be seen in
 \autoref{FuckedExample}.\nl
 
@@ -287,7 +286,7 @@ try {
 \end{minipage}
 
 We have deemed that this approach is unnecessary, and that a simpler approach
-would be to simply check the variable for null-values through an if-statement.
+would be to simply check the variable for \ttt{null-values} through an \ttt{if-statement}.
 Our revised code can be seen in \autoref{FixedFuck}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -316,7 +315,7 @@ manually refactor it such that the whole code base is uniformly written.\nl
 When CheckStyle is executed on a project, it uses an XML file where the code
 style is defined, to identify all cases where the code deviated from this
 defined style. This information is presented in an ordered list. An example of
-an error-list for the \textc{Launcher project} can be seen in
+an error-list for the \lapp\ can be seen in
 \autoref{CodeStyleErrors}.
 
 \figx[0.85]{CodeStyleErrors}{List of code style deviations in the Launcher
@@ -351,22 +350,22 @@ Category       	& Pictosearch/Launcher	\\\hline
 \label{DataObjList}    
 \end{table}
 
-Based on these resources, we shortly discussed how these resources would most
+Based on these resources, we discussed how these resources would most
 effeciently be packaged together, and how each application should access
 them.\nl
 
 Any further work related to optimization of the database's handling of
-resources is considered SW613 and SW615 task, as they focus on the server and
+resources is considered SW613's and SW615's task, as they focus on the server and
 database. As such, we consider our part in the task to be completed.
 
 \subsection{T647 - Document Apps' Database Requirements}
 During the same meeting where we discussed T636 and T646 we made the
-following UML-diagram, modelling the client-server interface:
+following UML-diagram, modelling the client-to-server interface:
 
-\figx{DatabaseUML}{UML diagram modelling the client-server interface.}
+\figx{DatabaseUML}{UML diagram modelling the client-to-server interface.}
 
 Considering that we currently have a limited involvement with the development of
-the client-server interface, we consider our part of this task to be completed.
+the client-to-server interface, we consider our part of this task to be completed.
 
 \subsection{T660 - Decrease Pictogram Search-Time}
 Through analysis of the problem, we have concluded that the pictogram search
@@ -374,30 +373,30 @@ has the possibility of having long load times because the server returns all
 elements related to the search in one large package. This can be a problem if
 the user is slow to write, which means that the database receives multiple
 requests for packages to send, which can lead to very long load times. As an
-example, if a user wants to find all pictograms related to \textc{cars}, the
+example, if a user wants to find all pictograms related to ``cars'', the
 program may queue multiple requests: one for all pictograms starting with
-\textc{c}, then for all pictograms starting with \textc{ca}, and so on. This
+``c'', then for all pictograms starting with ``ca'', and so on. This
 queueing of requests can make the program wait for a very long time before
 responding.\nl
 
-Due to the fact that main problem lies with the server sending all pictograms in
+The main problem lies with the server sending all pictograms in
 one large package, we have chosen to forward this task to the group responsible
-for the server/database, namely group SW613. In addition, during a meeting with
-the other groups, we recommended that the server might send the pictograms in
-packages of 20 each, such that the user may receive feedback in the form of a
-continously updating list of pictograms.
+for the server/database, namely group SW613. During a meeting with the other
+groups, we discussed that the server might send the pictograms in packages of
+20 each, such that the user may receive feedback in the form of a continously
+updating list of pictograms.
 
 \subsection{T683 - Weekplanner: Prevent starting without Launcher.} 
-During inspection of the weekplanner, group SW610 identified the problem, that
-the weekplanner is capable of launching without the Launcher being open. This
-is a problem as the Weekplanner requires information from the Launcher relating
-to a given Guardian and Citizen, see \autoref{ReqResources}. While the
-Weekplanner can not normally be opened without the Launcher, it is possible to
+During inspection of the \wapp, group SW610 identified that
+the \wapp\ is capable of launching without the \lapp\ being open. This
+is a problem as the \wapp\ requires information from the \lapp\ relating
+to a given Guardian and Citizen, see \autoref{ReqResources}. While the 
+\wapp\ can not normally be opened without the \lapp, it is possible to
 use a 3rd party program to start it. This is possible as the current
 implementation simply checks that the Android \textc{Intent}'s \textc{Extras} is
-not null, this can be seen below in \autoref{IntentNull}. As any attempt from
-another program to launch the Weekplanner provides an \textc{Intent}, this
-allows other programs to launch it.\nl
+not \ttt{null}, this can be seen below in \autoref{IntentNull}. If another
+application launches the \wapp\ and sets a string in its \ttt{Intent}'s
+\ttt{Extra}, then the \wapp\ thinks it is the \lapp.
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Current implementation checks that the Intent
@@ -420,12 +419,12 @@ protected void onCreate(final Bundle savedInstanceState) {
 \end{minipage}
 
 In order to fix this issue, group SW610 have requested that we create a unique
-\textc{String} for the Launcher's \textc{Intent} to supply to the Weekplanner
+\textc{String} for the \lapp's \textc{Intent} to supply to the \wapp\ 
 when it launches it. The \textc{String} has been added to the
 \textc{AppViewCreationUtility} class as presented in \autoref{newIntent}.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = New unique \textc{Intent} for the Launcher., label = newIntent] 
+\begin{lstlisting}[caption = New unique \textc{String} for the Launcher., label = newIntent] 
 public class AppViewCreationUtility {
 	...
 	intent.putExtra(Constants.STARTED_BY, Constants.LAUNCHER_TAG);
@@ -436,11 +435,11 @@ public class AppViewCreationUtility {
 
 The referenced constants has been added to the \textc{Constants} class, as seen
 in \autoref{constIntent}. As group SW610 has the responsibility of
-modifying the Weekplanner to check for the new \textc{Intent}, we consider our
+modifying the \wapp\ to check for the new \textc{String}, we consider our
 part of this task to be completed.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Constants containing the strings for the Launchers's \textc{Intent}., label = constIntent] 
+\begin{lstlisting}[caption = Constants containing the strings for the \textc{Intent}., label = constIntent] 
 public final class Constants {
 	...
 	public static final String LAUNCHER_TAG ="GirafLauncher";

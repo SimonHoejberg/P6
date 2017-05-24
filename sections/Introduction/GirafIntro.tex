@@ -229,18 +229,17 @@ which is used for adding applications can not be seen by citizens.
 % \figx[0.25]{OptionsGuardian2}{The menu which allows the guardian to show }
 
 \subsection{PictoSearch}\label{PictoSearchReview}
-As of March 2017, the \plib is a library containing all
+As of March 2017, the \plib\ is a library containing all
 classes relating to the search of pictograms. As it is a library, it does not
 represent a single application, but is implemented in projects such as
-\wapp and \textc{Pictoreader}.\nl
+\wapp\ and \textc{Pictoreader}.\nl
 
-The pictosearch library's visual components consists of a number of
-elements. At the top right is a search-bar, which is used to search for
-pictograms by name. To the left is a vertical bar used to showcase what
-pictograms the user have selected. The large scrollable area in the middle of
-the screen is used to showcase all the pictograms which correspond to the given
-search criteria. All of these elements can be seen in
-\autoref{psearchScrn}.
+\plib's visual components consists of a number of elements. At the top right is
+a search-bar, which is used to search for pictograms by name. To the left is a
+vertical bar used to showcase what pictograms the user have selected. The large
+scrollable area in the middle of the screen is used to showcase all the
+pictograms which correspond to the given search criteria. All of these elements
+can be seen in \autoref{psearchScrn}.
  
 \figx[0.3]{psearchScrn}{Graphical user interface for the pictosearch library.}
 
@@ -248,50 +247,49 @@ After choosing a number of pictograms, the user can click the green checkmark in
 the top right corner, and the respective \textc{Pictogram} objects are passed to
 the parent application.
 
-\section{Giraf Problems}\label{GirafProblems}
-Based on initial testing of the GIRAF Launcher, and the component-lib and
-pictosearch-lib libraries, we have been able to determine a number of problems
+\section{GIRAF Problems}\label{GirafProblems}
+Based on initial testing of the \lapp, \clib, and
+\plib\ we have been able to determine a number of problems
 related to these system components. As the project goal is to create a finished
 product which can be distributed to users of the GIRAF system, fixing these problems
 will be instrumental to succeeding in doing this.
 
 \subsection{Launcher}
-As described in \autoref{LauncherReview}, the \lapp is the element
-responsible for launching other GIRAF applications, and managing the global
-settings of individual users. The following problems have been found in the
-launcher:
+As described in \autoref{LauncherReview}, the \lapp\ is responsible for
+launching other applications, and managing the global settings for users. The
+following problems have been found in the launcher:
 \begin{enumerate}
-  \item The \lapp is very unresponsive when starting up, and takes up to a
-  minute before we can access the main screen.
-  \item The \lapp experience frequent crashes, especially when switching
-  between activities.
-  \item The \lapp only loads user-data on startup. This can lead to outdated
+  \item The \lapp\ is very unresponsive when starting up, and takes up to a
+  minute before we can access the home screen.
+  \item The \lapp\ experience frequent crashes, especially when switching
+  between \ttt{Activities}.
+  \item The \lapp\ only loads user-data on startup. This can lead to outdated
   data being used.
-  \item The \lapp uses the db-lib library for server communication, and needs
-  to implement the new REST framework, which should be developed during the project.
+  \item The \lapp\ uses the \ttt{DB-Lib} library for server communication, and needs
+  to implement the new \ttt{REST} framework, which should be developed during the project.
 \end{enumerate}
 
 \subsection{Pictosearch-lib}
-As described in \autoref{PictoSearchReview}, the pictosearch-lib library
-contains the GUI and functionality required to request and retrieve pictograms
-from the database. The following problems have been found in this library:
-\begin{enumerate}
-  \item Searching for pictograms can take a very long time, and sometimes it
+As described in \autoref{PictoSearchReview}, \plib\ contains the GUI and
+functionality required to request and retrieve pictograms from the database. The
+following problems have been found in this library:
+\begin{enumerate}   
+  \item Searching for pictograms can take a very long time,
+  and sometimes it
   will get stuck and never finish.
   \item Some search-inputs crashes the application, namely special characters
   and commas.
-  \item The library uses the db-lib library for server communication, and needs
-  to implement the new REST framework, which should be developed during the project.
+  \item The library uses the \ttt{DB-Lib} library for server communication, and needs
+  to implement the new \ttt{REST} framework, which should be developed during the project.
 \end{enumerate}
 
 \subsection{Component-lib}
 This library contains various components used throughout all GIRAF applications.
-These components range from GUI elements to backend calculations and
-controller/helper classes. The following problems have been found in this
-libary:
+These components range from GUI elements to backend calculations and helper
+classes. The following problems have been found in this libary:
 \begin{enumerate}
   \item The library contain large amounts of deprecated code and classes, which
   makes the library incomprehensible.
-  \item The library uses the db-lib library for server communication, and needs
-  to implement the new REST framework, which should be developed during the project.
+  \item The library uses the \ttt{DB-Lib} library for server communication, and needs
+  to implement the new \ttt{REST} framework, which should be developed during the project.
 \end{enumerate}
