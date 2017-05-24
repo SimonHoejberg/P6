@@ -123,7 +123,7 @@ order. Based on this feedback, the overall goal for this project is to develop
 GIRAF into a ``minimum viable product'', with a focus on the
 \textc{Weekplanner}, server and database.\nl
 
-The \textc{weekplanner} has been chosen, as it is the main application which is used
+The \textc{Weekplanner} has been chosen, as it is the main application which is used
 to manage the citizens' schedules. The core problems present in this application
 is crashes, long load times when browsing for new pictograms, and a occasionally
 confusing user interface. These issues makes it so that the application is
@@ -160,7 +160,7 @@ SW615 & REST server & Works on the REST server libraries.\\ \hline
 \label{GroupDivision}
 \end{table}
 
-Our group will focus on improving the stability of the \wapp by means of
+Our group will focus on improving the stability of the \wapp\ by means of
 refactoring and improving the code of its dependencies. This will mainly be done
 through work on the \lapp and a library called \plib. Based
 on the presented development framework, and the chosen project goals, this
@@ -190,13 +190,13 @@ exception that citizens only have access to \textbf{2} which is a logout button,
 \textbf{3} which provides a quick description of what the user can do and
 \textbf{5} which is a list of the available applications.
 
-\figx[0.37]{MenuGuardian}{The guardians home menu screen}
+\figx[0.37]{MenuGuardian}{The guardians home menu screen} 
 
 Through \textbf{1} the guardian can allow a citizen in its care limited access
-to the tablet. The settings are accessed via \textbf{4}, which allows the
-guardian to control everything from what applications a given citizen can see to
-how many applications it can see. The button \textbf{6} which is used for adding
-applications can not be seen by citizens.
+to the tablet. The settings are accessed via \textbf{4}, and allows the
+guardian to control what applications a given citizen can see, how many
+applications they can see, and other similar options. The button \textbf{6}
+which is used for adding applications can not be seen by citizens.
 
 
 % Button \textbf{1} allows the guardian to change the current profile with that of
@@ -229,10 +229,10 @@ applications can not be seen by citizens.
 % \figx[0.25]{OptionsGuardian2}{The menu which allows the guardian to show }
 
 \subsection{PictoSearch}\label{PictoSearchReview}
-As of March 2017, the \textc{pictosearch-lib} is a library containing all
+As of March 2017, the \plib is a library containing all
 classes relating to the search of pictograms. As it is a library, it does not
 represent a single application, but is implemented in projects such as
-\textc{weekday-planner} and \textc{pictoreader}.\nl
+\wapp and \textc{Pictoreader}.\nl
 
 The pictosearch library's visual components consists of a number of
 elements. At the top right is a search-bar, which is used to search for
