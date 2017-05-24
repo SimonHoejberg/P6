@@ -16,19 +16,19 @@ in the various libraries, as well as document the changes and additions.
 
 \section{Tasks and Solutions}
 Based on this goal we have been assigned the following tasks, see
-\autoref{Tasks3}, which include the verification of our various solutions from
-earlier sprints. These verification tasks have been marked with the tag
-``Verify''.
+\autoref{Tasks3}, which include the assessment of our various solutions from
+earlier sprints. These assessment tasks have been marked with the tag
+``Assess''.
 
 \begin{table}[H]
 \begin{centering}
 \begin{tabular}{|l|p{9cm}|l|}
 \hline
 Number 	& Description & Man-hours \\ \hline
-T772    & Verify: Security problem when changing system date/time & ??\\\hline
-T785	& Verify: Handle crash such that the user does not get an error message and
+T772    & Assess: Security problem when changing system date/time & ??\\\hline
+T785	& Assess: Handle crash such that the user does not get an error message and
 is brought back to the launcher & 6\\ \hline
-T822    & Verify: implementation of Grayscale & 6\\\hline
+T822    & Assess: implementation of Grayscale & 6\\\hline
 T830    & Never show the bug screen & 2 \\\hline
 T836	& Remove old libraries from artifactory, and begin implementing REST
 snapshot & ??\\\hline
@@ -188,8 +188,9 @@ in \autoref{LoginXML}, as REST is now ready to be implemented. The GUI is
 implemented in the \textc{LoginActivity} class, where we create the reference
 to XML layout and construct the needed listeners, this can be seen in
 \autoref{onCreate} and \autoref{onLoginButtonClick}. The \textc{LoginController}
-class handles the login method which consists of two nested requests to the
-server.\nl
+class handles the login method which consists of \textc{LoginRequest} with a 
+\textc{GetRequest} nested inside it, this can be seen on \autoref{logigReq} and
+\autoref{userReq}.\nl
 
 In \textc{LoginActivity} we use the \textc{onCreate} method, see
 \autoref{onCreate}, to instantiate the \textc{LoginController} and set the
@@ -363,8 +364,8 @@ see \autoref{WikiCompLib}. This page is mainly comprised of a description of the
 classes we have made, and we advice that it should be recreated from scratch.
 
 \subsection{Verification}
-Throughout the prior sprints we have not been able to verify our solutions, as
-such now that the Launcher is in a working state we can verify the appropriate
+Throughout the prior sprints we have not been able to assess our solutions, as
+such now that the Launcher is in a working state we can assess the appropriate
 solutions.
 
 \subsubsection{T785 and T830: Handle crash such that the user does not get an
@@ -376,7 +377,7 @@ return to launcher as seen in \autoref{T785-T830} but this did not work and a
 new implementation was made but we have not been able to resolve it due to time
 constraints. As such this task can only be considered partially resolved.
 
-\subsubsection{T822: Verify the implementation of Grayscale}
+\subsubsection{T822: Assess the implementation of Grayscale}
 In order to make use of REST, we changed the GrayScaleHelper class to include a
 server request, which retrieves the user's settings object. This can be seen in
 \autoref{NEWsetGrayScaleUser}. As seen on \textbf{line 6-10}, we make a simple
@@ -465,7 +466,7 @@ library by next years students.
 
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
 \begin{itemize}
-  \item T772: Verify: Security problem when changing system date/time
+  \item T772: Assess: Security problem when changing system date/time
   	\begin{itemize}
   		\item The orginal problem discoved during sprint 2 as seen in \autoref{T772}
  		was that the user could extend the login session by doing back in time on the

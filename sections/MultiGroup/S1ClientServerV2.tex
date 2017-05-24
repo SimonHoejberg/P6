@@ -1,12 +1,16 @@
 \chapter{REST Architectural Design}\label{S1CS}
-During the initial meetings between the project groups SW609, SW610, SW613,
-SW615, it was found that the existing client/database communications system was
-incomplete and not of a high enough quality for us to dedicate development time
-in order to attempt to improve it. The first of two main issues were, that the
-existing system did not implement the required safety measures which are expected of
-applications which make use of private information. The second issue was, that
-the system did not allow for uploading data to the server, but only to
-retrieve it, which rendered us unable to update information on the server.\nl
+This chapter covers a cooperative effort to make GIRAF use \textc{REST}, this
+chapter covers several meetings held throughout the semester.\nl
+
+The first meetings were held at the start of sprint and by SW609, SW610, SW613,
+SW615. During these initial meetings it was found that the existing
+client/database communications system was incomplete and not of high enough
+quality for us to dedicate development time to improve. The first of two main
+issues were, that the existing system did not implement the required safety
+measures which are expected of applications which make use of private
+information. The second issue was, that the system did not allow for uploading
+data to the server, but only to retrieve it, which rendered us unable to update
+information on the server.\nl
 
 Based on these issues, it was decided, that the groups responsible for the
 database (SW613 and SW615) would be tasked to develop a new system, which should
@@ -31,20 +35,18 @@ requirements contain, but are not limited to, the following:
   server. 
 \end{itemize}
 
-As a part of developing this new system, the REST groups (SW613 and SW615)
-requested a meeting with the groups responsible for the GIRAF applications
-(our group and SW610), in order to determine the database resource requirements
-for the individual applications. Considering the incomplete state of the previous
-system, this information was needed in order to model the server and client
-libraries such that they would be able to transfer all necessary data to the
-applications.\nl
+As a part of developing this new system, another meeting was held in order to
+further determine the database resource requirements for the applications.
+Considering the incomplete state of the previous system, this information was
+needed in order to model the server and client libraries such that they would
+be able to transfer all necessary data to the applications.\nl
 
 \section{Requirement Analysis}
 As our group (SW609) is responsible for the \texttt{Launcher} application and
 the \\\texttt{pictosearch-lib} library, we were tasked with analyzing the
-relevant code before the scheduled meeting, in order to determine what database resources
-would be necessary for these applications/libraries. These tasks are presented
-in \autoref{TaS1} as T636, T646, and T647.\nl
+relevant code before the scheduled meeting, in order to determine what database
+resources would be necessary for these applications/libraries. These tasks are
+presented in \autoref{TaS1} as T636, T646, and T647.\nl
 
 In our case, we mostly determined the requirements testing the \textc{Launcher}
 and\\ \textc{pictosearch-lib} through general use. Based on this testing, and
