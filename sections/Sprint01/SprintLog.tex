@@ -2,15 +2,15 @@
 This sprint represents our groups' initial experiences with the GIRAF
 project. The purpose of this sprint is to gain a better understanding of how the
 GIRAF applications works, how they depend on each other and to make sure that
-the quality of the previosly written code is acceptable.\nl
+the quality of the previously written code is acceptable.\nl
 
-As a part of organizing the project each group was assigned an initial area of
+As a part of organizing the project, each group was assigned an initial area of
 responsibility. For our group, SW609, this responsibility encompasses the \textc{Launcher}, see \autoref{LauncherReview}, and
 the libraries \clib\ and \plib, see \autoref{PictoSearchReview}. While these
 applications represent our current core responsibilities, not all of our tasks
 are required to revolve around these apps.\nl
 
-In this chapter we describe each of the tasks we are assigned to as
+In this chapter, we describe each of the tasks we are assigned to as
 well as their respective solutions. We will describe why a number of tasks are
 removed and finally we discuss the sprint retrospective.
 
@@ -128,8 +128,8 @@ which both were capable of leading to crashes.
 \subsubsection{LoadAnimation Crash}
 The first problem was found in the launcher's \textc{MainActivity}, where a
 global variable \textc{loadAnimation} was overshadowed by a local one defined in
-the \textc{onCreate} method. As \textc{onCreate} is executed on creation of the
-\ttt{Activity}, the definition and assignment of \textc{loadAnimation} was contained
+the \textc{onCreate} method. As \textc{onCreate} is executed on the creation of the
+\ttt{Activity}, the definition and assignment of \textc{loadAnimation} were contained
 to this method, and the global variable was never initialized. This can be seen
 in \autoref{LoadAnimationCrash}. This problem led to a
 \textc{nullPointerException} because the system tried to use an animation which
@@ -159,8 +159,8 @@ in the \textc{onCreate} method.
 The second problem was caused by a \ttt{Timer}, which was used to ping the Android
 package manager, in order to determine if changes were made to the device's
 installed applications. This can be seen in \autoref{PackageTimer}. The
-problem occours when running the \lapp\ on an emulator, because pinging the package
-manager would return a empty list of installed applications. Based on our
+problem occurs when running the \lapp\ on an emulator because pinging the package
+manager would return an empty list of installed applications. Based on our
 observations, an empty app-list would prompt the system to ping the package
 manager again each time an empty list was returned (which was always). Over
 time, this constant pinging would overload the package manager, and cause an
@@ -212,7 +212,7 @@ private void startObservingApps() {
 \subsection{T625 - Launcher: Evaluate Necessity of Present Exception Handling}
 During analysis of the \lapp's code, we identified a number of bad practices
 regarding implementation of exception handling. While these issues were not
-dangerous to the program, they were examples of ineffecient implementations, and
+dangerous to the program, they were examples of inefficient implementations, and
 therefore subject for refactoring.
 
 \subsubsection{Explicit Exception Handling}
@@ -261,7 +261,7 @@ if(packageManager != null) {
 \subsubsection{Throwing Exceptions}
 Another problem can be found in the \textc{LauncherUtility} class, where the
 previous students have decided to create a \ttt{try-catch} structure in which they
-themselves check that a variable is not \ttt{null} such that the \ttt{Activity} exsist.
+themselves check that a variable is not \ttt{null} such that the \ttt{Activity} exist.
 Afterwards, if it value was \ttt{null}, they throw their own \textc{ActivityNotFoundException}. This is done in
 order to send the exception-log to Google Analytics. This can be seen in
 \autoref{FuckedExample}.\nl
@@ -285,7 +285,7 @@ try {
 \end{lstlisting}
 \end{minipage}
 
-We have deemed that this approach is unnecessary, and that a simpler approach
+We have deemed that this approach is unnecessary and that a simpler approach
 would be to simply check the variable for \ttt{null-values} through an \ttt{if-statement}.
 Our revised code can be seen in \autoref{FixedFuck}.\nl
 
@@ -315,7 +315,7 @@ manually refactor it such that the whole code base is uniformly written.\nl
 When CheckStyle is executed on a project, it uses an XML file where the code
 style is defined, to identify all cases where the code deviated from this
 defined style. This information is presented in an ordered list. An example of
-an error-list for the \lapp\ can be seen in
+an error list for the \lapp\ can be seen in
 \autoref{CodeStyleErrors}.
 
 \figx[0.85]{CodeStyleErrors}{List of code style deviations in the Launcher
@@ -324,10 +324,10 @@ project.}
 In order to solve the problems with the unsystematic code style, we have
 methodically resolved the issues identified by CheckStyle.
 		
-\subsection{T636, T646 - Identify Required Resources for the
-Applications}\label{ReqResources} The following is part of a multigroup
-collaboration chapter and is described more indepth in \autoref{S1CS}. At the start of
-the sprint we had a meeting with SW610, SW613 and SW615 in order to determine
+\subsection{T636, T646 - Identify Required Resources for the Applications}\label{ReqResources} 
+The following is part of a multigroup
+collaboration chapter and is described more in-depth in \autoref{S1CS}. At the start of
+the sprint, we had a meeting with SW610, SW613, and SW615 in order to determine
 what database resources each application would need. Through discussion with
 the other groups we compiled \autoref{DataObjList}, which shows all relevant
 database resources and which applications use it.
@@ -351,7 +351,7 @@ Category       	& Pictosearch/Launcher	\\\hline
 \end{table}
 
 Based on these resources, we discussed how these resources would most
-effeciently be packaged together, and how each application should access
+efficiently be packaged together, and how each application should access
 them.\nl
 
 Any further work related to optimization of the database's handling of
@@ -359,8 +359,8 @@ resources is considered SW613's and SW615's task, as they focus on the server an
 database. As such, we consider our part in the task to be completed.
 
 \subsection{T647 - Document Apps' Database Requirements}
-During the same meeting where we discussed T636 and T646 we made the
-following UML-diagram, modelling the client-to-server interface:
+During the same meeting where we discussed T636 and T646, we made the
+following UML-diagram, modeling the client-to-server interface:
 
 \figx{DatabaseUML}{UML diagram modelling the client-to-server interface.}
 
@@ -383,11 +383,11 @@ The main problem lies with the server sending all pictograms in
 one large package, we have chosen to forward this task to the group responsible
 for the server/database, namely group SW613. During a meeting with the other
 groups, we discussed that the server might send the pictograms in packages of
-20 each, such that the user may receive feedback in the form of a continously
+20 each, such that the user may receive feedback in the form of a continuously
 updating list of pictograms.
 
 \subsection{T683 - Weekplanner: Prevent starting without Launcher.} 
-During inspection of the \wapp, group SW610 identified that
+During an inspection of the \wapp, group SW610 identified that
 the \wapp\ is capable of launching without the \lapp\ being open. This
 is a problem as the \wapp\ requires information from the \lapp\ relating
 to a given Guardian and Citizen, see \autoref{ReqResources}. While the 

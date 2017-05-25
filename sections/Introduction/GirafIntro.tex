@@ -1,15 +1,15 @@
 \chapter{Introduction}
 The GIRAF project consists of a set of applications for Android
 tablets, which aim to assist citizens and their guardians in 
-structuring the citizens daily lives. The project is a continous development
+structuring the citizens daily lives. The project is a continuous development
 effort by bachelor students at Aalborg University, which has been
 ongoing since early 2011. Each year, the new bachelor students must work
 together to analyze the state of the project, determine which improvements
-they intend to implement, and work together to organize and structure the
+they intend to implement and work together to organize and structure the
 development process.\nl
 
 The purpose of the GIRAF project is to give the students experience in analysis,
-design, implementation and evaluation of complex software systems, as a part of
+design, implementation, and evaluation of complex software systems, as a part of
 a larger development environment. As such, the focus of this project is to
 document the collaborative development effort between the individual project
 groups.
@@ -69,8 +69,8 @@ working state, but having several issues, such as bugs and missing features
 which prohibit their use by the customer.
 
 \section{Development Method}
-Based on the experiences from the previous semester's students, we have chosen
-to make use of an agile developement process, where each group is organized through
+Based on the experiences of the previous semester's students, we have chosen
+to make use of an agile development process, where each group is organized through
 the use of SCRUM. This means that the development process is divided into a
 number of ``sprints'', in which no more development tasks can be added to the backlog, 
 and the groups work to resolve all currently defined tasks \citep[Ch.7
@@ -78,7 +78,7 @@ p.109-111]{Larman2004}. We have organized the multi-project this semester as a S
 as the SCRUM master, while the remaining 6 groups each select one member to
 attend the SCRUM meetings. This organizational structure can be seen in
 \autoref{ProjectStruct}, where the SCRUM group organizes the project on a daily
-basis, and the different group's representatives partake in weekly meetings with
+basis and the different group's representatives partake in weekly meetings with
 the SCRUM group.
 
 \figx[0.65]{ProjectStruct}{The project structure used this semester}
@@ -91,7 +91,7 @@ At the beginning of each sprint, all project members meet as a part of a larger
 SCRUM meeting, in order to decide what new tasks can be defined, and which tasks
 from the product backlog are suitable for the next sprint's backlog. The SCRUM
 group then further divide the sprint backlog among the groups such that each
-group have a suitable number of tasks for each sprint. The multi-project itself
+group has a suitable number of tasks for each sprint. The multi-project itself
 is divided into 4 different sprints, which are defined in
 \autoref{TableActivity}.
 
@@ -111,22 +111,22 @@ Project delivery date & 29/5\\\hline
 \end{table}
 
 \section{Project Goals}\label{projectGoals}
-As a part of initial introduction to the project, we have held a meeting with
-representatives from one of the institutions which coorporate with the GIRAF
+As a part of the initial introduction to the project, we have held a meeting with
+representatives from one of the institutions which cooperate with the GIRAF
 project. At this meeting, we were given a brief introduction of how they
-curretly work and how they interact with the citizens during a normal day. The
+currently work and how they interact with the citizens during a normal day. The
 majority of their feedback indicated a desire for a working version of GIRAF,
 which they can use to easily manage the schedules of citizens. In the
 current implementation of GIRAF, this is done through the use of series of
 descriptive pictograms, which depict actions, events, and items in a determined
-order. Based on this feedback, the overall goal for this project is to develop
+order. Based on this feedback, the overall goal of this project is to develop
 GIRAF into a ``minimum viable product'', with a focus on the
-\textc{Weekplanner}, server and database.\nl
+\textc{Weekplanner}, server, and database.\nl
 
 The \textc{Weekplanner} has been chosen, as it is the main application which is used
 to manage the citizens' schedules. The core problems present in this application
-is crashes, long load times when browsing for new pictograms, and a occasionally
-confusing user interface. These issues makes it so that the application is
+is crashes, long load times when browsing for new pictograms, and an occasionally
+confusing user interface. These issues make it so that the application is
 currently not usable to an acceptable degree. The users need the product to be
 stable and easy to use, as it needs to be used by users who have varying degrees
 of experience using computers. The server and database is chosen as any sizable
@@ -134,7 +134,7 @@ institutions will need an easy, quick and reliable way to transfer data between
 devices using GIRAF.\nl
 
 Based on the area of focus for this project, we have defined the areas of
-reponsibility for each group based on what they have requested to work on. The
+responsibility for each group based on what they have requested to work on. The
 chosen distribution of responsibility can be seen in \autoref{GroupDivision}.
 
 \begin{table}[H]
@@ -175,7 +175,7 @@ will be used to present these elements, and explain their user interfaces.
 As of February 2017, the \lapp\ implements \clib, and contains a login screen,
 different menus for each of the user types and an options menu.
 
-The user is able to login using a QR code, as seen in \autoref{Login}. In the
+The user is able to log in using a QR code, as seen in \autoref{Login}. In the
 lower left corner there is currently a shortcut used for testing purposes which
 bypasses the QR code requirement. There was work done in the prior semester
 towards a login system using passwords instead of using QR codes, including
@@ -186,7 +186,7 @@ design sketches and a simple UI implementation.
 After logging in, the guardian is taken to the home menu, which has access to 4
 buttons and a list of applications which the user has access to,
 see \autoref{MenuGuardian}. Guardian and citizens have similar menus with
-exception that citizens only have access to \textbf{2} which is a logout button,
+the exception that citizens only have access to \textbf{2} which is a logout button,
 \textbf{3} which provides a quick description of what the user can do and
 \textbf{5} which is a list of the available applications.
 
@@ -231,10 +231,10 @@ which is used for adding applications can not be seen by citizens.
 \subsection{PictoSearch}\label{PictoSearchReview}
 As of March 2017, the \plib\ is a library containing all
 classes relating to the search of pictograms. As it is a library, it does not
-represent a single application, but is implemented in projects such as
+represent a single application but is implemented in projects such as
 \wapp\ and \textc{Pictoreader}.\nl
 
-\plib's visual components consists of a number of elements. At the top right is
+\plib's visual components consist of a number of elements. At the top right is
 a search-bar, which is used to search for pictograms by name. To the left is a
 vertical bar used to showcase what pictograms the user have selected. The large
 scrollable area in the middle of the screen is used to showcase all the
@@ -244,7 +244,7 @@ can be seen in \autoref{psearchScrn}.
 \figx[0.3]{psearchScrn}{Graphical user interface for the pictosearch library.}
 
 After choosing a number of pictograms, the user can click the green checkmark in
-the top right corner, and the respective \textc{Pictogram} objects are passed to
+the top right corner and the respective \textc{Pictogram} objects are passed to
 the parent application.
 
 \section{GIRAF Problems}\label{GirafProblems}

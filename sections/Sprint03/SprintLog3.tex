@@ -7,9 +7,9 @@ are the same as last sprint, see \label{Sprint2UserStories}, and have been
 defined as follows:\nl
 
 \say{Continuous integration need to be fully functional, such that gradle can
-handle JAVA libraries corectly.}\nl
+handle JAVA libraries correctly.}\nl
 
-\say{Improve stability in libraries, accessibility and usability for apps, to
+\say{Improve stability in libraries, accessibility, and usability for apps, to
 fulfill user stories 1, 4 and 6.}\nl
 
 \say{Server and client library, continue implementation of functionality for
@@ -18,7 +18,7 @@ user stories 2, 3 and 4.}\nl
 During the second week of this sprint, our build tools (Artifactory and
 Jenkins) were repaired. Based on this breakthrough, our purpose in this sprint
 has been redefined to implementing new features based on the requirements found
-in \label{sec:Colab2}, and testing the changes comitted during the first and
+in \label{sec:Colab2}, and testing the changes committed during the first and
 second sprint. 
 
 \section{Tasks and Solutions}
@@ -55,8 +55,8 @@ T836 	& Remove deprecated libraries/implement the new REST libraries & 60\\
 
 \subsection{T785, T830 - Prevent stack-trace from showing for
 users}\label{T785-T830} 
-Based on general feedback, we have been tasked with
-making sure that the detailed error-messages are not shown to the users. The users have requested
+Based on general feedback, we have been tasked with making sure that the
+detailed error messages are not shown to the users. The users have requested
 this, as the citizen users are confused/uncomfortable with the large amount of
 incomprehensible information being suddenly shown on the screen whenever an
 error occurs.\nl
@@ -98,7 +98,7 @@ been tasked with researching how it would be possible to make a global
 implementation of grayscale in the GIRAF project.\nl
 
 Following our research, we came up with three different approaches to
-implmenting grayscale:
+implementing grayscale:
 
 \begin{enumerate}
   \item Create an alternative set of resources for all giraf components, which
@@ -111,7 +111,7 @@ implmenting grayscale:
 
 Based on the fact that we want to create a global option which is forward
 compatible with future GIRAF applications, and the fact that we want
-to minimize the amount of added resourses, we have chosen the third
+to minimize the amount of added resources, we have chosen the third
 option, which is to change the saturation of all GIRAF applications.\nl
 
 We have chosen to implement the grayscale functionality in the
@@ -185,7 +185,7 @@ zero. On \textbf{line 10}, a \textc{hardware layer} using the defined
 
 In order for a given activity to implement grayscale, it needs to have a call to
 the \textc{setGrayScaleForActivity} method. An example of this call is
-implemented in the \textc{Launcher's HomeActivity} class, and can be seen in
+implemented in the \textc{Launcher's HomeActivity} class and can be seen in
 \autoref{grayEx3}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -220,19 +220,19 @@ menu}
 
 Following the breakdown of Artifactory during the first sprint, group SW615 has
 been working on restoring Artifactory to its intended state. Now, during the
-third sprint, they have succeded in their task, and Artifactory can now be
+third sprint, they have succeeded in their task, and Artifactory can now be
 used.\nl
 
-As stated in \autoref{GTools}, our collection of build tools used to work in
-the following manner: 
-The developers committed the code to Git, and then went to
-build it using Jenkins. Jenkins would automatically retrieve the code
-from Git and compile it. If Jenkins would succeed, it would then upload the
-compiled libraries to Artifactory. Whenever a library was needed to build the
-software, both locally and on Jenkins, a request would be sent to Artifactory,
-which would then return the compiled library.\nl
+As stated in \autoref{GTools}, our collection of build tools used to work in the
+following manner:
+The developers committed the code to Git and then went to build it using
+Jenkins. Jenkins would automatically retrieve the code from Git and compile it.
+If Jenkins would succeed, it would then upload the compiled libraries to
+Artifactory. Whenever a library was needed to build the software, both locally
+and on Jenkins, a request would be sent to Artifactory, which would then return
+the compiled library.\nl
 
-With the current fix to our build-setup, we have to build the libraries locally
+With the current fix to our build setup, we have to build the libraries locally
 on our own machines, and the upload them to Artifactory using a shared Gradle
 build script, which the server infrastructure group (SW615) has created. This
 build script can be seen in \autoref{ArtiBuild1} and \autoref{ArtiBuild2}. In
@@ -240,8 +240,8 @@ build script can be seen in \autoref{ArtiBuild1} and \autoref{ArtiBuild2}. In
 bridge plugin\citep{Gradle-Artifactory}. On \textbf{lines 9-11} we apply the
 plugin, and use the maven-publish plugin, which allows us to publish to the
 Maven repository. Then on \textbf{line 12} we specify the name of the library as
-uploaded to Artifactory. Then on \textbf{lines 12-19} we specify the
-subfolders on Artifactory which we want to upload the compiled libraries to.\nl
+uploaded to Artifactory. Then on \textbf{lines 12-19} we specify the subfolders
+on Artifactory which we want to upload the compiled libraries to.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Specifying file names and subfolder paths on Artifactory, label = ArtiBuild1] 
@@ -271,7 +271,7 @@ repositories {
 
 Following the specification of paths and names, we run the publish command in
 \autoref{ArtiBuild2} on \label{lines 3-19}. On \textbf{lines 5-7} we specify the
-authentication information for Artifactory, and the version number of the
+authentication information for Artifactory and the version number of the
 uploaded files.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -306,24 +306,24 @@ to compile the libraries locally, and publish them to Artifactory for future
 use.\\
 In order to implement the new libraries from Artifactory, the Gradle
 build scripts have been changed use both Artifactory's new Maven
-repositories, and also the new names of the libraries. In addition, we have made
+repositories and also the new names of the libraries. In addition, we have made
 sure that the application will always use the newest library versions, by
-changing the retriewed library version to ``latest.integration''.\nl
+changing the retrieved library version to ``latest.integration''.\nl
 
 The main problem encountered during this process has been, that some libraries
 were unable to build correctly. During a build, these libraries would always
 fail, and would report an error during
 \textc{':app:transformClassesWithDexForDebug'}. The reported error specified
 that the problem could potentially be solved by changing the target Java version
-to Java 7. Following further study of all the compiled libraries, we determined
+to Java 7. Following a further study of all the compiled libraries, we determined
 that the error was caused by the \textc{meta-database} library having been
 compiled with Java 8. As the rest of the GIRAF system is built upon Java 7, this caused
-compatability issues. After rebuilding the library with Java 7 compatability, we
+compatibility issues. After rebuilding the library with Java 7 compatibility, we
 were able to build our applications without further problems.
 
 \subsection{T834 - Implement new login screen}\label{LoginXML}
 In order to implement the new login screen we used the design made in T731,
-see \autoref{LoginScreen}, and adapted an existing indevelopment design of
+see \autoref{LoginScreen}, and adapted an existing unfinished design of
 the login screen from a prior semester, see \autoref{OldNewLogin}. Their design
 was intended to be implemented along with a profile selection screen in
 a two-step fashion. This would allow the user to select their profile from
@@ -334,8 +334,8 @@ not intended to be used by citizens and can easier be expanded with more users.
 \figx[1]{OldNewLogin}{The indevelopment design from the prior semester}
 
 We modified it to include a \textc{textview} and an \textc{edittext} for
-usernames, added a button to login and changed the background to a more suitable
-color, as can be seen in \autoref{NewNewLogin}.
+usernames, added a button to login, and changed the background to a more
+suitable color, as can be seen in \autoref{NewNewLogin}.
 
 \figx[1]{NewNewLogin}{The updated login screen design}
 
@@ -347,24 +347,24 @@ the server.
 \begin{itemize}
   \item T835 - Launcher: Implement model-view-controller
   \begin{itemize}
-  	\item The purpose of this task is to improve the quality of the GIRAF code
-  	base, by creating a logical distribution of responsiblity among the different
-  	classes.
-  	\item While we have begun implementing the model-view-controller architecture
-  	on parts of the GIRAF GUI, we have not finished this task, as it represents
-  	an ongoing effort to refactor and improve the GIRAF code base.
+      \item The purpose of this task is to improve the quality of the GIRAF code
+      base, by creating a logical distribution of responsibility among the different
+      classes.
+      \item While we have begun implementing the model-view-controller architecture
+      on parts of the GIRAF GUI, we have not finished this task, as it represents
+      an ongoing effort to refactor and improve the GIRAF code base.
   \end{itemize}
   \item T836 - Remove deprecated libraries/implement the new REST libraries
   \begin{itemize}
-  	\item The purpose of this task is to begin implementing the finished version
-  	of the REST library, which is responsible for handling the client-server
-  	communication.
-  	\item As this task covers a major development effort, we have chosen to split
-  	it into a number of new tasks, which will be completed during the 4th sprint.
-  	In addition, in relation to this task, this sprint has mostly been used to
-  	discuss the REST library and help the REST groups to implement all the needed
-  	functionality.  
-  	\end{itemize}
+      \item The purpose of this task is to begin implementing the finished version
+      of the REST library, which is responsible for handling the client-server
+      communication.
+      \item As this task covers a major development effort, we have chosen to split
+      it into a number of new tasks, which will be completed during the 4th sprint.
+      In addition, in relation to this task, this sprint has mostly been used to
+      discuss the REST library and help the REST groups to implement all the needed
+      functionality.  
+      \end{itemize}
   \item T837 - Rework buttons to not use listeners
   \begin{itemize}
     \item The purpose of this task is to improve the quality of the GIRAF code
@@ -378,7 +378,7 @@ the server.
 \end{itemize}
 
 \section{Retrospective}
-As with the former sprints, at the end of the third sprint we held a meeting
+As with the former sprints, at the end of the third sprint, we held a meeting
 with the other groups in order to reflect upon how the project is proceeding.\nl
 
 The main problems with this sprint relate to the fact that our back-end was not
@@ -393,7 +393,7 @@ sprints.\nl
 Following the build tools being functional, we began implementing the REST
 libraries as well as removing the now deprecated \textc{db-lib} library. While
 we were able to begin this process, at the time of the end of this sprint, the
-REST libraries are not yet finished, and are therefore incapable of completely
+REST libraries are not yet finished and are therefore incapable of completely
 replacing the \textc{db-lib} library.
 
 \subsection{Evaluation}

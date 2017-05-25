@@ -10,7 +10,7 @@ for this sprint is to:\nl
 \say{Prepare the project to be handed over to next year's students, such that
 they will be able to quickly understand the project and begin development.}\nl
 
-For us this means that we will need for REST to be implemented and working
+For us, this means that we will need for REST to be implemented and working
 in the various libraries, as well as document the changes and additions.
 
 
@@ -70,10 +70,10 @@ dependent on them, and we don't want to prevent them from building at all. The
 exact implementation of REST is discussed in \autoref{UsingRest}.\nl
 
 Implementing the new REST framework consists of two phases, which is presented
-in the following examples. The first phase is to replace database requests with the
-REST equivalent, and the second phase is to replace the helper and controller
-classes which has been implemented by \textc{db-lib}. Additionally, we discuss
-the changes made to the \textc{GirafPictogramItemView} class of the
+in the following examples. The first phase is to replace database requests with
+the REST equivalent, and the second phase is to replace the helper and
+controller classes which have been implemented by \textc{db-lib}. Additionally,
+we discuss the changes made to the \textc{GirafPictogramItemView} class of the
 \textc{component-lib} library, as switching to REST has required us to split the
 class into two individual ones.
 
@@ -81,8 +81,8 @@ class into two individual ones.
 In \textc{db-lib}, there was only a single request to the database, which was
 made when the launcher started up. This request contained all the information
 for the current user, which was not stored locally in shared preferences. In
-REST, we no longer use shared preferences, but store all data on the database.
-In addition, we make request to the database whenever we need to use data on a
+REST, we no longer use shared preferences but store all data on the database.
+In addition, we make a request to the database whenever we need to use data on a
 user. This is done in order to make sure we always have to most up-to-date data.
 Something which can be considered a problem with the current implementation of
 REST, is that requests are always made asynchronously.
@@ -95,12 +95,12 @@ discussed in \autoref{UsingRest} in \autoref{S1CS}, where we also present a
 database request.
 
 \subsubsection{Replacing Helpers and Controllers}
-As we want to replace all functionality which originates
-in \textc{db-lib}, we start by removing all imports from this library. Then,
-since most of \textc{db-lib's} functionality is contained in a number of helper
-classes, we remove these, and look at what they were used for. An example of a
-helper class could be the \textc{profileApplicationController} in the
-\textc{GirafFragment} class. This is shown in \autoref{pac}.\nl
+As we want to replace all functionality which originates in \textc{db-lib}, we
+start by removing all imports from this library. Then, since most of
+\textc{db-lib's} functionality is contained in a number of helper classes, we
+remove these, and look at what they were used for. An example of a helper class
+could be the \textc{profileApplicationController} in the \textc{GirafFragment}
+class. This is shown in \autoref{pac}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Declaration of the ProfileApplicationController which is used to retrieve information about ProfileApplications, label = pac]
@@ -142,14 +142,14 @@ Given that all of the presented functionality is based on the \textc{db-lib}
 library, we will have to replace it with the REST equivalent. In REST,
 \textc{Profiles} have been renamed to \textc{Users}, and has a settings object,
 which contains information about that users settings. This object is stored on
-the database, and can be retrieved through a request. The process of retrieving
+the database and can be retrieved through a request. The process of retrieving
 objects from the database is presented in \autoref{UsingRest}.
 In the case of checking if users can access applications, we have replaced the
 method in \autoref{PACheck} with the method named \textc{userCanAccessApp},
-which can be seen in \autoref{ucaa}. In this method, we can simply acces the
-user's settings object, and check if the given application appears on the users
-list of applications. By doing this, we have actively replaced the
-necessity of the \textc{db-lib} helpers.\nl
+which can be seen in \autoref{ucaa}. In this method, we can simply access the
+user's settings object, and check if the given application appears on the user's
+list of applications. By doing this, we have actively replaced the necessity of
+the \textc{db-lib} helpers.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = New method which replaces the functionality of the ProfileApplicationController, label = ucaa] 
@@ -171,7 +171,7 @@ elements.\nl
 In the \textc{rest-models} approach, many of the previous classes which were
 part of \textc{db-Lib} have been deprecated, including the GIRAF approach to
 using the \textc{ItemView} class. As such, we have had to split the
-\textc{GirafPictogramItemView} class into two seperate classes, which handles
+\textc{GirafPictogramItemView} class into two separate classes, which handles
 pictograms and users respectively. The class for pictogram retained the old
 name, while the new class for users was named \textc{GirafUserItemView}. As both
 pictograms and users still have fields for their icon or picture, the classes
@@ -343,7 +343,7 @@ The purpose of this task is to make sure that each group reads the wiki pages of
 another group, such that we ensure that the information is somewhat easy to
 understand. This task is considered resolved on our end, as we have the guides
 for Gradle and Jenkins are good. The page for the Weekplanner lacks a
-list of dependencies and the repository, but does well in describing the UI.
+list of dependencies and the repository but does well in describing the UI.
 
 \subsubsection{T865: Update the Google Store guide}
 The goal of this task is to update the guide on releasing builds to Google
@@ -351,17 +351,17 @@ Store. By reading the guide from 2015 and comparing the pictures in it with
 Google Stores current design, we can see that it has changed quite a bit since
 the guide was written. All the changes of importances were due to additional
 tabs which moved various parts of the functionality. We then updated the
-pictures and along with the relevant part of text to better reflect the new
+pictures and along with the relevant part of the text to better reflect the new
 design.
 
 \subsubsection{T872: Document the Launcher}
 We have tried to document the \textc{Launcher} in a brief fashion, see
-\autoref{WikiLauncher}. On this page we describe the noteworthy features, the
+\autoref{WikiLauncher}. On this page, we describe the noteworthy features, the
 things a developer need to consider when implementing \textc{REST} and some of
 the missing features we have not had time to create. We have also included a
 short wiki page to describe the important parts of \textc{Component Lib},
 see \autoref{WikiCompLib}. This page is mainly comprised of a description of the
-classes we have made, and we advice that it should be recreated from scratch.
+classes we have made, and we advise that it should be recreated from scratch.
 
 \subsection{Verification}
 Throughout the prior sprints we have not been able to assess our solutions, as
@@ -370,10 +370,10 @@ solutions.
 
 \subsubsection{T785 and T830: Handle crash such that the user does not get an
 error message and is brought back to the launcher}
-Thoughout testing the launcher after the REST API was included, we see that when
+Throughout testing the launcher after the REST API was included, we see that when
 we crash the \textc{GirafBugSplashActivity}, see \autoref{GBugSplash}, is no
 longer shown, which was a part of the task. We have tried implementing the
-return to launcher as seen in \autoref{T785-T830} but this did not work and a
+return to the \lapp\ as seen in \autoref{T785-T830} but this did not work and a
 new implementation was made but we have not been able to resolve it due to time
 constraints. As such this task can only be considered partially resolved.
 
@@ -425,7 +425,7 @@ views, label = NEWsetGrayScale] public class GrayScaleHelper {
 
 There is currently a small problem, as the \textc{dialogs} are not grayscaled
 when the \textc{root View} is. We think this is because they are not attached to
-it, see \autoref{GrayScaleColorDialog}, but due to time constraints we have
+it, see \autoref{GrayScaleColorDialog}, but due to time constraints, we have
 chosen to pass this particular part on to next year's students.
 
 \figx[0.2]{GrayScaleColorDialog}{An example of a colored dialog with a
@@ -442,62 +442,62 @@ These bugs and missing features include:
 \begin{itemize}
   \item Dialogs are in color while the rest of GIRAF is grayscale.
   \item It is possible to change users through settings.
-  \item When changing and setting settings for a citizen, it is not possiblet
+  \item When changing and setting settings for a citizen, it is not possible
   to return to the guardian used to open the settings page. This is because 
   the citizen is now logged in.
   \item SharedPreferences should be used for the Login screen to determine if
   it needs to be in grayscale.
   \item Settings are not saved when a put request is completed and as such
   grayscale does not work outside \textc{SettingsActivity}.
-  \item The apps the user can access is never sent to th server, because of a
-  stackoverflow in rest client lib, when that is fixed, fix the outcommented
-  code in the respectiv classes for that issue.
-  \item A better icon should be created for missing apps on the device, a icon
+  \item The apps the user can access is never sent to the server, because of a
+  stack overflow in rest client lib, when that is fixed, fix the out commented
+  code in the respective classes for that issue.
+  \item A better icon should be created for missing apps on the device, an icon
   which better tells that when clicked on redirects the user to google play
   store.
   \item Find a better way to find the icon for each app, then doing though every
-  app installed when searching for a icon for a specific app.
+  app installed when searching for an icon for a specific app.
 \end{itemize}
 
-The entirety of documented bugs and missing features can be found in \autoref{},
-where we discuss what changes should be made to the Launcher and component-lib
-library by next years students.
+The entirety of documented bugs and missing features can be found in
+\autoref{fwork}, where we discuss what changes should be made to the Launcher
+and component-lib library by next year's students.
 
 
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
 \begin{itemize}
   \item T772: Assess: Security problem when changing system date/time
-  	\begin{itemize}
-  		\item The orginal problem discoved during sprint 2 as seen in \autoref{T772}
- 		was that the user could extend the login session by doing back in time on the
-  		device.
-		\item This is an issue because we do not check the time using some form of a
-		time server, and therefor not able to detect this.  
-		But now this task is invalid because the server now handles if a user is
-		logged in, using tokens / cookies which the rest libary handles.
-		\end{itemize}
+      \begin{itemize}
+          \item The original problem discovered during sprint 2 as seen in \autoref{T772}
+         was that the user could extend the login session by doing back in time on the
+          device.
+        \item This is an issue because we do not check the time using some form of a
+        time server, and therefor not able to detect this.  
+        But now this task is invalid because the server now handles if a user is
+        logged in, using tokens/cookies which the rest library handles.
+        \end{itemize}
   \item T837: Rework buttons to use methods called from XML
-	\begin{itemize}
-	  \item The purpose of this task is to increase the quelity of the code, and to
-	  reduce unnecessary clutter. This can be done as specifying listeners in the
-	  code itself is unnecessary, and can simply be done from the xml file itself.
-	  \item We have managed to do this for a number of classes, but have yet to
-	  do this for all classes in the Launcher. This approach can, and should, be
-	  used in all xml files for GIRAF.
-	  \end{itemize}
+    \begin{itemize}
+      \item The purpose of this task is to increase the quality of the code and to
+      reduce unnecessary clutter. This can be done as specifying listeners in the
+      code itself is unnecessary, and can simply be done from the XML file itself.
+      \item We have managed to do this for a number of classes, but have yet to
+      do this for all classes in the Launcher. This approach can, and should, be
+      used in all XML files for GIRAF.
+      \end{itemize}
   \item T889: Add an Institute to Guardian login \label{T889}
    \begin{itemize}
      \item This task is an extension of \textbf{T875}, as it is intended for an
-     institute-type user to be log in as a guardian. 
+     institute-type user to be logged in as a guardian. 
      \item This task is considered unfinished due to time constraints as there
      were several changes happening to REST while we were busy implementing it.
-     It was not considered a vital task, and is as such left for the next year's
+     It was not considered a vital task and is as such left for the next year's
      students.
    \end{itemize}
 \end{itemize}
 
 \section{Retrospective}
-During this sprint there were several small disruptions related to \textc{REST}.
+During this sprint, there were several small disruptions related to \textc{REST}.
 Due to the applications needing additional functionality, the server was
 redeployed several times without much warning. This also resulted in changes to
 \textc{REST-Models} and \textc{REST-API-Client-Lib}, which meant that work was
@@ -512,7 +512,7 @@ managed to leave the \textc{Launcher} and \textc{Component-Lib} working, with
 only a few missing features, having another sizeable library like
 \textc{PictoSearch-Lib} would have left us unable to finish work in time.\nl
 
-At the sprint meeting none of the groups were satisfied with the final result of
+At the sprint meeting, none of the groups were satisfied with the final result of
 the sprint, as it was close to working as intended. But due to the time
 constraints of the project is now in a somewhat working state with a lot of
 missing features.\nl
@@ -520,19 +520,19 @@ missing features.\nl
 \subsection{Evaluation}
 
 This sprint has been the smoothest of the sprints, the tools worked,
-\textc{REST} worked and there was a lot of problem solving between the groups.
+\textc{REST} worked and there was a lot of problem-solving between the groups.
 This is reflected in that we managed to resolve 88.1\% of time units allocated
 to the various tasks, see \autoref{Sprint4_piechart2}. The remaining unsolved
-tasks are primarily comprised of task which missing features intended for the
+tasks are primarily comprised of tasks which missing features intended for the
 next batch of students.
 
 \figx[1]{Sprint4_piechart2}{The percentage of total time for the tasks which
 have been resolved.}
 
-Alot of the tasks for this sprint were finished towards the end of the sprint,
+A lot of the tasks for this sprint were finished towards the end of the sprint,
 as that was when further development on the \textc{REST} model stopped. This is
 reflected in the burndown chart, see \autoref{Sprint4_burndownchart}, as many of
-the major tasks with a lot time allocated to them were only resolved on last
+the major tasks with a lot of time allocated to them were only resolved on last
 day.
 
 \figx[0.4]{Sprint4_burndownchart}{The burndown chart for sprint 4.}

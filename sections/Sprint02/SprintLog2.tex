@@ -1,5 +1,5 @@
 \chapter{Sprint: 2}
-Following the first sprint each group has gained a deeper understanding of how
+Following the first sprint, each group has gained a deeper understanding of how
 the individual applications are designed and implemented. Based on this
 knowledge, this sprint will be used to further develop the features which were
 worked on by the previous year's students.\nl
@@ -39,7 +39,7 @@ things should never be more than \textbf{2-3 taps} away. \\\hline
 \end{table}
 
 Our initial area of responsibility is focused on the \textc{Launcher} and
-\textc{Pictogram Searcher}, and for this sprint we have chosen to focus more on
+\textc{Pictogram Searcher}, and for this sprint, we have chosen to focus more on
 the \textc{Launcher} by improving the associated \textc{Login System}. We also
 aim to refactor \textc{Pictogram Reader}. This choice is based on the fact,
 that currently only two groups are working on developing the front-end for
@@ -84,13 +84,13 @@ T772    & Security problem when changing system date/time & 1 \\\hline
 \label{SprintTwoTasks}    
 \end{table} 
 
-In the following subsections, we will elaborate upon each of the task, and
+In the following subsections, we will elaborate upon each of the tasks, and
 document what actions we have taken in order to resolve the issues.
 
 \newpage
 \subsection{T671 - Output stack-trace to Google on system crash}\label{T672}
 Following the development last year, whenever a GIRAF application crashed, the
-system would present a splash-screen with the stack trace, and inform the user
+system would present a splash-screen with the stack trace and inform the user
 that this information was sent to the GIRAF development team through Google
 Analytics. An example of this screen can be seen in \autoref{GBugSplash}.
 
@@ -99,18 +99,18 @@ Analytics. An example of this screen can be seen in \autoref{GBugSplash}.
 While testing the GIRAF applications, we noticed that the code necessary for
 sending the stack-trace was not present in a number of the applications. After
 reviewing the code we concluded that for some applications the previous
-semester's students only implemented the splash-screen, and did not implment
-the actual code which was supposed to output the stack-trace.\nl
+semester's students only implemented the splash-screen and did not implement
+the actual code which was supposed to output the stack trace.\nl
 
 The \textc{giraf-component-lib} library contains the
 \textc{GirafBugSplashActivity} class which is extended from \textc{GirafActivity}
 class. This class is responsible for displaying a splash screen with the
-stack-trace whenever a GIRAF application encounters an unhandled exception. As
-we want to create a generalized approach to sending stack-traces, we have chosen
+stack trace whenever a GIRAF application encounters an unhandled exception. As
+we want to create a generalized approach to sending stack traces, we have chosen
 to expand upon the \textc{GirafBugSplashActivity} class, and add functionality
 to send the stack trace to Google Analytics in addition to simply showing it on
 the splash screen. This should allow all GIRAF applications to correctly send
-the stack-trace when the applications crash. \nl
+the stack trace when the applications crash. \nl
 
 Whenever an unhandled exception occurs in an application, it is caught in the
 \textc{GirafActivity} class's \textc{UncaughtExceptionHandler}. The exception is
@@ -175,15 +175,15 @@ additional functionality to send information to Google Analytics. Our solution
 can be seen in \autoref{BugOurSol}. We start by defining the strings on
 \textbf{lines 3-4}, \textc{EXCEPTION\_TAG} and \textc{TRACKING\_ID\_TAG} are
 used as tags for the \textc{getExtras} method on the \textc{Intent}. As we
-intend to send the stacktrace to Google Analytics, instead of a string, we use
+intend to send the stack trace to Google Analytics, instead of a string, we use
 a variable of type \textc{Exception} to contain the exception's information,
 which can be seen on \textbf{lines 8-9}. We use the method
 \textc{getStackTraceArray}, see \textbf{lines 20-36}, to change the
 \textc{Exception} into a readable format. This format is used on \textbf{lines
 11-12} when we prepare to present the splash screen. On \textbf{lines 14-17} we
 create a \textc{Tracker}, which is a type used to send information to Google
-Analytics, and use the \textc{send} method to send send the information. In
-order to review this information, we can go to the Google Developer webpage for
+Analytics, and use the \textc{send} method to send the information. In
+order to review this information, we can go to the Google Developer web page for
 our application.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -228,7 +228,7 @@ public class GirafBugSplashActivity extends GirafActivity {
 \end{minipage}
 
 \subsection{T709 - Meeting: Define GUI questions}
-The following is task of a collaboration between SW609, SW610 and SW612 and is
+The following is a task of a collaboration between SW609, SW610, and SW612 and is
 described in more detail in \autoref{sec:Colab2}. During the sprint, we
 produced a series of questions concerning the applications. Group SW612
 held a meeting with the system users to determine whether the applications were
@@ -268,7 +268,7 @@ Our solution to this problem, which can be seen in
 \textc{apply} writes the information \textc{asynchronously}, where \textc{commit}
 writes it \textc{synchronously}. Using \textc{commit} means that we are informed
 if the writing failed, which allows us first of all to write it to the log and
-secondly we could implement that it trieds again, until it is correctly
+secondly, we could implement that it tries again until it is correctly
 stored.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -289,7 +289,7 @@ public static void saveLogInData(final Context context, final long id, final lon
 
 After testing this solution, we have determined that our solution has correctly
 solved the problem. As such, we assume that we were correct in attributing the
-problem to faulty communication with the shared prefernces, which we have
+problem to faulty communication with the shared preferences, which we have
 resolved by using \textc{commit} instead of \textc{apply}.\nl
 
 While designing this solution, we found security issue which would allow a user
@@ -324,7 +324,7 @@ public static void secureStartActivity(Context context, Intent intent) {
 While we have no crash log to confirm our suspicions, we believe that the
 launcher could crash due to the thrown exception being returned to the launcher.
 As such, we have chosen to implement a try-catch structure, which should prevent
-the launcher from crashing, if a child-applicatiojn crashes. Our solution can be 
+the launcher from crashing, if a child-application crashes. Our solution can be 
 seen in \autoref{NewLaunch}.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -345,7 +345,7 @@ public static void secureStartActivity(Context context, Intent intent) {
 \subsection{T725 - Pictosearch: Improve overall performance (If possible)}
 Following task T660 in the first sprint, we have once again been tasked with
 improving the performance of the search in \textc{pictosearch}. While most
-of the performance increases must be done serverside, after reviewing our work
+of the performance, increases must be done serverside, after reviewing our work
 in the first sprint, we have concluded that minor performance increases can
 still be made.\nl
 
@@ -368,7 +368,7 @@ of these meetings have been to allow for application/database communication,
 structuring the database information and giving the applications access to all
 necessary resources.\nl
 
-Due to the complex nature of this task, and the coorporation with the other
+Due to the complex nature of this task, and the cooperation with the other
 groups, the entirety of this task has been moved to \autoref{S1CS}, where we
 explain the contents of the meetings, the drawn conclusions, and how the results
 of the meetings have been reflected in the implemented code.
@@ -379,8 +379,8 @@ of the meetings have been reflected in the implemented code.
 During the initial sprint, we tested a number of the GIRAF applications in order
 to better understand the GIRAF GUI design framework. While doing this, we
 identified an \textc{IndexOutOfBoundsException} in the \textc{pictoreader}
-application, which occours if we press the \textc{Play} button while no
-pictograms are chosen. This error occours as the application attempts to access
+application, which occurs if we press the \textc{Play} button while no
+pictograms are chosen. This error occurs as the application attempts to access
 the 0th element of the array of pictograms to read aloud. This can be seen in
 \autoref{BTNPlay}.\nl
 
@@ -398,7 +398,7 @@ btnPlay.setOnClickListener(new View.OnClickListener() {
 \end{minipage}
 
 It would appear that currently a check is made to make sure that the first
-pictogram in the list is not null, but that there is no safeguards to make sure
+pictogram in the list is not null, but that there are no safeguards to make sure
 that the list is not empty. While we question the necessity of the current
 check, we have chosen to keep it, and simply add another check to make sure that
 the array is not empty. If the array is empty, the expression should short
@@ -423,7 +423,7 @@ btnPlay.setOnClickListener(new View.OnClickListener() {
 Launcher}\label{DesignLogin}
 Following T708, \autoref{S2Invalid}, we found a
 design manual which covered how to make each application recognizable as a GIRAF
-applicaion. This entailed which color scheme to use, what each icon means and
+application. This entailed which color scheme to use, what each icon means and
 how each application should be structured. Through T709,
 which is detailed in \autoref{sec:Colab2}, we found additional requirements for
 the Launcher and Login screen, the full list can be seen in
@@ -460,15 +460,15 @@ and the users considered this feature unnecessary.
 \figx{LoginDiagram}{Diagram for the Login procedure}
 
 \subsection{T733 - Pictosearch: Implement vertical screen functionality}
-During the first sprint, group SW610 was testing the Weekplanner application,
-and noticed that some activities did not support vertical orientation of the
-screen. Due to the inconsistancy of only some activities supporting this, we
-have agreed to implement vertical functionality in the pictosearch activity.\nl
+During the first sprint, group SW610 was testing the Weekplanner application and
+noticed that some activities did not support vertical orientation of the screen.
+Due to the inconsistency of only some activities supporting this, we have agreed
+to implement vertical functionality in the pictosearch activity.\nl
 
 If an android activity is to support changing the orientation of its GUI, it
 must contain a unique specification for each orientation. This is done in the
-form of folder, containing an .XML file specifying the GUI. This means, that its
-resource folder \textc{res} must contain subfolders named \textc{layout},
+form of a folder, containing an XML file specifying the GUI. This means, that
+its resource folder \textc{res} must contain subfolders named \textc{layout},
 \textc{layout-port}, and \textc{layout-land}. The folders \textc{layout-port}
 and \textc{layout-land} contain a defined layout for vertical and horizontal
 orientation respectively, while \textc{layout} contains a default layout, which
@@ -515,8 +515,8 @@ discovered a problem with login sessions failing to correctly expire.
 The issue is, that even after you have been logged out of GIRAF and are asked
 for a QR code, you can close the launcher and change the system time to a point
 where the session would have been active. When opening the launcher again, the
-system would automatically log in to previous session. This issue can be split
-into two smaller sub-issues. The first sub issue is that the session token is
+system would automatically log in to the previous session. This issue can be split
+into two smaller sub-issues. The first sub-issue is that the session token is
 not deleted when a session expires. This has been fixed by adding the call to
 \textc{logOutIntent} which can be seen in \autoref{FixNonDeletToken}.\nl
 
@@ -552,8 +552,8 @@ private static void clearAuthData(final Context context) {
 \end{lstlisting} 
 \end{minipage}
 
-The other part of the issue about the date / time problem is not solved at the
-moment, because in the future we might get the time from the server or the server
+The other part of the issue about the date/time problem is not solved at the
+moment because in the future we might get the time from the server or the server
 might invalidate the tokens.
 
 \subsection{Unfinished and Invalid Tasks}\label{S2Invalid}

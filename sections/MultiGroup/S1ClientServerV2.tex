@@ -3,7 +3,7 @@ This chapter covers a cooperative effort to make GIRAF use \textc{REST}, this
 chapter covers several meetings held throughout the semester.\nl
 
 The first meetings were held at the start of sprint and by SW609, SW610, SW613,
-SW615. During these initial meetings it was found that the existing
+SW615. During these initial meetings, it was found that the existing
 client/database communications system was incomplete and not of high enough
 quality for us to dedicate development time to improve. The first of two main
 issues were, that the existing system did not implement the required safety
@@ -16,18 +16,18 @@ Based on these issues, it was decided, that the groups responsible for the
 database (SW613 and SW615) would be tasked to develop a new system, which should
 make use of the principles described in the REST model (Representational State
 Transfer)\citep{RESTInfo}. This model outlines a set of requirements which aim
-to establish a high quality framework for server-to-client communication. These
+to establish a high-quality framework for server-to-client communication. These
 requirements are \citep{RESTInfo}:
 
 \begin{itemize}
   \item Client-Server: Seperate the user interface from data storage and
   manipulation.
-  \item Stateless: Each request to the server returns a response which contain
+  \item Stateless: Each request to the server returns a response which contains
   all information required for the client to service the request.
   \item Cacheable: Responses from the server must implicitly or explicitly
-  declare themself as either cacheable or not, in order to prevent the client
+  declare themselves as either cacheable or not, in order to prevent the client
   from reusing expired data.
-  \item Layered System: The client is incapable to determine if it is connected
+  \item Layered System: The client is incapable of determining if it is connected
   to the main server or an affiliated intermediate entry point.
   \item Uniform Interface: The retrieved data is conceptually different from the
   representation used on the server. Given a set of data, the client should have
@@ -63,12 +63,13 @@ Settings}.
 Pictograms require the following fields on the database: \textbf{ID},
 \textbf{Title}, and a \textbf{Bitmap (Picture)}.\nl
 
-Based on a discussion with the other groups, we created a UML class-diagram,
+Based on a discussion with the other groups, we created a UML class diagram,
 which has been subject to redefinitions throughout the project. The final
-version of this diagram can be seen in \autoref{Giraf_RestModel}.
-\fix{}{Forklar hvad de forskellige pile betyder}
+version of this diagram can be seen in \autoref{Giraf_RestModel}, where the
+normal arrows imply inheritance, and the dotted lines imply implementation of an
+interface.
 
-\figx[0.65]{Giraf_RestModel}{UML class-diagram depicting the objects requested
+\figx[0.65]{Giraf_RestModelV2}{UML class-diagram depicting the objects requested
 from the database}
 
 In the UML diagram shown in \autoref{Giraf_RestModel}, each class has a
@@ -115,94 +116,93 @@ Application    			&	Information about applications a user is allowed to access.\
 \end{centering}
 \end{table}
 
-\section{Client/Database Interface Design}
-Following the initial requirement analysis and the respective meetings, the
-database groups (SW613 and SW615) began designing the client/database interface.
-Towards the end of the first sprint, group SW612 held a meeting with the
-system's users, who defined a number of new requirements for the GIRAF
-applications. Based on the user's feedback, the database requirements that are
-relevant for our groups were further defined.
-
-\begin{itemize}
-  \item We want to be able to change users' pictures by uploading new ones.
-  \item Pictograms should be retrieved in batches to decrease wait time.
-  \item Pictograms should be searchable by category.
-  \item In the Launcher, we only need direct access to guardians, as citizens
-  are aggregated from them.
-  \item We need a server timestamp in order to limit login sessions.
-  \item When accessing users, we need a sub-method to only retrieve ID, name and
-  citizens, as we don't need all information.
-\end{itemize}
-
-Based on these requirements, the database groups were able to further define
-the design of the client/database interface.\nl
-
-Based on the meetings and discussion between our groups, the database groups
-(SW613 and SW615) formulated the following design for the interface, which
-should be used by the \textc{rest-models} library in order to retrieve and
-manipulate data from the database. This design can be seen in
-\autoref{interface-uml}. In the diagram the hardline arrows means inheritance
-and the dashed arrows means interface implementation.
-
-\figx{interface-uml}{UML diagram detailing the client/database interface.}
-
-In order to describe the UML diagram, group SW613 supplied us with the following
-listing, which contains explanations for each of the diagram's elements. It
-should be noted that the following is presented verbatum as given to us by group
-group SW613.
-
-\fix{}{Skal vi ikke bare fjerne den vi bruger den ikke til noget rigtigt og det
-er en hel side fra en anden gruppe.}
-
-\colorbox{diff}{
-\begin{minipage}{\linewidth}
-The listings from group SW613F17.
-\begin{itemize}
-    \item \textbf{createSchedule}\\
-    The \texttt{createSchedule} function is called when a new schedule has been created on a device and the schedule should be synchronised across other devices connected to the same department.
-    \item \textbf{createImage}\\
-    This function is called when a user takes a photograph and wishes to share it across devices.
-    \item \textbf{readGuardianByDepartment}\\
-    The launcher application needs to read all guardian-objects from the current department. This function returns all guardians associated with the relevant department.
-    \item \textbf{readScheduleByCitizen}\\
-    This function returns all schedules associated with a given citizen.
-    \item \textbf{readPictogramByName}\\
-    When searching for pictograms, this function is used for getting pictograms by their name.
-    \item \textbf{readPictogramByQuery}\\
-    This function allows query passing to the database, allowing the application to search for pictograms with certain tags.
-    \item \textbf{updateGuardianImage}\\
-    This function and the following overloads modify the attributes of the given guardian object.
-    \begin{itemize}
-        \item \textbf{updateGuardianName}
-        \item \textbf{updateGuardianPhone}
-        \item \textbf{updateGuardianEmail}
-    \end{itemize}
-    \item \textbf{updateCitizenName}\\
-    This function and the following overloads modify the attributes of the given citizen object.
-    \begin{itemize}
-        \item \textbf{updateCitizenImage}
-        \item \textbf{updateCitizenPhone}
-        \item \textbf{updateCitizenEmail}
-    \end{itemize}
-    \item \textbf{updateScheduleAttribute}\\
-    This function and the following functions modify the given schedule object and sub-objects.
-    \begin{itemize}
-        \item \textbf{updateScheduleDay}
-        \item \textbf{updateScheduleFrame}
-        \item \textbf{updateScheduleChoice}
-    \end{itemize}
-    \item \textbf{deleteSchedule}\\
-    This function deletes a schedule object.
-    \item \textbf{deleteSchedules} (batch)\\
-    This function deletes a number of schedule object.
-\end{itemize}
-\end{minipage}
-}
-
-
-Until the REST framework is finished, the overall design of this interface
-will be used to identify what opportunities we have in the applications, when it
-comes to manipulating data on the database.
+% \section{Client/Database Interface Design}
+% Following the initial requirement analysis and the respective meetings, the
+% database groups (SW613 and SW615) began designing the client/database interface.
+% Towards the end of the first sprint, group SW612 held a meeting with the
+% system's users, who defined a number of new requirements for the GIRAF
+% applications. Based on the user's feedback, the database requirements that are
+% relevant for our groups were further defined.
+% 
+% \begin{itemize}
+%   \item We want to be able to change users' pictures by uploading new ones.
+%   \item Pictograms should be retrieved in batches to decrease wait time.
+%   \item Pictograms should be searchable by category.
+%   \item In the Launcher, we only need direct access to guardians, as citizens
+%   are aggregated from them.
+%   \item We need a server timestamp in order to limit login sessions.
+%   \item When accessing users, we need a sub-method to only retrieve ID, name, and
+%   citizens, as we don't need all information.
+% \end{itemize}
+% 
+% Based on these requirements, the database groups were able to further define
+% the design of the client/database interface.\nl
+% 
+% Based on the meetings and discussion between our groups, the database groups
+% (SW613 and SW615) formulated the following design for the interface, which
+% should be used by the \textc{rest-models} library in order to retrieve and
+% manipulate data from the database. This design can be seen in
+% \autoref{interface-uml}. 
+% 
+% \figx{interface-uml}{UML diagram detailing the client/database interface.}
+% 
+% In order to describe the UML diagram, group SW613 supplied us with the following
+% listing, which contains explanations for each of the diagram's elements. It
+% should be noted that the following is presented verbatum as given to us by group
+% group SW613.
+% 
+% \fix{}{Skal vi ikke bare fjerne den vi bruger den ikke til noget rigtigt og det
+% er en hel side fra en anden gruppe.}
+% 
+% \colorbox{diff}{
+% \begin{minipage}{\linewidth}
+% The listings from group SW613F17.
+% \begin{itemize}
+%     \item \textbf{createSchedule}\\
+%     The \texttt{createSchedule} function is called when a new schedule has been created on a device and the schedule should be synchronised across other devices connected to the same department.
+%     \item \textbf{createImage}\\
+%     This function is called when a user takes a photograph and wishes to share it across devices.
+%     \item \textbf{readGuardianByDepartment}\\
+%     The launcher application needs to read all guardian-objects from the current department. This function returns all guardians associated with the relevant department.
+%     \item \textbf{readScheduleByCitizen}\\
+%     This function returns all schedules associated with a given citizen.
+%     \item \textbf{readPictogramByName}\\
+%     When searching for pictograms, this function is used for getting pictograms by their name.
+%     \item \textbf{readPictogramByQuery}\\
+%     This function allows query passing to the database, allowing the application to search for pictograms with certain tags.
+%     \item \textbf{updateGuardianImage}\\
+%     This function and the following overloads modify the attributes of the given guardian object.
+%     \begin{itemize}
+%         \item \textbf{updateGuardianName}
+%         \item \textbf{updateGuardianPhone}
+%         \item \textbf{updateGuardianEmail}
+%     \end{itemize}
+%     \item \textbf{updateCitizenName}\\
+%     This function and the following overloads modify the attributes of the given citizen object.
+%     \begin{itemize}
+%         \item \textbf{updateCitizenImage}
+%         \item \textbf{updateCitizenPhone}
+%         \item \textbf{updateCitizenEmail}
+%     \end{itemize}
+%     \item \textbf{updateScheduleAttribute}\\
+%     This function and the following functions modify the given schedule object and sub-objects.
+%     \begin{itemize}
+%         \item \textbf{updateScheduleDay}
+%         \item \textbf{updateScheduleFrame}
+%         \item \textbf{updateScheduleChoice}
+%     \end{itemize}
+%     \item \textbf{deleteSchedule}\\
+%     This function deletes a schedule object.
+%     \item \textbf{deleteSchedules} (batch)\\
+%     This function deletes a number of schedule object.
+% \end{itemize}
+% \end{minipage}
+% }
+% 
+% 
+% Until the REST framework is finished, the overall design of this interface
+% will be used to identify what opportunities we have in the applications, when it
+% comes to manipulating data on the database.
 
 \section{Using the Rest Libraries}\label{UsingRest}
 Following the final implementation of the REST model, the database groups SW613
@@ -308,7 +308,7 @@ queue.add(loginRequest);
 The code example in \autoref{CSLoginRequest3} follows directly after
 \autoref{CSLoginRequest2} and uses the same approach. and is used to detect
 errors in the \textc{LoginRequest}. On \textbf{lines 6-13} we choose which error
-message to display in the console, based on what error-code we retrieved from
+message to display in the console, based on what error code we retrieved from
 the server.
 
 \begin{minipage}[H]{\linewidth}
@@ -348,7 +348,7 @@ that in order for our requests to be handled in the correct order we need to
 nest our requests inside each as other, as seen on \textbf{line 16} and
 \textbf{22}, where the \textc{userGetRequest} is nested inside the
 \textc{loginRequest}'s \textc{onResponse}. This is because to get a user we need
-a token / cookie and the way we get this, is using a \textc{LoginRequest} then
+a token/cookie and the way we get this, is using a \textc{LoginRequest} then
 we can use the \textc{GetRquest} to get the user for that username.
 
 \subsection{REST Framework Discussion}
@@ -356,22 +356,23 @@ During development of the client-to-server communications framework, the server
 groups SW613 and SW615 thought that it would be possible to wrap the server
 communication requests inside a helper class, which would allow us to simply
 call a number of methods whenever we wanted to manipulate/request data. This
-however, has appeared to be impossible to do because SW613 did not succed to
+however, has appeared to be impossible to do because SW613 did not succeed to
 implement the REST client library in such a way that us application developers
-should not work with the request and their responce and error listner as we do
+should not work with the request and their response and error listener as we do
 now. This has led to we needed to implement request chaining as shown in \autoref{CSLoginRequest1},
 \autoref{CSLoginRequest2}, and \autoref{CSLoginRequest3} where we can use 50 or
-more lines of code to retive a singlle user.\nl
+more lines of code to retrieve a single user.\nl
 
-Although the have made an handler which eliminates the need to instaniate the
+Although the have made a handler which eliminates the need to instantiate the
 request and add it to the queue. But we do still need to implement both
-the onResponse and onError listner. So it remove 2 lines of code on anvage from
+the onResponse and onError listener. So it removes 2 lines of code on average from
 the request.\nl
 
-If it was implemented as we dicussed at the start of the development using
+If it was implemented as we discussed at the start of the development using
 handlers and lambda-expressions we would be able to pass the methods that should
 be called onReponse and onError to the handler and ideally if no method was
 passed to onError it would handle the error.
+
 
 
 
