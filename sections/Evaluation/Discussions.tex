@@ -1,17 +1,17 @@
 \chapter{Discussion}
 The purpose of this chapter is to discuss the GIRAF project as a whole, in order
-to determine what problems occoured during the project, and what could have been
+to determine what problems occurred during the project, and what could have been
 done differently in order to avoid them. As such, the following sections will
 each discuss one such problem, and present our opinion on what went wrong.
 
 \section{REST}
 When we originally began working on GIRAF, the server
-architecture group (SW615) updated the firmware on the server, and noticed that
+architecture group (SW615) updated the firmware on the server and noticed that
 the server would no longer operate at all. By individual research, and by
 reading the previous groups documentation, they determined that the previous
 groups had used a ``hack'' or loophole in order to get the server to run. A
-hack, which was fixed in later versions of the servers firmware. Based on this
-problem, all of the project groups unilitarally determined to replace the old
+hack, which was fixed in later versions of the server's firmware. Based on this
+problem, all of the project groups unilaterally determined to replace the old
 server and the data models upon it. This choice to replace the entirety of
 the server/database backend has led to the largest problem for developing GIRAF
 in this semester.\nl
@@ -20,28 +20,28 @@ Since the server/Database backend is essential to all parts of developing the
 applications, we have been unable to commence the application development in
 full before the beta version of the REST framework was finished. Based on the
 fact that the server groups vastly underestimated the complexity and time
-requirement of researching and implementing an entirely new server/database
+the requirement of researching and implementing an entirely new server/database
 backend, this beta version of the REST framework was first ready for limited use
 at the end of the third sprint.\nl
 
 Additionally, many essential parts of the
-framework was changed multiple times or was simply not in an acceptable state. This meant that
+framework were changed multiple times or was simply not in an acceptable state. This meant that
 most of the development was done in the last two weeks of sprint four. Most of
 our work during the first three sprints were rendered invalid, as the REST
 framework fundamentally changed how the respective classes functioned.
 
 \section{Sprint Meetings}
 The sprint meetings took place at the end of each sprint. The goal of the
-meetings were to give a brief presentation of what each group has worked on,
+meetings was to give a brief presentation of what each group has worked on,
 discuss the previous sprint and then create tasks.\nl
 
 \subsection{Presentation}
-The presentation phase remained unchanged throughout the semester, and has in
+The presentation phase remained unchanged throughout the semester and has in
 hindsight not provided much use. The brief presentation from each group has not
 had much meaning to the other groups, as there has been little understanding of
-what it means. While there were important information, much of it was not in a
-context that made it easily accessable for other groups. A better way could have
-been to provide a presentation on the status of certain important parts, and
+what it means. While there was important information, much of it was not in a
+context that made it easily accessible for other groups. A better way could have
+been to provide a presentation on the status of certain important parts and
 explain slightly more detailed what is missing or why it is delayed.\nl
 
 \subsection{Sprint Discussion}
@@ -52,12 +52,12 @@ has allowed us to find problems with some tasks.\nl
 
 \subsection{Task Generation}
 The tasks created by focusing on a specific goal for the sprints, such as a
-series of user stories. This process were changed after the first and second
+series of user stories. This process was changed after the first and second
 sprint. The groups at the first sprint were divided into two main groups of
 server and application. This was changed in sprint 2, such that groups now
 consisted of members from every group. The idea was to better generate tasks and
 see how they might depend on tasks from other groups. This did not work as there
-was not a lot tasks to generate that involved both server and application, which
+was not a lot of tasks to generate that involved both server and application, which
 resulted in a lot of silence from some group members. It was changed back to the
 original format in sprint 3. As a final note it could be considered beneficial
 for each project group to prepare a list of tasks they want to work on, this
@@ -65,27 +65,27 @@ would save a lot of time and would allow the individual task to be discussed
 more.
 
 \section{General Communication}
-For genral communication during the sprints we have this year used both weekly
+For general communication during the sprints, we have this year used both weekly
 SCRUM meetings, a Discord server and also walking from room to room.
 
 \subsection{SCRUM meetings}
 The SCRUM meetings have not changed during the project. This is fine as they
 have worked well in providing a small overview of what other groups are working
 on. This has been especially helpful to give a distinct impression of what each
-of the server groups are working on. It has helped with sharing information in
+of the server groups is working on. It has helped with sharing information in
 regards to how \textc{REST} was going to influence the application.
 
 \subsection{Discord}
-The Discord server have been used daily by nearly all groups. It has worked
+The Discord server has been used daily by nearly all groups. It has worked
 great as long as at least one person from every group has been online, as it
 has allowed us to communicate with the other groups. Discord was effective
 because most of the groups have had members online after normal work hours, as
-such the communication has not only been while the groups is in the grouprooms.
-One of the issues with Discord was that there was too many channels at the
+such the communication has not only been while the groups are in the group rooms.
+One of the issues with Discord was that there were too many channels at the
 beginning of the semester, which were removed later. Another issue is that the
 some of the labeled channels are not used for their intended purpose. It is
 also problematic when some conversations could fit into multiple channels. The
-General, REST and Server channels have been affected by this, and it is
+General, REST, and Server channels have been affected by this, and it is
 sometimes difficult to find the correct conversation. One of the good things
 about our usage of Discord was that SCRUM had their own channel, which they
 could use to deliver important messages.
@@ -94,7 +94,7 @@ could use to deliver important messages.
 This form of communication has become increasingly used as the project has
 neared the end. It has allowed us to find solutions to problems that were caused by
 other libraries far faster than otherwise. A prime example of this was when the
-\textc{REST-API-Client-Lib} library was created, when we tried to include it as
-a dependency it created alot of problems in the intermediate files. It was
+\textc{REST-API-Client-Lib} library was created when we tried to include it as
+a dependency it created a lot of problems in the intermediate files. It was
 concluded that this problem was due to \textc{REST-API-Client-Lib} being an
 application and not a library.
