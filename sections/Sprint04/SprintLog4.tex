@@ -496,53 +496,55 @@ The entirety of documented bugs and missing features can be found in
       \end{itemize}
   \item T889: Add an Institute to Guardian login \label{T889}
    \begin{itemize}
-     \item This task is an extension of \textbf{T875} in \autoref{T875}, as it
-     is intended for an institute-type user to be logged in as a guardian. 
+     \item The purpose of this task is to add a new approach to logging in,
+     which should be used by institutions. When logging in to a \ttt{User} which
+     has the role ``Department'', the GUI should present a \ttt{ProfileSelector}
+     which allows the user to choose between all guardians in that institution.
+     When selecting a guardian, the system should make a \ttt{LoginRequest} as
+     that guardian.
      \item This task is considered unfinished due to time constraints as there
-     were several changes happening to REST while we were busy implementing it.
-     It was not considered a vital task and is as such left for the next year's
-     students.
-   \end{itemize}
+     were several changes happening to the REST framework while we were busy
+     implementing it. As it was not considered a vital task, it has been
+     left for the next year's students.
+   \end{itemize} 
 \end{itemize}
 
 \section{Retrospective}
-During this sprint, there were several small disruptions related to \textc{REST}.
-Due to the applications needing additional functionality, the server was
-redeployed several times without much warning. This also resulted in changes to
-\textc{REST-Models} and \textc{REST-API-Client-Lib}, which meant that work was
-slow to progress. There was a lot of communication between the
-server and application groups, as there was an increasing need to have a common
-understanding of how the applications used the model. This is considered good,
-as it was easy to contact them and ask them for help regarding the server
-problems we experienced.\nl
+During this sprint, there were several small disruptions related to the REST
+framework. Due to the applications needing additional functionality, the server
+was redeployed several times without much warning. This also resulted in changes to
+\rmlib\ and \rlib, which meant that work progressed slowly. There was a lot of
+communication between the server and application groups, as there was an
+increasing need to have a common understanding of how the applications used the
+model. This is considered good, as it was easy to contact them and ask them for
+help regarding the server problems we experienced.\nl
 
 It proved a good idea to pass \textc{PictoSearch-Lib} to group SW612. While we
-managed to leave the \textc{Launcher} and \textc{Component-Lib} working, with
-only a few missing features, having another sizeable library like
+managed to leave the \textc{Launcher} and \textc{Giraf-Component-Lib} working,
+with only a few missing features, having another sizeable library like
 \textc{PictoSearch-Lib} would have left us unable to finish work in time.\nl
 
-At the sprint meeting, none of the groups were satisfied with the final result of
-the sprint, as it was close to working as intended. But due to the time
-constraints of the project is now in a somewhat working state with a lot of
-missing features.\nl
+At the sprint meeting, none of the groups were satisfied with the final result
+of the sprint, as most of the work done this semester was close to being stable
+and working as intended but missing some features.\nl
 
 \subsection{Evaluation}
 
-This sprint has been the smoothest of the sprints, the tools worked,
-\textc{REST} worked and there was a lot of problem-solving between the groups.
-This is reflected in that we managed to resolve 88.1\% of time units allocated
-to the various tasks, see \autoref{Sprint4_piechart2}. The remaining unsolved
-tasks are primarily comprised of tasks which missing features intended for the
-next batch of students.
+This sprint has been the most successful of the sprints, the tools worked, the
+REST framework was operational, and there was a lot of problem-solving between the
+groups.
+This is reflected in the fact that we managed to resolve 88.1\% of time units
+allocated to the various tasks, see \autoref{Sprint4_piechart2}. The remaining
+unsolved tasks are primarily relating to missing featues and have been left for
+the next year's students.
 
 \figx[1]{Sprint4_piechart2}{The percentage of total time for the tasks which
-have been resolved.}
+have been resolved}
 
-A lot of the tasks for this sprint were finished towards the end of the sprint,
-as that was when further development on the \textc{REST} model stopped. This is
-reflected in the burndown chart, see \autoref{Sprint4_burndownchart}, as many of
-the major tasks with a lot of time allocated to them were only resolved on last
-day.
+Most of this sprint's tasks were finished towards the end of the sprint
+when development of the REST framework stopped. This is reflected in the
+burndown chart, see \autoref{Sprint4_burndownchart}, as many of the major tasks
+with a lot of time allocated to them were only resolved on the last day.
 
-\figx[0.4]{Sprint4_burndownchart}{The burndown chart for sprint 4.}
+\figx[0.4]{Sprint4_burndownchart}{The burndown chart for sprint 4}
 
