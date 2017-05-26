@@ -8,9 +8,7 @@ sprint are the same as last sprint, and have been defined as follows:\nl
 handle Java libraries correctly.}\nl
 
 \say{Increase the stability of the used libraries and the usability of the
-applications, to fulfill user stories 1, 4 and 6. Begin to implement
-functionality for the server and client libraries, based on user stories 2, 3
-and 4.}\nl 
+applications, to fulfill user stories 1, 4 and 6.}\nl 
 
 \say{Begin to implement functionality for the server and client libraries, based
 on user stories 2, 3 and 4.}\nl
@@ -24,7 +22,7 @@ and second sprint.
 \section{Tasks and Solutions}
 Based on the requirements found in \autoref{c2req}, and the need to
 implementing the REST framework developed by SW613 and SW615, we have been
-assigned the tasks shown in \autoref{Tasks3}.
+assigned the tasks shown in \autoref{Tasks3}. 
 
 \begin{table}[H]
 \begin{centering}
@@ -55,18 +53,16 @@ T836 	& Remove deprecated libraries/implement the new REST libraries & 60\\
 
 \subsection{T785, T830 - Prevent stack-trace from showing for
 users}\label{T785-T830} 
-Based on general feedback, we have been tasked with making sure that the
-detailed error messages are not shown to the users. The users have requested
-this, as the citizen users are confused/uncomfortable with the large amount of
-incomprehensible information being suddenly shown on the screen whenever an
-error occurs.\nl
+At a meeting, the customers requested that we hide the
+\ttt{GirafBugSplashScreen}, as the citizens are confused/uncomfortable with the
+large amount of incomprehensible information being suddenly shown on the screen
+when an error occurs.\nl
 
-In task T672 in \autoref{T672}, we replaced the system for sending crash logs to
-Google Analytics, such that whenever the bug splash screen was shown, it would
-forward the exception and its message. As the users no longer want to be shown
-the splash screen, we have simply decoupled the two from each other. The revised
-code can be seen below in \autoref{BugsplNew}. On line 15 we attempt to recreate
-the activity which crashed, as this was a requested feature.\nl
+In task \textbf{T671} in \autoref{T672}, we replaced the system for sending
+crash logs to Google Analytics, such that whenever the bug splash screen was
+shown, it would forward the exception and its message. As the customers no
+longer want to be shown the splash screen, we have simply decoupled the two from
+each other. The revised code can be seen below in \autoref{BugsplNew}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = We use Google Analytics and try to recreate the activity, label = BugsplNew] 
@@ -83,7 +79,7 @@ protected void onCreate(final Bundle savedInstanceState)
                 // Sends the exception to google analytics
                 sendExceptionToGoogleAnalytics(ex);
 
-                // Restarts the activity Todo find out if it restarts the launcher or at least work
+                // Restarts the activity
                 recreate();
             }
         });
@@ -92,19 +88,24 @@ protected void onCreate(final Bundle savedInstanceState)
 \end{lstlisting}
 \end{minipage}
 
+Because of a customer request, on \textbf{line 15} we attempt to
+recreate the \ttt{Activity} which crashed by using the \ttt{Activity's}
+\ttt{recreate} method. It should be noted, that based on a future assesment, we
+realized that this functionality does not work.
+
 \subsection{T786, T822 - Research and implement grayscale functionality}
 Based on user story 2, which is shown in \autoref{UserStoriesGeneral}, we have
-been tasked with researching how it would be possible to make a global
-implementation of grayscale in the GIRAF project.\nl
+been assigned the task to research how it would be possible to make a
+global implementation of grayscale in the GIRAF applications.\nl
 
 Following our research, we came up with three different approaches to
 implementing grayscale:
 
 \begin{enumerate}
-  \item Create an alternative set of resources for all giraf components, which
+  \item Create an alternative set of resources for all GIRAF components, which
   make use of a grayscale color scheme.
-  \item Apply an opaque layer to all GIRAF applications, which would make all
-  components less colorful and more gray.
+  \item Apply a transparent gray layer to all GIRAF applications, which would
+  make all components less colorful.
   \item Reduce the saturation of all GIRAF component's colors, such that all
   applications would look gray.
 \end{enumerate}
@@ -114,17 +115,17 @@ compatible with future GIRAF applications, and the fact that we want
 to minimize the amount of added resources, we have chosen the third
 option, which is to change the saturation of all GIRAF applications.\nl
 
-We have chosen to implement the grayscale functionality in the
-\textc{giraf-component-lib} library, as this library is included in all GIRAF
-applications. As such, the core of the implementation is made in the class
-\textc{GrayScaleHelper}. Changing a given screen to grayscale consists of two
-steps; changing the activity, and changing the action bar at the top.\nl
+We have chosen to implement the grayscale functionality in the \clib, as this
+library is included in all GIRAF applications. As such, the core of the
+implementation is made in the class \textc{GrayScaleHelper}. Changing a given
+screen to grayscale consists of two steps; changing the activity, and changing
+the action bar at the top.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Code used to determine the views for the activity and the top action bar., label = grayEx1] 
 public class GrayScaleHelper
 {
-
+...
     public static void setGrayScaleForActivity(Activity activity, boolean shouldBeGray){
         View screen = activity.getWindow().getDecorView();
         int barId = activity.getResources().getIdentifier("action_bar_container", "id", "android");
@@ -138,18 +139,17 @@ public class GrayScaleHelper
 \end{lstlisting}
 \end{minipage}
 
-As can be seen in \autoref{grayEx1}, the first step is to identifying the
-\textc{views} containing the \textc{activity} and the top \textc{action bar}
+As can be seen in \autoref{grayEx1}, the first step is to identify the
+\textc{Views} containing the \textc{Activity} and the top \textc{ActionBar}
 respectively. The method \textc{setGrayScaleForActivity} takes a reference to
-the \textc{activity}, and a boolean determining if the \textc{activity}
-should be grayscale. On \textbf{line 5}, the \textc{view} for the background
-\textc{android} screen is retrieved. On \textbf{line 6}, the ID for the
-\textc{action bar} is determined. On \textbf{line 7}, the \textc{view} for the
-\textc{action bar} is determined based on the ID. On \textbf{line 8}, the
-\textc{view} for the \textc{activity} is determined. Finally on \textbf{lines 9-10}, the \textc{setGray}
-method is called with the \textc{view} for the \textc{activity} and the
-\textc{action bar} respectively. The \textc{setGray} method can be seen in
-\autoref{grayEx2}.\nl
+the \textc{Activity}, and a boolean determining if the \textc{Activity} should
+be grayscale. On \textbf{line 5}, the top level \textc{View} is retrieved. On
+\textbf{line 6}, the ID for the \textc{ActionBar} is determined. On \textbf{line
+7}, the \textc{View} for the \textc{ActionBar} is determined based on the ID. On
+\textbf{line 8}, the \textc{View} for the \textc{Activity} is determined.
+Finally on \textbf{lines 9-10}, the \textc{setGray} method is called with the
+\textc{View} for the \textc{Activity} and the \textc{ActionBar} respectively.
+The \textc{setGray} method can be seen in \autoref{grayEx2}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Method used to change to color saturation of views., label = grayEx2]
@@ -174,12 +174,11 @@ public class GrayScaleHelper {
 
 In the \textc{setGray} metod in \autoref{grayEx2}, we first use the boolean
 \textc{state} to determine if we should set the \textc{view} to grayscale. This
-boolean represents the value of a \textc{switch button} in the settings menu,
+boolean represents the value of a \textc{Switch} button in the settings menu,
 which indicates if the option is turned on or off. \textbf{Lines 5-8} are used
-to create an android \textc{Paint}, which has the color saturation of value
-zero. On \textbf{line 10}, a \textc{hardware layer} using the defined
-\textc{paint} is added to the supplied \textc{activity}, see
-\autoref{grayScale}.\nl
+to create a \textc{Paint}, which has the color saturation of value zero. On
+\textbf{line 10}, a \textc{hardware layer} using the defined \textc{Paint} is
+added to the supplied \textc{Activity}, see \autoref{grayScale}.\nl
 
 \figx[0.30]{grayScale}{An example of the grayscale in action}
 
@@ -200,51 +199,45 @@ private void setGrayscale(){
 \end{lstlisting}
 \end{minipage}
 
-In \autoref{grayEx3}, we start by retrieving the GIRAF launcher's shared
-preferences. We then use the boolean
-\textc{toggle\_gray\_scale\_preference\_key's} value in the \\
+In \autoref{grayEx3}, we start by retrieving the \lapp's
+\ttt{SharedPreferences}.
+We then retrieve the boolean from the \ttt{SharedPreferences} using the method
+\ttt{getBoolean}, which takes a \ttt{String} as input. As input, we give it the
+value of the resource string defined by
+\ttt{toggle\_gray\_scale\_preference\_key}. As a fallback, if we can not
+retrieve a value, we simply set grayscale to true.
 \textc{setGrayScaleForThisActivity} method, to set grayscale for this
 application. While not implemented yet, the intention is to supply the boolean
-value to other GIRAF applications through the \textc{android intent}, which is
-used to launch those applications.\nl
+value to other GIRAF applications through the \textc{Intent}, which is used to
+launch those applications.\nl
 
 As stated above, in order to change the grayscale setting through the GUI, we
-have added a \textc{switch button}. This settings menu with the added button can
-be seen in \autoref{newSettingsPage}, where grayscale has been enabled. 
-
-\figx[0.30]{newSettingsPage}{The switch as shown in the Launcher's settings
-menu}
-
+have added a \textc{Switch} button. This settings menu with the added button can
+be seen in \autoref{grayScale}, where grayscale has been enabled.  
 
 \subsection{T832, T833 - Upload new libraries to Artifactory and implement them}
 
 Following the breakdown of Artifactory during the first sprint, group SW615 has
-been working on restoring Artifactory to its intended state. Now, during the
-third sprint, they have succeeded in their task, and Artifactory can now be
+been working on restoring Artifactory to its intended state. In the middle of
+the third sprint they succeeded in their task and Artifactory can now be
 used.\nl
 
 As stated in \autoref{GTools}, our collection of build tools used to work in the
 following manner:
 The developers committed the code to Git and then went to build it using
 Jenkins. Jenkins would automatically retrieve the code from Git and compile it.
-If Jenkins would succeed, it would then upload the compiled libraries to
+If Jenkins succeeded, it would then upload the compiled libraries to
 Artifactory. Whenever a library was needed to build the software, both locally
 and on Jenkins, a request would be sent to Artifactory, which would then return
 the compiled library.\nl
 
 With the current fix to our build setup, we have to build the libraries locally
-on our own machines, and the upload them to Artifactory using a shared Gradle
+on our own machines, and then upload them to Artifactory using a shared Gradle
 build script, which the server infrastructure group (SW615) has created. This
-build script can be seen in \autoref{ArtiBuild1} and \autoref{ArtiBuild2}. In
-\autoref{ArtiBuild1}, on \textbf{lines 1-8} we download the Gradle-Artifactory
-bridge plugin\citep{Gradle-Artifactory}. On \textbf{lines 9-11} we apply the
-plugin, and use the maven-publish plugin, which allows us to publish to the
-Maven repository. Then on \textbf{line 12} we specify the name of the library as
-uploaded to Artifactory. Then on \textbf{lines 12-19} we specify the subfolders
-on Artifactory which we want to upload the compiled libraries to.\nl
+build script can be seen in \autoref{ArtiBuild1} and \autoref{ArtiBuild2}. \nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Specifying file names and subfolder paths on Artifactory, label = ArtiBuild1] 
+\begin{lstlisting}[caption = Start of the shared build script, label = ArtiBuild1] 
 buildscript {
     repositories {
         jcenter()
@@ -269,10 +262,11 @@ repositories {
 \end{lstlisting}
 \end{minipage}
 
-Following the specification of paths and names, we run the publish command in
-\autoref{ArtiBuild2} on \label{lines 3-19}. On \textbf{lines 5-7} we specify the
-authentication information for Artifactory and the version number of the
-uploaded files.\nl
+In \autoref{ArtiBuild1}, on \textbf{lines 1-8} we download the
+Gradle-Artifactory bridge plugin \citep{Gradle-Artifactory}. On \textbf{lines
+9-11} we apply the plugin, and use the maven-publish plugin, which allows us to
+publish to the repository. On \textbf{line 12} we specify the version of the
+library on Artifactory.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Publishing the compiled libraries to Artifactory, label = ArtiBuild2] 
@@ -301,14 +295,17 @@ artifactory {
 \end{lstlisting}
 \end{minipage}
 
+Following the specification of paths and versions, we run the publish command in
+\autoref{ArtiBuild2} on \textbf{lines 3-19}. On \textbf{lines 5-7} we specify
+the authentication information for Artifactory and the repository the library
+should be uploaded to.\nl
+
 This Gradle build-script has been distributed to all libraries, which allows us
 to compile the libraries locally, and publish them to Artifactory for future
 use.\\
 In order to implement the new libraries from Artifactory, the Gradle
-build scripts have been changed use both Artifactory's new Maven
-repositories and also the new names of the libraries. In addition, we have made
-sure that the application will always use the newest library versions, by
-changing the retrieved library version to ``latest.integration''.\nl
+build scripts have been changed use both Artifactory's new repositories and the
+new names of the libraries.\nl
 
 The main problem encountered during this process has been, that some libraries
 were unable to build correctly. During a build, these libraries would always
@@ -317,11 +314,11 @@ fail, and would report an error during
 that the problem could potentially be solved by changing the target Java version
 to Java 7. Following a further study of all the compiled libraries, we determined
 that the error was caused by the \textc{meta-database} library having been
-compiled with Java 8. As the rest of the GIRAF system is built upon Java 7, this caused
-compatibility issues. After rebuilding the library with Java 7 compatibility, we
-were able to build our applications without further problems.
+compiled with Java 8. As the rest of the GIRAF system is using Java 7, this
+caused compatibility issues. After rebuilding the library with Java 7
+compatibility, we were able to build our applications without further problems.
 
-\subsection{T834 - Implement new login screen}\label{LoginXML}
+\subsection{T834 - Implement the new login screen}\label{LoginXML}
 In order to implement the new login screen we used the design made in T731,
 see \autoref{LoginScreen}, and adapted an existing unfinished design of
 the login screen from a prior semester, see \autoref{OldNewLogin}. Their design
