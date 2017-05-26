@@ -95,14 +95,16 @@ can be read lightly, most of what has been developed in those sprints has
 changed in the last two sprints and is therefore not relevant to maintain the
 \textc{Launcher}.
 
-\section{Download and Compile the Git Reposotiories}
-In this section we present a small guide to downloading and making the code
-compile. We assume the reader has already set up Android Studio, Git and the
-Android SDK correctly. Note we can not guranty that the code will compile unless you are
-connected to AAU-1X because of the way Artifactory is set up and that the
-code on these repositoriees will be our code for years to come.\nl
+\section{Download and Compile the Git Repositories}
+In this section, we present a small guide on how to download and compile the
+GIRAF code. We assume the reader has already set up Android Studio, Git, and the
+Android SDK correctly. Note that we can not guarantee that the code will compile
+unless you are connected to AAU-1X. This is because of the way Artifactory is
+set up. It should also be noted that we cannot guarantee that the
+repositories will contain the correct code in the future, as the students on
+next year's project can delete/modify the code as they wish.\nl
 
-The two repositories which we have worked on to the end are
+The two repositories which we have worked on are:
 
 \begin{itemize}
   \item GIRAF Launcher -
@@ -113,24 +115,24 @@ The two repositories which we have worked on to the end are
 
 The steps to download the code and make it compile are
 \begin{enumerate}
-  \item Go to one of the repoitoires and click on the button highlighted on
+  \item Go to one of the repositories and click on the button highlighted on
   \autoref{gitCheckoutLink}
-  \figx{gitCheckoutLink}{The way to copy the Git clone link}
+  \figx[0.9]{gitCheckoutLink}{The way to copy the Git clone link}
   \item Then you open Android Studio such that you see the screen shown on
   \autoref{ASmain}
-  \figx{ASmain}{The window when you open Android Studio without a project}
+  \figx[0.7]{ASmain}{The window when you open Android Studio's main launcher}
   \item You then select the item shown on \autoref{ASmain} which will open this
   dialog see \autoref{AS2}
-  \figx{AS2}{The clone dialog in Android Studio}
-  \item Here in the dialog \autoref{AS2} you paste the url which was copied
-  though step 1 into the box marked wth the red square and then click on the button
+  \figx[0.7]{AS2}{The clone dialog in Android Studio}
+  \item In \autoref{AS2} you paste the url which was copied
+  in step 1 into the box marked wth the red square and then click on the button
   marked with the blue square. 
-  \item On the popup dialog which asks if you want to open it press ``Yes''
-  \item On the next popup dialog just press ``OK''
+  \item On the popup dialog, which asks if you want to open it, press ``Yes''.
+  \item On the next popup dialog press ``OK''.
   \item Then import all modules.
-  \item When the proccesses is finished the code is ready to be inspected
-  and compiled
-  \item Then to compile and run the app, click on the Green play arrow which
+  \item When the processes are finished the code is ready to be inspected
+  and compiled.
+  \item To compile and run the app, click on the Green play arrow which
   will start the runing of the app and present a dialog where you can choose
   between real devices or emulators.
 \end{enumerate}

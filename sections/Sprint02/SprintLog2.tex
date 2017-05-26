@@ -1,20 +1,20 @@
 \chapter{Sprint: 2}
 Following the first sprint, each group has gained a deeper understanding of how
-the individual applications are designed and implemented. Based on this
+the \lapp\ and \wapp\ applications are designed and implemented. Based on this
 knowledge, this sprint will be used to further develop the features which were
 worked on by the previous year's students.\nl
 
 During the first sprint, the Product-Owner group (SW612) created a number of
-user stories based on a meeting with the users of the system. As the first
-sprint was used to introduce us to the GIRAF project, the tasks were for the
-most part not based on the content of these user stories. As the second sprint
-is focused on further developing both existing and new features, the user
-stories have been used to define the goals for this sprint. As such, the goals
-of this sprint has been defined as the following:\\
-\say{Increase the stability of the libraries used, and the accessibility and
-usability of the applications, to fulfill user stories 1, 4 and 6. For server
-and client libraries, begin implementation of functionalities for user stories
-2, 3 and 4.}\\
+user stories after a meeting with the customers. As the second sprint is focused
+on further developing both existing and new features, the user stories have been
+used to define the goals for this sprint. As such, the goals of this sprint has
+been defined as the following:\nl
+
+\say{Increase the stability of the used libraries and the usability of the
+applications, to fulfill user stories 1, 4 and 6. Begin to implement
+functionality for the server and client libraries, based on user stories 2, 3
+and 4.}\nl
+
 The user stories can be seen in \autoref{Sprint2UserStories}.
 
 \begin{table}[H]
@@ -22,32 +22,30 @@ The user stories can be seen in \autoref{Sprint2UserStories}.
 \begin{tabular}{|l|p{12.5cm}|}
 \hline
 Nr. & User Story \\\hline
-1. & As one of the children who use the system, I want the system to be 
+1. & As one of the citizens who use the system, I want the system to be 
 \textbf{as stable as possible}, as my mental problems require that of the tools
-which i use. \\ \hline
-2. & As a pedagogue I want the ability to \textbf{replace pictures} and icons
-for the children in the system.\\ \hline
-3. & As a pedagogue, it is very important to be able to \textbf{create a weekly
-schedule} and manage the tasks the children can see at any given time.\\ \hline
+which I use. \\ \hline
+2. & As a guardian I want the ability to \textbf{replace pictures} and icons
+for the citizens in the system.\\ \hline
+3. & As a guardian, it is very important to be able to \textbf{create a weekly
+schedule} and manage the tasks the citizen can see at any given time.\\ \hline
 4. & As a user of the system, the \textbf{response time} is an important
 factor.\\ \hline
-6. & As a user of the system, I'd like the interface to be \textbf{simple},
+6. & As a user of the system, I would like the interface to be \textbf{simple},
 things should never be more than \textbf{2-3 taps} away. \\\hline
 \end{tabular}
 \caption{User stories for sprint 2}
 \label{Sprint2UserStories}
 \end{table}
 
-Our initial area of responsibility is focused on the \textc{Launcher} and
-\textc{Pictogram Searcher}, and for this sprint, we have chosen to focus more on
-the \textc{Launcher} by improving the associated \textc{Login System}. We also
-aim to refactor \textc{Pictogram Reader}. This choice is based on the fact,
+For this sprint, we have chosen to focus on the \lapp, the Login System,
+and refactoring the \plib\ library. This choice is based on the fact,
 that currently only two groups are working on developing the front-end for
-applications (SW609 and SW610), and our group is currently best suited to
+applications, namely us and SW610, and our group is currently best suited to
 handle these new tasks. As an additional task for this project, the project
 groups have concluded that our projects should also include documentation of
 the applications and classes we are working on. Such documentation should be
-added to the GIRAF wiki.
+added to the GIRAF Wiki.
 
 \section{Tasks and Solutions}
 Based on our expanded area of responsibility and the need to develop a new login
@@ -55,26 +53,27 @@ system, we have been assigned the tasks presented in \autoref{SprintTwoTasks}.
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|p{10cm}|l|}
 \hline
 Number	& Description & Man-hours												\\\hline
-T634  	& Wiki: Continually update Launcher info on the wiki & 8\\\hline 
+T634  	& Wiki: Continually update Launcher Wiki & 8\\\hline 
 T671    & Output stack-trace to Google on system crash & 4
 \\\hline 
-T705	& Launcher: Evaluate/Change need to log out when changing  to guardian
-& 2 \\\hline 
+T705	& Launcher: Evaluate/Change need to log out when changing back to a
+guardian & 2 \\\hline 
 T708    & Meeting: Discuss overall design goals for the GIRAF GUI & 64\\\hline
-T709	& Meeting: Define GUI questions & 32 \\\hline 
+T709	& Meeting: Define UI questions before the customer meeting on the
+22'nd of March & 32 \\\hline 
 T722   	& Launcher: Prevent login session from expiring & 3 \\\hline 
-T724   	& Launcher: Prevent crash when a child application crashes & 2\\\hline 
-T725  	& Pictosearch: Improve overall performance (If possible)	& 8 \\\hline 
+T724   	& Launcher: Prevent crash when a spawned child application crashes &
+2\\\hline T725  	& Pictosearch: Improve overall performance (If possible)	& 8 \\\hline 
 T726    & Meeting: Discuss REST interface and database communication & 16
 \\\hline 
 T727    & Pictoreader: Fix crash on failed retrieval of audio file  & 2				\\\hline 
 T728	& Pictoreader: Refactor and CheckStyle  & 60\\\hline
-T731    & LogIn: Design new login UI for the Launcher & 16     			\\\hline
-T732    & Launcher: Evaluate what elements should be visible to
-child/guardian & 1\\\hline 
+T731    & Login: Design new login UI for the Launcher & 16     			\\\hline
+T732    & Launcher: Evaluate what UI elements should be visible to
+citizens/guardian & 1\\\hline 
 T733    & Pictosearch: Implement vertical screen functionality & 16   		
 \\\hline 
 T739    & Wiki: Document pictosearch info on the wiki & 64	\\\hline
@@ -97,13 +96,13 @@ Analytics. An example of this screen can be seen in \autoref{GBugSplash}.
 \figx{GBugSplash}{Splash screen presented on unhandled exception}
 
 While testing the GIRAF applications, we noticed that the code necessary for
-sending the stack-trace was not present in a number of the applications. After
-reviewing the code we concluded that for some applications the previous
-semester's students only implemented the splash-screen and did not implement
-the actual code which was supposed to output the stack trace.\nl
+sending the stack-trace was not present. After reviewing the code we concluded
+that for some applications the previous semester's students only implemented the
+splash-screen, but for the most part did not implement the actual code which was
+supposed to output the stack trace.\nl
 
-The \textc{giraf-component-lib} library contains the
-\textc{GirafBugSplashActivity} class which is extended from \textc{GirafActivity}
+The \clib\ library contains the
+\textc{GirafBugSplashActivity} class which is extends the \textc{GirafActivity}
 class. This class is responsible for displaying a splash screen with the
 stack trace whenever a GIRAF application encounters an unhandled exception. As
 we want to create a generalized approach to sending stack traces, we have chosen
@@ -121,7 +120,6 @@ then passed to an \textc{Intent}, which is used to start a
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Catching exceptions and starting creating a \textc{GirafBugSplashActivity}, label = BugCatch]
-
 public class GirafActivity extends FragmentActivity {
 	...
     protected void onCreate(final Bundle savedInstanceState) {
@@ -188,7 +186,6 @@ our application.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our approach to outputting the stack trace, label = BugOurSol]
-
 public class GirafBugSplashActivity extends GirafActivity {
 	public static final String EXCEPTION_TAG = "EXCEPTION_TAG";
     public static final String TRACKING_ID_TAG = "TRACKING_ID_TAG";
@@ -227,27 +224,27 @@ public class GirafBugSplashActivity extends GirafActivity {
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T709 - Meeting: Define GUI questions}
-The following is a task of a collaboration between SW609, SW610, and SW612 and is
-described in more detail in \autoref{sec:Colab2}. During the sprint, we
+\subsection{T709 - Meeting: Define UI questions before the customer meeting on the
+22'nd of March}
+The following is a task of a collaboration between us, SW610, and SW612 and
+ourselves and is described in more detail in \autoref{sec:Colab2}. During the sprint, we
 produced a series of questions concerning the applications. Group SW612
-held a meeting with the system users to determine whether the applications were
+held a meeting with the customers to determine whether the applications were
 satisfying. Based on this meeting several user stories were constructed which
-we then used to produce additional requirements for GIRAF and the Launcher.
+we then used to produce additional requirements for GIRAF and the \lapp.
 
 \subsection{T722 - Launcher: Prevent login session from expiring}\label{T722}
-While testing the launcher during the first sprint, we noticed that users would
+While testing the \lapp\ during the first sprint, we noticed that users would
 sometimes be logged out automatically before the defined interval of 8
 hours. This poses a problem as users can become frustrated with the system
 if they constantly have to renew their login session.\nl
 
 While we have been unable to determine the exact cause of the problem, we have
 identified a potential problem with the current implementation, where
-information about the login session is stored in the shared preferences in a
-possibly faulty manner. This original approach can be seen in
-\autoref{OrginalSessionSaving}, where the previous students are using the
-\textc{apply} method to save the time of authentication
-and the ID of the guardian to the shared preferences.\nl
+information about the login session is stored in the \ttt{SharedPreferences} in
+a possibly faulty manner. This original approach can be seen in
+\autoref{OrginalSessionSaving}, where the \textc{apply} method to save the time
+of authentication and the ID of the guardian to the \ttt{SharedPreferences}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Original approach to saving login session, label =
@@ -261,15 +258,14 @@ public static void saveLogInData(final Context context, final long id, final lon
 }
 \end{lstlisting} 
 \end{minipage}
-
+ 
 Our solution to this problem, which can be seen in
 \autoref{SolutionSessionSaving}, is to change the \textc{apply} in the code to
 \textc{commit}. The difference between these two is that
 \textc{apply} writes the information \textc{asynchronously}, where \textc{commit}
-writes it \textc{synchronously}. Using \textc{commit} means that we are informed
-if the writing failed, which allows us first of all to write it to the log and
-secondly, we could implement that it tries again until it is correctly
-stored.\nl
+writes it \textc{synchronously} \citep{SPApply}. Using \textc{commit} means that
+we are informed if the writing failed, which allows us to write it to the log and
+possibly implement that it tries again until it is correctly stored.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to saving login session, label
@@ -287,28 +283,28 @@ public static void saveLogInData(final Context context, final long id, final lon
 \end{lstlisting} 
 \end{minipage}
 
-After testing this solution, we have determined that our solution has correctly
-solved the problem. As such, we assume that we were correct in attributing the
-problem to faulty communication with the shared preferences, which we have
-resolved by using \textc{commit} instead of \textc{apply}.\nl
+After running the \lapp\ a number of times, we have determined that our solution
+has correctly solved the problem. As such, we assume that we were correct in
+attributing the problem to faulty communication with the
+\ttt{SharedPreferences}, which we have resolved by using \textc{commit} instead
+of \textc{apply}.\nl
 
 While designing this solution, we found security issue which would allow a user
 to extend their login session indefinitely. This issue has been converted to a
 new task, which can be seen in \autoref{T772}.
 
-\subsection{T724 - Launcher: Prevent crash when a child application crashes}
+\subsection{T724 - Launcher: Prevent crash when a spawned child application
+crashes} 
 While testing the applications during the first sprint, one of the other groups
-identified a crash in the launcher, which occurred when one of the GIRAF
-applications crashed. Based on the reported issues, we have tried to
-replicate the crash, but we have so far been unable to. Due to the importance of
-increasing the stability of the launcher, we have chosen to attempt to prevent
+identified a crash in the \lapp, which occurred when one of the GIRAF
+applications crashed. Based on the reported issues, we have tried to replicate
+the crash, but we have so far been unable to do so. Due to the importance of
+increasing the stability of the \lapp, we have chosen to attempt to prevent
 future crashes of this nature.\nl
 
 The original approach to launching an application can be seen in
 \autoref{OriginalLaunch}, where the \textc{startActivity} method is called on an
-Android \textc{Context}, which is an abstract class containing information an
-application, such as application-level operations like
-\textc{launch}.\nl
+Android \textc{Context}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Original approach to launching applications., label = OriginalLaunch]
@@ -321,11 +317,11 @@ public static void secureStartActivity(Context context, Intent intent) {
 \end{lstlisting}
 \end{minipage}
 
-While we have no crash log to confirm our suspicions, we believe that the
-launcher could crash due to the thrown exception being returned to the launcher.
-As such, we have chosen to implement a try-catch structure, which should prevent
-the launcher from crashing, if a child-application crashes. Our solution can be 
-seen in \autoref{NewLaunch}.\nl
+While we have no crash log to confirm our suspicion, we believe that the \lapp\
+could crash due to the thrown exception being returned to the \lapp. As such, we
+have chosen to implement a \ttt{try-catch} structure, which should prevent the
+\lapp\ from crashing, if a child-application crashes. Our solution can be seen
+in \autoref{NewLaunch}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = New approach to launching applications., label = NewLaunch] 
@@ -342,10 +338,10 @@ public static void secureStartActivity(Context context, Intent intent) {
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T725 - Pictosearch: Improve overall performance (If possible)}
-Following task T660 in the first sprint, we have once again been tasked with
-improving the performance of the search in \textc{pictosearch}. While most
-of the performance, increases must be done serverside, after reviewing our work
+\subsection{T725 - PictoSearch: Improve overall performance (If possible)}
+Following task \textbf{T660} in the first sprint, we have been assigned the task
+to improve the performance of the search in \plib. While most
+of the performance increases must be done server side, after reviewing our work
 in the first sprint, we have concluded that minor performance increases can
 still be made.\nl
 
@@ -353,7 +349,7 @@ We have attempted to increase the search speed by using the techniques taught in
 the Computer Architecture course, in regards to optimizing the performance of
 loop structures. This has simply been done by moving all unnecessary statements
 and method calls outside of the loops. This approach has been implemented
-throughout the \textc{pictosearch-lib} library.\nl
+throughout the \plib\ library.\nl
 
 Considering that the build tools are not currently operational, as described in
 \autoref{S1Retro}, as of this time, we have been unable to test this solution
@@ -361,28 +357,22 @@ and measure any performance increases.
 
 \subsection{T726 - Meeting: Discuss REST interface and database communication}
 During the first sprint, we held a meeting with groups SW610 and SW613 in order
-to determine the database requirements for the individual applications. Once
-again, during the second sprint, we held another meeting in order to discuss
-further requirements which were identified during the first sprint. The purpose
-of these meetings have been to allow for application/database communication,
-structuring the database information and giving the applications access to all
-necessary resources.\nl
+to determine the database requirements for the applications. During the second
+sprint, we held another meeting in order to discuss further requirements which
+were identified during the first sprint.\nl
 
-Due to the complex nature of this task, and the cooperation with the other
-groups, the entirety of this task has been moved to \autoref{S1CS}, where we
-explain the contents of the meetings, the drawn conclusions, and how the results
-of the meetings have been reflected in the implemented code.
-
+As this is a part of a collaborative task which spans multiple sprints, it has
+been moved to \autoref{S1CS}, where we explain the contents of the meetings, the drawn
+conclusions, and how the results of the meetings have been reflected in the
+implemented code.
 
 \subsection{T727 - Pictoreader: Fix crash on failed retrieval of audio file}
 \label{T727}
-During the initial sprint, we tested a number of the GIRAF applications in order
-to better understand the GIRAF GUI design framework. While doing this, we
-identified an \textc{IndexOutOfBoundsException} in the \textc{pictoreader}
-application, which occurs if we press the \textc{Play} button while no
-pictograms are chosen. This error occurs as the application attempts to access
-the 0th element of the array of pictograms to read aloud. This can be seen in
-\autoref{BTNPlay}.\nl
+While testing the \ttt{PictoReader} application, we identified an
+\textc{IndexOutOfBoundsException} in the \textc{PictoReader} application, which
+occurs if we press the ``Play'' button while no pictograms are chosen. This
+error occurs as the application attempts to access the first element of the
+array of pictograms to read aloud. This can be seen in \autoref{BTNPlay}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Accessing the 0th element of a null array., label = BTNPlay] 
@@ -398,13 +388,13 @@ btnPlay.setOnClickListener(new View.OnClickListener() {
 \end{minipage}
 
 It would appear that currently a check is made to make sure that the first
-pictogram in the list is not null, but that there are no safeguards to make sure
-that the list is not empty. While we question the necessity of the current
-check, we have chosen to keep it, and simply add another check to make sure that
-the array is not empty. If the array is empty, the expression should short
-circuit, and the check on the first element of the array is never made. This
-should prevent the case where the 0th element is accessed on an empty array. Our
-solution can be seen in \autoref{BTNPlayFixed}.\nl
+pictogram in the list is not \ttt{null}, but that there are no safeguards
+to make sure that the list is not empty. While we question the necessity
+of the current check, we have chosen to keep it, and simply add another check to make sure that
+the array is not empty. If the array is empty, the expression short
+circuits, and the check on the first element of the array is never made.
+This should prevent the case where the first element is accessed on an empty
+array. Our solution can be seen in \autoref{BTNPlayFixed}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Our solution to the presented problem., label = BTNPlayFixed] 
@@ -419,23 +409,20 @@ btnPlay.setOnClickListener(new View.OnClickListener() {
 \end{lstlisting}
 \end{minipage}
 
-\subsection{T731 - LogIn: Design new login UI for the
-Launcher}\label{DesignLogin}
-Following T708, \autoref{S2Invalid}, we found a
-design manual which covered how to make each application recognizable as a GIRAF
-application. This entailed which color scheme to use, what each icon means and
-how each application should be structured. Through T709,
-which is detailed in \autoref{sec:Colab2}, we found additional requirements for
-the Launcher and Login screen, the full list can be seen in
-\autoref{S2:NewReqs}. The list of new requirement for the Login screen can be seen
-here:
+\subsection{T731 - Login: Design new login UI for the Launcher}\label{DesignLogin}
+Following \textbf{T708} in \autoref{S2Invalid}, we found a design manual which
+covered how to make each application follow the GIRAF style. This entailed which color
+scheme to use, what each icon means and how each application should be
+structured. Through \textbf{T709}, which is detailed in \autoref{QfC}, we
+found additional requirements for the \lapp\ and Login screen. The list of new
+requirement for the Login screen can be seen here:
 
  \begin{enumerate}
-   \item The QR-system needs to be replaced by password based system.
+   \item The QR-system needs to be replaced by a password based system.
    \item There needs to be limits on how long a guardian can remain inactive in
    the system before being logged out. 
    \item Citizen should not be logged out automatically. 
-   \item A guardian should be able to change its password.
+   \item A guardian should be able to change their password.
    \item There should be an institute-type user.
  \end{enumerate}
 
@@ -447,75 +434,63 @@ password}
 
 We then use the requirements for the Login System to create a diagram of the
 login procedure see \autoref{LoginDiagram}. We use this diagram to show how the
-different users navigate between \textc{activities} and the \textc{login
-screen}. An example of this is, that if a guardian is inactive for more
+different users navigate between activities and the login
+screen. An example of this is, that if a guardian is inactive for more
 than 20 minutes they will automatically be logged out and redirected to the login screen.\\
 It also shows how the interaction is between the guardian and the citizen. A
 guardian can log in, log out and switch to a citizen, while a citizen can only
 be logged out by choice. This allows the citizen to not worry about a username
 and password, as that is handled by a guardian. We also do not allow a citizen
 to switch back to a guardian, as every citizen usually have their own tablet
-and the users considered this feature unnecessary.
+and the customers considered this feature unnecessary.
 
 \figx{LoginDiagram}{Diagram for the Login procedure}
 
-\subsection{T733 - Pictosearch: Implement vertical screen functionality}
-During the first sprint, group SW610 was testing the Weekplanner application and
-noticed that some activities did not support vertical orientation of the screen.
+\subsection{T733 - PictoSearch: Implement vertical screen functionality}
+During the first sprint, group SW610 was testing the \wapp\ application and
+noticed that some \ttt{Activity} classes did not support vertical orientation of
+the screen.
 Due to the inconsistency of only some activities supporting this, we have agreed
-to implement vertical functionality in the pictosearch activity.\nl
+to implement vertical functionality in the \plib.\nl
 
-If an android activity is to support changing the orientation of its GUI, it
-must contain a unique specification for each orientation. This is done in the
-form of a folder, containing an XML file specifying the GUI. This means, that
-its resource folder \textc{res} must contain subfolders named \textc{layout},
+If an Android \ttt{Activity} is to support changing the orientation of its GUI,
+it must contain a unique specification for each orientation. This is done by
+having a folder contain an \ttt{XML} file specifying the layout. The resource
+folder \textc{res} must contain subfolders named \textc{layout},
 \textc{layout-port}, and \textc{layout-land}. The folders \textc{layout-port}
 and \textc{layout-land} contain a defined layout for vertical and horizontal
 orientation respectively, while \textc{layout} contains a default layout, which
 is used if the other folders do not exist.\nl
 
-In the current version of \textc{pictosearch-lib}, only the default folder
+In the current version of \plib, only the default folder
 \textc{layout} exists. This horizontal layout can be seen in
 \autoref{SearchHorizon}.
 
 \figx{SearchHorizon}{Horizontal design for the \textc{activity\_picto\_admin\_main.xml} file, as presented in the Android Studio designer}
     
-In order to allow for vertical orientation, we have chosen to redesign and
-implement a new version of the activity. Simply put, we have copied the files
-for the horizontal layout, added them to a new folder called
-\textc{layout-port}, and redesigned the layout to be vertical. Our newly
-designed layout can be seen in \autoref{SearchVert}.
+In order to allow for vertical orientation, we have copied the files for the
+horizontal layout, added them to a new folder called \textc{layout-port}, and
+redesigned the layout to be vertical. Our newly designed layout can be seen in
+\autoref{SearchVert}.
 
 \figx{SearchVert}{New vertical design for the
 \textc{activity\_picto\_admin\_main.xml} file, as presented in the Android
-Studio designer.}
+Studio designer}
 
 Finally, after designing the new layout, we needed to allow for the screen
 orientation to change, as this is not allowed in the current version of
-pictosearch. This was done by changing the \textc{android:screenOrientation}
+\plib. This was done by changing the \textc{android:screenOrientation}
 variable in the \textc{AndroidManifest.xml} file from \textc{landscape} to
 \textc{fullSensor}. Setting the variable to \textc{fullSensor} allows the tablet
-to use its sensors to set the orientation of the screen. This can be seen in
-\autoref{OrientAllow}.\nl
-
-\begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Allowing changes to the screen orientation., label = OrientAllow] 
-<activity
-	android:name="dk.aau.cs.giraf.pictosearch.PictoAdminMain"
-    ...
-    android:screenOrientation="fullSensor" >
-    ...
-</activity>
-\end{lstlisting}
-\end{minipage}
+to use its sensors to set the orientation of the screen. 
 
 \subsection{T772 - Security problem when changing system date/time}\label{T772}
 As explained in \autoref{T722}, while developing a solution for T722, we
 discovered a problem with login sessions failing to correctly expire.
-The issue is, that even after you have been logged out of GIRAF and are asked
-for a QR code, you can close the launcher and change the system time to a point
-where the session would have been active. When opening the launcher again, the
-system would automatically log in to the previous session. This issue can be split
+The issue is, that even after you have been logged out of the \lapp\ and are
+asked for a QR code, you can close the \lapp\ and change the system time to a
+point where the session would have been active. When opening the \lapp\ again,
+the system would automatically log in to the previous session. This issue can be split
 into two smaller sub-issues. The first sub-issue is that the session token is
 not deleted when a session expires. This has been fixed by adding the call to
 \textc{logOutIntent} which can be seen in \autoref{FixNonDeletToken}.\nl
@@ -534,7 +509,7 @@ if (LauncherUtility.sessionExpired(this)) {
 
 In this code, \textc{logOutIntent} only calls \textc{clearAuthData} which can be
 seen in \autoref{clearAuthData} which overwrites the saved information about the
-session in the shared preferences.\nl
+session in the \ttt{SharedPreferences}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = ClearAuthData methode, label = clearAuthData]
@@ -558,12 +533,12 @@ might invalidate the tokens.
 
 \subsection{Unfinished and Invalid Tasks}\label{S2Invalid}
 \begin{itemize}
-  \item T634 - Wiki: Continually update Launcher info on the Wiki \& T739 -
-  Wiki: Document pictosearch info on the Wiki
+  \item T634 - Wiki: Continually update \lapp\ info on the Wiki \& T739 -
+  Wiki: Document \plib\ info on the Wiki
   \begin{itemize}
-  	\item The purpose of these task is to document the launcher and pictosearch
+  	\item The purpose of these task is to document the \lapp\ and \plib\
   	on the GIRAF Wiki for the next year's students. 
-  	\item These tasks have not been completed, as they continous tasks, which we
+  	\item These tasks have not been completed as they continous tasks which we
   	expect to span multiple sprints. In addition, work on the Wiki has been
   	limited, as these tasks have taken a lower priority compared to
   	the other more crucial tasks.
@@ -572,27 +547,27 @@ might invalidate the tokens.
   guardian
   \begin{itemize}
   	\item The purpose of this task is to work together with Group SW612 in order
-  	to find out if the current approach to switching from \textc{citizen} to
-  	\textc{guardian} is correct. 
-  	\item During a meeting in the second sprint, Group SW612 asked the users
+  	to find out if the current approach to switching from citizen to
+  	guardian is correct. 
+  	\item During a meeting in the second sprint, Group SW612 asked the customers
   	what changes they wanted to be made to the system. Based on the feedback, it
-  	appears that they do indeed want the user to log in when switching from
-  	\textc{citizen} to \textc{guardian}. Therefore we have invalidated the task.
+  	appears that they do indeed want the user to log out when switching from
+  	citizen to guardian. Therefore we have invalidated the task.
   \end{itemize}
   \item T708 - Meeting: Define GUI design guidelines
   \begin{itemize}
     \item The purpose of this task is to work together with SW610 to define a
     set of guidelines for designing the graphical user interface, such that the
-    entirety of the GIRAF would make use of a unified design.
+    entirety of the GIRAF applications would make use of a unified design.
     \item The task is declared invalid as a design manual already exists. The
-    design manual was discovered among the git repositories and details the
+    design manual was discovered among the Git repositories and details the
     various colors, buttons and other design decision made by the prior
     semesters.  
   \end{itemize}
-  \item T728 - Pictoreader: Refactor and CheckStyle
+  \item T728 - PictoReader: Refactor and CheckStyle
     \begin{itemize}
   	\item The purpose of this task is to improve the already written code from
-  	last years students. 
+  	last year's students. 
   	\item From the start of the sprint, we have chosen to down prioritize this
   	task, as this application is not part of the defined ``minimum viable
   	product''. Therefore this task has not been worked on, other than CheckStyle
@@ -600,10 +575,10 @@ might invalidate the tokens.
   	\autoref{T727}.
   \end{itemize}
   \item T732 - Launcher: Evaluate what elements should be visible to
-child/guardian
+citizen/guardian
   \begin{itemize}
   	\item The purpose of this task is to evaluate and remove elements that should
-  	be visible to citizens.
+  	not be visible to citizens.
   	\item We have found no elements that needs to be removed, and therefore we
   	have invalidated this task.
   \end{itemize}
