@@ -208,79 +208,67 @@ Application    			&	Information about applications a user is allowed to access.\
 Following the final implementation of the REST model, the database groups SW613
 and SW615 have supplied our group with a new approach to requesting and updating
 information on the database. This approach consists of four different
-elements: \textc{login requests}, \textc{get requests}, \textc{put requests}
-and the \textc{queue}. An example of a login request can be seen throughout the
-code examples in \autoref{CSLoginRequest1}, \autoref{CSLoginRequest2}, and
-\autoref{CSLoginRequest3}, where we have two nested requests, a
-\textc{LoginRequest} and a \textc{GetUserRequest}.\nl
+elements: \textc{LoginRequest}, \textc{GetRequest}, \textc{ResourceRequest},
+the \textc{RequestQueue} and the \ttt{RequestQueueHandler}.
+An example of a \ttt{LoginRequest} can be seen in \autoref{CSLoginRequest1},
+where we have two nested requests, a \textc{LoginRequest} and a
+\textc{GetRequest<User>}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Initial request the respective server response object, label = CSLoginRequest1]
 queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
 
-LoginRequest loginRequest = new LoginRequest(username, password, new Response.Listener<Integer>() 
+LoginRequest loginRequest = new LoginRequest(username, password,new Response.Listener<Integer>() 
 {
 	@Override
     public void onResponse(Integer statusCode) 
     {
-    	//Creates a GetRequest for the user, which is then added to the queue within the loginRequest 
-    	GetRequest<User> userGetRequest = new GetRequest<User>(username, User.class, new Response.Listener<User>() 
-    	{ 
-    		//Passes the userinfo to homeIntent 
-    		@Override public void onResponse(User response) 
-    		{
-	            Intent homeIntent = new Intent(gui, HomeActivity.class);
-	            
-                homeIntent.putExtra(Constants.CURRENT_USER,response);
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                gui.startActivity(homeIntent);
-            }
-        },
-        ...
-\end{lstlisting}
-\end{minipage}
-
-In the code example in \autoref{CSLoginRequest1} we start by creating a new
-\textc{LoginRequest} on \textbf{line 3}, where we pass the users'
-\textc{username}, \textc{password}, and the \textc{ResponseListener}, which is
-an object used for server communication. Everything after \textbf{line 4} is
-a part of the \textc{LoginRequests} nested inner class. On \textbf{line 6} we
-have an \textc{onResponse} method, which is called whenever we recieve a
-response from the server. Given a user from the server, on \textbf{lines 14-18},
-we create a new intent and start a HomeActivity based on the user.\nl
-
-\begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Using an errorListener to detect mishaps in the GetUserRequest, label = CSLoginRequest2]
-        new Response.ErrorListener() 
-        {
+    	GetRequest<User> userGetRequest = new GetRequest<User>(User.class, new Response.Listener<User>() 
+    	{
+        	@Override
+            public void onResponse(User response) {
+            	//Pass user to home Intent Extra and start the activity 
+            	...
+           	}
+        }, new Response.ErrorListener() {
         	@Override
             public void onErrorResponse(VolleyError error) 
             {
-            	if(error!=null && error.networkResponse !=null) 
-            	{
-            		//The user is for some reason unavailable
-            	     gui.showDialogWithMessage(gui.getString(R.string.error_try_agian) + "" + error.networkResponse.statusCode);
-                } else if(error!=null) {
-                	Log.e("error",error.getMessage());
-                }
+            	//Show error message
+            	...
             }
         });
-        
-     queue.add(userGetRequest);
-     }
-},
+        queue.add(userGetRequest);
+    }
+}, new Response.ErrorListener() {
+	@Override
+    public void onErrorResponse(VolleyError error) {
+    	//Show error message
+    	...
+    }
+});
+queue.add(loginRequest);
+}
 \end{lstlisting}
 \end{minipage}
 
-The code example in \autoref{CSLoginRequest2} follows directly after
-\autoref{CSLoginRequest1}, and is used to check for errors in the
-\textc{GetUserRequest}. On \textbf{line 1} we create an \textc{ErrorListener}
-which will listen for error messages retrieved from the server request. The
-following lines are a nested class. On \textbf{line 4} we have the
-\textc{onErrorResponse} method which is called with a \textc{VolleyError}. On
-lines {7-13} we choose an action based on the error-code contained in the error
-object. On \textbf{line 16} we add the GetUserRequest (which we defined in
-\autoref{CSLoginRequest1}) to the request queue.\nl
+In the code example in \autoref{CSLoginRequest1}, which comes from the
+\ttt{LoginController} class, we start by creating a new \textc{LoginRequest} on
+\textbf{line 3}, where we pass the users' \textc{username}, \textc{password},
+the \textc{Response.Listener}, and the \ttt{Reponse.ErrorListener}. Here, the
+latter two objects are used for handling the response we get from
+the server.
+If we succesfully get a response with a user on \textbf{line 8}, we then create
+a \ttt{GetRequest<User>} which is a request that takes no parameters and returns
+the user for the token/cookie we recived from the \ttt{LoginRequest}. Then on
+\textbf{line 12} if we received a user, we can use this user to pass it to
+the \ttt{Intent}'s \ttt{Extra}, and use it to start the \ttt{HomeActivity}. On
+\textbf{line 23} we add the \ttt{userGetRequest} to the \ttt{queue}, such that
+the request will only be executed if the login is succesful, and we have a
+token/cookie. On the \textbf{lines 19 \& 28} we show an error message to the
+user dependent on the error we recive from the \ttt{VolleyError}. This can be
+seen in detail in \autoref{CSLoginRequest3}.\nl
+
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Using an errorListener to detect mishaps in the LoginRequest, label = CSLoginRequest3] 
@@ -305,51 +293,14 @@ queue.add(loginRequest);
 \end{lstlisting}
 \end{minipage}
 
-The code example in \autoref{CSLoginRequest3} follows directly after
-\autoref{CSLoginRequest2} and uses the same approach. and is used to detect
-errors in the \textc{LoginRequest}. On \textbf{lines 6-13} we choose which error
-message to display in the console, based on what error code we retrieved from
-the server.
+The code example in \autoref{CSLoginRequest3} is the code which is represented
+by the comment on \textbf{line 28} in \autoref{CSLoginRequest1}.
+This method uses the network response returned on \textbf{lines 5 \& 6} to see
+if we get a 401 status code. If we get such a code, on \textbf{line 9} we
+display to the user that either the username or password was wrong. The same is
+done on \textbf{line 12} but this time we only display a general ``Please try
+again later'' message.
 
-\begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Using a RequestQueue to commicate with the server,
-label = RequestQueue]
-public void login(final String username, String password) {
-    RequestQueue queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
-
-    //Creates a login request which is then added to the queue later
-    LoginRequest loginRequest = new LoginRequest(username, password,
-        new Response.Listener<Integer>() {
-            @Override
-            public void onResponse(Integer statusCode) {
-                //Creates a GetRequest for the user, which is then added to the queue within the loginRequest
-                GetRequest<User> userGetRequest =
-                    new GetRequest<User>(username, User.class, new Response.Listener<User>() {
-                       	...
-                    }
-                    ...
-                );
-                queue.add(userGetRequest);
-            }
-        },
-		...
-    );
-    //The login request is added to the queue
-    queue.add(loginRequest);
-}
-\end{lstlisting}
-\end{minipage}
-
-The code example of \autoref{RequestQueue} is used to demonstrate how the
-applications communicate with the server. The communication is done through a
-\textc{RequestQueue} which we instantiate on \textbf{line 2}. The
-\textc{RequestQueue} communicates asynchronously with the server, which means
-that in order for our requests to be handled in the correct order we need to
-nest our requests inside each as other, as seen on \textbf{line 16} and
-\textbf{22}, where the \textc{userGetRequest} is nested inside the
-\textc{loginRequest}'s \textc{onResponse}. This is because to get a user we need
-a token/cookie and the way we get this, is using a \textc{LoginRequest} then
-we can use the \textc{GetRquest} to get the user for that username.
 
 \subsection{REST Framework Discussion}
 During development of the client-to-server communications framework, the server
