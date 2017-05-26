@@ -139,16 +139,16 @@ be used to set which apps a user can access\\\hline
 Following the initial requirement analysis and the respective meetings, the
 database groups (SW613 and SW615) began designing the client/database interface.
 Towards the end of the first sprint, group SW612 held a meeting with the
-system's users, who defined a number of new requirements for the GIRAF
-applications. Based on the user's feedback, the database requirements that are
-relevant for our groups were further defined.
+system's customers, who defined a number of new requirements for the GIRAF
+applications. Based on the customer's feedback, the database requirements that
+are relevant for our groups were further defined.
 
 \begin{itemize}
   \item We want to be able to change users' pictures by uploading new ones.
-  \item Pictograms should be retrieved in batches to decrease wait time.
-  \item Pictograms should be searchable by category.
-  \item In the Launcher, we only need direct access to guardians, as citizens
-  are aggregated from them.
+  \item \ttt{Pictograms} should be retrieved in batches to decrease wait time.
+  \item \ttt{Pictograms} should be searchable by category.
+  \item In the \ttt{Launcher}, we only need direct access to guardians, as
+  citizens are aggregated from them.
   \item We need a server timestamp in order to limit login sessions.
   \item When accessing users, we need a sub-method to only retrieve ID, name, and
   citizens, as we don't need all information.
@@ -159,33 +159,28 @@ the design of the client/database interface.\nl
 
 Based on the meetings and discussion between our groups, the database groups
 (SW613 and SW615) formulated the following design for the interface, which
-should be used by the \textc{rest-models} library in order to retrieve and
+should be used by \rlib\ in order to retrieve and
 manipulate data from the database. This design can be seen in
 \autoref{interface-uml}.
 
 \figx{interface-uml}{UML diagram detailing the client/database interface.}
 
-In order to describe the UML diagram, group SW613 supplied us with the following
-listing, which contains explanations for each of the diagram's elements. It
-should be noted that the following is presented verbatum as given to us by group
-group SW613.\nl
-
-Until the REST framework is finished, the overall design of this interface
-will be used to identify what opportunities we have in the applications, when it
-comes to manipulating data on the database.
+Until the REST framework is finished, the design of this interface will
+be used as a reference as to what operations we can apply on the database.
 
 \section{Using the Rest Libraries}\label{UsingRest}
-Following the final implementation of the REST model, the database groups SW613
-and SW615 have supplied our group with a new approach to requesting and updating
-information on the database. This approach consists of four different
-elements: \textc{LoginRequest}, \textc{GetRequest}, \textc{ResourceRequest},
-the \textc{RequestQueue} and the \ttt{RequestQueueHandler}.
-An example of a \ttt{LoginRequest} can be seen in \autoref{CSLoginRequest1},
-where we have two nested requests, a \textc{LoginRequest} and a
-\textc{GetRequest<User>}.\nl
+Following the final implementation of \rlib, the database groups SW613 and SW615
+have supplied our group with a new approach to requesting and updating
+information in the database. This approach consists of five different elements:
+\textc{LoginRequest}, \textc{GetRequest}, \textc{ResourceRequest}, the
+\textc{RequestQueue} and the \ttt{RequestQueueHandler}.
+An example of how we use \textc{LoginRequests} in the \ttt{Launcher} can be seen
+in \autoref{CSLoginRequest1}. In the example we have two nested requests, a
+\textc{LoginRequest} and a \textc{GetRequest<User>}.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Initial request the respective server response object, label = CSLoginRequest1]
+\begin{lstlisting}[caption = An example of a \ttt{LoginRequest}, label =
+CSLoginRequest1] 
 queue = RequestQueueHandler.getInstance(gui.getApplicationContext()).getRequestQueue();
 
 LoginRequest loginRequest = new LoginRequest(username, password,new Response.Listener<Integer>() 
@@ -224,24 +219,23 @@ queue.add(loginRequest);
 
 In the code example in \autoref{CSLoginRequest1}, which comes from the
 \ttt{LoginController} class, we start by creating a new \textc{LoginRequest} on
-\textbf{line 3}, where we pass the users' \textc{username}, \textc{password},
-the \textc{Response.Listener}, and the \ttt{Reponse.ErrorListener}. Here, the
+\textbf{line 3-31}, where we pass the users' \textc{username},
+\textc{password}, the \textc{Response.Listener}, and the \ttt{Reponse.ErrorListener}. Here, the
 latter two objects are used for handling the response we get from
 the server.
-If we succesfully get a response with a user on \textbf{line 8}, we then create
-a \ttt{GetRequest<User>} which is a request that takes no parameters and returns
-the user for the token/cookie we recived from the \ttt{LoginRequest}. Then on
+If we succesfully get a response on \textbf{line 6}, we then create
+a \ttt{GetRequest<User>} which  returns
+the user for the token/cookie we received from the \ttt{LoginRequest}. Then on
 \textbf{line 12} if we received a user, we can use this user to pass it to
 the \ttt{Intent}'s \ttt{Extra}, and use it to start the \ttt{HomeActivity}. On
 \textbf{line 23} we add the \ttt{userGetRequest} to the \ttt{queue}, such that
-the request will only be executed if the login is succesful, and we have a
-token/cookie. On the \textbf{lines 19 \& 28} we show an error message to the
-user dependent on the error we recive from the \ttt{VolleyError}. This can be
-seen in detail in \autoref{CSLoginRequest3}.\nl
+the request will only be executed if the \ttt{LoginRequest} is succesful. On the
+\textbf{lines 19 \& 28} we show an error dialog to the user dependent on the
+error we recive from the \ttt{VolleyError}. This can be seen in detail in \autoref{CSLoginRequest3}.\nl
 
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Using an errorListener to detect mishaps in the LoginRequest, label = CSLoginRequest3] 
+\begin{lstlisting}[caption = Using an \ttt{ErrorListener} to detect mishaps in the \ttt{LoginRequest}, label = CSLoginRequest3] 
 new Response.ErrorListener() 
 {
 	@Override
@@ -265,7 +259,7 @@ queue.add(loginRequest);
 
 The code example in \autoref{CSLoginRequest3} is the code which is represented
 by the comment on \textbf{line 28} in \autoref{CSLoginRequest1}.
-This method uses the network response returned on \textbf{lines 5 \& 6} to see
+This method uses the network response returned on \textbf{line 5} to see
 if we get a 401 status code. If we get such a code, on \textbf{line 9} we
 display to the user that either the username or password was wrong. The same is
 done on \textbf{line 12} but this time we only display a general ``Please try
@@ -277,22 +271,22 @@ During development of the client-to-server communications framework, the server
 groups SW613 and SW615 thought that it would be possible to wrap the server
 communication requests inside a helper class, which would allow us to simply
 call a number of methods whenever we wanted to manipulate/request data. This
-however, has appeared to be impossible to do because SW613 did not succeed to
-implement the REST client library in such a way that us application developers
+however, has appeared to be impossible to do, because SW613 did not succeed to
+implement the \rlib\ in such a way that us application developers
 should not work with the request and their response and error listener as we do
-now. This has led to we needed to implement request chaining as shown in \autoref{CSLoginRequest1},
-\autoref{CSLoginRequest2}, and \autoref{CSLoginRequest3} where we can use 50 or
-more lines of code to retrieve a single user.\nl
+now. This has resulted in the request chaining shown in
+\autoref{CSLoginRequest1} where we can use 50 or more lines of code to retrieve
+a single user.\nl
 
-Although the have made a handler which eliminates the need to instantiate the
-request and add it to the queue. But we do still need to implement both
-the onResponse and onError listener. So it removes 2 lines of code on average from
-the request.\nl
+Although they have made a handler which eliminates the need to instantiate the
+request and add it to the queue, we still need to implement both the
+\ttt{onResponse} and \ttt{onError} listener. As such, on average it only removes
+2 lines of code from each request.\nl
 
-If it was implemented as we discussed at the start of the development using
-handlers and lambda-expressions we would be able to pass the methods that should
-be called onReponse and onError to the handler and ideally if no method was
-passed to onError it would handle the error.
+If it was implemented using handlers and lambda-expressions, as we discussed at
+the start of the development, we would be able to pass the methods which are
+called by \ttt{onReponse} and \ttt{onError} to the handler. Ideally if no
+method was passed to \ttt{onError}, it would handle the error itself.
 
 
 

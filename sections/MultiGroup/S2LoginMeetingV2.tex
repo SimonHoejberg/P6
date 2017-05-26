@@ -1,40 +1,39 @@
 \chapter{GUI Requirements Analysis}\label{sec:Colab2}
 During the initial assignment of project roles, group SW612 was chosen as the
 ``Product Owner'', which is the group responsible for managing system
-requirements, and evaluating user feedback and requests.\nl
+requirements, and evaluating customer feedback and requests.\nl
 
 Based on SW612's responsibility of requirement management, this chapter will be
 used to document our collaboration with the groups SW610 and SW612 to analyze
 and manage system requirements, of which the purpose is to support us as we
-continually work on developing the looks and features of the GIRAF applications,
-in order to best satisfy the requirements of the GIRAF user base.\nl
+continually work on developing the appearance and features of the GIRAF
+applications, in order to best satisfy the customers requirements.\nl
 
 \section{Questions for Customers}\label{QfC}
-At the sprint meeting before sprint 2, SW612 announced that they had scheduled
-the first of many meetings with GIRAF users. Therefore, we, together with SW610,
-were tasked with defining a number of questions, which would aim to determine
-what elements of the current GIRAF implementation the users liked, and what
-elements should subject for change. Describing these initial questions were 
-defined as the task T709:\nl
+At the sprint meeting for sprint 2, SW612 announced that they had scheduled the
+first of many meetings with GIRAF's customers. As such, we and SW610, were
+assigned the task of defining a number of questions, which would aim to
+determine what elements of the current GIRAF implementation the customers liked,
+and what elements should be subject for change. Describing these initial
+questions were defined as the task:\nl
 
 \textit{\textbf{T709:} Define UI questions before the customer meeting on the
 22'nd of March}.\nl 
 
 The goal of this task is to collaborate with group SW612 and determine what
-elements of the launcher and weekplanner applications they should discuss with
-the users. Together, we determined that the purpose of this initial meeting
-would be to determine if the users are satisfied with the overall design of the
-login screen and the weekplanner, as we (the project groups) personally believe
-that the weekplanner is unnecessarily difficult to use, and the login screen
-makes use of QR-codes, which at first glance seems woefully impractical. The
-QR-code system is illustrated in \autoref{LauncherReview}. The questions which
-related to our work are presented below.
+elements of the \lapp\ and \wapp\ applications SW612 should discuss with
+the customers. Based on the meeting, we wanted to know if customers were
+satisfied with the overall design of the login screen and the \wapp, as we
+believe that the \wapp\ is unnecessarily difficult to use, and the
+login screen makes use of QR-codes, which at first glance seems impractical. The
+QR-code system is illustrated in \autoref{LauncherReview}.
+The questions which related to our work are presented below:
 
 \subsection{Launcher}
 \begin{itemize}
-  \item Should the launcher allow for switching between Guardians and Citizens
+  \item Should the \lapp\ allow for switching between guardians and citizens
   without ever needing to login? How do you want the switch to be handled?
-  \item Can there be multiple Guardians for a single child?
+  \item Can there be multiple guardians for a single citizen?
   \item When changing what apps are shown and the color scheme used:
       \begin{enumerate}
       \item Should this be changed on an individual basis, or for groups of
@@ -47,8 +46,8 @@ related to our work are presented below.
 \begin{itemize}
   \item Who are supposed to use the login system?
       \begin{enumerate}
-      \item Guardians or Citizens?
-      \item Should passwords be for unique for individual users, or for the whole
+      \item Guardians or citizens?
+      \item Should passwords be unique for individual users, or for the whole
       department?
       \item How long should a login session last for?
       \item Are you even interested in using passwords? Are any important
@@ -56,14 +55,15 @@ related to our work are presented below.
     \end{enumerate}
 \end{itemize}
 
-\section{User Feedback}\label{c2req}
+\section{Customer Feedback}\label{c2req}
 Following our meeting, SW612 met with the customers to present GIRAF in its
-current iteration, and allow the users to interact with the launcher and
-weekplanner.
-The goal was to see how the users interacted with GIRAF, hear their feedback and
-finally observe what frustrations they encountered. This resulted in SW612
+current iteration, and allow the customers to interact with the \lapp\ and
+\wapp.
+The goal was to see how the customers interacted with GIRAF, hear their feedback
+and finally observe what frustrations they encountered. This resulted in SW612
 evaluating their responses, and defining a series of user stories which have
-been divided into 4 categories, General, Launcher, Login System and Weekplanner.
+been divided into 4 categories, General, Launcher, Login System and
+Weekplanner.\nl
 % The entirety of the user stories can be seen in
 % \autoref{EgebakkenUserStories2203} in the appendix.\nl
 
@@ -71,10 +71,11 @@ The stories which we consider most relevant for us can be seen in
 \autoref{UserStoriesGeneral}, \autoref{UserStoriesLauncher}, and
 \autoref{UserStoriesLogin} in the following subsections. In addition, following
 each set of user stories, we discussed with SW612 in order to determine what
-requirements could be defined from the users' feedback.
+requirements could be defined from the customers' feedback.
 
-\subsection{User Feedback: Overall System}
-For the GIRAF system as a whole we received the following user stories:
+\subsection{Customer Feedback: Overall System}
+For the GIRAF system in general, we received the following user
+stories:
 \begin{table}[H]
 \begin{tabular}{|c|p{12.5cm}|}
 \hline 
@@ -85,30 +86,30 @@ nearest stable state when the app crashes.\\\hline
 colored in the system for a citizen. \\ \hline
 3. & As a user of the system I would like the option to toggle between grayscale
 and fully colored in the system. \\\hline
-4. & As a guardian I would like a video I can use for more advanced tasks such
-as creating schedules etc.\\\hline
+4. & As a guardian I would like video resources which I can use as reference for
+more advanced tasks such as creating schedules etc.\\\hline
 \end{tabular}
 \caption{Stories from the General category}
 \label{UserStoriesGeneral}
 \end{table}
 
 Based on the stories from the general category, we are able to determine that
-the users would like to have a stable application environment, such that a
-citizen does not get confused if the application crashes. In addition, the users
-also want an option to change the GIRAF applications to use a grayscale color
-scheme, in order to reduce the visual stimulus that is associated with colors.
+the customers would like to have a stable application environment, such that a
+citizen does not get confused if the application crashes. In addition, the
+customers also want an option to change the GIRAF applications to use a
+grayscale color scheme, in order to reduce the visual stimulus that is associated with colors.
 The 4'th story is not considered a requirement yet, as it is hoped that this may
 solve by simplifying some of the advanced aspects. As such we determine that
 GIRAF has the following additional requirements:
 \begin{enumerate}
   \item If the system crashes it needs to return to a stable state or return the
-  user to the Launcher.
+  user to the \ttt{Launcher}.
   \item There needs to be an option for grayscale, both for the entire system
   and on a per user basis.
 \end{enumerate}
 
-\subsection{User Feedback: Launcher}
-For the Launcher we received the following user stories:
+\subsection{Customer Feedback: Launcher}
+For the \lapp\ we received the following user stories:
 
 \begin{table}[H]
 \begin{tabular}{|c|p{12.5cm}|}
@@ -118,31 +119,32 @@ For the Launcher we received the following user stories:
 as a citizen, and hold to login as a guardian, only providing login information
 at that point.\\\hline
 2. & As a guardian I would like to be able to push a template setup onto a group
-of citizens for the launcher.\\\hline
+of citizens for the \lapp.\\\hline
 3. & As a guardian I would like the option of adding an app to citizens both as
 groups, individually or marking a list of citizens.\\\hline
 \end{tabular}
-\caption{User stories for the Launcher}
+\caption{User stories for the \lapp}
 \label{UserStoriesLauncher}
 \end{table}
 
 Based on these stories we can see that one of the main concerns for the
 guardians is to make it easier for them to manage multiple citizens, whether it
 is changing graphical options or changing which applications are visible. From
-this we determine that the Launcher has the following additional requirements:
+this we determine that the \lapp\ has the following additional
+requirements:
 
 \begin{enumerate}
   \item A guardian should be able to change the settings for multiple
   citizens at the same time.
-  \item A guardian should be able have a template of settings which can be used
-  on citizens.
+  \item A guardian should be able to have a template of settings which can be
+  used on citizens.
 \end{enumerate}
-The 1'st story is not considered a requirement for the Launcher as the purpose
-of this story is to allow for citizens and guardians to login easily and is
+The 1'st story is not considered a requirement for the \lapp\ as the
+purpose of this story is to allow for citizens and guardians to login easily and is
 going to depend on how the log in system is set up.\nl
 
-\subsection{User Feedback : Login System}
-For the Login System, which can be counted as a part of the Launcher, we
+\subsection{Customer Feedback : Login System}
+For the Login System, which can be counted as a part of the \lapp\, we
 received the following stories:
 
 \begin{table}[H]
@@ -165,7 +167,7 @@ whole.\\\hline
 \label{UserStoriesLogin}
 \end{table}
  
-Based on these stories we are able to determine that the users dislike the
+Based on these stories we are able to determine that the customers dislike the
 current QR system, and have made several considerations as to how they would
 like the login system to work. As such we can determine that the login system
 has the following requirements:
@@ -174,14 +176,14 @@ has the following requirements:
    \item The QR-system needs to be replaced by a password based system.
    \item There needs to be limits on how long a guardian can remain inactive in
    the system before being logged out.
-   \item Citizen should not be logged out automatically. 
-   \item A guardian should be able to change its password.
+   \item Citizens should not be logged out automatically. 
+   \item A guardian should be able to change their password.
    \item There should be an institute-type user.
 \end{enumerate}
 
-Following the initial meeting with the users, group SW612 has held an additional
-2 meetings, in which they have continued to receive user feedback, and attempted
-to translate in into system requirements. 
+Following the initial meeting with the customers, group SW612 held two
+additional meetings, in which they have continued to receive customer feedback,
+and attempted to translate in into system requirements. 
 % All user stories can be seen in the
 % appendix in \autoref{ImportantUS}, where they are ordered by importance to the
 % work conducted this semester.

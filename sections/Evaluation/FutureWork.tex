@@ -1,123 +1,120 @@
 \chapter{Future Work}\label{fwork}
-In this chapter, the future work for the part of GIRAF we have worked will be
-summarized and explained. These range from bugs to redesigns of the Launcher
-application, and the component-lib and pictosearch-lib libraries.
-All the features and bugs we mention in this chapter have been presented to
-SW611 for the creation of tasks for next years students on the GIRAF project.
+In this chapter, we will present our ideas for future delopment of the
+\lapp\ and \clib. All the features and bugs we mention in this chapter have been
+presented to SW611 aswell, for the creation of tasks for next year's students on
+the GIRAF project.
 
 \section{Redesigns}
-During the implementation of REST in \textc{component-lib}, see
+During the implementation of \rlib\ in \clib, see
 \autoref{T836_T868_T870}, we discovered that many classes in the library were
-either deprecated, unusable or implemented in a bad way. The number of classes
-was too large to effectively tackle in the last sprint, and as such the
-\textc{component-lib} should be redesigned with regards to the GUI classes, as
-they should be more like the new \textc{GirafPopupDialog} which uses listeners
-instead of the current implementation which uses interfaces and methods calls.
-The classes should also be looked at to figure out how many classes are really
-needed, as we have worked with the library the whole semester and we do not
-know which of the classes are actually used.
+either deprecated, unusable, or implemented in a bad way. The number of classes
+was too large to effectively tackle in sprint 4, and as such \clib\ should be
+redesigned with regards to the GUI classes. That is, their design should be
+changed to be in line with \ttt{GirafPopupDialog} which uses listeners instead
+of the current implementation which uses interfaces and methods calls.
+The classes should also be analyzed to figure out which ones are actually
+needed, as we have worked with the library the entire semester and we do not
+know which of the classes are actually used, and for what.
 
 \section{Addtional Features}
-During sprint 4, it was also determined that there should be another
-approach to logging in, where the user could input a departments login information, which
-should give access to all Guardians in that institution. As seen in T889 in
-\autoref{S4Invalid}, this task was unfinished, and this feature should be
-finalized when departments are implemented on the server and REST level. The
-idea is that the departments should be able to log in, and then a profile
-selector should appear where every guardian from that department should be able
-to be chosen. When a guardian is chosen, the launcher should log in as that
-guardian.\nl
+During sprint 4 it was determined that there should be another approach to
+logging in, where the user could input a department's login information, which
+should give access to all guardians in that institution. As seen in
+\textbf{T889} in \autoref{S4Invalid}, this task was unfinished, and this feature
+should be finalized when departments are implemented on REST framework level.
+The idea is that the departments should be able to log in, and then a
+\ttt{GirafProfileSelector} should appear, where the user can choose between
+every guardian from that department. When a guardian is chosen, the \lapp\
+should log in as that guardian.\nl
 
 It could also be a good idea to reimplement the previous setting, which made it
 such that the spinning giraffe head on the login screen should only spin if the
 user has it enabled. Like greyscale, this should be implemented as a switch as
-seen in \autoref{newSettingsPage}. The server should already support this
+seen in \autoref{greyScale}. The server should already support this
 because of our specification of the settings page, which we made before
-implementing REST in the \textc{Launcher}. As we first retrieve a user's settings
-after the login, we can use sharedPreferences in order to store the value
-settings of the last user.
+implementing the REST framework in the \textc{Launcher}. As we first retrieve a
+\ttt{User}'s \ttt{Settings} object after the login, we can use
+\ttt{SharedPreferences} in order to store the settings of the last \ttt{User}.
 
 \section{Bugs and Missing Features}
 During sprint 4 we discovered a few bugs and missing features, which are not
 critical in size or effect, but smaller things which can improve the
-\textc{Launcher} and \textc{Component-lib}.
+\textc{Launcher} and \clib.
 
 \subsection{Launcher}
-The bugs and missing features we found in the launcher are.
+The bugs and missing features we found in the \lapp\ are presented below:
 
 \subsubsection{Dialogs should be in grayscale}
 When testing grayscale in the settings page of the \textc{Launcher}, is was
 found that it did not effect dialog boxes. This should be fixed such that the
-dialogs respect the grayscale setting. For the \textc{Launcher} it mostly means
+dialogs respect the grayscale setting. For the \textc{Launcher} this means
 that the boxes should have a way of knowing the setting.
 
 \subsubsection{Implement grayscale in login screen}
-Like the rest of the \textc{Launcher} the login screen should also be in
-grayscale, but the problem here is that the user does not exist before they are
-logged in, and when they are logged in, the app changes to the home screen. So
-to implement this feature an idea could be to use a sharedPreference to store
-the boolean for grayscale for the last logged in user. Doing this should allow
-the login screen to be in grayscale as long as it is the same user that logs
+As with the \textc{Launcher} the login screen should also be in
+grayscale, but the problem here is that the user object does not exist before
+they are logged in, and when they are logged in, the app changes to the home screen. So
+to implement this feature an idea could be to use a \ttt{SharedPreferences} to
+store the boolean for grayscale for the last logged in \ttt{User}. Doing this
+should allow the login screen to be in grayscale as long as it is the same user that logs
 in and does not change settings.
 
-\subsubsection{Fix the changing of users through the settings page}
-Currently, on the settings page, it is possible to change which user you set
-settings for, but this have an impact on the rest of the \textc{Launcher} and
-this bug should be fixed. The cause of this bug is that when we change the user in
-the settings panel, a new \textc{LoginRequest} is made with the new user and as
-such get a token/cookie for this new user. Then back on the home page of the
-\textc{Launcher} we use an empty user \textc{GetRequest} which retrieves the user
-for the cookie we have. To fix this issue, the user changed to should log out
-and the old user should log in again.
+\subsubsection{Stop the changing of users through the settings page}
+Currently, on the settings page it is possible to change which \ttt{User} you
+set \ttt{Settings} for, but this has the side effect of changing which user is
+logged in. This happens because when we change the user from the settings
+page, a new \textc{LoginRequest} is made with the new user, and as such we get
+a token/cookie for this new user. Then on the home page of the
+\textc{Launcher}, we use an empty user \textc{GetRequest} which retrieves the
+user for the cookie we have. To fix this issue, the changed to user should be
+logged out and the old user logged in again.
 
 \subsubsection{Make it possible to switch back to the guardian used in the
-settings page without logging out}
-Currently, in the settings panel, it is possible to change to a user for which
-the logged in guardian are a guardian of. But it is not possible to return to the
-settings panel to the guardian after a change to a citizen. This should be
-fixed, by possibly implementing a button that logs the citizen out and the
-guardian in again.
+settings page without logging out} Currently, in the settings panel, it is
+possible to change to a user for which the logged in guardian is a guardian of.
+However, it is not possible to return to the settings page of the guardian after
+a change to a citizen. This should be fixed, by possibly implementing a button
+that logs the citizen out, and the guardian in again.
   
 \subsubsection{Fix such that settings are saved onto the server and are able to
-be downloaded again}
-This bug exist because REST client or server does not save the settings from the
-\textc{ResourceRequest} and therefore the settings downloaded at start of an
-activity does not have the right settings and no matter how many times the are
-sent, the still do no persist. The bug can be fixed and tested when the settings
-part of REST works.
+be downloaded again} Currently, it is not possible to save settings on the
+server. This bug exist because \rlib\ does not save the settings from the
+\textc{ResourceRequest}, and therefore the settings downloaded at the start of
+an \ttt{Activity} does not have the right settings and no matter how many times
+the are sent, they still do not persist. The bug can be fixed when
+the settings part of the REST framework works.
 
 \subsubsection{Fix such that the apps a user can access are sent to the server}
 This bug is a lot like the other settings bug, but this time it is not because
-REST does not save them. The bug is that when the \textc{ResourceRequest} is
-given a settings object which contains a list of apps a user can access, it
-returns a stack overflow exception. The code which should create this request is
-disabled and needs to be enabled when the REST client library is fixed.
+\\\rlib\ does not save them. The bug occurs when the \textc{ResourceRequest} is
+given a \ttt{Settings} object which contains a list of apps a \ttt{User} can
+access, it causes a \ttt{StackOverflowException}. The code which should create
+this request is disabled and needs to be enabled when the \rlib\ is fixed.
 
 \subsubsection{Create a better icon for missing apps}
-The icon for missing apps on the device is right now more like a synchronize icon
-and not very GIRAF like, this icon should be changed to an icon that signals
-more that the app should be downloaded from the play store.
+Currently, the icon for missing apps looks like a ``synchronize'' icon which
+does not fit the GIRAF design guidelines. This icon should be changed to an
+icon that signals that the app will be downloaded from the Google Play Store.
 
 \subsubsection{Find a better way to collect icons for apps}
-The way the \textc{Launcher} right now loads the icons of the apps, is that for
-every app which needs an icon the whole list of installed apps is iterated to
-compare the name of the app with that of the app from the list. This means that
-the loading of icons could take a long time, there must exist a better way to
-get the icon of the apps. This could improve both the load times of the home
-screen and the settings panel.
+Currently, the \textc{Launcher} loads the icons for the applications, by
+iterating over the entire list of installed apps, and comparing their names with
+the respective application. This means that loading icons could take a long
+time. There should exist a better way to get the icon of the apps. This could
+improve both the load times of the home screen and the settings page.
 
 \subsubsection{Use XML onClick in more activities}
-The login screen used the onClick on the XML file to many of its buttons, such
-that they do not need to be defined as a listener in code, this should also be
-done for the other activities, this will make the code easier to read, because
-the listener is then replaced with only one method. This can only be done for
-activities which have the buttons in XML, not when the button is added though
-code.
+Currently, method calls originating from the login screen's buttons are defined
+from the login screen's \ttt{XML} file. As such, they do not need to be defined
+listeners in the code. This approach should also be used in the other
+\ttt{Activities}, as we believe this makes the code easier to read, as the
+listener is replaced with a single method. This can only be done for
+\ttt{Activities} which have the buttons in XML, not when the button is added
+though code.
 
-\subsection{Component Library}
-The only real bug we found that should be fixed in the \textc{Componet-lib} is
-that the dialogs which are not grayscale in the \textc{Launcher} should support
-grayscale, given that the only information it gets from the apps which use the
-dialogs is the user's boolean for grayscale, this feature should exist in all
-new dialogs and be made in the old dialogs which survive the redesign.
+\subsection{Giraf Component Library}
+The only real bug we found in the \clib\ is that the remaining dialogs in
+the \textc{Launcher} should support grayscale. Given that the only
+necessary information is the user's boolean for grayscale, this feature should
+exist in all new and old dialogs.
 
