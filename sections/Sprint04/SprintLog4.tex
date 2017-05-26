@@ -33,12 +33,12 @@ T830    & Never show the bug screen & 2 \\\hline
 T836	& Remove old libraries from artifactory, and begin implementing REST
 snapshot & 3\\\hline
 T837	& Rework buttons to use methods called from XML & 2\\\hline
-T859   	& Crosschecking wikis & 1\\\hline
+T859   	& Crosschecking Wikis & 1\\\hline
 T862  	& Guide: General development & ?? \\ \hline
 T863	& Guide: Sources for starting out & ??\\ \hline
 T864	& Guide: Android compatibility java8, sync and build & ??\\
 \hline 
-T865	& Update the Google store guide & 2\\\hline
+T865	& Update the Google Play store guide & 2\\\hline
 T868    & REST: Fix Launcher app & 70 \\\hline
 T870    & REST: Fix component-lib & 60\\\hline
 T872 	& Documentation: Launcher & 2\\ \hline
@@ -56,61 +56,59 @@ solutions.
 
 \subsection{T836, T868, T870: Implement REST in Launcher and
 Component-lib}\label{T836_T868_T870} 
-With the finalization of the beta snapshot of the
-REST library, we have been tasked with implementing REST into the launcher and
-the \textc{component-lib} library. This process consists of removing the old \textc{db-lib} and replacing
-all of its functionality with the equivalent in REST. While REST does not yet
-contain all the functionality needed in order to totally replace \textc{db-lib},
-we are still going to actively remove all parts of \textc{db-lib}, as the
-database it is built upon is now deprecated.\nl
+With the finalization of the beta snapshot of the \rlib, we have been assigned
+the task of implementing it into the \lapp\ and the \clib\ library. This process
+consists of removing the old \textc{DB-Lib} and replacing all of its
+functionality with the equivalent in \rlib.\nl
 
-So far, we have chosen not to remove the old libraries from artifactory, as some
-of the older applications, which we have not touched in this semester, are still
-dependent on them, and we don't want to prevent them from building at all. The
-exact implementation of REST is discussed in \autoref{UsingRest}.\nl
+While the database \ttt{DB-Lib} is using has been deprecated, we have
+chosen not to remove the old libraries from Artifactory, as some of the older
+applications, are still dependent on them, and we want next year's student to
+be able to look at the library to determine what functionality they need to
+replace in favor of \rlib. The exact implementation of \rlib\ is discussed in
+\autoref{UsingRest}.\nl
 
-Implementing the new REST framework consists of two phases, which is presented
-in the following examples. The first phase is to replace database requests with
-the REST equivalent, and the second phase is to replace the helper and
-controller classes which have been implemented by \textc{db-lib}. Additionally,
-we discuss the changes made to the \textc{GirafPictogramItemView} class of the
-\textc{component-lib} library, as switching to REST has required us to split the
+Implementing \rlib\ consists of two phases. The first phase is to replace
+database requests with the REST equivalent. The second phase is to replace
+the helper and controller classes which have been implemented by \textc{DB-Lib}.
+Additionally, we discuss the changes made to the \textc{GirafPictogramItemView}
+class of the \rlib\ library, as switching to REST has required us to split the
 class into two individual ones.
 
 \subsubsection{Replacing Database Requests}
-In \textc{db-lib}, there was only a single request to the database, which was
-made when the launcher started up. This request contained all the information
-for the current user, which was not stored locally in shared preferences. In
-REST, we no longer use shared preferences but store all data on the database.
-In addition, we make a request to the database whenever we need to use data on a
-user. This is done in order to make sure we always have to most up-to-date data.
-Something which can be considered a problem with the current implementation of
-REST, is that requests are always made asynchronously.
-This requires the request to encapsulate all of the code which makes use of the
+Originally the \lapp\ only requested data from the server whenever a user
+logged in. When using the REST framework, we no longer use
+\ttt{SharedPreferences} but store all data in the database. In addition, we make
+a request to the database whenever we need user information. This is done to
+make sure we always have the most up-to-date data. A problem with the current
+implementation of \rlib, is that requests are always made asynchronously. This
+requires the request to encapsulate all of the code which makes use of the
 requested data, as the rest of the program will continue to execute while the
 request is being made. If the code was not encapsulated in the request, it would
-cause nullPointerExceptions, as the code attempts to access an object which is
-not retrieved yet. The design decisions behind the implementation of REST are
-discussed in \autoref{UsingRest} in \autoref{S1CS}, where we also present a
-database request.
+cause \ttt{nullPointerExceptions}, as the code attempts to access an object
+which is not retrieved yet. The design decisions behind the implementation of
+\rlib\ are discussed in \autoref{UsingRest}, where we also present a database
+request.
 
 \subsubsection{Replacing Helpers and Controllers}
-As we want to replace all functionality which originates in \textc{db-lib}, we
-start by removing all imports from this library. Then, since most of
-\textc{db-lib's} functionality is contained in a number of helper classes, we
-remove these, and look at what they were used for. An example of a helper class
-could be the \textc{profileApplicationController} in the \textc{GirafFragment}
-class. This is shown in \autoref{pac}.\nl
+As we want to replace all functionality which originates in \textc{DB-Lib}, we
+start by removing all imports from this library. Since most of \textc{DB-Lib}'s
+functionality is contained in a number of helper classes, we remove these and
+fix the errors caused by their abscence. An example of a helper class could be
+the \textc{ProfileApplicationController} in the \textc{GirafFragment} class of
+the \lapp\ application.
+This is shown in \autoref{pac}.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Declaration of the ProfileApplicationController which is used to retrieve information about ProfileApplications, label = pac]
+\begin{lstlisting}[caption = Declaration of the
+\ttt{ProfileApplicationController} which is used to retrieve information about \ttt{ProfileApplications}, label = pac] 
 @Override 
 void setListeners() { super.listener = new View.OnClickListener() {
-	@Override
-    	public void onClick(View v) {
+ 		@Override 
+ 		public void onClick(View v) {
 			...
-            final ProfileApplicationController pac = new ProfileApplicationController(getActivity());
-			...
+    		final ProfileApplicationController pac = new ProfileApplicationController(getActivity()); 
+    		...
     	}
 	};
 }
@@ -123,9 +121,9 @@ helper is used in the \textc{userHasApplicationInView} method. In this case,
 \textc{pac} is used to retrieve a \textc{ProfileApplication}, which is a class
 which maps users to applications, such that it can identify if a user is allowed
 to access that application. If the user can't access the given application, the
-returned value is null. The effect of this can be seen in \autoref{PACheck},
-where the returned value is a boolean which is based on if \textc{thisPA} is
-null.\nl
+returned value is \ttt{null}. The effect of this can be seen in
+\autoref{PACheck}, where the returned value is a boolean which is based on if \textc{thisPA} is
+\ttt{null}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Method which checks if a user is allowed to access an application, label = PACheck] 
@@ -138,71 +136,73 @@ private boolean userHasApplicationInView(ProfileApplicationController pac, Appli
 \end{lstlisting}
 \end{minipage}
 
-Given that all of the presented functionality is based on the \textc{db-lib}
-library, we will have to replace it with the REST equivalent. In REST,
+Given that all of the presented functionality is based on the \textc{DB-Lib}
+library, we will have to replace it with the REST equivalent. In \rmlib,
 \textc{Profiles} have been renamed to \textc{Users}, and has a settings object,
-which contains information about that users settings. This object is stored on
+which contains information about that users settings. This object is stored in
 the database and can be retrieved through a request. The process of retrieving
 objects from the database is presented in \autoref{UsingRest}.
-In the case of checking if users can access applications, we have replaced the
-method in \autoref{PACheck} with the method named \textc{userCanAccessApp},
-which can be seen in \autoref{ucaa}. In this method, we can simply access the
-user's settings object, and check if the given application appears on the user's
-list of applications. By doing this, we have actively replaced the necessity of
-the \textc{db-lib} helpers.\nl
+In the case of checking if a user can access an application, we have replaced
+the old method in \autoref{PACheck} with the method named
+\textc{userCanAccessApp}, which can be seen in \autoref{ucaa}. In this method,
+we can simply access the user's settings object, and check if the given
+application appears on the user's list of applications.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = New method which replaces the functionality of the ProfileApplicationController, label = ucaa] 
-private boolean userCanAccesApp(Application app, User user) 
-{
-	return user.getSettings().getAppsUserCanAccess().contains(app);
+\begin{lstlisting}[caption = New method which replaces the functionality of the
+\ttt{ProfileApplicationController}, label = ucaa] 
+public class GirafFragment extends AppContainerFragment {
+...
+	private boolean userCanAccesApp(Application app, User user) 
+	{
+		return user.getSettings().getAppsUserCanAccess().contains(app);
+	}
+...
 }
 \end{lstlisting}
 \end{minipage}
 
 \subsubsection{Replacing ItemViews}
 The \textc{GirafPictogramItemView} class is responsible for presenting
-\textc{ItemViews} on the GUI. In the previous implementation, both Users and
-Pictograms extended the ItemView class, as both of those classes contained
-pictures or icons which should be presented on the GUI. As such, The
+\textc{ItemViews} on the GUI. In the previous implementation, both \ttt{Users}
+and \ttt{Pictograms} extended the \ttt{ItemView} class, as both of those classes
+contained pictures or icons which should be presented on the GUI. As such, the
 \textc{GirafPictogramItemView} class was used to present both of these
 elements.\nl
 
-In the \textc{rest-models} approach, many of the previous classes which were
-part of \textc{db-Lib} have been deprecated, including the GIRAF approach to
+In the \rmlib\ approach, many of the previous classes which were
+part of \textc{DB-Lib} have been deprecated, including the approach to
 using the \textc{ItemView} class. As such, we have had to split the
 \textc{GirafPictogramItemView} class into two separate classes, which handles
-pictograms and users respectively. The class for pictogram retained the old
-name, while the new class for users was named \textc{GirafUserItemView}. As both
-pictograms and users still have fields for their icon or picture, the classes
-have simply been specialized to not use ItemViews but their respective classes,
-and whenever the image was accessed, we simply changed this code to reflect the
-different objects methods of access to this field.
-
-
-
+\ttt{Pictograms} and \ttt{Users} respectively. The class for \ttt{Pictogram}
+retained the old name, while the new class for \ttt{Users} was named
+\textc{GirafUserItemView}. As both \ttt{Pictograms} and \ttt{Users} still have
+fields for their icon or picture, the two \ttt{ItemView} classes have simply
+been specialized to use the respective objects' methods to access this field.
 
 \subsection{T875 Launcher: Add functionality to Log In screen}
-This task is centered around adding functionality to the login screen we made
-in \autoref{LoginXML}, as REST is now ready to be implemented. The GUI is
+The purpose of this task is to add functionality to the login screen we made
+in \autoref{LoginXML}, as \rlib\ is now ready to be implemented. The GUI is
 implemented in the \textc{LoginActivity} class, where we create the reference
-to XML layout and construct the needed listeners, this can be seen in
+to the \ttt{XML} layout and construct the needed listeners, this can be seen in
 \autoref{onCreate} and \autoref{onLoginButtonClick}. The \textc{LoginController}
 class handles the login method which consists of \textc{LoginRequest} with a 
-\textc{GetRequest} nested inside it, this can be seen on \autoref{logigReq} and
-\autoref{userReq}.\nl
+\textc{GetRequest} nested inside it, this can be seen on \autoref{loginReq} and
+\autoref{userReq}.\nl 
 
 In \textc{LoginActivity} we use the \textc{onCreate} method, see
 \autoref{onCreate}, to instantiate the \textc{LoginController} and set the
-screen as \textc{R.layout.login\_activity}, which corresponds to the XML
-file for the login screen on \textbf{lines 3 \& 4}. We then create references to
-the various UI elements, such as the textboxes on \textbf{lines 6-7}. On \textbf{line 11-22} we create a
+content to the layout by using the ID \\\textc{R.layout.login\_activity}, which
+corresponds to the \ttt{XML} file for the login screen on \textbf{lines 4-5}. We
+then create references to the various UI elements, such as the \ttt{TextBoxes}
+on \textbf{lines 7-8}. On \textbf{line 12-23} we create a
 \textc{setOnKeyListener} for when the Enter key is pressed, which calls the
 \textc{onLoginButtonClick} method.\nl
 
 \begin{minipage}[H]{\linewidth}
-\begin{lstlisting}[caption = Creating the correct references when logging in,
-label = onCreate] public class LoginActivity extends GirafActivity {
+\begin{lstlisting}[caption = \ttt{OnCreate} method for the \ttt{LoginActivity}
+class, label = onCreate] 
+public class LoginActivity extends GirafActivity {
 	...
 	public void onCreate(Bundle savedInstanceState) {
 		controller = new LoginController(this);
@@ -231,7 +231,7 @@ label = onCreate] public class LoginActivity extends GirafActivity {
 
 The \textc{onLoginButtonClick}, see \autoref{onLoginButtonClick}, method is used
 to disable the elements the user can interact with, start the load animation and
-pass the username and password to \textc{controller} via the \textc{login}
+pass the username and password to the \textc{controller} via the \textc{login}
 method.\nl
 
 \begin{minipage}[H]{\linewidth}
@@ -251,17 +251,8 @@ public class LoginActivity extends GirafActivity
 \end{minipage}
 
 In the \textc{LoginController} class we use the \textc{login} method to
-communicate with the server through a couple different requests, which are
-detailed more in \autoref{UsingRest}.\\
-
-In this code example, \autoref{loginReq}, we Instantiate a \textc{RequestQueue}
-on \textbf{line 4} along with a \textc{LoginRequest} on \textbf{lines 7-14}
-which we add to the queue on \textbf{line 15}. When the server responds to our
-login request we can then either be granted or denied access. If we are denied
-access the \textc{Response.ErrorListener} on \textbf{lines 11-13} uses an
-\textc{onErrorResponse} method to displays a message depending on the type of
-error it has received, this is further illustrated in
-\autoref{CSLoginRequest3}.\nl
+communicate with the server through a request chain, which is detailed more in
+\autoref{UsingRest}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Verifing the user information through a login
@@ -286,23 +277,26 @@ public class LoginController {
 \end{lstlisting}
 \end{minipage}
 
-When a login request is validated we proceed to the \textc{Response.Listener} on
-\textbf{lines 8-10} of \autoref{loginReq}, this code is described in
-\autoref{userReq}.\\
-In the OnResponse listener on \textbf{lines 3-20} we make a \textc{GetRequest}
-on \textbf{6} for a user with the same username and password as before. This is
-because the \textc{LoginRequest} does not return a user. Inside the
-\textc{Response.Listener} on \textbf{line 10-15} we proceed to pass the user
-to \textc{homeIntent} and start the next activity.\nl
+In the \ttt{LoginContrller} class, see \autoref{loginReq}, we instantiate a
+\textc{RequestQueue} on \textbf{line 4} along with a \textc{LoginRequest} on
+\textbf{lines 7-14} which we add to the queue on \textbf{line 15}. When the
+server responds to our login request we can then either be granted or denied
+access. If we are denied access the \textc{Response.ErrorListener} on
+\textbf{lines 11-13} uses an \textc{onErrorResponse} method to displays a
+message depending on the type of error it has received, this is further
+illustrated in \autoref{CSLoginRequest3}. When a login request is validated we
+proceed to the \textc{Response.Listener} on \textbf{lines 8-10} of
+\autoref{loginReq}, this code is described in \autoref{userReq}.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = If the user information is authenticated we proceed
-with a request for user, label = userReq] new Response.Listener<Integer>() {
+with a request for user, label = userReq] 
+new Response.Listener<Integer>() {
 	@Override
     public void onResponse(Integer statusCode) {
     	//Creates a GetRequest for the user, which is then added to the queue
     	//within the loginRequest 
-    	GetRequest<User> userGetRequest = new GetRequest<User>(username, User.class, 
+    	GetRequest<User> userGetRequest = new GetRequest<User>(User.class, 
     	new Response.Listener<User>() {
         	//Passes the userinfo to homeIntent
             @Override
@@ -321,6 +315,12 @@ with a request for user, label = userReq] new Response.Listener<Integer>() {
 \end{lstlisting}
 \end{minipage}
 
+In the \ttt{onResponse} listener on \textbf{lines 3-20} we make a
+\textc{GetRequest} on \textbf{line 6} for the user. This is because the
+\textc{LoginRequest} does not return a user. Inside the
+\textc{Response.Listener} on \textbf{line 10-15} we proceed to pass the user to
+\textc{homeIntent}'s \ttt{Extra} and start the next \ttt{Activity}.\nl
+
 %institute screen
 % Ny implementation til institution --> login request --> user request hvor user
 % nu er af typen institution --> user selection screen Vi genbruger en
@@ -329,60 +329,66 @@ with a request for user, label = userReq] new Response.Listener<Integer>() {
 %No time for institute
 
 \subsection{Guides and Help for Future Students}
-In order to help the next batch of students, every group has been tasked with
-creating a set of guides. These guides are meant to explain the various
+In order to help the next batch of students, every group has been assigned the
+task of creating a set of guides. These guides are meant to explain the various
 parts of GIRAF that are most likely going to be confusing, such as starting out,
-how GIRAF is developed and how the various tools work together. The
-majority of these guides are written by other groups and can be found on the
-GIRAF wiki \citep{GWiki}. As such \textbf{T862: Guide for general development},
+how GIRAF is developed and how the various tools work together. The majority of
+these guides are written by other groups and can be found on the GIRAF Wiki
+\citep{GWiki}. As such \textbf{T862: Guide for general development},
 \textbf{T863: Guide for starting out} and \textbf{T864: Guide for android
 compatibility, java8, sync and build} can be considered resolved.
 
-\subsubsection{T859: Crosscheck wikis}
-The purpose of this task is to make sure that each group reads the wiki pages of
-another group, such that we ensure that the information is somewhat easy to
-understand. This task is considered resolved on our end, as we have the guides
-for Gradle and Jenkins are good. The page for the Weekplanner lacks a
-list of dependencies and the repository but does well in describing the UI.
+\subsubsection{T859: Crosscheck Wikis}
+The purpose of this task is to make sure that each group reads the Wiki pages of
+another group. This is done in order to ensure that the contained information is
+easy to understand. This task is considered resolved on our end, as we have
+read the guides for Gradle and Jenkins, and found them easy to understand.
+The page for the \wapp\ lacks a list of dependencies and the repository but
+describes the UI well.
 
-\subsubsection{T865: Update the Google Store guide}
-The goal of this task is to update the guide on releasing builds to Google
-Store. By reading the guide from 2015 and comparing the pictures in it with
-Google Stores current design, we can see that it has changed quite a bit since
-the guide was written. All the changes of importances were due to additional
-tabs which moved various parts of the functionality. We then updated the
-pictures and along with the relevant part of the text to better reflect the new
-design.
+\subsubsection{T865: Update the Google Play Store guide}
+The goal of this task is to update the guide on releasing builds to Google Play
+Store. By reading the guide from 2015 and comparing the pictures with Google
+Play Store's current design, we can see that it has changed quite a bit since
+the guide was written. All of identified changes were due to additional
+tabs which moved various parts of the store's functionality. As such, we updated
+the pictures along with the relevant part of the text to better reflect the
+new design.
 
 \subsubsection{T872: Document the Launcher}
-We have tried to document the \textc{Launcher} in a brief fashion, see
-\autoref{WikiLauncher}. On this page, we describe the noteworthy features, the
-things a developer need to consider when implementing \textc{REST} and some of
-the missing features we have not had time to create. We have also included a
-short wiki page to describe the important parts of \textc{Component Lib},
-see \autoref{WikiCompLib}. This page is mainly comprised of a description of the
-classes we have made, and we advise that it should be recreated from scratch.
+We have made a Wiki page for the \lapp\ which has been included in \LaTeX\
+format in \autoref{WikiLauncher}. On this page, we describe the noteworthy
+features which a developer need to consider when implementing \rlib, and some of
+missing features and bugs which we were unable to fix. For each of these we have
+written how we would have fixed them if we had enough time. We have also
+included a short Wiki page to describe the important parts of \clib, see
+\autoref{WikiCompLib}. This page is mainly comprised of a description of the
+classes we have made, and we advise that it should be more or less recreated
+from scratch.
 
-\subsection{Verification}
+\subsection{Assessment}
 Throughout the prior sprints we have not been able to assess our solutions, as
 such now that the Launcher is in a working state we can assess the appropriate
 solutions.
 
 \subsubsection{T785 and T830: Handle crash such that the user does not get an
-error message and is brought back to the launcher}
-Throughout testing the launcher after the REST API was included, we see that when
-we crash the \textc{GirafBugSplashActivity}, see \autoref{GBugSplash}, is no
-longer shown, which was a part of the task. We have tried implementing the
-return to the \lapp\ as seen in \autoref{T785-T830} but this did not work and a
-new implementation was made but we have not been able to resolve it due to time
-constraints. As such this task can only be considered partially resolved.
+error message, and is brought back to the launcher} 
+Throughout assessing the \lapp\ after the \rlib\ was included, we noticed that
+when we crash, the \textc{GirafBugSplashActivity}, see \autoref{GBugSplash}, is
+no longer shown, which was a part of the task. We have tried implementing the
+return to the \lapp\ as seen in \autoref{T785-T830}, but this did not work and a
+new implementation was made. We have not been able to resolve this task due to
+time constraints. As such this task can only be considered partially resolved.
+
 
 \subsubsection{T822: Assess the implementation of Grayscale}
-In order to make use of REST, we changed the GrayScaleHelper class to include a
-server request, which retrieves the user's settings object. This can be seen in
-\autoref{NEWsetGrayScaleUser}. As seen on \textbf{line 6-10}, we make a simple
-\textc{GetRequest} for the user, and then pass its settings object and the
-current activity to the \textc{setGrayScaleForActivity} method.\nl
+In order to make use of the REST framework, we changed the \ttt{GrayScaleHelper}
+class to include a server request, which retrieves the \ttt{User}'s
+\ttt{Settings} object, see \autoref{NEWsetGrayScaleUser}. As seen on
+\textbf{line 6-10}, we make a simple \textc{GetRequest} for the \ttt{User} and
+access its \ttt{Settings} object. From the \ttt{Settings} object, we access its
+boolean for grayscale, as pass it together with the current \ttt{Activity} to
+the \textc{setGrayScaleForActivity} method.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = Finds the grayscale setting for each user, label =
@@ -403,15 +409,16 @@ public class GrayScaleHelper {
 \end{lstlisting}
 \end{minipage}
 
-In \textc{setGrayScaleForActivity} we experience a problem, as we in
-\autoref{grayEx1} tried to use \textc{setGray} for each view. This does not work
-correctly, and as such, we use the \textc{root View} on \textbf{line 5} in 
-\autoref{NEWsetGrayScale}. This functions the same as the old code, but does
-not crash GIRAF applications.
+In the \textc{setGrayScaleForActivity} method we experience a problem, as we in
+\autoref{grayEx1} tried to use \textc{setGray} for each view, which resulted in
+a \ttt{nullPointerException}. Instead we use the \textc{root View} as seen on
+\textbf{line 5} in \autoref{NEWsetGrayScale}. This works in same way as the
+old code, but does not crash GIRAF applications.\nl
 
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[caption = The root View is used instead of all the seperate
-views, label = NEWsetGrayScale] public class GrayScaleHelper {
+views, label = NEWsetGrayScale] 
+public class GrayScaleHelper {
 	...
     public static void setGrayScaleForActivity(Activity activity, boolean shouldBeGray) {
         //Get the root view
@@ -432,36 +439,36 @@ chosen to pass this particular part on to next year's students.
 gray scaled background.}
 
 \subsubsection{T878: Fix bugs}\label{T878}
-This is a task for every group. This sprint we have been busy implementing REST
-in the Launcher and Component-lib, and as the deadline has come closer we are
-under increasing time pressure to make it workable. As such we have chosen to
-not directly work on this task and leave the minor bugs for next year's
-students.
+This is a task for every group. This sprint we have been busy implementing\\
+\rlib\ in the \lapp\ and \clib, and as the deadline has come closer we are under
+increasing time pressure to make it workable. As such we have chosen to not
+directly work on this task and leave the minor bugs for next year's students.
 These bugs and missing features include:
 
 \begin{itemize}
-  \item Dialogs are in color while the rest of GIRAF is grayscale.
+  \item \ttt{Dialogs} are in color while the rest of GIRAF is grayscale.
   \item It is possible to change users through settings.
-  \item When changing and setting settings for a citizen, it is not possible
+  \item When changing settings for a citizen, it is not possible
   to return to the guardian used to open the settings page. This is because 
   the citizen is now logged in.
-  \item SharedPreferences should be used for the Login screen to determine if
-  it needs to be in grayscale.
-  \item Settings are not saved when a put request is completed and as such
-  grayscale does not work outside \textc{SettingsActivity}.
+  \item \ttt{SharedPreferences} should be used for the Login screen to determine
+  if it needs to be in grayscale.
+  \item \ttt{Settings} are not saved when a \ttt{ResourceRequest} is completed
+  and as such grayscale does not work outside \textc{SettingsActivity}.
   \item The apps the user can access is never sent to the server, because of a
-  stack overflow in rest client lib, when that is fixed, fix the out commented
-  code in the respective classes for that issue.
-  \item A better icon should be created for missing apps on the device, an icon
-  which better tells that when clicked on redirects the user to google play
-  store.
-  \item Find a better way to find the icon for each app, then doing though every
-  app installed when searching for an icon for a specific app.
+  \ttt{StackOverflow} in \rlib, when that is fixed, fix the out
+  commented code in the respective classes for that issue.
+  \item A better icon should be created for missing apps on the device. Namely
+  an icon which better communicates that when clicked on, it redirects the user
+  to Google Play Store.
+  \item Identify a better approach to finding the icon of an app. In the current
+  approach we iterate though every installed application when
+  searching for an icon for a specific app.
 \end{itemize}
 
 The entirety of documented bugs and missing features can be found in
-\autoref{fwork}, where we discuss what changes should be made to the Launcher
-and component-lib library by next year's students.
+\autoref{fwork}, where we discuss what changes should be made to the
+\lapp\ and \clib\ library by next year's students.
 
 
 \subsection{Unfinished and Invalid Tasks}\label{S4Invalid}
@@ -474,21 +481,23 @@ and component-lib library by next year's students.
         \item This is an issue because we do not check the time using some form of a
         time server, and therefor not able to detect this.  
         But now this task is invalid because the server now handles if a user is
-        logged in, using tokens/cookies which the rest library handles.
+        logged in, using tokens/cookies which \rlib\ handles.
         \end{itemize}
   \item T837: Rework buttons to use methods called from XML
     \begin{itemize}
       \item The purpose of this task is to increase the quality of the code and to
-      reduce unnecessary clutter. This can be done as specifying listeners in the
-      code itself is unnecessary, and can simply be done from the XML file itself.
-      \item We have managed to do this for a number of classes, but have yet to
-      do this for all classes in the Launcher. This approach can, and should, be
-      used in all XML files for GIRAF.
+      reduce unnecessary clutter. This can be reduced by creating methods which
+      are called from the \ttt{onClick} property of button's in the \ttt{XML}
+      file, instead of specifying listernes in the code. 
+      \item We have managed to
+      do this for a number of classes, but have yet to do this for all classes
+      in the \lapp. This approach can, and should, be used in all \ttt{XML}
+      files for GIRAF.
       \end{itemize}
   \item T889: Add an Institute to Guardian login \label{T889}
    \begin{itemize}
-     \item This task is an extension of \textbf{T875}, as it is intended for an
-     institute-type user to be logged in as a guardian. 
+     \item This task is an extension of \textbf{T875} in \autoref{T875}, as it
+     is intended for an institute-type user to be logged in as a guardian. 
      \item This task is considered unfinished due to time constraints as there
      were several changes happening to REST while we were busy implementing it.
      It was not considered a vital task and is as such left for the next year's
