@@ -1,23 +1,23 @@
 \chapter{REST Architectural Design}\label{S1CS}
-This chapter covers a cooperative effort to make GIRAF use \textc{REST}, this
-chapter covers several meetings held throughout the semester.\nl
+This chapter covers a cooperative effort to make GIRAF use the REST framework,
+and spans several meetings held throughout the semester.\nl
 
-The first meetings were held at the start of sprint and by SW609, SW610, SW613,
-SW615. During these initial meetings, it was found that the existing
-client/database communications system was incomplete and not of high enough
+The first meetings were held at the start of sprint 1 between us, SW610,
+SW613, and SW615. During these initial meetings, it was found that the existing
+client/database communication system was incomplete and not of high enough
 quality for us to dedicate development time to improve. The first of two main
 issues were, that the existing system did not implement the required safety
-measures which are expected of applications which make use of private
+measures which are expected of applications which contain private
 information. The second issue was, that the system did not allow for uploading
-data to the server, but only to retrieve it, which rendered us unable to update
-information on the server.\nl
+data to the server, but only to retrieve it, which rendered it useless for
+the customers.\nl
 
-Based on these issues, it was decided, that the groups responsible for the
-database (SW613 and SW615) would be tasked to develop a new system, which should
-make use of the principles described in the REST model (Representational State
-Transfer)\citep{RESTInfo}. This model outlines a set of requirements which aim
-to establish a high-quality framework for server-to-client communication. These
-requirements are \citep{RESTInfo}:
+Based on these issues, it was decided that the groups responsible for the
+database (SW613 and SW615) would be assigned the task of developing a new
+system, which should make use of the principles described in the 
+Representational State Transfer model \citep{RESTInfo}. This model outlines a
+set of requirements which aim to establish a high-quality framework for
+server-to-client communication. These requirements are \citep{RESTInfo}:
 
 \begin{itemize}
   \item Client-Server: Seperate the user interface from data storage and
@@ -35,44 +35,62 @@ requirements are \citep{RESTInfo}:
   server. 
 \end{itemize}
 
-As a part of developing this new system, another meeting was held in order to further
-determine the database resource requirements for the applications. Considering the
-incomplete state of the previous system, this information was needed in order to
+As a part of developing this new system, another meeting was held at the end of
+sprint 1 in order to further determine the database resource requirements for
+the applications. Considering the incomplete state of the previous system, this information was needed in order to
 model the server and client libraries such that they would be able to transfer all
-necessary data to the applications
+necessary data to the applications.
 
 \section{Requirement Analysis}
 As our group (SW609) is responsible for the \texttt{Launcher} application and
-the \\\texttt{pictosearch-lib} library, we were tasked with analyzing the
-relevant code before the scheduled meeting, in order to determine what database resources
-would be necessary for these applications/libraries. These tasks are presented
-in \autoref{TaS1} as T636, T646, and T647.\nl
+the \\\texttt{PictoSearch-Lib} library, we were assigned the task of analyzing
+the relevant code before the first meeting, in order to determine what
+database resources would be necessary for these applications/libraries. These
+tasks are presented in \autoref{TaS1} as \textbf{T636}, \textbf{T646}, and
+\textbf{T647}.\nl
 
-In our case, we mostly determined the requirements testing the \textc{Launcher}
-and\\ \textc{pictosearch-lib} through general use. Based on this testing, and
-analysis of the code, we determined the following requirements:\nl
+In our case, we determined the requirements through general assessment of the
+\textc{Launcher} and \textc{PictoSearch-Lib}. Based on
+this, we determined the following requirements:\nl
 
-In order to use the \textc{Launcher}, a user needs to login to an
-\textc{account}, which is either a \textc{Guardian} or a \textc{Citizen}. Each
-account has a \textc{name}, a \textc{picture}, an a \textc{unique identifier}.
-In order to use \textc{pictograms} in applications, the system needs to access
-pictogram objects by ID. As such, users require the following fields on the
-server: \textbf{Name}, \textbf{UserID}, \textbf{Icon}, \textbf{Department},
-\textbf{Username}, \textbf{Password}, \textbf{Screen Name}, and \textbf{Saved
-Settings}.
-Pictograms require the following fields on the database: \textbf{ID},
-\textbf{Title}, and a \textbf{Bitmap (Picture)}.\nl
+\begin{itemize}
+  \item In order to use the \textc{Launcher}, a user needs to login to an
+  account, which is either a guardian or a citizen.
+  \item Each account has a name, a picture, an a unique identifier.
+  \item In order to use pictograms in applications, the system needs to
+  access pictogram objects by ID.
+\end{itemize}
+
+As such, users require the following fields on the
+server: 
+\begin{itemize}
+  \item \textbf{Name}
+  \item \textbf{UserID}
+  \item \textbf{Icon}
+  \item \textbf{Department}
+  \item \textbf{Username}
+  \item \textbf{Password}
+  \item \textbf{Screen Name}
+  \item \textbf{Saved Settings}
+\end{itemize}
+
+Pictograms require the following fields on the database: 
+\begin{itemize}
+  \item \textbf{ID}
+  \item \textbf{Title}
+  \item \textbf{Bitmap (Picture)}
+\end{itemize}
 
 Based on a discussion with the other groups, we created a UML class diagram,
-which has been subject to redefinitions throughout the project. The final
-version of this diagram can be seen in \autoref{Giraf_RestModel}, where the
-normal arrows imply inheritance, and the dotted lines imply implementation of an
-interface.
+which has been subject to redefinitions throughout the project. As of sprint
+4, the final version of this diagram can be seen in \autoref{Giraf_RestModelV2},
+where the normal arrows imply inheritance, and the dotted lines imply
+implementation of an interface.
 
 \figx[0.65]{Giraf_RestModelV2}{UML class-diagram depicting the objects requested
 from the database}
 
-In the UML diagram shown in \autoref{Giraf_RestModel}, each class has a
+In the UML class diagram shown in \autoref{Giraf_RestModelV2}, each class has a
 specific use and responsibility. This is described below in
 \autoref{restModelTableEh}.
 
@@ -110,99 +128,51 @@ WeekdayActivity			& A relation between Weekdays and Frames such that additional
 properties can be added.\\\hline 
 WeekdayActivityProgress & 	Contains information about a users progress on a
 given schedule.\\\hline 
-Application    			&	Information about applications a user is allowed to access.\\\hline     
+Application    			&	Contatins informaton about an application such that it can
+be used to set which apps a user can access\\\hline
 \end{tabular}
-\caption{Classes used in the REST model, and their descriptions}\label{restModelTableEh}
+\caption{Classes used in \rmlib, and their descriptions}\label{restModelTableEh}
 \end{centering}
 \end{table}
 
-% \section{Client/Database Interface Design}
-% Following the initial requirement analysis and the respective meetings, the
-% database groups (SW613 and SW615) began designing the client/database interface.
-% Towards the end of the first sprint, group SW612 held a meeting with the
-% system's users, who defined a number of new requirements for the GIRAF
-% applications. Based on the user's feedback, the database requirements that are
-% relevant for our groups were further defined.
-% 
-% \begin{itemize}
-%   \item We want to be able to change users' pictures by uploading new ones.
-%   \item Pictograms should be retrieved in batches to decrease wait time.
-%   \item Pictograms should be searchable by category.
-%   \item In the Launcher, we only need direct access to guardians, as citizens
-%   are aggregated from them.
-%   \item We need a server timestamp in order to limit login sessions.
-%   \item When accessing users, we need a sub-method to only retrieve ID, name, and
-%   citizens, as we don't need all information.
-% \end{itemize}
-% 
-% Based on these requirements, the database groups were able to further define
-% the design of the client/database interface.\nl
-% 
-% Based on the meetings and discussion between our groups, the database groups
-% (SW613 and SW615) formulated the following design for the interface, which
-% should be used by the \textc{rest-models} library in order to retrieve and
-% manipulate data from the database. This design can be seen in
-% \autoref{interface-uml}. 
-% 
-% \figx{interface-uml}{UML diagram detailing the client/database interface.}
-% 
-% In order to describe the UML diagram, group SW613 supplied us with the following
-% listing, which contains explanations for each of the diagram's elements. It
-% should be noted that the following is presented verbatum as given to us by group
-% group SW613.
-% 
-% \fix{}{Skal vi ikke bare fjerne den vi bruger den ikke til noget rigtigt og det
-% er en hel side fra en anden gruppe.}
-% 
-% \colorbox{diff}{
-% \begin{minipage}{\linewidth}
-% The listings from group SW613F17.
-% \begin{itemize}
-%     \item \textbf{createSchedule}\\
-%     The \texttt{createSchedule} function is called when a new schedule has been created on a device and the schedule should be synchronised across other devices connected to the same department.
-%     \item \textbf{createImage}\\
-%     This function is called when a user takes a photograph and wishes to share it across devices.
-%     \item \textbf{readGuardianByDepartment}\\
-%     The launcher application needs to read all guardian-objects from the current department. This function returns all guardians associated with the relevant department.
-%     \item \textbf{readScheduleByCitizen}\\
-%     This function returns all schedules associated with a given citizen.
-%     \item \textbf{readPictogramByName}\\
-%     When searching for pictograms, this function is used for getting pictograms by their name.
-%     \item \textbf{readPictogramByQuery}\\
-%     This function allows query passing to the database, allowing the application to search for pictograms with certain tags.
-%     \item \textbf{updateGuardianImage}\\
-%     This function and the following overloads modify the attributes of the given guardian object.
-%     \begin{itemize}
-%         \item \textbf{updateGuardianName}
-%         \item \textbf{updateGuardianPhone}
-%         \item \textbf{updateGuardianEmail}
-%     \end{itemize}
-%     \item \textbf{updateCitizenName}\\
-%     This function and the following overloads modify the attributes of the given citizen object.
-%     \begin{itemize}
-%         \item \textbf{updateCitizenImage}
-%         \item \textbf{updateCitizenPhone}
-%         \item \textbf{updateCitizenEmail}
-%     \end{itemize}
-%     \item \textbf{updateScheduleAttribute}\\
-%     This function and the following functions modify the given schedule object and sub-objects.
-%     \begin{itemize}
-%         \item \textbf{updateScheduleDay}
-%         \item \textbf{updateScheduleFrame}
-%         \item \textbf{updateScheduleChoice}
-%     \end{itemize}
-%     \item \textbf{deleteSchedule}\\
-%     This function deletes a schedule object.
-%     \item \textbf{deleteSchedules} (batch)\\
-%     This function deletes a number of schedule object.
-% \end{itemize}
-% \end{minipage}
-% }
-% 
-% 
-% Until the REST framework is finished, the overall design of this interface
-% will be used to identify what opportunities we have in the applications, when it
-% comes to manipulating data on the database.
+\section{Client/Database Interface Design}
+Following the initial requirement analysis and the respective meetings, the
+database groups (SW613 and SW615) began designing the client/database interface.
+Towards the end of the first sprint, group SW612 held a meeting with the
+system's users, who defined a number of new requirements for the GIRAF
+applications. Based on the user's feedback, the database requirements that are
+relevant for our groups were further defined.
+
+\begin{itemize}
+  \item We want to be able to change users' pictures by uploading new ones.
+  \item Pictograms should be retrieved in batches to decrease wait time.
+  \item Pictograms should be searchable by category.
+  \item In the Launcher, we only need direct access to guardians, as citizens
+  are aggregated from them.
+  \item We need a server timestamp in order to limit login sessions.
+  \item When accessing users, we need a sub-method to only retrieve ID, name, and
+  citizens, as we don't need all information.
+\end{itemize}
+
+Based on these requirements, the database groups were able to further define
+the design of the client/database interface.\nl
+
+Based on the meetings and discussion between our groups, the database groups
+(SW613 and SW615) formulated the following design for the interface, which
+should be used by the \textc{rest-models} library in order to retrieve and
+manipulate data from the database. This design can be seen in
+\autoref{interface-uml}.
+
+\figx{interface-uml}{UML diagram detailing the client/database interface.}
+
+In order to describe the UML diagram, group SW613 supplied us with the following
+listing, which contains explanations for each of the diagram's elements. It
+should be noted that the following is presented verbatum as given to us by group
+group SW613.\nl
+
+Until the REST framework is finished, the overall design of this interface
+will be used to identify what opportunities we have in the applications, when it
+comes to manipulating data on the database.
 
 \section{Using the Rest Libraries}\label{UsingRest}
 Following the final implementation of the REST model, the database groups SW613
